@@ -1,0 +1,51 @@
+﻿@using Fanex.LiveCharts.Core;
+@{
+    Layout = null;
+    ViewBag.Title = string.Format("{0}: {1} - {2}", Lang.Chart, Model.HomeName, Model.AwayName);
+}
+@model Fanex.LiveCharts.ViewModel.ChartContentViewModel
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>@ViewBag.Title</title>
+        
+        <!-- Our CSS stylesheet file -->
+        <link rel="stylesheet" href="~/Content/MovementCharts/OpenSoon.less?v=1" />
+        <link href="~/Scripts/Libs/CountDown/jquery.countdown.css" rel="stylesheet" />
+        <!--[if lt IE 9]>
+          <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <script type="text/javascript">
+            var totalMiliSecond = @(Model.OpenSoonCountdown);
+        </script>
+        <script type="text/javascript">
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-46051934-1', 'starific.net');
+            ga('send', 'pageview');
+        </script>
+    </head>
+    
+    <body>
+		
+		<div class="header-text">
+		<h1>@Lang.OpenSoonMessage</h1>
+		</div>
+		<div id="countdown"></div>
+
+		<p id="note"></p>
+
+        <!-- JavaScript includes -->
+        @Html.Hidden("LiveChartRoot", Url.Content("~/"))
+		@Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/opensoon")
+        
+    </body>
+</html>
+

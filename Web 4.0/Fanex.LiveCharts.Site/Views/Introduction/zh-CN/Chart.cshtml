@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "图表帮助";
+}
+@section Styles
+{
+    <link rel="stylesheet" href="~/Content/MovementCharts/Introduction.less" type="text/css" />
+}
+<div class="body-container">
+    <div class="page-header">
+        <h3>
+            图表帮助</h3>
+    </div>
+    <img src="~/Content/Images/help-image.png" class="img-polaroid help-image" />
+    <div>
+        1. 主队vs 客队的队名，包括目前比分和比赛时间.</div>
+    <div>
+        2. 投注类型和赔率选项：
+        <ul>
+            <li>投注类型：亚洲盘和大盘/小盘.
+            </li>
+            <li>队伍选择：主队/客队， 亚洲盘或大盘/小盘.</li>
+            <li>赔率选择显示于赔率图表：赔率区别于亚洲盘或大盘/小盘的选项.</li>
+        </ul>
+    </div>
+    <div>
+        3. 目前变动：数据是依玩家的投注选择（主队/客队；大盘/小盘）， 以 最后(x) 分钟累积投注数据为标准.</div>
+    <div>
+        4. 目前赔率依项目（2）为准.</div>
+    <div>
+        5. 赔率图表：
+        <ul>
+            <li>线上显示从开赛至当前时间的赔率. </li>
+            <li>在图表上滑动光标及停留在某个位置，标题将显示赔率，亚洲盘及比赛时间（分钟）. </li>
+            <li>红色惊叹符号(!)表示亚洲盘（或大盘/小盘）的变化.</li>
+        </ul>
+    </div>
+    <div>
+        6. 市场变动图表：比率显示玩家选择，主队/客队或大盘/小盘。标题上的比率显示是以光标目前的所在位置为准。每个位置是以 最后(x) 分钟累积投注数据为标准.</div>
+    <div>
+        7. 比赛时间表涵盖事件：比赛开始，半场时间，下半场，进球，和红卡.</div>
+</div>

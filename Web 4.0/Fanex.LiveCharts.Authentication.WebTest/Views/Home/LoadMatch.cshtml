@@ -1,0 +1,23 @@
+﻿@using Fanex.LiveCharts.ClientAuthentication.Models
+@{
+    ViewBag.Title = "Load Running Charts";
+}
+@model IEnumerable<ChartInfo>
+<h4>@ViewBag.Title</h4>
+@if (Model != null && Model.Any())
+{
+    var index = 0;
+    foreach (var chart in Model)
+    {   
+        <div>Chart Index: @(++index)</div>
+        <ul>
+            <li>Match Id: @chart.MatchId</li>
+            <li>Bet Type Id: @chart.BetTypeId</li>
+            <li>Odds Id: @chart.OddsId</li>
+        </ul>
+    }
+}
+else
+{
+    <div>There is no data available !</div>
+}

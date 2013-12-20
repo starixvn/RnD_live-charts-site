@@ -1,0 +1,207 @@
+﻿@import "../jQueryUI/jquery-ui-1.10.3.less";
+@import "../Bootstrap/bootstrap.less";
+@import "../../Scripts/Libs/RefreshCountDown/RefreshCountDown.less";
+
+@selectExceptionWidth: 160px;
+
+#body {
+    padding: 15px;
+}
+
+.block-ui-loading{
+	width:100px;
+	height:100px;
+	background:url(../Images/loader3.gif) no-repeat;
+}
+
+.filters-bar {
+    /*height: 350px;*/
+    .button-submit {
+        padding-top:2px;
+        display:table-cell;
+        vertical-align:middle;
+    }
+
+    .not-margin-left {
+        margin-left: 0px;
+    }
+
+    .exception-select-width {
+        width: @selectExceptionWidth;
+    }
+
+    .exception-select-width2 {
+        width: @selectExceptionWidth + 20;
+    }
+
+    .calendar-width {
+        width: @selectExceptionWidth - 15;
+    }
+
+    .bettype-container {
+        width: 225px;
+    }
+
+    .match-select {
+        width: 445px;
+    }
+
+    .collapse-expand {
+        /*position: absolute;*/
+        float: left;
+        min-height: 18px;
+        min-width: 18px;
+        position: absolute;
+        right: -10px;
+        top: -10px;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    .btn-collapse {
+        .collapse-expand;
+        background: url(../Images/collapse-new.png) no-repeat;
+
+        &:hover {
+            background: url(../Images/collapse-new-hover.png) no-repeat;
+        }
+    }
+
+    .btn-expand {
+        .collapse-expand;
+        background: url(../Images/expand-new.png) no-repeat;
+
+        &:hover {
+            background: url(../Images/expand-new-hover.png) no-repeat;
+        }
+    }
+
+    #filter-information {
+        font-size: @fontSizeLarge - 2;
+        margin-right: 15px;
+
+        .match-status-live {
+            background: url(../Images/live-icon.gif) no-repeat;
+            padding-left: 32px;
+            height: 15px;
+            padding-top: 1px;
+        }
+
+        .kick-off-time {
+            margin-right: 5px;
+        }
+    }
+
+    .ui-datepicker-trigger {
+        cursor: pointer;
+    }
+
+    .no-margin-bottom {
+        margin-bottom: 0 !important;
+    }
+
+    .betting-odds {
+        width: 70px !important;
+    }
+
+    #btnLoadChart {
+        float: right;
+        margin-right: 5px;
+        
+    }
+}
+
+.filter-body {
+    margin: 0px;
+    width: 872px;
+    /*width:auto;*/
+    margin-bottom: 10px;
+    /*position:relative;*/
+
+    .filter-body-content {
+
+        margin-top: 5px;
+
+        
+    }
+}
+
+.main-chart {
+    background-color: #2D2D2D;
+    border: 1px solid #E5E5E5;
+    clear: both;
+    color: white;
+    padding-top: 10px;
+
+    table {
+        margin: 0px 14px 0;
+        border-width: 0px;
+
+        td {
+            vertical-align: middle;
+            border-width: 0px;
+        }
+        /*td:first-child {
+                width: 140px;
+            }*/
+        .exception-select-width {
+            width: @selectExceptionWidth + 30;
+            margin-bottom: 0px;
+            margin-right: 25px;
+        }
+
+        .exception-select-minute {
+            width: @selectExceptionWidth - 70;
+            margin-bottom: 0px;
+            margin-right: 25px;
+        }
+
+        .chart-style {
+            width: 320px;
+            text-align: right;
+        }
+
+        .interval-information {
+            width: 300px;
+            text-align: right;
+            /*padding-top: 10px;*/
+        }
+    }
+
+    .seperate-line {
+        border: 1px solid #E5E5E5;
+        margin: 0px 10px;
+    }
+
+    #chart-container {
+        height: 530px;
+        clear: both;
+    }
+
+    .refresh-countdown-container {
+        float: right;
+    }
+
+    .float-right {
+        float: right;
+    }
+
+    .match-name {
+        text-align: right;
+        margin-right: 10px;
+    }
+
+    .font-bold {
+        font-weight: bold;
+    }
+
+	.no-infor
+	{
+		width: 100%;
+		text-align: center;
+		font-weight: bold;
+		height: 35px;
+	}
+}

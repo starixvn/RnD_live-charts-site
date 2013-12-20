@@ -1,0 +1,181 @@
+﻿@using Fanex.LiveCharts.Core
+@using Fanex.LiveCharts.Models
+@using Fanex.LiveCharts.ViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = string.Format("{0}: {1} - {2}",Lang.Chart, Model.HomeName, Model.AwayName);
+
+    //// Color Setting
+    var marketColor = "#DF5353";
+    var odds2Color = "#55BF3B";
+    var odds1Color = "#7798BF";
+    var odds3Color = "#BADCE3";
+    var odds4Color = "#D4D0BB";
+    var homeColor = "#0B72BB";
+    var awayColor = "#FF9400";//"#EAE2DF";
+    var showChart = Model.ShowHandicap || Model.ShowOverUnder;
+    var defaultBetTypeText = Model.ShowHandicap ? Lang.Handicap : Lang.OverUnder;
+    var defaultTeamChoice = Model.ShowHandicap ? Model.HomeName : Lang.Over;
+
+    Model.IsLive = true;
+}
+@section Styles
+{
+    <link rel="stylesheet" href="~/Content/MovementCharts/NewChart.less" type="text/css" />
+}
+@model ChartContentViewModel
+<div id="divMainChart" class="main-chart span33">
+        @if (showChart)
+        {
+            <div id="mainFilter" class="row">
+                <div class="span20">
+                    <div id="matchName">
+                        <span class="home-name">@Model.HomeName</span>
+                        <span id="homeScore" class="home-score">0</span>
+                        -
+                        <span id="awayScore" class="away-score">0</span>
+                        <span class="away-name">@Model.AwayName</span>
+                        <span class="icon-time"  style="display: none;"></span>
+                        <span id="currentTime" class="current-time"  style="display: none;"></span>
+                        @* <span class="selected-item bet-button">@Lang.Bet</span>*@
+                    </div>
+                    <div class="filter-information">
+                        <div class="btn-group" id="ddlBetType">
+                            <a class="btn dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);">
+                                <span class="bettype-chosen">@defaultBetTypeText</span>
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                @if (Model.ShowHandicap)
+                                {
+                                    <li><a href="javascript:void(0);" data-selected="true" data-bettype="@((int)BetTypeEnum.Handicap)">@Lang.Handicap</a></li>
+                                }
+                                @if (Model.ShowOverUnder)
+                                {
+                                    <li><a href="javascript:void(0);" data-selected="@(Model.ShowHandicap ? "false" : "true")" data-bettype="@((int)BetTypeEnum.OverUnder)">@Lang.OverUnder</a></li>
+                                }
+                            </ul>
+                        </div>
+
+                        <div class="btn-group" id="ddlTeamChoice">
+                            <a class="btn dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);">
+                                <span class="team-chosen"  style="color: @(homeColor)">@defaultTeamChoice</span>
+                            
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                @if (Model.ShowHandicap)
+                                {
+                                    <li><a href="javascript:void(0);" data-selected="true" data-teamid="0" style="color: @(homeColor)">@Model.HomeName</a></li>
+                                    <li><a href="javascript:void(0);" data-selected="false" data-teamid="1" style="color: @(awayColor)">@Model.AwayName</a></li>
+                                }
+                                else if (Model.ShowOverUnder)
+                                {
+                                    <li><a href="javascript:void(0);" data-selected="true" data-teamid="0"  style="color: @(homeColor)">@Lang.Over</a></li>
+                                    <li><a href="javascript:void(0);" data-selected="false" data-teamid="1" style="color: @(awayColor)">@Lang.Under</a></li>
+                                }
+                            </ul>
+                        </div>
+
+                        <div id="oddsChoice" class="span7">
+                        </div>
+                    </div>
+                </div>
+                @*<div id="betTypeChoice" class="span11">
+                    @if (Model.ShowHandicap)
+                    {
+                        <span class="bettype-name active-item" data-selected="true" data-bettype="@((int)BetTypeEnum.Handicap)" >@Lang.Handicap</span>
+                    }
+
+                    @if (Model.ShowOverUnder)
+                    {
+                        <span class="bettype-name @(Model.ShowHandicap ? string.Empty : "active-item")" data-selected="@(Model.ShowHandicap ? "false" : "true")" data-bettype="@((int)BetTypeEnum.OverUnder)">@Lang.OverUnder</span>
+                    }
+
+                </div>*@
+                <div id="lastInformation" class="span12" style="display: none;">
+                    <div class="last-movement-info span12">
+                        <span class="span4 info-name">@Lang.Movement</span>
+                        <div class="span5 percent-container">
+                            <div id="homePercent" class="home-percent" style="width: 0%"></div>
+                            <div id="awayPercent" class="away-percent" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div class="last-price-info span11">
+                        <span class="span4 info-name">@Lang.CurrentOdds</span>
+                        <div class="span6">
+                            <div class="span7">
+                                <span id="currentHdpValue" class="hdp-value"></span>
+                                <span id="currentOddsValue" class="odds-value"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <span id="helpIcon" class="span1 help-icon"></span>
+            </div>
+            <div id="priceValue">
+                <span class="span2 chart-icon"></span>
+                <span class="chart-name">@Lang.Price:</span>
+                <span class="hdp-value"></span>
+                <span class="odds-value"></span>
+                <span class="icon-time icon-time-custom"></span>
+                <span class="current-time"></span>
+                <div class="refresh-button">
+                    <div id="refreshCountDown"></div>
+                </div>
+
+            </div>
+            <div id="priceChartContainer">
+            </div>
+            <div id="marketPercent">
+                <span class="span2 chart-icon"></span>
+                <span class="chart-name">@Lang.BetCountVolumn:</span>
+                <span class="hdp-value"></span>
+            </div>
+            <div id="marketChartContainer">
+            </div>
+
+            <div id="eventContainer"></div>
+        }
+        else
+        {
+            <div class="no-infor">@Lang.ChartUnavailable</div>
+        }
+</div>
+<script type="text/javascript">
+    var BROWSER = {
+        isChrome: @(Model.IsChrome ? "true" : "false"),
+        isFirefox: @(Model.IsFirefox ? "true" : "false")
+        };
+    var CHART_COLOR = 
+        {
+            homeColor : '@(homeColor)',
+            awayColor : '@(awayColor)',
+            marketColor : '@(marketColor)',
+            odds1Color : '@(odds1Color)',
+            odds2Color : '@(odds2Color)',
+            oddsColors : '@(odds1Color + ',' + odds2Color + ',' + odds3Color + ',' + odds4Color)'
+        }
+
+    var CRITERIA =
+    {
+        matchId: @(Model.MatchId),
+        betTypeId:@(Model.BetTypeId),
+        isLive: @(Model.IsLive ? "true" : "false"),
+        teamChoosing: @(Model.TeamChoosing),
+        kickOffTime: '@(Model.KickOffTime)',
+        homeId: @(Model.HomeId),
+        awayId: @(Model.AwayId),
+        homeName: '@(Model.HomeName)',
+        awayName: '@(Model.AwayName)',
+        showLiveAndDeadball: @(Model.ShowLiveAndDeadball ? "true" : "false"),
+        showChart: @(showChart ? "true" : "false")
+        };
+
+    CHART_COLOR.oddsColorsArray = CHART_COLOR.oddsColors.split(',');
+</script>
+@section Scripts
+{
+    @Scripts.Render("~/bundles/newchartcontent")
+}

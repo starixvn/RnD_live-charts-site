@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Client Test Page";
+}
+<h2>@ViewBag.Title</h2>
+<input type="button" value="Load chart" id="btnLoad" onclick="LoadChart()" />
+<input type="button" value="Load chart with Vietnamese Lang" id="btnLoad2" onclick="LoadChartVN()" />
+<input type="button" value="Load Matches" id="btnLoadMatch" onclick="LoadMatch()" />
+<script type="text/javascript">
+    function LoadChart() {
+        //document.getElementById("frmChartContent").src = ;
+        window.open("@(Url.Action("LoadChart", "Home"))",'_blank1');
+    }
+    
+    function LoadChartVN() {
+        //document.getElementById("frmChartContent").src = ;
+        window.open("@(Url.Action("LoadChart", "Home"))?language=vi-VN",'_blank1');
+    }
+
+    function LoadMatch() {
+        window.open("@(Url.Action("LoadMatch", "Home"))",'_blank2');
+        //document.getElementById("frmCharts").src = ;
+    }
+</script>

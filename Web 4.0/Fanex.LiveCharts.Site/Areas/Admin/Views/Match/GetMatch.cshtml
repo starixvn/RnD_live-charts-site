@@ -1,0 +1,184 @@
+﻿@using Fanex.LiveCharts.Models;
+@using Fanex.LiveCharts.Core;
+@model Fanex.LiveCharts.Models.Match
+@{
+    ViewBag.Title = AdminSiteLang.GetMatchTitle + Model.MatchName;
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    IEnumerable<OddsGroup> oddsGroups = ViewBag.OddsGroup;
+    bool hasOddsGroup = oddsGroups != null && oddsGroups.Any();
+}
+@section Headline {
+    <h1>
+        <span class="title">@Model.HomeName vs. @Model.AwayName</span></h1>
+    <h2>
+        <span class="kickoff-title">@(Lang.KickOffTimeGMT8): @Model.KickOffTimeGMT8</span>
+    </h2>
+    @Html.Hidden("matchId", Model.Id)
+}
+<div class="right-chart">
+    <iframe id="frmChartContent" width="680px" height="635px" src="@(Url.Content("~/Charts/ChartContent?matchId=" + Model.Id.ToString()))" frameborder="0">
+    </iframe>
+    @**@
+    <div class="filter-content">
+        <h1>@AdminSiteLang.AddEditEvent<span class="title" id="spEventId"></span></h1>
+        <div class="filter-form">
+            <div id="errorSummary" class="validation-summary-errors summary-hide">
+                <ul>
+                </ul>
+            </div>
+            <div id="successSummary" class="validation-summary-valid summary-hide">
+                <ul>@AdminSiteLang.AddEditEventSuccessfully</ul>
+            </div>
+            <div class="filter-row">
+                <div class="filter-cell">
+                    <div class="edit-field">
+                        <select id="ddlHaves" data-val-value="@AdminSiteLang.HalfValueValidation">
+                            <option value="1">1H</option>
+                            <option value="2">2H</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="filter-cell">
+                    <div class="edit-field">
+                        <input type="text" placeholder="@AdminSiteLang.TimeFormat" name="q" id="txtRecordedTime" 
+                               data-val-required="@AdminSiteLang.RecordedTimeRequired"
+                               data-val-regex-pattern="^(\d?\d):([0-5]?\d)$" data-val-regex="@AdminSiteLang.RecordedTimeFormat" />
+                    </div>
+                </div>
+                <div class="filter-cell">
+                    <div class="edit-field">
+                        <select id="ddlEventTypes" data-val-required="@AdminSiteLang.EventTypeRequired"
+                                data-val-duplicate-event="@AdminSiteLang.DuplicateHalfError"
+                                data-val-special-events-order="@AdminSiteLang.RequiredEventType">
+                            <option value="0">@AdminSiteLang.EventType</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="filter-cell">
+                    <div class="edit-field">
+                        <select id="ddlTeam" data-val-depends-on-event="@AdminSiteLang.TeamRequired">
+                            <option value="0">@AdminSiteLang.TeamName</option>
+                            <option value="@Model.HomeId">@Model.HomeName</option>
+                            <option value="@Model.AwayId">@Model.AwayName</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="filter-cell">
+                    <div class="edit-field">
+                        <input type="text" placeholder="@AdminSiteLang.EventDetail" name="q" id="txtDetail" />
+                    </div>
+                </div>
+            </div>
+            <div class="filter-row align-right" style="float: right;">
+                <div class="filter-cell">
+                    <div class="submit">
+                        <input id="btnSubmit" type="submit" value="@AdminSiteLang.Submit" />
+                    </div>
+                </div>
+                <div class="filter-cell">
+                    <div class="submit">
+                        <input id="btnDelete" type="submit" value="@AdminSiteLang.Delete" />
+                    </div>
+                </div>
+                <div class="filter-cell">
+                    <div class="submit">
+                        <input id="btnCancel" type="submit" value="@AdminSiteLang.Cancel" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="left-chart">
+    <div class="odds-enable-management">
+        <h1>
+            <span class="title">@Lang.OddsStatusManagement</span></h1>
+        <div class="filter-form">
+            <div id="successUpdateOdds" class="validation-summary-valid summary-hide">
+                <ul>@AdminSiteLang.AddEditEventSuccessfully</ul>
+            </div>
+            <div id="errorUpdateOdds" class="validation-summary-errors summary-hide">
+                <ul>
+                </ul>
+            </div>
+            @if (hasOddsGroup)
+            {
+                foreach (var oddsGroup in oddsGroups)
+                {
+                    if(oddsGroup.BetTypeId != (int)BetTypeEnum._1X2)
+                    {
+                        <div class="odds-status-group width-200">
+                                <div class="bettype-group width-auto">
+                                    <input type="checkbox" id="cbLive@(oddsGroup.BetTypeId)" 
+                                    @(oddsGroup.AllOddsEnable ? "checked='checked'" : string.Empty) />
+                                    <label class="bettype-label-group" for="cbLive@(oddsGroup.BetTypeId)">
+                                       <span class="bettype-live-label"> @Lang.Live </span> 
+                                       <span class="bettype-name-label"> @oddsGroup.BetTypeName </span> 
+                                        </label>
+                                </div> 
+                                <div class="odds-children-items">
+                                    @foreach (var odds in oddsGroup.OddsList)
+                                    {
+                                        <div class="odds-item width-auto">
+                                            <label for="odds@(odds.Id)">
+                                                <input class="cb-odds" type="checkbox" id="odds@(odds.Id)" value="@(odds.Id)" @(odds.ChartStatus ? "checked='checked'" : "") />
+                                                @(odds.Id)
+                                                @(odds.AwayHandicap > 0 ? odds.AwayHandicapString : odds.HomeHandicapString)
+                                            </label>
+                                        </div>
+                                    }
+                                </div>
+                        </div>
+                    }
+                }
+            }
+            else
+            {
+                <div>@Lang.NoDataAvailble</div>
+            }
+@*<div class="edit-field width-140">
+                <select id="ddlBetType">
+                    <option value="@((int)BetTypeEnum.Handicap)" selected="selected" >@(Lang.Handicap)</option>
+                    <option value="@((int)BetTypeEnum.OverUnder)">@(Lang.OverUnder)</option>
+                </select>
+            </div>*@
+        </div>
+        <div id="oddListContainer" class="filter-form">
+        </div>
+        <div class="filter-form">
+            <div class="submit">
+                <input id="btnSubmitOddsChange"  style="@(hasOddsGroup ? string.Empty : "display:none;")" type="submit" value="@ViewResources.Submit" />
+            </div>
+        </div>
+    </div>
+    <div class="event-list">
+        <h1>
+            <span class="title">@AdminSiteLang.Events</span></h1>
+        <table class="grid">
+            <thead>
+                <tr>
+                    <th class="first">
+                        @AdminSiteLang.ID
+                    </th>
+                    <th>
+                        @AdminSiteLang.TimeFormat
+                    </th>
+                    <th>
+                        @AdminSiteLang.EventName
+                    </th>
+                    <th>
+                        @AdminSiteLang.TeamName
+                    </th>
+                    <th>
+                        @AdminSiteLang.EventDetail
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="gridEvent">
+            </tbody>
+        </table>
+    </div>
+</div>
+@section Foot {
+    @Scripts.Render("~/areas/admin/getmatchdetailjs")
+}

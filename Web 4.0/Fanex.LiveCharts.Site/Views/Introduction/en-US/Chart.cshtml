@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "Live Chart Help";
+}
+@section Styles
+{
+    <link rel="stylesheet" href="~/Content/MovementCharts/Introduction.less" type="text/css" />
+}
+<div class="body-container">
+    <div class="page-header">
+        <h3>
+            Live Chart Help</h3>
+    </div>
+    <img src="~/Content/Images/help-image.png" class="img-polaroid help-image" />
+    <div>
+        1. Home vs Away team names including current score and time played.</div>
+    <div>
+        2. Bet type & Odds options:
+        <ul>
+            <li>Bet type: Handicap & Over/Under, <em>which are abbreviated as HDP & OU respectively.</em>
+            </li>
+            <li>Team selection: Home/Away team for HDP, or Over/Under </li>
+            <li>Odds selection for odds chart. Odds are differentiated by HDP (or OU line) values.</li>
+        </ul>
+    </div>
+    <div>
+        3. Current Movement: The figure is the accumulation of betting data in the last
+        {x} minute(s), based on players betting choices (Home/Away; Over/Under).</div>
+    <div>
+        4. Current odds value based on options from (2).</div>
+    <div>
+        5. Odds chart:
+        <ul>
+            <li>Line chart of odds value from match’s kick-of-time until currenttime. </li>
+            <li>Title includes odds value along with handicap value & match time (minute) which
+                reflect the point that your cursor hovers on the chart. </li>
+            <li>A red exclamation mark(!) indicates a change in HDP (or OU line) value.</li>
+        </ul>
+    </div>
+    <div>
+        6. Market Movement Chart: Percentage chart line of punters choosing Home vs Away
+        team or Over vs Under. Percentage figure on the title is the percentage of the match
+        minute that your cursor locates. Each point is the accumulation of betting data
+        in the last {x} minute(s).</div>
+    <div>
+        7. Match timeline contains events: kick-off, half-time, 2nd-half, goal, and red
+        card.</div>
+</div>

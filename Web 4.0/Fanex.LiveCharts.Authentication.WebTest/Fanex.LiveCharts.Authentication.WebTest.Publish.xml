@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<publishData>
+  <publishProfile publishUrl="C:\Users\Ricky.Nguyen\Desktop\Deploy\LiveChartMemberSite" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Profile1" publishMethod="FileSystem" replaceMatchingFiles="True" userName="" savePWD="False" userPWD="" SelectedForPublish="True">
+    <file relUrl="bin/System.Web.Helpers.dll" publishTime="07/25/2013 10:29:29" />
+    <file relUrl="Global.asax" publishTime="10/03/2013 13:34:33" />
+    <file relUrl="bin/System.Net.Http.WebRequest.xml" publishTime="05/16/2013 08:40:01" />
+    <file relUrl="bin/System.Web.WebPages.xml" publishTime="05/16/2013 08:40:00" />
+    <file relUrl="bin/System.Web.Http.WebHost.xml" publishTime="05/16/2013 08:40:02" />
+    <file relUrl="bin/System.Net.Http.dll" publishTime="07/25/2013 10:29:29" />
+    <file relUrl="bin/System.Net.Http.Formatting.dll" publishTime="07/25/2013 10:29:29" />
+    <file relUrl="bin/Newtonsoft.Json.xml" publishTime="07/25/2013 10:29:29" />
+    <file relUrl="bin/Fanex.LiveCharts.Authentication.WebTest.dll" publishTime="10/07/2013 11:09:56" />
+    <file relUrl="bin/System.Web.Mvc.xml" publishTime="05/16/2013 08:40:01" />
+    <file relUrl="bin/System.Web.WebPages.Deployment.xml" publishTime="05/16/2013 08:40:00" />
+    <file relUrl="bin/System.Web.WebPages.Razor.xml" publishTime="05/16/2013 08:40:00" />
+    <file relUrl="bin/System.Web.WebPages.dll" publishTime="07/25/2013 10:29:29" />
+    <file relUrl="packages.config" publishTime="10/03/2013 13:34:34" />
+    <file relUrl="bin/System.Web.Http.xml" publishTime="05/16/2013 08:40:02" />
+    <file relUrl="bin/Fanex.LiveCharts.ClientAuthentication.dll" publishTime="10/07/2013 09:53:31" />
+    <file relUrl="Views/Home/Index.cshtml" publishTime="10/07/2013 11:09:20" />
+    <file relUrl="bin/System.Web.Razor.xml" publishTime="07/25/2013 10:29:29" />
+    <file relUrl="bin/Fanex.LiveCharts.ClientAuthentication.pdb" publishTime="10/07/2013 09:53:31" />
+    <file relUrl="bin/System.Web.Http.dll" publishTime="07/25/2013 10:29:29" />
+    <file relUrl="bin/Newtonsoft.Json.dll" publishTime="07/25/2013 10:29:29" />
+    <file relUrl="bin/System.Web.Helpers.xml" publishTime="05/16/2013 08:40:00" />
+    <file relUrl="bin/System.Web.Mvc.dll" publishTime="07/25/2013 10:29:29" />
+    <file relUrl="bin/System.Net.Http.WebRequest.dll" publishTime="07/25/2013 10:29:29" />
+    <file relUrl="bin/Fanex.LiveCharts.Authentication.WebTest.pdb" publishTime="10/07/2013 11:09:56" />
+    <file relUrl="bin/System.Web.Razor.dll" publishTime="07/25/2013 10:29:29" />
+    <file relUrl="bin/System.Web.WebPages.Deployment.dll" publishTime="07/25/2013 10:29:29" />
+    <file relUrl="bin/System.Web.Http.WebHost.dll" publishTime="07/25/2013 10:29:29" />
+    <file relUrl="bin/System.Net.Http.xml" publishTime="05/16/2013 08:40:01" />
+    <file relUrl="bin/Microsoft.Web.Infrastructure.dll" publishTime="05/16/2013 08:40:00" />
+    <file relUrl="Web.config" publishTime="10/07/2013 11:37:26" />
+    <file relUrl="Views/Home/LoadMatch.cshtml" publishTime="10/05/2013 12:13:16" />
+    <file relUrl="bin/System.Net.Http.Formatting.xml" publishTime="05/16/2013 08:40:01" />
+    <file relUrl="Views/Web.config" publishTime="10/03/2013 13:34:33" />
+    <file relUrl="bin/System.Web.WebPages.Razor.dll" publishTime="07/25/2013 10:29:29" />
+  </publishProfile>
+</publishData>

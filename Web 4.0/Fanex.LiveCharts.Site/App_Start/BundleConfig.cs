@@ -1,0 +1,56 @@
+﻿// --------------------------------------------------------------------------
+// <copyright file="BundleConfig.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="Ricky.Nguyen" date="2013.7.10">Created</change>
+// </history>
+
+namespace Fanex.LiveCharts.Site
+{
+    using System.Diagnostics.CodeAnalysis;
+    using System.Web.Optimization;
+
+    /// <summary>
+    /// Bundle Config.
+    /// </summary>
+    [SuppressMessage(
+            "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "EX1003:MethodMustBeDocumented",
+            Justification = "Reviewed. Suppression is OK here.")]
+    public class BundleConfig
+    {
+        public static void RegisterBundles(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/jquerylibs")
+                .Include("~/Scripts/Libs/HighChart/highcharts.js")
+                .Include("~/Scripts/Libs/HighChart/themes/grid.js")
+                .Include("~/Scripts/Libs/HighChart/themes/dark-blue.js")
+                .Include("~/Scripts/Libs/HighChart/themes/dark-green.js")
+                .Include("~/Scripts/Libs/HighChart/themes/gray.js")
+                .Include("~/Scripts/Libs/HighChart/themes/skies.js")
+                .Include("~/Scripts/Libs/Bootstrap/bootstrap-tooltip.js")
+                .Include("~/Scripts/Libs/Bootstrap/bootstrap-popover.js")
+                .Include("~/Scripts/Libs/RefreshCountDown/RefreshCountDown.js")
+                .Include("~/Scripts/LIVECHARTS.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/jquery")
+                .Include("~/Scripts/Libs/jquery-1.9.1.js")
+                .Include("~/Scripts/Libs/jquery-ui-1.10.3.custom.js")
+                .Include("~/Scripts/Libs/BlockUI/jquery.blockUI.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/chart")
+                .Include("~/Scripts/Charts/Charts.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/newchartcontent")
+                .Include("~/Scripts/Libs/Bootstrap/bootstrap-dropdown.js")
+                .Include("~/Scripts/Charts/NewChartContent.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/opensoon")
+                .Include("~/Scripts/LIVECHARTS.js")
+                .Include("~/Scripts/Libs/CountDown/jquery.countdown.js")
+                .Include("~/Scripts/Charts/OpenSoon.js"));
+        }
+    }
+}

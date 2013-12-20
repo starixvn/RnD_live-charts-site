@@ -1,0 +1,327 @@
+﻿@import "../Bootstrap/bootstrap.less";
+@import "../../Scripts/Libs/RefreshCountDown/RefreshCountDown.less";
+
+@selectedColor: #0B72BB;
+@selectedBorderColor: #BFBFBF;
+@hoverColor: #ffcb00;
+@homeColor: #0B72BB; ///#299bfc;
+@awayColor: #ff9400;
+
+.block-ui-loading {
+    width: 100px;
+    height: 100px;
+    background: url(../Images/loader3.gif) no-repeat;
+}
+
+#divMainChart {
+    background-color: #F2F2F2;
+    border: 1px solid #E5E5E5;
+    clear: both;
+    color: black;
+    padding-top: 5px;
+    font-size: 11px;
+    margin: 2px 0px 0px 2px;
+	overflow-x: hidden;
+
+    #mainFilter {
+        padding-left: 3px;
+		position: relative;
+    }
+
+    #ddlBetType, #ddlTeamChoice {
+        float: left;
+    }
+
+    #priceChartContainer {
+        height: 200px;
+        clear: both;
+        background-color: @selectedBorderColor;
+    }
+
+    #marketChartContainer {
+        height: 120px;
+        clear: both;
+        background-color: @selectedBorderColor;
+    }
+
+    #eventContainer {
+        height: 150px;
+        clear: both;
+        margin-top: 10px;
+    }
+
+    #marketPercent {
+        margin-top: 10px;
+    }
+
+    #betTypeChoice {
+        text-align: center;
+
+        .bettype-name {
+            .in-active-item;
+
+            &:hover {
+                background-color: @hoverColor;
+            }
+        }
+    }
+
+    #priceValue, #marketPercent {
+        margin: 8px 0px 4px 0px;
+    }
+
+    #priceValue {
+
+        .refresh-button {
+            float: right;
+            margin-right: 2px;
+
+            #refreshCountDown {
+            }
+        }
+    }
+
+    #matchName {
+        font-weight: bold;
+		text-transform: uppercase;
+
+        .home-score, .away-score, .dash-score {
+            .bold-item;
+        }
+
+        .home-name {
+            margin-left: 1px;
+            color: @homeColor;
+        }
+
+        .away-name {
+            color: @awayColor;
+        }
+
+        #currentTime {
+            font-weight: normal;
+        }
+    }
+
+    #oddsChoice {
+        margin-left: 0px;
+
+        span {
+            .in-active-item;
+            .border-radius(4px);
+            margin-top: 1px;
+            margin-left: 4px;
+			padding: 1px 4px 4px;
+
+            &:hover {
+                background-color: @hoverColor;
+            }
+        }
+    }
+
+    .filter-information {
+        margin-top: 3px;
+
+        .bettype-chosen, .team-chosen {
+            font-weight: bold;
+			overflow: hidden; 
+			white-space: nowrap; 
+			text-overflow: ellipsis; 
+			height: 12px; 
+			line-height: 12px;
+			display: inline-block;
+        }
+
+		.team-chosen {
+			max-width: 105px; 
+		}
+
+		.bettype-chosen {
+			max-width: 90px; 
+		}
+
+		.btn .caret {
+			margin-top: 6px;
+		}
+    }
+
+    .dropdown-menu {
+        min-width: 100px;
+    }
+
+    .in-active-item {
+        display: inline-block;
+        padding: 3px 4px;
+        vertical-align: baseline;
+        white-space: nowrap;
+        border: 1px solid @selectedBorderColor;
+        cursor: pointer;
+        color: #7a7a7a;
+        .border-radius(3px);
+    }
+
+    .caret {
+        margin-left: 2px;
+    }
+
+    #lastInformation {
+        float: right;
+
+        .percent-container {
+            -moz-box-shadow: 9px 8px 9px -4px #276873;
+            -webkit-box-shadow: 9px 8px 9px -4px #276873;
+            box-shadow: 9px 8px 9px -4px #276873;
+            margin-left: 13px;
+        }
+
+        .home-percent, .away-percent {
+            float: left;
+            text-align: center;
+            color: black;
+            font-weight: bold;
+        }
+
+        .info-name {
+            color: @homeColor;
+        }
+
+        .home-percent {
+            background-color: @homeColor;
+        }
+
+        .away-percent {
+            background-color: @awayColor;
+        }
+
+        .last-price-info {
+            margin-top: 4px;
+
+            .bet-button {
+                float: right;
+            }
+
+			#currentHdpValue {
+				span {
+					display: inline-block;
+					height: 16px;
+					max-width: 70px;
+					overflow: hidden;
+					position: relative;
+					text-overflow: ellipsis;
+					top: 2px;
+					white-space: nowrap;
+				}
+			}
+        }
+    }
+
+	.help-icon {
+		width: 24px;
+		height: 24px;
+		background: url(../Images/help-icon.png) no-repeat;
+		margin-left: 10px;
+		cursor: pointer;
+		position: absolute;
+		right: 8px;
+	}
+
+    .hdp-value {
+        margin-left: 3px;
+        font-size: 10px;
+        .bold-item;
+    }
+
+    .odds-value {
+        margin-left: 3px;
+        font-weight: bold;
+    }
+
+    .chart-icon {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        background: url(../Images/chart_curve1.png) no-repeat;
+    }
+
+    .icon-time-custom {
+        margin-left: 3px;
+    }
+
+    .chart-name {
+        display: inline-block;
+        margin-left: 3px;
+        font-weight: bold;
+        color: @homeColor;
+    }
+    /*.selected-item {
+        background-color: #DBEEF4;
+        display: inline-block;
+        padding: 2px 4px;
+        font-weight: bold;
+        vertical-align: baseline;
+        white-space: nowrap;
+        border: 1px solid @selectedBorderColor;
+        cursor: pointer;
+        .border-radius(3px);
+
+        &:hover {
+            background-color: @hoverColor;
+        }
+    }*/
+    .active-item {
+        .selected-item;
+        color: @selectedColor !important;
+    }
+
+    .bold-item {
+        font-weight: bold;
+        color: #7a7a7a;
+    }
+    //// New Button
+    .selected-item {
+        -moz-box-shadow: 0px 1px 0px 0px #f0f7fa;
+        -webkit-box-shadow: 0px 1px 0px 0px #f0f7fa;
+        box-shadow: 0px 1px 0px 0px #f0f7fa;
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #c0eefc), color-stop(1, #98d4e6));
+        background: -moz-linear-gradient(top, #c0eefc 5%, #98d4e6 100%);
+        background: -webkit-linear-gradient(top, #c0eefc 5%, #98d4e6 100%);
+        background: -o-linear-gradient(top, #c0eefc 5%, #98d4e6 100%);
+        background: -ms-linear-gradient(top, #c0eefc 5%, #98d4e6 100%);
+        background: linear-gradient(to bottom, #c0eefc 5%, #98d4e6 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#c0eefc', endColorstr='#98d4e6',GradientType=0);
+        background-color: #c0eefc;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+        border: 1px solid #ababab;
+        display: inline-block;
+        color: #0B72BB;
+        padding: 4px 4px;
+        text-decoration: none;
+        cursor: pointer;
+
+        &:hover {
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #98d4e6), color-stop(1, #c0eefc));
+            background: -moz-linear-gradient(top, #98d4e6 5%, #c0eefc 100%);
+            background: -webkit-linear-gradient(top, #98d4e6 5%, #c0eefc 100%);
+            background: -o-linear-gradient(top, #98d4e6 5%, #c0eefc 100%);
+            background: -ms-linear-gradient(top, #98d4e6 5%, #c0eefc 100%);
+            background: linear-gradient(to bottom, #98d4e6 5%, #c0eefc 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#98d4e6', endColorstr='#c0eefc',GradientType=0);
+            background-color: #98d4e6;
+        }
+
+        &:active {
+            position: relative;
+            top: 1px;
+        }
+    }
+
+    .no-infor {
+        width: 100%;
+        text-align: center;
+        font-weight: bold;
+        height: 35px;
+        color: black;
+    }
+}

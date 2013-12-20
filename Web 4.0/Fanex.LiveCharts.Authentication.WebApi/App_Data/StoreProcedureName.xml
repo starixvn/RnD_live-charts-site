@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Functions>
+    <Function Name="LiveChart-Authentication">
+      <Setting Key="Chart_Insert_Token" SpName="Chart_Insert_Token" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
+      <Setting Key="Chart_Get_Charts" SpName="Chart_Get_Charts" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" >
+        <Mapping DataField="bettype" ObjectProperty="BetTypeId" />
+      </Setting>
+    </Function>
+</Functions>
+
+
+

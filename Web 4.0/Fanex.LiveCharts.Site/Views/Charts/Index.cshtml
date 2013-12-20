@@ -1,0 +1,117 @@
+﻿@using Fanex.LiveCharts.Resources
+@using Fanex.LiveCharts.Models
+@using Fanex.LiveCharts.Core
+@{
+    ViewBag.Title = "Live Chart System";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var leagues = (IEnumerable<League>)ViewBag.Leagues;
+    var matches = (IEnumerable<Match>)ViewBag.Matches;
+    var odds = (IEnumerable<Odds>)ViewBag.Odds;
+    var matchDate = (DateTime)ViewBag.MatchDate;
+}
+
+@section Styles
+{
+    <link rel="stylesheet" href="~/Content/MovementCharts/MovementCharts.less" type="text/css" />   
+}
+
+<div id="body">
+    <div class="filters-bar">
+        <div class="legend">
+            @Lang.LiveCharts.ToUpper()
+        </div>
+        <div class="filter-body form-horizontal span37 well">
+            <div class="control-group" style="position: relative; margin: 0px;">
+                <div id="filter-information" style="display: none;">
+                    <div>
+                        @Lang.League: <span class="league-name">@Lang.NoDataAvailble</span>. <span class="match-name"></span><span class="kick-off-time"></span><span class="match-status"></span>
+                    </div>
+                    @*<div>
+                        @Lang.BetType: <span class="bet-type-name">@Lang.NoDataAvailble</span>.
+                    @Lang.BettingOdds: <span class="odds-name">@Lang.NoDataAvailble</span>
+                    </div>*@
+                </div>
+                <div class="btn-collapse">
+                </div>
+                <div class="btn-expand" style="display: none;">
+                </div>
+            </div>
+            <div class="filter-body-content">
+                <div class="control-group">
+                    <div class="span21">
+                        <label class="control-label" for="ddlDate">@(Lang.Date):</label>
+                        <input type="text" disabled="disabled" id="txtDatePicker" class="span7" value="@(matchDate.ToString(Constants.FORMAT_DATE))"/>
+                    </div>
+                    <div class="span18">
+                        <label class="control-label" for="ddlSportTypes">@(Lang.Sport):</label>
+                        <select id="ddlSportTypes" class="span14">
+                            <option value="1">@(Lang.Soccer)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="control-group">
+
+                    <div class="span21">
+                        <label class="control-label" for="ddlLeagues">@(Lang.League):</label>
+                        <select id="ddlLeagues" class="span16">
+                            <option value="0">@(string.Format(Lang.SelectA, Lang.League))</option>
+                            @{
+                                if (leagues != null && leagues.Any())
+                                {
+                                    var chooseFirst = true;
+                                    foreach (var league in leagues)
+                                    {
+                                <option value="@(league.Id)" @(chooseFirst ? "selected='selected'" : string.Empty)>@(league.LeagueName)</option>
+                                        chooseFirst = false;
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="span18">
+                        <label class="control-label" for="ddlMatch">@(Lang.Match):</label>
+                        <select id="ddlMatch" class="span14">
+                            <option value="0">@(string.Format(Lang.SelectA, Lang.Match))</option>
+                            @{
+                                if (matches != null && matches.Any())
+                                {
+                                    var chooseFirst = true;
+                                    foreach (var match in matches)
+                                    {
+                                <option value="@(match.Id)" @(chooseFirst ? "selected='selected'" : string.Empty) kick-off-time="@(match.KickOffTime)" kick-off-time-string="@(match.KickOffTimeString)" home-name="@match.HomeName" away-name="@match.AwayName">@(match.MatchName)</option>
+                                        chooseFirst = false;
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>
+                     <div class="span4 button-submit">
+                        <input type="button" class="btn" value="Submit" id="btnLoadChart" />
+                    </div>
+                </div>
+               @* <div class="control-group">
+                    <div class="span12">
+                        <label class="control-label" for="ddlBetType">@(Lang.BetType):</label>
+                        <select id="ddlBetType" class="span7">
+                            @{
+                                foreach (var bettype in Constants.BetTypes)
+                                {
+                                <option value="@bettype.Id" @(bettype.Id == (int)BetTypeEnum.Handicap ? "selected='selected'" : string.Empty)>@bettype.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                   
+                </div>*@
+            </div>
+        </div>
+    </div>
+
+    <iframe id="frmChartContent" width="680px" height="635px" src="" frameborder="0" style="text-align:center;display:none;"></iframe>
+</div>
+<input type="button" id="btnInterval" value="interval call" style="display: none;" />
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/chart")
+}

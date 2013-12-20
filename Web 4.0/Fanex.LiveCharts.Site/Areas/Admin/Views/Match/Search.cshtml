@@ -1,0 +1,164 @@
+﻿@model Fanex.LiveCharts.Criterias.SearchMatchesCriteria
+@using Fanex.LiveCharts.Models
+
+@{
+    ViewBag.Title = @AdminSiteLang.SearchMatches;
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    Model.KickedOff = true;
+}
+
+@section Headline {
+	<h1>
+		<span class="title">@AdminSiteLang.SearchMatches</span>
+	</h1>
+}
+<section id="filter-bar">
+	@*@using (Html.BeginForm())
+	{*@
+		<div class="filter-form">
+            <div class="lbl-field width-auto">
+				@Html.LabelFor(m => m.MatchDate, @AdminSiteLang.MatchDate)
+			</div>
+			<div class="edit-field width-140">
+				@Html.EditorFor(m => m.MatchDate)
+			</div>
+            <div class="lbl-field width-auto">
+				@Html.LabelFor(m => m.SportId, @AdminSiteLang.Sport)
+			</div>
+			<div class="edit-field">
+				@Html.DropDownListFor(m => m.SportId, new List<SelectListItem>()
+                                                      {                                                            
+                                                          new SelectListItem { Text = ViewBag.Soccer, Value = "1"}
+                                                      })
+			</div>
+			<div class="lbl-field width-auto">
+				@Html.LabelFor(m => m.LeagueId, AdminSiteLang.League)
+			</div>
+			<div class="edit-field width-400">
+				@Html.DropDownListFor(m => m.LeagueId, (IEnumerable<SelectListItem>)ViewBag.Leagues, new { Class = "width-400" })
+			</div>
+           
+		</div>
+        <div class="filter-form">
+             <div class="lbl-field width-75">
+				@Html.LabelFor(m => m.Keyword, AdminSiteLang.Keyword)
+			</div>
+			<div class="edit-field width-140">
+				@Html.EditorFor(m => m.Keyword)
+			</div>
+            <div class="lbl-field width-auto">
+				@Html.LabelFor(m => m.KickedOff, Lang.KickedOffMatch)
+			</div>
+			<div class="edit-field width-auto kick-off-checkbox">
+				@Html.EditorFor(m => m.KickedOff)
+			</div>
+            
+			<div class="submit btn-submit">
+				<input type="submit" value="@ViewResources.Submit" id="btnSearchMatch" />
+			</div>
+        </div>
+	@*}*@
+</section>
+<table class="grid">
+	<thead>
+		<tr>
+			<th class="first">
+				@AdminSiteLang.MatchID
+			</th>
+			<th>
+				@AdminSiteLang.MatchName
+			</th>
+            <th>
+				@AdminSiteLang.ChartEnabled
+			</th>
+			<th>
+				@AdminSiteLang.KickOffTime
+			</th>
+            <th>
+				@Lang.KickOffTimeGMT8
+			</th>
+		</tr>
+	</thead>
+    <tbody  id="grid-user">
+        @Html.Partial("~/Areas/Admin/Views/Match/MatchList.cshtml", ViewBag.MatchList as IEnumerable<Match>)
+       @* @{
+            IEnumerable<Match> matches = ViewBag.MatchList as IEnumerable<Match>;
+            if (!ReferenceEquals(matches, null) && matches.Count() > 0)
+            {
+                int i = 0;
+                string cssClass;
+                foreach (var item in matches)
+                {
+                    if (!item.HideInSearch)
+                    {
+                            cssClass = (i % 2 == 1) ? "class='alt'" : string.Empty;
+                            <tr @Html.Raw(cssClass)>
+                                <td class="align-center">
+                                @if (item.ChartEnabled)
+                                {
+                                    @Html.ActionLink(item.Id.ToString(), "GetMatch", "Match", new { Id = item.Id }, new { })
+                                    }
+                                    else
+                                    {
+                                     <span class="match-value"> @Html.Raw(item.Id.ToString()) </span>
+                                    @Html.ActionLink(item.Id.ToString(), "GetMatch", "Match", new { Id = item.Id }, new { @style = "display:none", @class="link-enable-chart" })
+                                    }
+                                </td>
+                                <td class="align-center">
+                                    @item.HomeName vs. @item.AwayName
+                                </td>
+                                <td class="align-center">
+                                    @if (item.ChartEnabled)
+                                        { 
+                                            <img src="~/Content/themes/nap/img/blank.png" alt="" class="ico-tick" />
+                                            @:&nbsp;&nbsp;&nbsp;
+                                            <label for="showstatus@(item.Id)">
+                                                        <input type="checkbox" id="showstatus@(item.Id)" value="@(item.Id)" 
+                                                        class="enable-showing-status-checkbox" @(item.ChartShowingStatus == (int)Fanex.LiveCharts.Core.ChartShowingStatus.All ? "checked='checked'" : string.Empty) />
+                                                        @AdminSiteLang.OnProduction
+                                                    </label>
+                                        }
+                                        else
+                                        {
+                                                <div style="display: none;" class="update-enable-success">
+                                                    <img src="~/Content/themes/nap/img/blank.png" alt="" class="ico-tick"/>
+                                                    &nbsp;&nbsp;&nbsp;
+                                                    <label for="showstatus@(item.Id)">
+                                                        <input type="checkbox" id="showstatus@(item.Id)" class="enable-showing-status-checkbox" value="@(item.Id)" checked='checked') />
+                                                        @AdminSiteLang.OnProduction
+                                                    </label>
+                                                </div>
+                                                <input type="checkbox" value="@item.Id" class="enable-checkbox" data-kick-off-time="@item.KickOffTime" />
+                                            if (!item.CanEnableChart)
+                                            {
+                                                @:||
+                                                @Lang.KickedOff 
+                                            }
+                                        }
+                                </td>
+                                <td class="align-center">
+                                    @item.KickOffTimeString
+                                </td>
+                                <td class="align-center">
+                                    @item.KickOffTimeGMT8
+                                </td>
+                            </tr>
+                                    i++;
+                    }
+                }
+            }
+            else
+            {
+                <tr class="no-info">
+				    <td colspan="6" class="align-center">
+					    @AdminSiteLang.NoInfoAvailable
+				    </td>
+			    </tr>
+            }
+        }*@
+    </tbody>
+</table>
+@Html.Hidden("dateImagePath", (string)Url.Content("~/Content/Images/calendar.gif"))
+@section Foot {
+    @Scripts.Render("~/areas/admin/searchmatchjs")
+}

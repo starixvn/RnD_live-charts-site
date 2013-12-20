@@ -1,0 +1,81 @@
+﻿@using Fanex.LiveCharts.Models;
+@using Fanex.LiveCharts.Core;
+@{
+    Layout = null;
+}
+@model IEnumerable<Match>
+@{
+    if (!ReferenceEquals(Model, null) && Model.Any())
+    {
+        int i = 0;
+        string cssClass;
+        foreach (var item in Model)
+        {
+            if (!item.HideInSearch)
+                    {
+                cssClass = (i % 2 == 1) ? "class='alt'" : string.Empty;
+                <tr @Html.Raw(cssClass)>
+                    <td class="align-center">
+                        @if (item.ChartEnabled)
+                        {
+                            @Html.ActionLink(item.Id.ToString(), "GetMatch", "Match", new { Id = item.Id }, new { })
+                        }
+                        else
+                        {
+                            <span class="match-value">@Html.Raw(item.Id.ToString()) </span>
+                            @Html.ActionLink(item.Id.ToString(), "GetMatch", "Match", new { Id = item.Id }, new { @style = "display:none", @class = "link-enable-chart" })
+                        }
+                    </td>
+                    <td class="align-center">
+                        @item.HomeName vs. @item.AwayName
+                    </td>
+                    <td class="align-center">
+                        @if (item.ChartEnabled)
+                        { 
+                            <img src="~/Content/themes/nap/img/blank.png" alt="" class="ico-tick" />
+                            @:&nbsp;&nbsp;&nbsp;
+                            <label for="showstatus@(item.Id)">
+                                        <input type="checkbox" id="showstatus@(item.Id)" value="@(item.Id)" 
+                                        class="enable-showing-status-checkbox" @(item.ChartShowingStatus == (int)ChartShowingStatus.All ? "checked='checked'" : string.Empty) />
+                                        @AdminSiteLang.OnProduction
+                                    </label>
+                        }
+                        else
+                        {
+                            
+                                <div style="display: none;" class="update-enable-success">
+                                    <img src="~/Content/themes/nap/img/blank.png" alt="" class="ico-tick"/>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <label for="showstatus@(item.Id)">
+                                        <input type="checkbox" id="showstatus@(item.Id)" class="enable-showing-status-checkbox" value="@(item.Id)" checked='checked') />
+                                        @AdminSiteLang.OnProduction
+                                    </label>
+                                </div>
+                                <input type="checkbox" value="@item.Id" class="enable-checkbox" data-kick-off-time="@item.KickOffTime" />
+                            
+                            if (!item.CanEnableChart)
+                            {
+                                <span class="kicked-off-text">|| @Lang.KickedOff</span>
+                            }
+                        }
+                    </td>
+                    <td class="align-center">
+                        @item.KickOffTimeString
+                    </td>
+                    <td class="align-center">
+                        @item.KickOffTimeGMT8
+                    </td>
+                </tr>
+                        i++;
+                    }
+        }
+    }
+    else
+    {
+    <tr class="no-info">
+        <td colspan="6" class="align-center">
+            @AdminSiteLang.NoInfoAvailable
+        </td>
+    </tr>
+    }
+}

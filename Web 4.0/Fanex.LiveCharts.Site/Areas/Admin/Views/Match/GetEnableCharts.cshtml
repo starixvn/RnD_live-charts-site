@@ -1,0 +1,134 @@
+﻿@model Fanex.LiveCharts.Criterias.GetEnableChartsCriteria
+@using Fanex.LiveCharts.Core;
+@using Fanex.LiveCharts.Models
+@{
+    ViewBag.Title = AdminSiteLang.EnableCharts;
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var isRunning = !Model.StatusId;
+}
+@section Headline {
+    <h1>
+        <span class="title">@AdminSiteLang.EnableChartsTitle</span>
+    </h1>
+}
+<section id="filter-bar">
+    @using (Html.BeginForm())
+    {
+        <div class="filter-form">
+            <div class="lbl-field width-auto">
+                @Html.LabelFor(m => m.StatusId, AdminSiteLang.MatchStatus)
+            </div>
+            <div class="edit-field width-140">
+                @Html.DropDownListFor(m => m.StatusId, new List<SelectListItem>()
+                                                      {                                                            
+                                                          new SelectListItem { Text = AdminSiteLang.Running, Value = "false"},
+                                                          new SelectListItem { Text = AdminSiteLang.Completed, Value = "true"}
+                                                      })
+            </div>
+            <div id="datesArea" style="display: none;">
+                <div class="lbl-field width-auto">
+                    @Html.LabelFor(m => m.FromDate, AdminSiteLang.FromDate)
+                </div>
+                <div class="edit-field width-140">
+                    @Html.EditorFor(m => m.FromDate)
+                </div>
+                <div class="lbl-field width-auto">
+                    @Html.LabelFor(m => m.ToDate, AdminSiteLang.ToDate)
+                </div>
+                <div class="edit-field width-140">
+                    @Html.EditorFor(m => m.ToDate)
+                </div>
+            </div>
+            <div class="submit">
+                <input type="submit" value="@ViewResources.Submit" />
+            </div>
+        </div>
+    }
+</section>
+   
+<table class="grid">
+    <thead>
+        <tr>
+            <th class="first">
+                @AdminSiteLang.MatchID
+            </th>
+            @if (isRunning)
+            {
+                <th>
+                    @AdminSiteLang.OnProduction
+                </th>
+            }
+            <th>
+                @AdminSiteLang.MatchName
+            </th>
+            <th>
+                @AdminSiteLang.KickOffTime
+            </th>
+            <th>
+                @Lang.KickOffTimeGMT8
+            </th>
+            <th>
+                @Lang.Odds
+            </th>
+        </tr>
+    </thead>
+    <tbody id="grid-user">
+        @{
+            IEnumerable<Match> matches = ViewBag.Matches as IEnumerable<Match>;
+            if (!ReferenceEquals(matches, null) && matches.Count() > 0)
+            {
+                int i = 0;
+                string cssClass;
+                foreach (var item in matches)
+                {
+                    var currentOddsList = item.OddsList.OrderBy(o => o.BetTypeId);
+                    cssClass = (i % 2 == 1) ? "class='alt'" : string.Empty;
+            <tr @Html.Raw(cssClass)>
+                <td class="align-center">
+                    @Html.ActionLink(item.Id.ToString(), "GetMatch", "Match", new { Id = item.Id }, new { })
+                </td>
+                 @if (isRunning)
+                {
+                    <td class="align-center">
+                        <input type="checkbox" class="on-production-status" value="chartStatus@(item.Id)" 
+                        data-match-id="@(item.Id)" class="enable-checkbox" 
+                        @(item.ChartShowingStatus == (int)ChartShowingStatus.All ? "checked='checked'" : string.Empty)/>
+                    </td>
+                     }
+                <td class="align-center">
+                    @item.MatchName
+                </td>
+                <td class="align-center">
+                    @item.KickOffTimeString
+                </td>
+                <td class="align-center">
+                    @item.KickOffTimeGMT8
+                </td>
+                <td class="align-center">
+                    @foreach (var odds in currentOddsList)
+                    {
+                        if (odds.ChartStatus)
+                        {
+                        <span>@odds.OddsInformationString</span> <br />
+                        }
+                    }
+                </td>
+            </tr>
+                    i++;
+                }
+            }
+            else
+            {
+            <tr class="no-info">
+                <td colspan="@(isRunning? 6 : 5)" class="align-center">
+                    @AdminSiteLang.NoInfoAvailable
+                </td>
+            </tr>
+            }
+        }
+    </tbody>
+</table>
+@Html.Hidden("dateImagePath", (string)Url.Content("~/Content/Images/calendar.gif"))
+@section Foot {
+    @Scripts.Render("~/areas/admin/getenablechartjs")
+}
