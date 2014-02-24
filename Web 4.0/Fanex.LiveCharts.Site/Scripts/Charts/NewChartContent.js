@@ -6,13 +6,16 @@
 /// <reference path="../LIVECHARTS.js" />
 /// <reference path="../../Views/MovementCharts/ChartContent.cshtml" />
 
+/*global BROWSER, CHART_COLOR, CRITERIA, CHART, DEFAULT_OBJECT, LANGUAGE, LIVECHARTS*/
+
 
 if (jQuery) {
     var Fanex = Fanex || {};
 
     Fanex.Chart = Fanex.Chart || {};
 
-    Fanex.ChartContent = function () {
+    Fanex.ChartContent = (function () {
+        'use strict';
         return {
             currentBrowser: BROWSER,
             currentLivePeriod: 0,
@@ -209,8 +212,8 @@ if (jQuery) {
                                     window.location.href = self.url.viewOneChartUrl;
                                 }
                             }
-                        }).fail(function (jqXHR, textStatus, errorThrown) {
-                            if (jqXHR.status == 401) {
+                        }).fail(function (jqXHR) {
+                            if (jqXHR.status === 401) {
                                 window.location.href = self.url.unAuthorizedUrl;
                             }
                         }).always(function () {
@@ -240,7 +243,7 @@ if (jQuery) {
                         if (data) {
                             switch (data.LivePeriod) {
                                 case 0:
-                                    if (self.currentLivePeriod == 1 || self.timeStatus.haftTime.index > 0) {
+                                    if (self.currentLivePeriod === 1 || self.timeStatus.haftTime.index > 0) {
                                         self.elements.$currentTime.text('HT');
                                     }
                                     break;
@@ -272,8 +275,6 @@ if (jQuery) {
                             self.elements.$homeScore.text(data.HomeScore);
                             self.elements.$awayScore.text(data.AwayScore);
                         }
-                    }).fail(function (jqXHR, textStatus, errorThrown) {
-                    }).always(function () {
                     });
                 }
             },
@@ -281,7 +282,7 @@ if (jQuery) {
                 var self = this;
                 self.elements.$betTypeGroup.click(function () {
                     var $this = $(this);
-                    if ($this.attr('data-selected') == 'true') {
+                    if ($this.attr('data-selected') === 'true') {
                         return;
                     }
 
@@ -289,7 +290,7 @@ if (jQuery) {
                     self.elements.$betTypeGroup.attr('data-selected', false);
                     $this.attr('data-selected', true);
 
-                    if (self.betTypeEnum.Handicap == parseInt($this.data('bettype'))) {
+                    if (self.betTypeEnum.Handicap === parseInt($this.data('bettype'))) {
                         self.elements.$teamChosen.text(CRITERIA.homeName).css('color', CHART_COLOR.homeColor);
                         self.elements.$allTeam.filter('[data-teamid=0]').text(CRITERIA.homeName);
                         self.elements.$allTeam.filter('[data-teamid=1]').text(CRITERIA.awayName);
@@ -308,16 +309,16 @@ if (jQuery) {
 
                 self.elements.$allTeam.click(function () {
                     var $this = $(this);
-                    if ($this.attr('data-selected') == 'true') {
+                    if ($this.attr('data-selected') === 'true') {
                         return;
                     }
-                    var currentSelected = $this.parent().parent().parent().find('a.dropdown-toggle');
+                    
                     self.elements.$teamChosen.text($this.text()).css('color', $this.css('color'));
                     self.elements.$allTeam.attr('data-selected', false);
                     $this.attr('data-selected', true);
 
                     if (CRITERIA.chooseHandicap) {
-                        var chooseHome = parseInt($this.data('teamid')) == self.teamChoosing.home;
+                        var chooseHome = parseInt($this.data('teamid')) === self.teamChoosing.home;
 
                         self.elements.$oddsChoiceGroup.find('span').each(function () {
                             var $this = $(this);
@@ -335,7 +336,10 @@ if (jQuery) {
                 });
 
                 self.elements.$helpIcon.click(function () {
-                    window.open(self.url.helpPageUrl, 'LiveChartHelpPage', 'width=660,height=640,directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=yes,resizable=no');
+                    window.open(
+                        self.url.helpPageUrl,
+                        'LiveChartHelpPage', 
+                        'width=660,height=640,directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=yes,resizable=no');
                 });
             },
             reloadOdds: function () {
@@ -395,7 +399,7 @@ if (jQuery) {
                     var oddsId = $this.data('odds-id');
                     CRITERIA.oddsId = oddsId;
                     self.oddsIds.push(oddsId);
-                    if (self.lastTime[oddsId]) self.lastTime[oddsId] = CRITERIA.startTime;
+                    if (self.lastTime[oddsId]) { self.lastTime[oddsId] = CRITERIA.startTime; }
                 });
 
                 self.clearAllRequest();
@@ -420,14 +424,14 @@ if (jQuery) {
                             chartId: CHART.type.price
                         }),
                         beforeSend: function () {
-                            try { $.blockUI(); } catch (e) { };
+                            try { $.blockUI(); } catch (e) { }
                         }
                     }).done(function (data) {
                         CHART.buildPriceChart(data);
                     }).fail(function (jqXHR, textStatus, errorThrown) {
                         self.handleAjaxException(jqXHR, textStatus, errorThrown);
                     }).always(function () {
-                        try { $.unblockUI(); } catch (e) { };
+                        try { $.unblockUI(); } catch (e) { }
                     });
                 }
                 else {
@@ -454,13 +458,13 @@ if (jQuery) {
                             kickOffTime: CRITERIA.kickOffTime
                         }),
                         beforeSend: function () {
-                            try { $.blockUI(); } catch (e) { };
+                            try { $.blockUI(); } catch (e) { }
                         }
                     }).done(function (data) {
                         CHART.build(data);
-                        try { $.unblockUI(); } catch (e) { };
+                        try { $.unblockUI(); } catch (e) { }
                     }).fail(function (jqXHR, textStatus, errorThrown) {
-                        try { $.unblockUI(); } catch (e) { };
+                        try { $.unblockUI(); } catch (e) { }
                         self.handleAjaxException(jqXHR, textStatus, errorThrown);
                     }).always(function () {
 
@@ -468,23 +472,23 @@ if (jQuery) {
                 }
             },
             handleAjaxException: function (jqXHR, textStatus, errorThrown) {
-                try { $.unblockUI(); } catch (e) { };
-                if (textStatus != 'abort') {
+                try { $.unblockUI(); } catch (e) { }
+                if (textStatus !== 'abort') {
                     LIVECHARTS.handleAjaxError(jqXHR, textStatus, errorThrown);
                 }
             },
             stopAjax: function () {
                 //// Stop all ajax requests.
                 var self = this;
-                if (self.ajaxObject.marketChartRequest) self.ajaxObject.marketChartRequest.abort();
-                if (self.ajaxObject.getChartRequest) self.ajaxObject.getChartRequest.abort();
+                if (self.ajaxObject.marketChartRequest) { self.ajaxObject.marketChartRequest.abort(); }
+                if (self.ajaxObject.getChartRequest) { self.ajaxObject.getChartRequest.abort(); }
                 if (self.ajaxObject.priceChartRequest.length > 0) {
                     for (var i = 0; i < self.ajaxObject.priceChartRequest.length; i++) {
-                        if (self.ajaxObject.priceChartRequest[i]) self.ajaxObject.priceChartRequest[i].abort();
+                        if (self.ajaxObject.priceChartRequest[i]) { self.ajaxObject.priceChartRequest[i].abort(); }
                     }
                     self.ajaxObject.priceChartRequest = [];
                 }
-                if (self.ajaxObject.indicatorRequest) self.ajaxObject.indicatorRequest.abort();
+                if (self.ajaxObject.indicatorRequest) { self.ajaxObject.indicatorRequest.abort(); }
 
             },
             clearAllRequest: function () {
@@ -492,7 +496,7 @@ if (jQuery) {
                 clearInterval(this.interval.getPoints);
             },
             loadOdds: function (initOdds) {
-                var self = this;
+                var self = this, i;
                 $.ajax({
                     url: self.url.getOdds,
                     type: 'GET',
@@ -504,7 +508,7 @@ if (jQuery) {
                         isLive: CRITERIA.isLive
                     }),
                     beforeSend: function () {
-                        try { $.blockUI(); } catch (e) { };
+                        try { $.blockUI(); } catch (e) { }
                     }
                 }).done(function (oddsArray) {
                     if (initOdds) {
@@ -516,9 +520,9 @@ if (jQuery) {
                             CHART.oddsChartIndex = {};
                             self.oddsList = [];
 
-                            for (var i = 0; i < oddsArray.length; i++) {
+                            for (i = 0; i < oddsArray.length; i++) {
                                 var odds = oddsArray[i];
-                                if (i == 0) CRITERIA.oddsId = odds.Id;
+                                if (i === 0) { CRITERIA.oddsId = odds.Id; }
 
                                 self.oddsList.push(odds.Id);
                                 self.lastTime[odds.Id] = CRITERIA.startTime;
@@ -530,7 +534,7 @@ if (jQuery) {
                             self.elements.$oddsChoiceGroup.html(html.join(''));
                             self.elements.$oddsChoiceGroup.find('span').unbind('click').click(function () {
                                 var $this = $(this);
-                                if ($this.attr('data-selected') == 'true') {
+                                if ($this.attr('data-selected') === 'true') {
                                     return;
                                 }
                                 self.elements.$oddsChoiceGroup.find('span').removeClass('active-item').attr('data-selected', false);
@@ -546,7 +550,7 @@ if (jQuery) {
                     else {
                         if (oddsArray && oddsArray.length > 0) {
                             //// Update new odds data.
-                            for (var i = 0; i < oddsArray.length; i++) {
+                            for (i = 0; i < oddsArray.length; i++) {
                                 self.updateOddsHandicap(oddsArray[i]);
                             }
                         }
@@ -555,7 +559,7 @@ if (jQuery) {
                 }).fail(function (jqXHR, textStatus, errorThrown) {
                     self.handleAjaxException(jqXHR, textStatus, errorThrown);
                 }).always(function () {
-                    try { $.unblockUI(); } catch (e) { };
+                    try { $.unblockUI(); } catch (e) { }
                 });
             },
             buildOddsChoice: function (index, odds) {
@@ -567,11 +571,11 @@ if (jQuery) {
                     awayHdpValue = odds.AwayHandicap;
                 }
 
-                var html = '<span class="' + (index == 0 ? 'active-item' : '') + '"'
+                var html = '<span class="' + (index === 0 ? 'active-item' : '') + '"'
                     + ' data-odds-id="' + odds.Id + '" '
                     + ' data-home-hdp="' + homeHdpValue + '" '
                     + ' data-away-hdp="' + awayHdpValue + '" '
-                    + 'data-selected="' + (index == 0 ? 'true' : 'false') + '">' + (CRITERIA.chooseHome ? homeHdpValue : awayHdpValue) + '</span>';
+                    + 'data-selected="' + (index === 0 ? 'true' : 'false') + '">' + (CRITERIA.chooseHome ? homeHdpValue : awayHdpValue) + '</span>';
                 return html;
             },
             updateOddsHandicap: function (odds) {
@@ -602,30 +606,28 @@ if (jQuery) {
                         matchId: CRITERIA.matchId
                     })
                 }).done(function (kickOffTimeString) {
-                    if (kickOffTimeString != '' && kickOffTimeString != CRITERIA.kickOffTime) {
+                    if (kickOffTimeString !== '' && kickOffTimeString !== CRITERIA.kickOffTime) {
                         window.location.href = window.location.href;
                     }
-                }).fail(function (jqXHR, textStatus, errorThrown) {
-                }).always(function () {
                 });
             }
         };
-    } ();
+    }) ();
 
-    Fanex.Chart.Helper = function () {
+    Fanex.Chart.Helper = (function () {
+        'use strict';
         return {
             mainChart: Fanex.ChartContent,
             convertTimeLine: function (timeIndex) {
-                var self = this;
                 if (timeIndex >= 0) {
                     return '';
                 }
                 else {
                     //// Format Hour for Deadball
                     var hours = Math.round((Math.abs(timeIndex) / 60) - 0.5);
-                    if (hours < 10) hours = '0' + hours;
+                    if (hours < 10) { hours = '0' + hours; }
                     var minute = Math.round(Math.abs(timeIndex) % 60);
-                    if (minute < 10) minute = '0' + minute;
+                    if (minute < 10) { minute = '0' + minute; }
                     return (timeIndex < 0 ? '-' : '') + hours + ':' + minute;
                 }
             },
@@ -647,9 +649,11 @@ if (jQuery) {
                 return timeString;
             },
             getTime: function (pointIndex, isShow) {
+                /*jshint maxdepth:false*/
                 isShow = isShow || false;
                 var self = this,
                     extraTimeIndex = 0,
+                    secondTimePoint,
                     timeStringObject =
                     {
                         isShow: false,
@@ -661,10 +665,11 @@ if (jQuery) {
                         isRenderInOthersChart: true
                     };
 
-                if (pointIndex == self.mainChart.timeStatus.haftTime.index) {
-                    if (pointIndex != self.mainChart.constants.matchTime.endHaftTime) {
+                if (pointIndex === self.mainChart.timeStatus.haftTime.index) {
+                    if (pointIndex !== self.mainChart.constants.matchTime.endHaftTime) {
                         extraTimeIndex = pointIndex - self.mainChart.constants.matchTime.endHaftTime;
-                        timeStringObject.selectedTimeString = timeStringObject.timeString = self.mainChart.constants.matchTime.endHaftTime + "'+" + extraTimeIndex + "'";
+                        timeStringObject.selectedTimeString = 
+                        timeStringObject.timeString = self.mainChart.constants.matchTime.endHaftTime + "'+" + extraTimeIndex + "'";
                         timeStringObject.isShow = true;
                         timeStringObject.isHaftTime = true;
                         timeStringObject.timeValue = self.mainChart.constants.matchTime.endHaftTime;
@@ -685,7 +690,8 @@ if (jQuery) {
                     else {
                         if (pointIndex <= self.mainChart.timeStatus.second.index) {
                             extraTimeIndex = pointIndex - self.mainChart.constants.matchTime.endHaftTime;
-                            timeStringObject.selectedTimeString = timeStringObject.timeString = self.mainChart.constants.matchTime.endHaftTime + "'+" + extraTimeIndex;
+                            timeStringObject.selectedTimeString = 
+                            timeStringObject.timeString = self.mainChart.constants.matchTime.endHaftTime + "'+" + extraTimeIndex;
                             if (self.mainChart.timeStatus.haftTime.index > 0
                                 && pointIndex > self.mainChart.timeStatus.haftTime.index) {
                                 timeStringObject.selectedTimeString = "HT+" + (pointIndex - self.mainChart.timeStatus.haftTime.index);
@@ -696,14 +702,15 @@ if (jQuery) {
                         else {
                             var breakTime = self.mainChart.timeStatus.second.index - self.mainChart.constants.matchTime.endHaftTime;
                             if (pointIndex > self.mainChart.timeStatus.second.index) {
-                                var secondTimePoint = self.mainChart.constants.matchTime.endHaftTime + pointIndex - self.mainChart.timeStatus.second.index;
+                                secondTimePoint = self.mainChart.constants.matchTime.endHaftTime + pointIndex - self.mainChart.timeStatus.second.index;
                                 if (secondTimePoint <= self.mainChart.constants.matchTime.endSecondTime) {
                                     timeStringObject.selectedTimeString = timeStringObject.timeString = secondTimePoint;
-                                    isShow = isShow || timeStringObject.timeString == 46;
+                                    isShow = isShow || timeStringObject.timeString === 46;
                                 }
                                 else {
                                     extraTimeIndex = pointIndex - breakTime - self.mainChart.constants.matchTime.endSecondTime;
-                                    timeStringObject.selectedTimeString = timeStringObject.timeString = self.mainChart.constants.matchTime.endSecondTime + "'+" + extraTimeIndex;
+                                    timeStringObject.selectedTimeString = 
+                                    timeStringObject.timeString = self.mainChart.constants.matchTime.endSecondTime + "'+" + extraTimeIndex;
                                 }
 
                                 timeStringObject.timeValue = secondTimePoint;
@@ -713,9 +720,11 @@ if (jQuery) {
                 }
 
 
-                if ((typeof (timeStringObject.timeString) == 'number' && timeStringObject.timeString % 5 === 0 && pointIndex != self.mainChart.timeStatus.second.index)
+                    if ((typeof (timeStringObject.timeString) === 'number'
+                        && timeStringObject.timeString % 5 === 0 
+                        && pointIndex !== self.mainChart.timeStatus.second.index)
                                     || isShow
-                                    || timeStringObject.timeString == 46) {
+                                    || timeStringObject.timeString === 46) {
                     timeStringObject.isShow = true;
 
                 }
@@ -741,12 +750,15 @@ if (jQuery) {
             },
             getTeamText: function () {
                 var self = this;
-                return '<span style="color:' + self.mainChart.elements.$teamChosen.css('color') + '">' + self.mainChart.elements.$teamChosen.text() + '</span> ';
+                return '<span style="color:' + self.mainChart.elements.$teamChosen.css('color') + '">'
+                            + self.mainChart.elements.$teamChosen.text() 
+                        + '</span> ';
             }
         };
-    }();
+    }) ();
 
-    var CHART = function () {
+    var CHART = (function () {
+        'use strict';
         return {
             type: {
                 market: 1,
@@ -817,7 +829,9 @@ if (jQuery) {
                 }
             },
             updateHoverMarketChartValue: function (value) {
-                var teamHtml = '<span style="color:' + CHART_COLOR.homeColor + '">' + (CRITERIA.chooseHandicap ? CRITERIA.homeName : LANGUAGE.over) + '</span> ';
+                var teamHtml = '<span style="color:' + CHART_COLOR.homeColor + '">'
+                                    + (CRITERIA.chooseHandicap ? CRITERIA.homeName : LANGUAGE.over)
+                                + '</span> ';
                 this.mainPage.elements.$selectedMarketValue.html(teamHtml + value);
             },
             updateHoverEventChart: function (xValue, isHighLight) {
@@ -920,24 +934,28 @@ if (jQuery) {
                                     if (currentIndex > 1) {
                                         var prePoint = this.series.points[currentIndex - 1].name;
 
-                                        var currentHandicapValue = self.helper.computeHandicap(this.key); //this.key.AwayHandicap > 0 ? this.key.AwayHandicap : this.key.HomeHandicap;
+                                        var currentHandicapValue = self.helper.computeHandicap(this.key);
                                         if (prePoint) {
                                             var paddingRight = '';
                                             if (self.mainPage.currentBrowser.isChrome) {
                                                 paddingRight = 'padding-right:10px;';
                                             }
-                                            var prePointHandicapValue = self.helper.computeHandicap(prePoint); //prePoint.AwayHandicap > 0 ? prePoint.AwayHandicap : prePoint.HomeHandicap;
-                                            if (prePointHandicapValue != currentHandicapValue
+                                            var prePointHandicapValue = self.helper.computeHandicap(prePoint);
+                                            if (prePointHandicapValue !== currentHandicapValue
                                                 && !self.mainPage.constants.matchStop
                                                 && self.mainPage.startUpdateData) {
                                                 self.mainPage.updateOddsHandicap(this.key);
                                             }
 
                                             if (prePointHandicapValue > currentHandicapValue) {
-                                                return '<div style="width: 10px; height:15px;"><img style="' + paddingRight + '" src="' + DEFAULT_OBJECT.imageFolderUrl + 'down.png"></img></div>';
+                                                return '<div style="width: 10px; height:15px;">'
+                                                            + '<img style="' + paddingRight + '" src="' + DEFAULT_OBJECT.imageFolderUrl + 'down.png"></img>'
+                                                        + '</div>';
                                             }
                                             else if (prePointHandicapValue < currentHandicapValue) {
-                                                return '<div style="width: 10px; height:15px;"><img style="' + paddingRight + '" src="' + DEFAULT_OBJECT.imageFolderUrl + 'up.png"></img></div>';
+                                                return '<div style="width: 10px; height:15px;">'
+                                                            + '<img style="' + paddingRight + '" src="' + DEFAULT_OBJECT.imageFolderUrl + 'up.png"></img>'
+                                                        + '</div>';
                                             }
                                         }
                                     }
@@ -1108,8 +1126,7 @@ if (jQuery) {
             build: function (charts) {
                 var self = this;
                 if (charts && charts.length > 2) {
-                    var chartLength = charts.length,
-                        priceChartOptions = self.defaultPriceChartOption(),
+                    var priceChartOptions = self.defaultPriceChartOption(),
                         marketChartOptions = self.defaultMarketChartOption(),
                         timeChartOptions = self.defaultTimeChartOption(),
                         priceOddChartArray = [];
@@ -1117,7 +1134,7 @@ if (jQuery) {
 
                     for (var i in charts[1].Points) {
                         var point = charts[1].Points[i];
-                        if (point.EventType == self.mainPage.indicatorType.second.value) {
+                        if (point.EventType === self.mainPage.indicatorType.second.value) {
                             CRITERIA.stopTime = point.TimeIndex + 50;
                             break;
                         }
@@ -1130,18 +1147,18 @@ if (jQuery) {
                     var timeChartObject = self.buildSeries(self.type.event, charts[1]);
 
 
-                    for (var i = 2; i < charts.length; i++) {
+                    for (i = 2; i < charts.length; i++) {
                         priceOddChartArray.push(self.buildSeries(self.type.price, charts[i]));
                     }
 
                     //// Start pust market data to Chart.
-                    for (var i = 0; i < marketChartObject.series.length; i++) {
+                    for (i = 0; i < marketChartObject.series.length; i++) {
                         marketChartObject.series[i].yAxis = 0;
                         marketChartOptions.series.push(marketChartObject.series[i]);
                     }
 
                     //// Start pust market data to Chart.
-                    for (var i = 0; i < timeChartObject.series.length; i++) {
+                    for (i = 0; i < timeChartObject.series.length; i++) {
                         timeChartObject.series[i].yAxis = 0;
                         timeChartOptions.series.push(timeChartObject.series[i]);
                     }
@@ -1151,7 +1168,7 @@ if (jQuery) {
                     var priceSerieIndex = 0;
                     for (var j = 0; j < priceOddChartArray.length; j++) {
                         var currentChartData = priceOddChartArray[j];
-                        for (var i = 0; i < currentChartData.series.length; i++) {
+                        for (i = 0; i < currentChartData.series.length; i++) {
                             var currentSerie = currentChartData.series[i];
                             currentSerie.yAxis = 0;
                             priceChartOptions.series.push(currentSerie);
@@ -1221,10 +1238,11 @@ if (jQuery) {
                 }
             },
             buildSeries: function (chartType, chartData) {
+                /*jshint maxdepth:false, maxstatements:false*/
                 var self = this;
-                var isPriceChart = (chartType == self.type.price),
-                    isMarketChart = (chartType == self.type.market),
-                    isEventChart = (chartType == self.type.event);
+                var isPriceChart = (chartType === self.type.price),
+                    isMarketChart = (chartType === self.type.market),
+                    isEventChart = (chartType === self.type.event);
 
                 var chartObject =
                     {
@@ -1254,13 +1272,13 @@ if (jQuery) {
                     };
                 }
 
-                var pointsData = [],
-                    i = null,
-                    index = 0,
-                    homeTickets = 0, awayTickets = 0, totalTickets = 0;
+                var i = null,
+                    index = 0;
 
                 //// Sort Object Property, because default sort properties of Chrome different with other browsers
-                var keysSorted = Object.keys(chartData.Points).sort(function (timeA, timeB) { return chartData.Points[timeA].TimeIndex - chartData.Points[timeB].TimeIndex })
+                var keysSorted = Object.keys(chartData.Points).sort(function (timeA, timeB) {
+                    return chartData.Points[timeA].TimeIndex - chartData.Points[timeB].TimeIndex;
+                });
                 var showAway = CRITERIA.chooseAway;
                 var point = null, lastHasValuePoint = null;
 
@@ -1272,7 +1290,7 @@ if (jQuery) {
                     }
 
                     point = chartData.Points[keysSorted[i]];
-                    var isNoData = (point.TotalTickets == 0);
+                    var isNoData = (point.TotalTickets === 0);
 
                     point.IsPriceChart = isPriceChart;
                     point.BetTypeId = CRITERIA.betTypeId;
@@ -1286,7 +1304,7 @@ if (jQuery) {
                         self.mainPage.lastTime.event = index;
                     }
 
-                    if (index == 0 && isPriceChart) {
+                    if (index === 0 && isPriceChart) {
                         continue;
                     }
 
@@ -1297,13 +1315,13 @@ if (jQuery) {
 
 
                         if (isPriceChart) {
-                            if (index != 0) {
+                            if (index !== 0) {
                                 yValue = showAway ? homePoint.AwayOdds : homePoint.HomeOdds;
                                 if (index > self.oddsValueThreshold.index && yValue > self.oddsValueThreshold.value) {
                                     yValue = self.oddsValueThreshold.value;
                                 }
 
-                                if (index == 1) {
+                                if (index === 1) {
                                     homeSerie.data.push({
                                         name: homePoint,
                                         x: 0,
@@ -1341,7 +1359,7 @@ if (jQuery) {
                                 }
                             }
 
-                            if (self.isInBreakTime 
+                            if (self.isInBreakTime
                             && self.mainPage.timeStatus.haftTime.index <= point.TimeIndex) {
                                 if (self.isOdd) {
                                     yValue = null;
@@ -1380,8 +1398,8 @@ if (jQuery) {
                     self.updateCurrentEventTime(point);
                 }
 
-                if (homeSerie != null) chartObject.series.push(homeSerie);
-                if (awaySerie != null) chartObject.series.push(awaySerie);
+                if (homeSerie != null) { chartObject.series.push(homeSerie); }
+                if (awaySerie != null) { chartObject.series.push(awaySerie); }
 
                 return chartObject;
             },
@@ -1425,9 +1443,9 @@ if (jQuery) {
             getPoints: function (params) {
                 var self = this;
                 var maxTime = CRITERIA.stopTime;
-                if ((params.criteria.chartId == self.type.market && self.mainPage.lastTime.market >= maxTime)
-                    || (params.criteria.chartId == self.type.price && self.mainPage.lastTime[params.criteria.oddsId] >= maxTime)
-                    || (params.criteria.chartId == self.type.event && self.mainPage.lastTime.event >= maxTime)) {
+                if ((params.criteria.chartId === self.type.market && self.mainPage.lastTime.market >= maxTime)
+                    || (params.criteria.chartId === self.type.price && self.mainPage.lastTime[params.criteria.oddsId] >= maxTime)
+                    || (params.criteria.chartId === self.type.event && self.mainPage.lastTime.event >= maxTime)) {
                     self.mainPage.constants.matchStop = true;
                     self.mainPage.elements.$hideElementWhenStopMatch.hide();
                     self.mainPage.elements.$refreshCountDown.refreshCountDown('stopCountDown');
@@ -1482,6 +1500,7 @@ if (jQuery) {
                 return ajaxRequest;
             },
             addPricePoint: function (criteria, points) {
+                /*jshint maxdepth:false*/
                 var self = this,
                     chart = self.mainPage.elements.$priceChartContainer.highcharts(),
                     index = 0,
@@ -1511,15 +1530,14 @@ if (jQuery) {
                             });
                         }
                         else {
-                            var currentTeamChoosing = criteria.chooseHome ? 'Home' : 'Away',
-                                yValue = criteria.chooseHome ? point.HomeOdds : point.AwayOdds;
+                            var yValue = criteria.chooseHome ? point.HomeOdds : point.AwayOdds;
 
-                            if (index != 0) {
+                            if (index !== 0) {
                                 if (index > self.oddsValueThreshold.index && yValue > self.oddsValueThreshold.value) {
                                     yValue = self.oddsValueThreshold.value;
                                 }
 
-                                if (index == 1) {
+                                if (index === 1) {
                                     chart.series[0].addPoint({
                                         name: point,
                                         x: 0,
@@ -1528,7 +1546,7 @@ if (jQuery) {
                                 }
                             }
 
-                            if (index == 0) {
+                            if (index === 0) {
                                 continue;
                             }
 
@@ -1541,7 +1559,7 @@ if (jQuery) {
                     }
                 }
 
-                if (point && index != 0) {
+                if (point && index !== 0) {
                     self.updateCurrentPriceData(point);
                 }
             },
@@ -1557,7 +1575,7 @@ if (jQuery) {
                         self.mainPage.lastTime.market = parseInt(i);
                         point.IsPriceChart = false;
                         point.BetTypeId = criteria.betTypeId;
-                        var isNoData = (point.TotalTickets == 0);
+                        var isNoData = (point.TotalTickets === 0);
 
                         var homePoint = LIVECHARTS.cloneObject(point);
                         homePoint.IsHome = true;
@@ -1613,7 +1631,7 @@ if (jQuery) {
                             }
                         }
 
-                        if (self.isInBreakTime 
+                        if (self.isInBreakTime
                         && self.mainPage.timeStatus.haftTime.index <= point.TimeIndex) {
                             if (self.isOdd) {
                                 yValue = null;
@@ -1632,13 +1650,12 @@ if (jQuery) {
             },
             addIndicatorPoint: function (chart, indicatorPoint, currentPoint, pointLevel) {
                 var self = this,
-                    isHome = indicatorPoint.TeamId == CRITERIA.homeId,
+                    isHome = indicatorPoint.TeamId === CRITERIA.homeId,
                             left = currentPoint.plotX + chart.plotLeft - 9,
                             top = isHome ? (107 + pointLevel * 28) : (12 - pointLevel * 28),
                             addLeft = 0,
                             addTop = 15,
                             text = indicatorPoint.Name,
-                            secondTimeIndex = self.mainPage.timeStatus.second.index > 0 ? (0 - (self.mainPage.timeStatus.second.index - self.mainPage.timeStatus.haftTime.index)) : 0,
                             imageWidth = 14,
                             imageHeight = 17,
                             minusTop = -11,
@@ -1654,7 +1671,10 @@ if (jQuery) {
                         }
                         chart.renderer.image(self.mainPage.indicatorType.goal.image, left, top + addImageTop + addHaftTimeTop, imageHeight, imageHeight).add();
                         if (hasValue) {
-                            chart.renderer.text(indicatorPoint.Value, left + imageWidth + 3, top + addImageTop + imageWidth - 2).attr({ zIndex: 5 }).css(self.customDrawCss).add();
+                            chart.renderer.text(indicatorPoint.Value, left + imageWidth + 3, top + addImageTop + imageWidth - 2)
+                                .attr({ zIndex: 5 })
+                                .css(self.customDrawCss)
+                                .add();
                         }
                         addLeft += 3 + (indicatorPoint.TimeIndex < 10 ? 3 : 0);
                         text = '' + self.helper.getTime(indicatorPoint.TimeIndex, true).selectedTimeString;
@@ -1664,7 +1684,10 @@ if (jQuery) {
                     case self.mainPage.indicatorType.redCard.value:
                         chart.renderer.image(self.mainPage.indicatorType.redCard.image, left + 2, top + addImageTop, imageWidth, imageHeight).add();
                         if (hasValue) {
-                            chart.renderer.text(indicatorPoint.Value, left + imageWidth + 3, top + addImageTop + imageWidth - 2).attr({ zIndex: 5 }).css(self.customDrawCss).add();
+                            chart.renderer.text(indicatorPoint.Value, left + imageWidth + 3, top + addImageTop + imageWidth - 2)
+                                .attr({ zIndex: 5 })
+                                .css(self.customDrawCss)
+                                .add();
                         }
                         addLeft += 3 + (indicatorPoint.TimeIndex < 10 ? 3 : 0);
                         text = '' + self.helper.getTime(indicatorPoint.TimeIndex, true).timeString;
@@ -1730,13 +1753,13 @@ if (jQuery) {
                         self.addIndicatorPoint(chart, indicatorPoint, currentPoint, 0);
 
                         if (indicatorPoint.SubPoints.length > 0) {
-                            var homeIndex = (indicatorPoint.TeamId == CRITERIA.homeId) ? 0 : -1,
-                                awayIndex = (indicatorPoint.TeamId == CRITERIA.awayId) ? 0 : -1,
+                            var homeIndex = (indicatorPoint.TeamId === CRITERIA.homeId) ? 0 : -1,
+                                awayIndex = (indicatorPoint.TeamId === CRITERIA.awayId) ? 0 : -1,
                                 chooseHome = false, chooseAway = false;
                             for (var j = 0; j < indicatorPoint.SubPoints.length; j++) {
                                 var currentSubPoint = indicatorPoint.SubPoints[j];
-                                chooseHome = currentSubPoint.TeamId == CRITERIA.homeId;
-                                chooseAway = currentSubPoint.TeamId == CRITERIA.awayId;
+                                chooseHome = currentSubPoint.TeamId === CRITERIA.homeId;
+                                chooseAway = currentSubPoint.TeamId === CRITERIA.awayId;
                                 self.addIndicatorPoint(chart, currentSubPoint, currentPoint, chooseHome ? ++homeIndex : ++awayIndex);
                             }
                         }
@@ -1751,7 +1774,6 @@ if (jQuery) {
                 }
             },
             updateTimeLine: function (pointIndex) {
-                var self = this;
                 if (CRITERIA.isLive) {
                     var self = this;
                     var eventChart = self.mainPage.elements.$eventContainer.highcharts(),
@@ -1787,7 +1809,6 @@ if (jQuery) {
             updatePriceTimeLine: function (points) {
                 var self = this;
                 for (var i in points) {
-                    var point = points[i];
                     var pointIndex = parseInt(i);
                     var priceChart = self.mainPage.elements.$priceChartContainer.highcharts(),
                         currentPoint = priceChart.series[0].data[pointIndex],
@@ -1886,13 +1907,14 @@ if (jQuery) {
                 }
             }
         };
-    } ();
+    }) ();
 
-    
+
 
     $(function () {
+        'use strict';
         Fanex.ChartContent.init();
-        $('.dropdown-toggle').dropdown()
+        $('.dropdown-toggle').dropdown();
     });
 }
 else {

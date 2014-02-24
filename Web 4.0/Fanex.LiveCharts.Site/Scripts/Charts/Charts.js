@@ -5,9 +5,11 @@
 /// <reference path="../Libs/BlockUI/jquery.blockUI.js" />
 /// <reference path="../../Views/MovementCharts/Index.cshtml" />
 /// <reference path="../Libs/RefreshCountDown/RefreshCountDown.js" />
-
-if (jQuery != undefined) {
-    var MAIN_PAGE = function ($) {
+/*global DEFAULT_OBJECT, LANGUAGE, LIVECHARTS*/
+if (jQuery !== undefined) {
+    var FILTER;
+    var MAIN_PAGE = (function ($) {
+        'use strict';
         //// Private Variables
         this.currentIndex = 12;
         //// Public
@@ -46,6 +48,7 @@ if (jQuery != undefined) {
                 getChartRequest: null
             },
             cacheElements: function () {
+                /*jshint maxstatements:false*/
                 MAIN_PAGE.elements = {};
                 MAIN_PAGE.elements.$Sport = $('#ddlSportTypes');
                 MAIN_PAGE.elements.$League = $('#ddlLeagues');
@@ -126,19 +129,19 @@ if (jQuery != undefined) {
             initPage: function () {
                 MAIN_PAGE.cacheElements();
                 FILTER.initMainFilter();
-//                setInterval(function () {
-//                    $.ajax({
-//                        url: MAIN_PAGE.url.reCheckIn,
-//                        type: 'GET',
-//                        contentType: "application/json; charset=utf-8",
-//                        dataType: "json",
-//                        data: ''
-//                    }).done(function (data) {
-//                    }).fail(function (jqXHR, textStatus, errorThrown) {
-//                        MAIN_PAGE.handleAjaxException(jqXHR, textStatus, errorThrown);
-//                    }).always(function () {
-//                    });
-//                }, MAIN_PAGE.constants.reCheckInInterval);
+                //                setInterval(function () {
+                //                    $.ajax({
+                //                        url: MAIN_PAGE.url.reCheckIn,
+                //                        type: 'GET',
+                //                        contentType: "application/json; charset=utf-8",
+                //                        dataType: "json",
+                //                        data: ''
+                //                    }).done(function (data) {
+                //                    }).fail(function (jqXHR, textStatus, errorThrown) {
+                //                        MAIN_PAGE.handleAjaxException(jqXHR, textStatus, errorThrown);
+                //                    }).always(function () {
+                //                    });
+                //                }, MAIN_PAGE.constants.reCheckInInterval);
             },
             loadDefaultView: function () {
                 FILTER.initSubFilter();
@@ -149,7 +152,7 @@ if (jQuery != undefined) {
                     KickOffTime: MAIN_PAGE.elements.$Match.find("option:selected").attr('kick-off-time')
                 };
                 var selectedOdds = MAIN_PAGE.elements.$BettingOdds.find('option:selected');
-                if (selectedOdds.attr('is-live') == 'true') {
+                if (selectedOdds.attr('is-live') === 'true') {
                     MAIN_PAGE.criteria.IsLive = true;
                     MAIN_PAGE.criteria.PriceChartTimeIndex = MAIN_PAGE.lastTime.price = DEFAULT_OBJECT.liveStartTime;
                     MAIN_PAGE.criteria.MarketChartTimeIndex = MAIN_PAGE.lastTime.market = DEFAULT_OBJECT.liveStartTime;
@@ -165,15 +168,16 @@ if (jQuery != undefined) {
                 MAIN_PAGE.loadChart();
             },
             handleAjaxException: function (jqXHR, textStatus, errorThrown) {
-                try { $.unblockUI(); } catch (e) { };
-                if (textStatus != 'abort') {
+                try { $.unblockUI(); } catch (e) { }
+                if (textStatus !== 'abort') {
                     LIVECHARTS.handleAjaxError(jqXHR, textStatus, errorThrown);
                 }
             }
         };
-    }(jQuery);
+    }) (jQuery);
 
-    var FILTER = function ($) {
+    FILTER = (function ($) {
+        'use strict';
         return {
             initMainFilter: function () {
                 //// Main Filter
@@ -202,7 +206,7 @@ if (jQuery != undefined) {
                 });
                 MAIN_PAGE.elements.$BtnLoadChart.click(function () {
                     if (FILTER.validInputs()) {
-                        KickOffTime: MAIN_PAGE.elements.$Match.find("option:selected").attr('kick-off-time')
+                        //kickOffTime = MAIN_PAGE.elements.$Match.find("option:selected").attr('kick-off-time');
                         var url = MAIN_PAGE.url.chartContent + '?' + $.param({
                             matchId: parseInt(MAIN_PAGE.elements.$Match.val())
                         });
@@ -239,7 +243,7 @@ if (jQuery != undefined) {
                 MAIN_PAGE.elements.$BetTypeName.text(MAIN_PAGE.elements.$BetType.find("option:selected").text());
                 var oddSelected = MAIN_PAGE.elements.$BettingOdds.find("option:selected");
                 MAIN_PAGE.elements.$OddsName.text(oddSelected.text());
-                if (oddSelected.attr('is-live') == 'true') {
+                if (oddSelected.attr('is-live') === 'true') {
                     MAIN_PAGE.elements.$MatchStatus.addClass('match-status-live');
                 }
                 else {
@@ -247,14 +251,14 @@ if (jQuery != undefined) {
                 }
             },
             removeError: function (element) {
-                if (element.hasClass('custom-error') && parseInt(element.val()) != 0) {
+                if (element.hasClass('custom-error') && parseInt(element.val()) !== 0) {
                     element.removeClass('custom-error');
                     element.popover('destroy');
                 }
             },
 
             validInputs: function () {
-                if (parseInt(MAIN_PAGE.elements.$League.val()) == 0) {
+                if (parseInt(MAIN_PAGE.elements.$League.val()) === 0) {
                     MAIN_PAGE.elements.$League.popover({
                         title: "Warning",
                         content: DEFAULT_OBJECT.chooseALeague
@@ -264,7 +268,7 @@ if (jQuery != undefined) {
                     return false;
                 }
 
-                if (parseInt(MAIN_PAGE.elements.$Match.val()) == 0) {
+                if (parseInt(MAIN_PAGE.elements.$Match.val()) === 0) {
                     MAIN_PAGE.elements.$Match.popover({
                         title: "Warning",
                         content: DEFAULT_OBJECT.chooseAMatch
@@ -288,17 +292,19 @@ if (jQuery != undefined) {
                         matchDate: date
                     }),
                     beforeSend: function () {
-                        try { $.blockUI(); } catch (e) { };
+                        try { $.blockUI(); } catch (e) { }
                     }
                 }).done(function (data) {
                     var length = data.length,
                         leagueString = [],
                         isSelected = false;
 
-                    leagueString.push('<option value="0">' + LANGUAGE.selectLeague + '</option>')
+                    leagueString.push('<option value="0">' + LANGUAGE.selectLeague + '</option>');
                     for (var i = 0; i < length; i++) {
                         var currentLeague = data[i];
-                        leagueString.push('<option value="' + currentLeague.Id + '" ' + (!isSelected ? 'selected="selected"' : '') + '>' + currentLeague.LeagueName + '</option>')
+                        leagueString.push('<option value="' + currentLeague.Id + '" ' + (!isSelected ? 'selected="selected"' : '') + '>'
+                                                + currentLeague.LeagueName
+                                            + '</option>');
                         isSelected = true;
                     }
                     MAIN_PAGE.elements.$League.empty().html(leagueString.join(''));
@@ -320,14 +326,14 @@ if (jQuery != undefined) {
                         matchDate: date
                     }),
                     beforeSend: function () {
-                        try { $.blockUI(); } catch (e) { };
+                        try { $.blockUI(); } catch (e) { }
                     }
                 }).done(function (data) {
                     var length = data.length,
                         matchString = [],
                         isSelected = false;
 
-                    matchString.push('<option value="0">' + LANGUAGE.selectMatch + '</option>')
+                    matchString.push('<option value="0">' + LANGUAGE.selectMatch + '</option>');
                     for (var i = 0; i < length; i++) {
                         var currentMatch = data[i];
                         matchString.push('<option value="' + currentMatch.Id
@@ -339,7 +345,7 @@ if (jQuery != undefined) {
                             + '" kick-off-time-string="' + currentMatch.KickOffTimeString
                             + '" ' + (!isSelected ? 'selected="selected"' : '') + '>'
                             + currentMatch.MatchName
-                            + '</option>')
+                            + '</option>');
                         isSelected = true;
                     }
                     MAIN_PAGE.elements.$Match.empty().html(matchString.join(''));
@@ -347,20 +353,21 @@ if (jQuery != undefined) {
                         MAIN_PAGE.elements.$BtnLoadChart.trigger('click');
                         MAIN_PAGE.elements.$Match.unbind('change').change(function () {
                             MAIN_PAGE.elements.$BtnLoadChart.trigger('click');
-                        });;
+                        }); 
                     }
-                    
+
                 }).fail(function (jqXHR, textStatus, errorThrown) {
                     MAIN_PAGE.handleAjaxException(jqXHR, textStatus, errorThrown);
                 }).always(function () {
-                    try { $.unblockUI(); } catch (e) { };
+                    try { $.unblockUI(); } catch (e) { }
                 });
             }
         };
-    } (jQuery);
+    }) (jQuery);
 
-  
+
     $(function () {
+        'use strict';
         MAIN_PAGE.initPage();
     });
 }

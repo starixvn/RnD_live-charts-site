@@ -99,7 +99,7 @@ if (typeof jQuery != 'undefined') {
             },
             cloneObject : function (obj) {
                 var newObj = (obj instanceof Array) ? [] : {};
-                for (i in obj) {
+                for (var i in obj) {
                     if (i == 'clone') continue;
                     if (obj[i] && typeof obj[i] == "object") {
                         newObj[i] = LIVECHARTS.cloneObject(obj[i]);

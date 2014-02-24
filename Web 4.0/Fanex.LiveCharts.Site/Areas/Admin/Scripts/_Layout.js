@@ -1,3 +1,4 @@
+/*global LiveChartsAdmin*/
 $(document).ready(function () {
 
     var menuEvent = LiveChartsAdmin.agentIsMobile ? 'click' : 'hover';

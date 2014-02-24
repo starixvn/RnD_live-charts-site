@@ -1,5 +1,6 @@
-﻿$(function () {
-
+﻿/*global LIVECHARTS, totalMiliSecond*/
+$(function () {
+    'use strict';
     var note = $('#note'),
 		ts = (new Date()).getTime() + totalMiliSecond;
     var startMatch = false;
@@ -13,17 +14,17 @@
 
             var message = "";
 
-            message += days + " day" + (days == 1 ? '' : 's') + ", ";
-            message += hours + " hour" + (hours == 1 ? '' : 's') + ", ";
-            message += minutes + " minute" + (minutes == 1 ? '' : 's') + " and ";
-            message += seconds + " second" + (seconds == 1 ? '' : 's') + " <br />";
+            message += days + " day" + (days === 1 ? '' : 's') + ", ";
+            message += hours + " hour" + (hours === 1 ? '' : 's') + ", ";
+            message += minutes + " minute" + (minutes === 1 ? '' : 's') + " and ";
+            message += seconds + " second" + (seconds === 1 ? '' : 's') + " <br />";
             note.html(message);
 
-            if (days == 0 && hours == 0 && minutes == 0 && seconds == 0) {
+            if (days === 0 && hours === 0 && minutes === 0 && seconds === 0) {
                 startMatch = true;
                 window.location.href = window.location.href;
             }
-            
+
         }
     });
 
@@ -35,8 +36,8 @@
             dataType: "json",
             cache: false,
             data: ''
-        }).done(function (data) {
-        }).fail(function (jqXHR, textStatus, errorThrown) {
+        }).done(function () {
+        }).fail(function () {
         }).always(function () {
         });
     }, 60000);

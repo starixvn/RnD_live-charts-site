@@ -251,7 +251,7 @@
             });
             return ajaxRequest;
         },
-        finishUpdatingEvent: function (data) {
+        finishUpdatingEvent: function () {
             MatchDetail.successSummary.fadeIn();
             MatchDetail.successSummary.delay(3000).fadeOut();
             MatchDetail.loadEvents({ url: MatchDetail.url.getEventsUrl,
@@ -342,7 +342,7 @@
             MatchDetail.ddlTeam.on('change', MatchDetail.enableSubmitButton);
             MatchDetail.txtDetail.on('focus', MatchDetail.enableSubmitButton);
 
-            MatchDetail.eventList.on('click', '.link-event-info', function (e) {
+            MatchDetail.eventList.on('click', '.link-event-info', function () {
                 var $this = $(this),
 			    eventId = $this.text();
                 MatchDetail.loadEvent({ url: MatchDetail.url.getEventUrl, id: eventId });

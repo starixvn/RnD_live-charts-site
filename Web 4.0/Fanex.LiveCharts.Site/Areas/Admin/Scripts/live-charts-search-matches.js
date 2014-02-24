@@ -114,11 +114,11 @@
                             .html(SearchMatches.messageInfo.attr('data-success-message')).show()
                             .delay(3000).fadeOut();
                     }
-                }).fail(function (jqXHR, textStatus, errorThrown) {
-                    SearchMatches.messageInfo.empty()
-                            .removeClass('valid-message').addClass('error-message')
-                            .html(data.Message).show()
-                            .delay(15000).fadeOut();
+                }).fail(function () {
+//                    SearchMatches.messageInfo.empty()
+//                            .removeClass('valid-message').addClass('error-message')
+//                            .html(data.Message).show()
+//                            .delay(15000).fadeOut();
                 }).always(function () {
                     try { $.unblockUI(); } catch (e) { };
                 });
