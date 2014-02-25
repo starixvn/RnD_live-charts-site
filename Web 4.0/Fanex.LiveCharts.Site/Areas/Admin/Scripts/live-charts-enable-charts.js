@@ -1,4 +1,6 @@
-﻿var EnableCharts = function ($) {
+﻿/*global LiveChartsAdmin*/
+var EnableCharts = (function ($) {
+    'use strict';
     return {
         datesArea: null,
         fromDate: null,
@@ -28,7 +30,7 @@
                         chartShowingStatus: $this.prop('checked') ? 1 : 0
                     }),
                     beforeSend: function () {
-                        try { $.blockUI(); } catch (e) { };
+                        try { $.blockUI(); } catch (e) { }
                     }
                 }).done(function (data) {
                     if (data && data.Code > 0) {
@@ -44,12 +46,12 @@
                             .delay(3000).fadeOut();
                     }
                 }).fail(function () {
-//                    EnableCharts.messageInfo.empty()
-//                            .removeClass('valid-message').addClass('error-message')
-//                            .html(data.Message).show()
-//                            .delay(15000).fadeOut();
+                    //                    EnableCharts.messageInfo.empty()
+                    //                            .removeClass('valid-message').addClass('error-message')
+                    //                            .html(data.Message).show()
+                    //                            .delay(15000).fadeOut();
                 }).always(function () {
-                    try { $.unblockUI(); } catch (e) { };
+                    try { $.unblockUI(); } catch (e) { }
                 });
             });
         },
@@ -76,17 +78,18 @@
             });
         },
         showHideDateFields: function () {
-            if (EnableCharts.statusId.val() == 'true') {
+            if (EnableCharts.statusId.val() === 'true') {
                 EnableCharts.datesArea.attr('style', 'display: inline;');
                 EnableCharts.datesArea.fadeIn();
             } else {
                 EnableCharts.datesArea.fadeOut(100);
             }
         }
-    }
-} (jQuery);
+    };
+}) (jQuery);
 
 $(document).ready(function () {
+    'use strict';
     EnableCharts.init();
     EnableCharts.dateButtonImage = $('#dateImagePath').val();
     EnableCharts.initDateTimePicker();

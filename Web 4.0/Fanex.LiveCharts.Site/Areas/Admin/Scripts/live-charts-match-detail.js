@@ -1,4 +1,7 @@
-﻿var MatchDetail = function ($) {
+﻿/*global LiveChartsAdmin*/
+var FormValidator;
+var MatchDetail = (function ($) {
+    'use strict';
     return {
         eventList: null,
         eventForm: null,
@@ -82,7 +85,7 @@
             if (data.length > 0) {
                 var cssClass;
                 for (var i = 0; i < data.length; i++) {
-                    cssClass = (i % 2 == 1) ? "class='alt'" : "";
+                    cssClass = (i % 2 === 1) ? "class='alt'" : "";
                     MatchDetail.addEventTableRow(MatchDetail.gridEvent, data[i], cssClass);
                     if (data[i].EventTypeId > 200) {
                         MatchDetail.specialEvents[data[i].EventTypeId] = data[i];
@@ -92,11 +95,11 @@
         },
         addEventTableRow: function (tbody, data, cssClass) {
             var tr = "<tr {0}><td>";
-//            if (data.EventTypeId == 201 || data.EventTypeId == 202 || data.EventTypeId == 203) {
-//                tr += "{1}";
-//            }
-//            else {
-                tr += "<a href='javascript:;' class='link-event-info'>{1}</a>";
+            //            if (data.EventTypeId == 201 || data.EventTypeId == 202 || data.EventTypeId == 203) {
+            //                tr += "{1}";
+            //            }
+            //            else {
+            tr += "<a href='javascript:;' class='link-event-info'>{1}</a>";
             //}
             tr += "</td><td>{2}H {3}:{4}</td><td>{5}</td><td>{6}</td><td>{7}</td></tr>";
             tr = tr.format(cssClass, data.EventId, data.Half, data.Minute, data.Second, data.Name, data.TeamName, data.Detail);
@@ -175,7 +178,7 @@
                 dataType: "json",
                 data: JSON.stringify(updateOddCriteria),
                 beforeSend: function () {
-                    try { $.blockUI(); } catch (e) { };
+                    try { $.blockUI(); } catch (e) { }
                 }
             }).done(function (data) {
                 if (data && data.Code > 0) {
@@ -191,7 +194,7 @@
             }).fail(function (jqXHR, textStatus, errorThrown) {
                 MatchDetail.handleAjaxException(jqXHR, textStatus, errorThrown);
             }).always(function () {
-                try { $.unblockUI(); } catch (e) { };
+                try { $.unblockUI(); } catch (e) { }
             });
             return ajaxRequest;
         },
@@ -207,7 +210,7 @@
                     IsLive: MatchDetail.cbLive.is(':checked')
                 }),
                 beforeSend: function () {
-                    try { $.blockUI(); } catch (e) { };
+                    try { $.blockUI(); } catch (e) { }
                 }
             }).done(function (data) {
                 if (data && data.length > 0) {
@@ -215,8 +218,12 @@
                     for (var i = 0; i < data.length; i++) {
                         var currentOdds = data[i];
                         html.push('<div class="lbl-field width-auto"><label for="odds' + currentOdds.Id + '">');
-                        html.push('<input class="cb-odds" type="checkbox" id="odds' + currentOdds.Id + '" value="' + currentOdds.Id + '" ' + (currentOdds.ChartStatus ? 'checked="checked"' : '') + ' />');
-                        html.push(currentOdds.Id + ' - ' + (currentOdds.AwayHandicap > 0 ? currentOdds.AwayHandicapString : currentOdds.HomeHandicapString) + '</label></div>');
+                        html.push('<input class="cb-odds" type="checkbox" id="odds' + currentOdds.Id
+                                    + '" value="' + currentOdds.Id + '" ' 
+                                    + (currentOdds.ChartStatus ? 'checked="checked"' : '') + ' />');
+                        html.push(currentOdds.Id + ' - '
+                                + (currentOdds.AwayHandicap > 0 ? currentOdds.AwayHandicapString : currentOdds.HomeHandicapString) 
+                                + '</label></div>');
                     }
 
                     MatchDetail.oddsListContainer.empty().html(html.join(''));
@@ -228,7 +235,7 @@
             }).fail(function (jqXHR, textStatus, errorThrown) {
                 MatchDetail.handleAjaxException(jqXHR, textStatus, errorThrown);
             }).always(function () {
-                try { $.unblockUI(); } catch (e) { };
+                try { $.unblockUI(); } catch (e) { }
             });
             return ajaxRequest;
         },
@@ -240,14 +247,14 @@
                 dataType: "json",
                 data: JSON.stringify(params),
                 beforeSend: function () {
-                    try { $.blockUI(); } catch (e) { };
+                    try { $.blockUI(); } catch (e) { }
                 }
             }).done(function (data) {
                 MatchDetail.finishUpdatingEvent(data);
             }).fail(function (jqXHR, textStatus, errorThrown) {
                 MatchDetail.handleAjaxException(jqXHR, textStatus, errorThrown);
             }).always(function () {
-                try { $.unblockUI(); } catch (e) { };
+                try { $.unblockUI(); } catch (e) { }
             });
             return ajaxRequest;
         },
@@ -262,7 +269,7 @@
         },
         submitEvent: function () {
             if (!FormValidator.validate(MatchDetail.errorSummary, MatchDetail.eventForm))
-                return false;
+            { return false; }
             var recordedTime = MatchDetail.txtRecordedTime.val();
             var eventId = MatchDetail.spEventId.text();
             var minute = null, second = null;
@@ -274,7 +281,7 @@
                 second = recordedTime.substr(delim + 1, recordedTime.length - 1);
             }
 
-            if (eventId != '') {
+            if (eventId !== '') {
                 url = MatchDetail.url.updateEventUrl;
             } else {
                 url = MatchDetail.url.insertEventUrl;
@@ -326,7 +333,7 @@
                     $allChecked = $parent.find('input.cb-odds:checked'),
                     $betTypeCheckAll = $parent.prev().find('input[type=checkbox]');
 
-                $betTypeCheckAll.prop('checked', $allChoices.length == $allChecked.length);
+                $betTypeCheckAll.prop('checked', $allChoices.length === $allChecked.length);
 
             });
 
@@ -344,7 +351,7 @@
 
             MatchDetail.eventList.on('click', '.link-event-info', function () {
                 var $this = $(this),
-			    eventId = $this.text();
+                eventId = $this.text();
                 MatchDetail.loadEvent({ url: MatchDetail.url.getEventUrl, id: eventId });
             });
             MatchDetail.cbLive.click(MatchDetail.getOddsList);
@@ -356,21 +363,22 @@
             MatchDetail.btnSubmit.removeAttr('disabled');
         },
         handleAjaxException: function (jqXHR, textStatus, errorThrown) {
-            try { $.unblockUI(); } catch (e) { };
-            if (textStatus != 'abort') {
+            try { $.unblockUI(); } catch (e) { }
+            if (textStatus !== 'abort') {
                 LiveChartsAdmin.handleAjaxError(jqXHR, textStatus, errorThrown);
             }
         }
     };
-} (jQuery);
+}) (jQuery);
 
-var FormValidator = function ($) {
+FormValidator = (function ($) {
+    'use strict';
     return {
         validate: function (errorSummary, form) {
             FormValidator.clearErrorMsg(errorSummary, form);
 
             form.find('.edit-field input[data-val-required]').each(function () {
-                if ($(this).val() == '') {
+                if ($(this).val() === '') {
                     $(this).attr('class', 'input-validation-error');
                     errorSummary.append($('<li>', { text: $(this).attr('data-val-required') }));
                 }
@@ -386,7 +394,7 @@ var FormValidator = function ($) {
             });
 
             form.find('.edit-field select[data-val-required]').each(function () {
-                if ($(this).val() == '0') {
+                if ($(this).val() === '0') {
                     $(this).attr('class', 'input-validation-error');
                     errorSummary.append($('<li>', { text: $(this).attr('data-val-required') }));
                 }
@@ -407,7 +415,7 @@ var FormValidator = function ($) {
         validateTeamIdByEventType: function (errorSummary) {
             var eventTypeId = MatchDetail.ddlEventTypes.val();
             var teamId = MatchDetail.ddlTeam.val();
-            if ((eventTypeId < 200) && (teamId == 0)) {
+            if ((eventTypeId < 200) && (teamId === 0)) {
                 MatchDetail.ddlTeam.attr('class', 'input-validation-error');
                 errorSummary.append($('<li>', { text: MatchDetail.ddlTeam.attr('data-val-depends-on-event') }));
             }
@@ -416,14 +424,14 @@ var FormValidator = function ($) {
             var eventId = MatchDetail.spEventId.text();
             var eventTypeId = MatchDetail.ddlEventTypes.val();
 
-            if ((eventId == 0) && (eventTypeId > 200)) {
+            if ((eventId === 0) && (eventTypeId > 200)) {
                 var halfValue = MatchDetail.ddlHaves.val();
 
-                if ((eventTypeId < 204) && (halfValue == 2)) {
+                if ((eventTypeId < 204) && (halfValue === 2)) {
                     MatchDetail.ddlHaves.attr('class', 'input-validation-error');
                     MatchDetail.ddlEventTypes.attr('class', 'input-validation-error');
                     errorSummary.append($('<li>', { text: '1H' + MatchDetail.ddlHaves.attr('data-val-value') }));
-                } else if ((eventTypeId >= 204) && (halfValue == 1)) {
+                } else if ((eventTypeId >= 204) && (halfValue === 1)) {
                     MatchDetail.ddlHaves.attr('class', 'input-validation-error');
                     MatchDetail.ddlEventTypes.attr('class', 'input-validation-error');
                     errorSummary.append($('<li>', { text: '2H' + MatchDetail.ddlHaves.attr('data-val-value') }));
@@ -434,7 +442,7 @@ var FormValidator = function ($) {
             var eventTypeId = MatchDetail.ddlEventTypes.val();
             var eventId = MatchDetail.spEventId.text();
             if ((MatchDetail.specialEvents[eventTypeId] != null)
-                && (MatchDetail.specialEvents[eventTypeId].EventId != eventId)) {
+                && (MatchDetail.specialEvents[eventTypeId].EventId !== eventId)) {
                 MatchDetail.ddlEventTypes.attr('class', 'input-validation-error');
                 errorSummary.append($('<li>', { text: MatchDetail.ddlEventTypes.attr('data-val-duplicate-event') }));
             }
@@ -447,7 +455,10 @@ var FormValidator = function ($) {
                 for (var index = 201; index < eventTypeId; index++) {
                     if (MatchDetail.specialEvents[index] == null) {
                         MatchDetail.ddlEventTypes.attr('class', 'input-validation-error');
-                        errorSummary.append($('<li>', { text: MatchDetail.eventTypes[index].Name + MatchDetail.ddlEventTypes.attr('data-val-special-events-order') }));
+                        errorSummary.append(
+                                        $('<li>',{
+                                                    text: MatchDetail.eventTypes[index].Name + MatchDetail.ddlEventTypes.attr('data-val-special-events-order') 
+                                                }));
                         break;
                     }
                 }
@@ -461,10 +472,11 @@ var FormValidator = function ($) {
             errorSummary.parent().fadeOut('fast');
             errorSummary.find('li').remove();
         }
-    }
-} (jQuery);
+    };
+})(jQuery);
 
 $(document).ready(function () {
+    'use strict';
     MatchDetail.init();
     LiveChartsAdmin.setPlaceHolder();
     MatchDetail.bindEventHandlers();

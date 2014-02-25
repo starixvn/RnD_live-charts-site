@@ -6,14 +6,15 @@
 /// <reference path="../LIVECHARTS.js" />
 /// <reference path="../../Views/MovementCharts/ChartContent.cshtml" />
 
-/*global BROWSER, CHART_COLOR, CRITERIA, CHART, DEFAULT_OBJECT, LANGUAGE, LIVECHARTS*/
+/*global BROWSER, CHART_COLOR, CRITERIA, DEFAULT_OBJECT, LANGUAGE, LIVECHARTS*/
+/*export CHART*/
 
 
 if (jQuery) {
-    var Fanex = Fanex || {};
+    var Fanex = Fanex || {}; // jshint ignore:line
 
     Fanex.Chart = Fanex.Chart || {};
-
+    var CHART;
     Fanex.ChartContent = (function () {
         'use strict';
         return {
@@ -757,7 +758,7 @@ if (jQuery) {
         };
     }) ();
 
-    var CHART = (function () {
+    CHART = (function () {
         'use strict';
         return {
             type: {

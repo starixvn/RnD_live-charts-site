@@ -1,4 +1,6 @@
-﻿var SearchMatches = function ($) {
+﻿/*global LiveChartsAdmin*/
+var SearchMatches = (function ($) {
+    'use strict';
     return {
         matchDate: null,
         sportId: null,
@@ -22,7 +24,7 @@
                 var searchMatchParams = {
                     date: SearchMatches.matchDate.val(),
                     sportId: 1,
-                    leagueId: SearchMatches.leagueId.val() == '' ? 0 : SearchMatches.leagueId.val(),
+                    leagueId: SearchMatches.leagueId.val() === '' ? 0 : SearchMatches.leagueId.val(),
                     Keyword: SearchMatches.keyWord.val(),
                     KickedOff: SearchMatches.kickedOff.is(':checked')
                 };
@@ -33,7 +35,7 @@
                     data: searchMatchParams,
                     cache: false,
                     beforeSend: function () {
-                        try { $.blockUI(); } catch (e) { };
+                        try { $.blockUI(); } catch (e) { }
                     }
                 }).done(function (data) {
                     $('#grid-user').empty().html(data);
@@ -41,7 +43,7 @@
                 }).fail(function (jqXHR, textStatus, errorThrown) {
                     SearchMatches.handleAjaxException(jqXHR, textStatus, errorThrown);
                 }).always(function () {
-                    try { $.unblockUI(); } catch (e) { };
+                    try { $.unblockUI(); } catch (e) { }
                 });
 
             });
@@ -62,7 +64,7 @@
                         chartShowingStatus: 1
                     }),
                     beforeSend: function () {
-                        try { $.blockUI(); } catch (e) { };
+                        try { $.blockUI(); } catch (e) { }
                     }
                 }).done(function (data) {
                     if (data && data.Code > 0) {
@@ -81,7 +83,7 @@
                 }).fail(function (jqXHR, textStatus, errorThrown) {
                     SearchMatches.handleAjaxException(jqXHR, textStatus, errorThrown);
                 }).always(function () {
-                    try { $.unblockUI(); } catch (e) { };
+                    try { $.unblockUI(); } catch (e) { }
                 });
                 return ajaxRequest;
             });
@@ -99,7 +101,7 @@
                         chartShowingStatus: $this.prop('checked') ? 1 : 0
                     }),
                     beforeSend: function () {
-                        try { $.blockUI(); } catch (e) { };
+                        try { $.blockUI(); } catch (e) { }
                     }
                 }).done(function (data) {
                     if (data && data.Code > 0) {
@@ -115,12 +117,12 @@
                             .delay(3000).fadeOut();
                     }
                 }).fail(function () {
-//                    SearchMatches.messageInfo.empty()
-//                            .removeClass('valid-message').addClass('error-message')
-//                            .html(data.Message).show()
-//                            .delay(15000).fadeOut();
+                    //                    SearchMatches.messageInfo.empty()
+                    //                            .removeClass('valid-message').addClass('error-message')
+                    //                            .html(data.Message).show()
+                    //                            .delay(15000).fadeOut();
                 }).always(function () {
-                    try { $.unblockUI(); } catch (e) { };
+                    try { $.unblockUI(); } catch (e) { }
                 });
                 return ajaxRequest;
             });
@@ -159,14 +161,14 @@
                     sportId: params.sportId
                 }),
                 beforeSend: function () {
-                    try { $.blockUI(); } catch (e) { };
+                    try { $.blockUI(); } catch (e) { }
                 }
             }).done(function (data) {
                 SearchMatches.updateDdlLeagues(data);
             }).fail(function (jqXHR, textStatus, errorThrown) {
                 SearchMatches.handleAjaxException(jqXHR, textStatus, errorThrown);
             }).always(function () {
-                try { $.unblockUI(); } catch (e) { };
+                try { $.unblockUI(); } catch (e) { }
             });
             return ajaxRequest;
         },
@@ -177,15 +179,16 @@
             }
         },
         handleAjaxException: function (jqXHR, textStatus, errorThrown) {
-            try { $.unblockUI(); } catch (e) { };
-            if (textStatus != 'abort') {
+            try { $.unblockUI(); } catch (e) { }
+            if (textStatus !== 'abort') {
                 LiveChartsAdmin.handleAjaxError(jqXHR, textStatus, errorThrown);
             }
         }
-    }
-} (jQuery);
+    };
+}) (jQuery);
 
 $(document).ready(function () {
+    'use strict';
     SearchMatches.dateButtonImage = $('#dateImagePath').val();
     SearchMatches.initDateTimePicker();
     SearchMatches.init();
