@@ -97,6 +97,7 @@
     <Compile Include="Controllers\ChartsController.cs" />
     <Compile Include="Controllers\IntroductionController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\VotingController.cs" />
     <Compile Include="Core\AppSettings.cs" />
     <Compile Include="Core\CacheRef.cs" />
     <Compile Include="Core\Constants.cs" />
@@ -124,6 +125,9 @@
     <Compile Include="Criterias\GetOddsCriteria.cs" />
     <Compile Include="Criterias\ImportMatchQueueCriteria.cs" />
     <Compile Include="Criterias\InsertEventCriteria.cs" />
+    <Compile Include="Criterias\ScorePrediction\GetAllScorePredictionCriteria.cs" />
+    <Compile Include="Criterias\ScorePrediction\GetUserPredictionCriteria.cs" />
+    <Compile Include="Criterias\ScorePrediction\InsertOrUpdateScorePredictionItemCriteria.cs" />
     <Compile Include="Criterias\SearchMatchesCriteria.cs" />
     <Compile Include="Criterias\UpdateEventCriteria.cs" />
     <Compile Include="Criterias\UpdateMatchStatusCriteria.cs" />
@@ -144,14 +148,20 @@
     <Compile Include="Models\OddsGroup.cs" />
     <Compile Include="Models\Point.cs" />
     <Compile Include="Models\PointBase.cs" />
+    <Compile Include="Models\ScorePrediction\ScorePredictionItem.cs" />
+    <Compile Include="Models\ScorePrediction\ScorePredictionOption.cs" />
+    <Compile Include="Models\ScorePrediction\ScorePredictionTotal.cs" />
     <Compile Include="Models\Team.cs" />
     <Compile Include="Models\TeamChoice.cs" />
     <Compile Include="Models\Sport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Impl\BaseRepository.cs" />
     <Compile Include="Repositories\Impl\ChartRepository.cs" />
+    <Compile Include="Repositories\Impl\ScorePredictionRepository.cs" />
     <Compile Include="Repositories\Impl\UserRepository.cs" />
+    <Compile Include="Repositories\Interface\IBaseRepository.cs" />
     <Compile Include="Repositories\Interface\IChartRepository.cs" />
+    <Compile Include="Repositories\Interface\IScorePredictionRepository.cs" />
     <Compile Include="Repositories\Interface\IUserRepository.cs" />
     <Compile Include="Resources\AdminSiteLang.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -169,11 +179,13 @@
     <Compile Include="Services\Impl\MatchService.cs" />
     <Compile Include="Services\Impl\RedisCachingService.cs" />
     <Compile Include="Services\Impl\RemoveLockObjectService.cs" />
+    <Compile Include="Services\Impl\ScorePredictionService.cs" />
     <Compile Include="Services\Impl\ServiceBase.cs" />
     <Compile Include="Services\Impl\UserService.cs" />
     <Compile Include="Services\Interface\ICachingService.cs" />
     <Compile Include="Services\Interface\IChartService.cs" />
     <Compile Include="Services\Interface\IMatchService.cs" />
+    <Compile Include="Services\Interface\IScorePredictionService.cs" />
     <Compile Include="Services\Interface\IUserService.cs" />
     <Compile Include="ViewModel\ChartContentViewModel.cs" />
     <Compile Include="Web\CurrentSession.cs" />
@@ -208,6 +220,7 @@
       <Name>Fanex.LiveCharts.ClientAuthentication</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

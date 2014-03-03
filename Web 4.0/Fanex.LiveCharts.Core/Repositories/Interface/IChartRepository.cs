@@ -17,7 +17,7 @@ namespace Fanex.LiveCharts.Repositories.Interface
     /// <summary>
     /// Chart repository interface.
     /// </summary>
-    public interface IChartRepository : IDynamicRepository
+    public interface IChartRepository : IBaseRepository
     {
         /// <summary>
         /// Get job max time.
@@ -34,13 +34,6 @@ namespace Fanex.LiveCharts.Repositories.Interface
         /// <param name="maxTime">Get output max time.</param>
         /// <returns>Data list.</returns>
         IEnumerable<T> Fetch<T>(ICriteria criteria, ref DateTime maxTime);
-
-        /// <summary>
-        /// Modify database data.
-        /// </summary>
-        /// <param name="criteria">Modify data criteria.</param>
-        /// <returns>Command result.</returns>
-        ICommandResult ModifyData(ICriteria criteria);
 
         IEnumerable<Match> GetEnableCharts(ICriteria criteria);
 

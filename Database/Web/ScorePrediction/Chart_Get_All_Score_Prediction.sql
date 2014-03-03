@@ -1,6 +1,6 @@
-USE [LCC]
+USE [bodb_LCC]
 GO
-/****** Object:  StoredProcedure [dbo].[Chart_Insert_Or_Update_Voting_Option]    Script Date: 2/28/2014 11:19:27 AM ******/
+/****** Object:  StoredProcedure [dbo].[Chart_Get_Voting]    Script Date: 3/3/2014 9:55:36 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -14,7 +14,7 @@ Revisions:
 	
 
 */
-ALTER PROCEDURE [dbo].[Chart_Get_Voting]
+ALTER PROCEDURE [dbo].[Chart_Get_All_Score_Prediction]
 	@MatchId INT
 AS
 BEGIN
@@ -22,7 +22,7 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-	SELECT VotingOptionId, MatchId, HomeScore, AwayScore, VotingCount
-	FROM VotingOption (NOLOCK)
+	SELECT ScorePredictionOptionId, MatchId, HomeScore, AwayScore, ScorePredictionCount
+	FROM ScorePredictionOption (NOLOCK)
 	WHERE MatchId = @MatchId
 END

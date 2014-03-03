@@ -38,12 +38,14 @@
     <Setting Key="Chart_User_CheckIn" SpName="Chart_User_CheckIn" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
     <Setting Key="Chart_User_ReCheckIn" SpName="Chart_User_ReCheckIn" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
   </Function>
+  
   <Function Name="LiveChart-Authentication">
     <Setting Key="Chart_Insert_Token" SpName="Chart_Insert_Token" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
     <Setting Key="Chart_Get_Charts" SpName="Chart_Get_Charts" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" >
       <Mapping DataField="bettype" ObjectProperty="BetTypeId" />
     </Setting>
   </Function>
+  
   <Function Name="Movement-Chart">
     <Setting Key="Chart_Get_Leagues" SpName="Chart_Get_Leagues" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0">
       <Mapping DataField="leagueid" ObjectProperty="Id" />
@@ -104,5 +106,14 @@
 
     <Setting Key="Chart_Get_Current_Match_Data" SpName="Chart_Get_Current_Match_Data" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" ></Setting>
     <Setting Key="Chart_Admin_Update_Chart_Showing_Status" SpName="Chart_Admin_Update_Chart_Showing_Status" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" ></Setting>
+  </Function>
+
+  <Function Name="Score-Prediction">
+    <Setting Key="Chart_Insert_Or_Update_Score_Prediction_Item" SpName="Chart_Insert_Or_Update_Score_Prediction_Item" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0">
+    </Setting>
+    <Setting Key="Chart_Get_User_Prediction" SpName="Chart_Get_User_Prediction" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0">
+    </Setting>
+    <Setting Key="Chart_Get_All_Score_Prediction" SpName="Chart_Get_All_Score_Prediction" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0">
+    </Setting>
   </Function>
 </Functions>
