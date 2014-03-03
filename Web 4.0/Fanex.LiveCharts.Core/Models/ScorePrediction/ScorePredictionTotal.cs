@@ -18,10 +18,10 @@ namespace Fanex.LiveCharts.Models.ScorePrediction
     {
         public ScorePredictionTotal()
         {
-            ScorePredictionOptionTotal = new List<ScorePredictionOption>();
+            ScorePredictionOptions = new List<ScorePredictionOption>();
         }
 
-        public IList<ScorePredictionOption> ScorePredictionOptionTotal { get; set; }
+        public IList<ScorePredictionOption> ScorePredictionOptions { get; set; }
 
         public int TotalPrediction { get; set; }
     }

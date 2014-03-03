@@ -8,113 +8,134 @@
     return result;
 };
 
-var LIVECHARTS = {}; // Global namespace for common functions
+var LIVECHARTS = {
+    resolveUrl: function (url) {
+        var liveChartRoot = $('#LiveChartRoot');
 
-if (typeof jQuery !== 'undefined') {
-    // Functions in this namespace require jquery and jquery-ui
-    LIVECHARTS = (function ($) {
-        'use strict';
-        return {
-            resolveUrl: function (url) {
-                var liveChartRoot = $('#LiveChartRoot');
-
-                if (liveChartRoot.length === 0) {
-                    LIVECHARTS.console.error('"LiveChartRoot" does not exist! \
+        if (liveChartRoot.length === 0) {
+            LIVECHARTS.console.error('"LiveChartRoot" does not exist! \
                                               Please add the following code to your page (or _Layout page): @Html.Hidden("LiveChartRoot", Url.Content("~/"))');
-                } else {
-                    if (url.substr(0, 2) === '~/') {
-                        url = url.substr(2);
-                    } else if (url.substr(0, 1) === '/') {
-                        url = url.substr(1);
-                    }
-
-                    return liveChartRoot.val() + url;
-                }
-            },
-            generalErrorMsg: 'Your request is temporarily cannot be processed, please try again later!',
-            alertGeneralError: function () {
-                alert(LIVECHARTS.generalErrorMsg);
-            },
-            handleAjaxError: function (/*jqXHR, textStatus, errorThrown*/) {
-                //LIVECHARTS.alertGeneralError();
-            },
-            console: {
-                write: function (msg, consoleFunc) {
-                    if (typeof console !== 'undefined') {
-                        consoleFunc(msg);
-                    } else {
-                        alert(msg);
-                    }
-                },
-                log: function (msg) { LIVECHARTS.console.write(msg, console.log); },
-                info: function (msg) { LIVECHARTS.console.write(msg, console.info); },
-                warn: function (msg) { LIVECHARTS.console.write(msg, console.warn); },
-                error: function (msg) { LIVECHARTS.console.write(msg, console.error); }
-            },
-
-            parseJSON: function (value) {
-                return $.parseJSON(value.replaceAll("'", "\""));
-            },
-
-            detectBrowser: function () {
-                var matchedBrowser, browserDectect;
-
-                // Use of jQuery.browser is frowned upon.
-                // More details: http://api.jquery.com/jQuery.browser
-                // jQuery.uaMatch maintained for back-compat
-                function ubMatch(ua) {
-                    ua = ua.toLowerCase();
-
-                    var match = /(chrome)[ \/]([\w.]+)/.exec(ua) ||
-								/(webkit)[ \/]([\w.]+)/.exec(ua) ||
-								/(opera)(?:.*version|)[ \/]([\w.]+)/.exec(ua) ||
-								/(msie) ([\w.]+)/.exec(ua) ||
-								ua.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(ua) ||
-								[];
-
-                    return {
-                        browserDectect: match[1] || "",
-                        version: match[2] || "0"
-                    };
-                }
-
-                matchedBrowser = ubMatch(navigator.userAgent);
-                browserDectect = {};
-
-                if (matchedBrowser.browserDectect) {
-                    browserDectect[matchedBrowser.browserDectect] = true;
-                    browserDectect.version = matchedBrowser.version;
-                }
-
-                // Chrome is Webkit, but Webkit is also Safari.
-                if (browserDectect.chrome) {
-                    browserDectect.webkit = true;
-                } else if (browserDectect.webkit) {
-                    browserDectect.safari = true;
-                }
-                return browserDectect;
-            },
-            htmlEncode: function (str) {
-                return $('<div/>').text(str).html();
-            },
-            htmlDecode: function (str) {
-                return $('<div/>').html(str).text();
-            },
-            cloneObject: function (obj) {
-                var newObj = (obj instanceof Array) ? [] : {};
-                for (var i in obj) {
-                    if (i === 'clone') { continue; }
-                    if (obj[i] && typeof obj[i] === "object") {
-                        newObj[i] = LIVECHARTS.cloneObject(obj[i]);
-                    } else {
-                        newObj[i] = obj[i];
-                    }
-                }
-                return newObj;
+        } else {
+            if (url.substr(0, 2) === '~/') {
+                url = url.substr(2);
+            } else if (url.substr(0, 1) === '/') {
+                url = url.substr(1);
             }
-        };
-    }) (jQuery);
-}
+
+            return liveChartRoot.val() + url;
+        }
+    },
+    generalErrorMsg: 'Your request is temporarily cannot be processed, please try again later!',
+    alertGeneralError: function () {
+        alert(LIVECHARTS.generalErrorMsg);
+    },
+    handleAjaxError: function (/*jqXHR, textStatus, errorThrown*/) {
+        //LIVECHARTS.alertGeneralError();
+    },
+    console: {
+        write: function (msg, consoleFunc) {
+            if (typeof console !== 'undefined') {
+                consoleFunc(msg);
+            } else {
+                alert(msg);
+            }
+        },
+        log: function (msg) { LIVECHARTS.console.write(msg, console.log); },
+        info: function (msg) { LIVECHARTS.console.write(msg, console.info); },
+        warn: function (msg) { LIVECHARTS.console.write(msg, console.warn); },
+        error: function (msg) { LIVECHARTS.console.write(msg, console.error); }
+    },
+
+    parseJSON: function (value) {
+        return $.parseJSON(value.replaceAll("'", "\""));
+    },
+
+    detectBrowser: function () {
+        var matchedBrowser, browserDectect;
+
+        // Use of jQuery.browser is frowned upon.
+        // More details: http://api.jquery.com/jQuery.browser
+        // jQuery.uaMatch maintained for back-compat
+        function ubMatch(ua) {
+            ua = ua.toLowerCase();
+
+            var match = /(chrome)[ \/]([\w.]+)/.exec(ua) ||
+                        /(webkit)[ \/]([\w.]+)/.exec(ua) ||
+                        /(opera)(?:.*version|)[ \/]([\w.]+)/.exec(ua) ||
+                        /(msie) ([\w.]+)/.exec(ua) ||
+                        ua.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(ua) ||
+                        [];
+
+            return {
+                browserDectect: match[1] || "",
+                version: match[2] || "0"
+            };
+        }
+
+        matchedBrowser = ubMatch(navigator.userAgent);
+        browserDectect = {};
+
+        if (matchedBrowser.browserDectect) {
+            browserDectect[matchedBrowser.browserDectect] = true;
+            browserDectect.version = matchedBrowser.version;
+        }
+
+        // Chrome is Webkit, but Webkit is also Safari.
+        if (browserDectect.chrome) {
+            browserDectect.webkit = true;
+        } else if (browserDectect.webkit) {
+            browserDectect.safari = true;
+        }
+        return browserDectect;
+    },
+    htmlEncode: function (str) {
+        return $('<div/>').text(str).html();
+    },
+    htmlDecode: function (str) {
+        return $('<div/>').html(str).text();
+    },
+    cloneObject: function (obj) {
+        var newObj = (obj instanceof Array) ? [] : {};
+        for (var i in obj) {
+            if (i === 'clone') { continue; }
+            if (obj[i] && typeof obj[i] === "object") {
+                newObj[i] = LIVECHARTS.cloneObject(obj[i]);
+            } else {
+                newObj[i] = obj[i];
+            }
+        }
+        return newObj;
+    },
+    callAjax: function (ajaxOption) {
+        if (ajaxOption.type === 'POST') {
+            ajaxOption.data = JSON.stringify(ajaxOption.data);
+        }
+
+        $.ajax({
+            url: ajaxOption.url,
+            type: ajaxOption.type,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: ajaxOption.data,
+            beforeSend: function () {
+                try { $.blockUI(); } catch (e) { }
+            }
+        }).done(function (data) {
+            ajaxOption.done(data);
+            try { $.unblockUI(); } catch (e) { }
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            if (typeof (ajaxOption.fail) !== 'undefined') {
+                ajaxOption.fail(jqXHR, textStatus, errorThrown);
+            }
+            try { $.unblockUI(); } catch (e) { }
+            // Handle exception here
+        }).always(function () {
+            if (typeof (ajaxOption.always) !== 'undefined') {
+                ajaxOption.always();
+            }
+        });
+    }
+};
 
 /*jshint ignore:start*/
 // JSON for old browsers

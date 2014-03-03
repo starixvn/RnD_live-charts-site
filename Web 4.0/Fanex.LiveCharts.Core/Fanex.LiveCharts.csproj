@@ -96,8 +96,8 @@
     <Compile Include="Controllers\ChartApiController.cs" />
     <Compile Include="Controllers\ChartsController.cs" />
     <Compile Include="Controllers\IntroductionController.cs" />
+    <Compile Include="Controllers\ScorePredictionController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Controllers\VotingController.cs" />
     <Compile Include="Core\AppSettings.cs" />
     <Compile Include="Core\CacheRef.cs" />
     <Compile Include="Core\Constants.cs" />

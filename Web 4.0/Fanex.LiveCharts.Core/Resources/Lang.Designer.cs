@@ -520,6 +520,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Others.
+        /// </summary>
+        public static string Others {
+            get {
+                return ResourceManager.GetString("Others", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Over.
         /// </summary>
         public static string Over {
@@ -628,11 +637,29 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Submit.
+        /// </summary>
+        public static string Submit {
+            get {
+                return ResourceManager.GetString("Submit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Time:.
         /// </summary>
         public static string Time {
             get {
                 return ResourceManager.GetString("Time", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Prediction Result.
+        /// </summary>
+        public static string TotalPredictionResult {
+            get {
+                return ResourceManager.GetString("TotalPredictionResult", resourceCulture);
             }
         }
         
@@ -669,6 +696,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string ViewOnlyOneMatch {
             get {
                 return ResourceManager.GetString("ViewOnlyOneMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your Prediction.
+        /// </summary>
+        public static string YourPrediction {
+            get {
+                return ResourceManager.GetString("YourPrediction", resourceCulture);
             }
         }
     }

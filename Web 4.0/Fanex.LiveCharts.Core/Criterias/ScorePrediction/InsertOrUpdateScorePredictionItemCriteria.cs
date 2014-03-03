@@ -25,10 +25,6 @@ namespace Fanex.LiveCharts.Criterias.ScorePrediction
 
         public int AwayScore { get; set; }
 
-        public int ErrCode { get; set; }
-
-        public string ErrMsg { get; set; }
-
         public override string GetSettingKey()
         {
             return "Chart_Insert_Or_Update_Score_Prediction_Item";

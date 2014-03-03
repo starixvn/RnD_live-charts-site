@@ -22,6 +22,6 @@ namespace Fanex.LiveCharts.Services.Interface
 
         ICommandResult InsertOrUpdateScorePredictionItem(InsertOrUpdateScorePredictionItemCriteria insertOrUpdateScorePredictionItemCriteria);
 
-        ScorePredictionItem GetUserPredictionCreateria(GetUserPredictionCriteria getUserPredictionCriteria);
+        ScorePredictionItem GetUserPrediction(GetUserPredictionCriteria getUserPredictionCriteria);
     }
 }

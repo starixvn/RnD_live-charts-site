@@ -39,10 +39,10 @@ namespace Fanex.LiveCharts.Services.Impl
         {
             var scorePredictionTotal = new ScorePredictionTotal
             {
-                ScorePredictionOptionTotal = _scorePredictionRepository.Fetch<ScorePredictionOption>(getAllScorePredictionCriteria).ToList()
+                ScorePredictionOptions = _scorePredictionRepository.Fetch<ScorePredictionOption>(getAllScorePredictionCriteria).ToList()
             };
 
-            scorePredictionTotal.TotalPrediction = scorePredictionTotal.ScorePredictionOptionTotal.Sum(optionTotal => optionTotal.ScorePredictionCount);
+            scorePredictionTotal.TotalPrediction = scorePredictionTotal.ScorePredictionOptions.Sum(optionTotal => optionTotal.ScorePredictionCount);
 
             return scorePredictionTotal;
         }
@@ -53,10 +53,10 @@ namespace Fanex.LiveCharts.Services.Impl
             return _scorePredictionRepository.ModifyData(insertOrUpdateScorePredictionItemCriteria);
         }
 
-        public ScorePredictionItem GetUserPredictionCreateria(
+        public ScorePredictionItem GetUserPrediction(
             GetUserPredictionCriteria getUserPredictionCriteria)
         {
-            return _scorePredictionRepository.Single<ScorePredictionItem>(getUserPredictionCriteria);
+            return _scorePredictionRepository.Get<ScorePredictionItem>(getUserPredictionCriteria);
         }
     }
 }

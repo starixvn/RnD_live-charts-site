@@ -321,4 +321,16 @@
   <data name="PercentInTotal" xml:space="preserve">
     <value>Percent in total tickets</value>
   </data>
+  <data name="Others" xml:space="preserve">
+    <value>Others</value>
+  </data>
+  <data name="TotalPredictionResult" xml:space="preserve">
+    <value>Total Prediction Result</value>
+  </data>
+  <data name="YourPrediction" xml:space="preserve">
+    <value>Your Prediction</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
 </root>

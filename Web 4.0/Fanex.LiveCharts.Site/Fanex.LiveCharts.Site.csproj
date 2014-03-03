@@ -380,6 +380,9 @@
     <Content Include="Scripts\Libs\HighChart\themes\grid.js" />
     <Content Include="Scripts\Libs\HighChart\themes\skies.js" />
     <Content Include="Scripts\Libs\jquery-1.9.1.js" />
+    <Content Include="Scripts\ScorePrediction\ScorePrediction.js" />
+    <Content Include="Scripts\ScorePrediction\ScorePredictionView.js" />
+    <Content Include="Specs\Scripts\ScorePrediction\ScorePrediction.spec.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -403,6 +406,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Base\" />
+    <Folder Include="Views\ScorePrediction\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
