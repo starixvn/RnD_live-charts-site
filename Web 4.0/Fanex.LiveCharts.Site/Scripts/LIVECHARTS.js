@@ -8,8 +8,10 @@
     return result;
 };
 
+'use strict';
 var LIVECHARTS = {
     resolveUrl: function (url) {
+        'use strict';
         var liveChartRoot = $('#LiveChartRoot');
 
         if (liveChartRoot.length === 0) {
@@ -27,6 +29,7 @@ var LIVECHARTS = {
     },
     generalErrorMsg: 'Your request is temporarily cannot be processed, please try again later!',
     alertGeneralError: function () {
+        'use strict';
         alert(LIVECHARTS.generalErrorMsg);
     },
     handleAjaxError: function (/*jqXHR, textStatus, errorThrown*/) {
@@ -34,23 +37,26 @@ var LIVECHARTS = {
     },
     console: {
         write: function (msg, consoleFunc) {
+            'use strict';
             if (typeof console !== 'undefined') {
                 consoleFunc(msg);
             } else {
                 alert(msg);
             }
         },
-        log: function (msg) { LIVECHARTS.console.write(msg, console.log); },
-        info: function (msg) { LIVECHARTS.console.write(msg, console.info); },
-        warn: function (msg) { LIVECHARTS.console.write(msg, console.warn); },
-        error: function (msg) { LIVECHARTS.console.write(msg, console.error); }
+        log: function (msg) { 'use strict'; LIVECHARTS.console.write(msg, console.log); },
+        info: function (msg) { 'use strict'; LIVECHARTS.console.write(msg, console.info); },
+        warn: function (msg) { 'use strict'; LIVECHARTS.console.write(msg, console.warn); },
+        error: function (msg) { 'use strict'; LIVECHARTS.console.write(msg, console.error); }
     },
 
     parseJSON: function (value) {
+        'use strict';
         return $.parseJSON(value.replaceAll("'", "\""));
     },
 
     detectBrowser: function () {
+        'use strict';
         var matchedBrowser, browserDectect;
 
         // Use of jQuery.browser is frowned upon.
@@ -89,12 +95,15 @@ var LIVECHARTS = {
         return browserDectect;
     },
     htmlEncode: function (str) {
+        'use strict';
         return $('<div/>').text(str).html();
     },
     htmlDecode: function (str) {
+        'use strict';
         return $('<div/>').html(str).text();
     },
     cloneObject: function (obj) {
+        'use strict';
         var newObj = (obj instanceof Array) ? [] : {};
         for (var i in obj) {
             if (i === 'clone') { continue; }
@@ -107,6 +116,7 @@ var LIVECHARTS = {
         return newObj;
     },
     callAjax: function (ajaxOption) {
+        'use strict';
         if (ajaxOption.type === 'POST') {
             ajaxOption.data = JSON.stringify(ajaxOption.data);
         }

@@ -1,5 +1,6 @@
 ﻿/// <reference path="../../../Scripts/ScorePrediction/ScorePrediction.js" />
 /* File Created: March 3, 2014 */
+/*global describe, beforeEach, it, ScorePrediction*/
 'use strict';
 
 describe('Score Prediction', function () {

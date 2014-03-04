@@ -178,6 +178,9 @@
         <div class="prediction-small-result" id="smallResultContainer">
 
         </div>
+        <div class="full-result">
+            <span class="full-result-link btn-link" id="fullResultLink">View Full Result</span>
+        </div>
     </div>
     
 }
@@ -209,7 +212,9 @@
         homeName: '@(Model.HomeName)',
         awayName: '@(Model.AwayName)',
         showLiveAndDeadball: @(Model.ShowLiveAndDeadball ? "true" : "false"),
-        showChart: @(showChart ? "true" : "false")
+        showChart: @(showChart ? "true" : "false"),
+        homeNameEncoded: '@(HttpUtility.UrlEncode(Model.HomeName))',
+        awayNameEncoded: '@(HttpUtility.UrlEncode(Model.AwayName))'
         };
 
     CHART_COLOR.oddsColorsArray = CHART_COLOR.oddsColors.split(',');

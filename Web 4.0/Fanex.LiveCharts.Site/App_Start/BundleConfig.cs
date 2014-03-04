@@ -53,6 +53,10 @@ namespace Fanex.LiveCharts.Site
                 .Include("~/Scripts/LIVECHARTS.js")
                 .Include("~/Scripts/Libs/CountDown/jquery.countdown.js")
                 .Include("~/Scripts/Charts/OpenSoon.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/scorepredictionresult")
+                .Include("~/Scripts/ScorePrediction/ScorePrediction.js")
+                .Include("~/Scripts/ScorePrediction/ScorePredictionResultView.js"));
         }
     }
 }

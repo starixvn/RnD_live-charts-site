@@ -188,6 +188,7 @@
     <Compile Include="Services\Interface\IScorePredictionService.cs" />
     <Compile Include="Services\Interface\IUserService.cs" />
     <Compile Include="ViewModel\ChartContentViewModel.cs" />
+    <Compile Include="ViewModel\ScorePredictionViewModel\ScorePredictionResultViewModel.cs" />
     <Compile Include="Web\CurrentSession.cs" />
     <Compile Include="Web\Filters\P3PAttribute.cs" />
     <Compile Include="Web\Filters\ReCheckInAttribute.cs" />

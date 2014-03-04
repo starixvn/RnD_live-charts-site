@@ -7,17 +7,13 @@
 //   <change who="Ricky.Nguyen" date="2014.3.3">Created</change>
 // </history>
 
-
 namespace Fanex.LiveCharts.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Web.Mvc;
-    using Fanex.LiveCharts.Services.Interface;
-    using Fanex.LiveCharts.Services.Impl;
     using Fanex.LiveCharts.Criterias.ScorePrediction;
+    using Fanex.LiveCharts.Services.Impl;
+    using Fanex.LiveCharts.Services.Interface;
+    using Fanex.LiveCharts.ViewModel.ScorePredictionViewModel;
 
     /// <summary>
     /// TODO: Update summary.
@@ -26,13 +22,24 @@ namespace Fanex.LiveCharts.Controllers
     {
         private IScorePredictionService _scorePredictionService;
 
-        public ScorePredictionController() : this(null)
+        public ScorePredictionController()
+            : this(null)
         {
         }
 
         public ScorePredictionController(IScorePredictionService scorePredictionService)
         {
             _scorePredictionService = scorePredictionService ?? new ScorePredictionService();
+        }
+
+        public ActionResult Index(int matchId, string homeName, string awayName)
+        {
+            return View(new ScorePredictionResultViewModel
+            {
+                MatchId = matchId,
+                HomeName = homeName,
+                AwayName = awayName
+            });
         }
 
         [HttpPost]

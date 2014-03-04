@@ -1,0 +1,29 @@
+﻿@using Fanex.LiveCharts.ViewModel.ScorePredictionViewModel;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var scorePredictionResultViewModel = Model as ScorePredictionResultViewModel;
+}
+
+<h2>Index</h2>
+<div class="prediction-small-result" id="oneXTwoResultContainer">
+</div>
+<div class="prediction-small-result" id="oddEvenResultContainer">
+</div>
+<div class="prediction-small-result" id="correctScoreResultContainer">
+</div>
+<div class="prediction-small-result" id="handicapResultContainer">
+</div>
+
+<script type="text/javascript">
+    var scorePredictionViewModel = {
+        matchId: @(scorePredictionResultViewModel.MatchId),
+        homeName: '@(scorePredictionResultViewModel.HomeName)',
+        awayName: '@(scorePredictionResultViewModel.AwayName)'
+    };
+</script>
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/scorepredictionresult")
+}

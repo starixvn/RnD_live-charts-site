@@ -42,8 +42,10 @@
         @RenderSection("Headline", false)
     </section>*@
     
-        @RenderBody()
+    @RenderBody()
+    
     @Html.Hidden("LiveChartRoot", Url.Content("~/"))
+    
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jquerylibs")
     
