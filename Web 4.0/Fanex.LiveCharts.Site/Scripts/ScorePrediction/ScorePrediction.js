@@ -212,6 +212,9 @@ function ScorePrediction (
                 plotBorderWidth: null,
                 plotShadow: false
             },
+            credits: {
+                enabled: false
+            },
             title: {
                 text: 'Demo'
             },

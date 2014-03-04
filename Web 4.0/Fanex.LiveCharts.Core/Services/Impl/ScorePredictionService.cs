@@ -37,6 +37,7 @@ namespace Fanex.LiveCharts.Services.Impl
         public ScorePredictionTotal GetTotalScorePrediction(
             GetAllScorePredictionCriteria getAllScorePredictionCriteria)
         {
+
             var scorePredictionTotal = new ScorePredictionTotal
             {
                 ScorePredictionOptions = _scorePredictionRepository.Fetch<ScorePredictionOption>(getAllScorePredictionCriteria).ToList()

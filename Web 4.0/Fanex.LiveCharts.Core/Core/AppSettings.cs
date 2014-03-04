@@ -31,6 +31,7 @@ namespace Fanex.LiveCharts.Core
                 IsAdminSite = Converter.ToInt(GetValue("IsAdminSite")) > 0;
                 RedirectURLToAdminSite = GetValue("RedirectURLToAdminSite");
                 EnableLogAuthentication = Converter.ToInt(GetValue("EnableLogAuthentication")) > 0;
+                ScorePredictionCacheTimeOutSeconds = Converter.ToInt(GetValue("ScorePredictionCacheTimeOutSeconds"), 10);
             }
             catch (Exception ex)
             {
@@ -53,6 +54,8 @@ namespace Fanex.LiveCharts.Core
         public static string RedirectURLToAdminSite { get; set; }
 
         public static bool EnableLogAuthentication { get; set; }
+
+        public static int ScorePredictionCacheTimeOutSeconds { get; set; }
 
         /// <summary>
         /// Get value from key string.

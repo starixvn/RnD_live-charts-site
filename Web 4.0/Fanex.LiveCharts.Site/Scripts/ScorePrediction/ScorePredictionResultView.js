@@ -6,12 +6,15 @@
 'use strict';
 
 function ScorePredictionResultView() {
-    var me = this;
+    var me = this,
+        reloadTimeOutSeconds = 60;
+
 
     me.scorePrediction = new ScorePrediction(
         scorePredictionViewModel.homeName,
         scorePredictionViewModel.awayName,
         LANGUAGE.draw);
+
 
     me.url = {
         getScorePredictionResult: LIVECHARTS.resolveUrl('ScorePrediction/GetScorePrictionResult')
@@ -22,8 +25,30 @@ function ScorePredictionResultView() {
         me.oddEvenResultContainer = $('#oddEvenResultContainer');
         me.correctScoreResultContainer = $('#correctScoreResultContainer');
         me.handicapResultContainer = $('#handicapResultContainer');
+        me.refreshCountDownButton = $('#refreshCountDownOneXTwoResult, #refreshCountDownOddEvenResult, #refreshCountDownCorrectScoreResult, #refreshCountDownHandicapResult');
 
         me.loadResult();
+        me.isLoading = false;
+
+
+        me.refreshCountDownButton.parent().show();
+        me.refreshCountDownButton.refreshCountDown('stopCountDown').refreshCountDown(me.refreshCountDownOption);
+    };
+
+    me.refreshCountDownOption = {
+        countDownMinutes: 1,
+        countDownSeconds: 0,
+        refreshFunction: function (countDownObject, countDownStart) {
+            me.refreshCountDownButton.find('.loading-icon').removeClass('loading-icon').addClass('wait-loading-icon');
+            me.refreshCountDownButton.find('.countdown-time').html('').hide();
+            if (!me.isLoading) {
+                me.isLoading = true;
+                me.loadResult();
+            }
+            setTimeout(function () {
+                me.refreshCountDownButton.refreshCountDown('stopCountDown').refreshCountDown(me.refreshCountDownOption);
+            }, 1000);
+        }
     };
 
     me.loadResult = function () {
@@ -38,6 +63,7 @@ function ScorePredictionResultView() {
                 me.renderOddEvenResult(result);
                 me.renderCorrectScoreResult(result);
                 me.renderHandicapResult(result);
+                me.isLoading = false;
             }
         });
     };

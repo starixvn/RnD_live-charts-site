@@ -4,17 +4,36 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     var scorePredictionResultViewModel = Model as ScorePredictionResultViewModel;
 }
-
-<h2>Index</h2>
-<div class="prediction-small-result" id="oneXTwoResultContainer">
+@section Styles
+{
+    <link rel="stylesheet" href="~/Content/MovementCharts/ScorePrediction.less" type="text/css" />
+}
+<div class="prediction-result-panel">
+    <div class="refresh-button ">
+        <div id="refreshCountDownOneXTwoResult">
+        </div>
+    </div>
+    <div class="prediction-result" id="oneXTwoResultContainer">
+    </div>
+    <div class="refresh-button">
+        <div id="refreshCountDownOddEvenResult">
+        </div>
+    </div>
+    <div class="prediction-result" id="oddEvenResultContainer">
+    </div>
+    <div class="refresh-button">
+        <div id="refreshCountDownCorrectScoreResult">
+        </div>
+    </div>
+    <div class="prediction-result" id="correctScoreResultContainer">
+    </div>
+    <div class="refresh-button">
+        <div id="refreshCountDownHandicapResult">
+        </div>
+    </div>
+    <div class="prediction-result" id="handicapResultContainer">
+    </div>
 </div>
-<div class="prediction-small-result" id="oddEvenResultContainer">
-</div>
-<div class="prediction-small-result" id="correctScoreResultContainer">
-</div>
-<div class="prediction-small-result" id="handicapResultContainer">
-</div>
-
 <script type="text/javascript">
     var scorePredictionViewModel = {
         matchId: @(scorePredictionResultViewModel.MatchId),
@@ -22,7 +41,6 @@
         awayName: '@(scorePredictionResultViewModel.AwayName)'
     };
 </script>
-
 @section Scripts
 {
     @Scripts.Render("~/bundles/scorepredictionresult")
