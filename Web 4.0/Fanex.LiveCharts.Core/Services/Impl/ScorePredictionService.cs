@@ -34,10 +34,14 @@ namespace Fanex.LiveCharts.Services.Impl
             _scorePredictionRepository = scorePredictionRepository ?? new ScorePredictionRepository();
         }
 
+        /// <summary>
+        /// Get total score prediction for showing report.
+        /// </summary>
+        /// <param name="getAllScorePredictionCriteria">Parameters for query data.</param>
+        /// <returns>Score prediction total.</returns>
         public ScorePredictionTotal GetTotalScorePrediction(
             GetAllScorePredictionCriteria getAllScorePredictionCriteria)
         {
-
             var scorePredictionTotal = new ScorePredictionTotal
             {
                 ScorePredictionOptions = _scorePredictionRepository.Fetch<ScorePredictionOption>(getAllScorePredictionCriteria).ToList()

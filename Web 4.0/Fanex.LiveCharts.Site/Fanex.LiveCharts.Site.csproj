@@ -500,6 +500,7 @@
     <Content Include="Views\Introduction\zh-CN\Chart.cshtml" />
     <Content Include="Views\Introduction\zh-TW\Chart.cshtml" />
     <Content Include="Views\ScorePrediction\Index.cshtml" />
+    <None Include="Content\MovementCharts\ScorePrediction.less" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -9,7 +9,10 @@
 
 namespace Fanex.LiveCharts.Controllers
 {
+    using System;
+    using System.Web;
     using System.Web.Mvc;
+    using Fanex.Common;
     using Fanex.LiveCharts.Criterias.ScorePrediction;
     using Fanex.LiveCharts.Services.Impl;
     using Fanex.LiveCharts.Services.Interface;
@@ -20,6 +23,7 @@ namespace Fanex.LiveCharts.Controllers
     /// </summary>
     public class ScorePredictionController : Controller
     {
+        private const string CorePredictionCookie = "Fanex.LiveCharts.Controllers.ScorePredictionController";
         private IScorePredictionService _scorePredictionService;
 
         public ScorePredictionController()
@@ -49,16 +53,44 @@ namespace Fanex.LiveCharts.Controllers
             return Json(result);
         }
 
+        /// <summary>
+        /// Insert or update user prediction, if anonymous then create new id then set to cookie.
+        /// </summary>
+        /// <param name="criteria">Parameters to update/insert to database.</param>
+        /// <returns>JSON result information.</returns>
         [HttpPost]
         public JsonResult InsertOrUpdateScorePrediction(InsertOrUpdateScorePredictionItemCriteria criteria)
         {
+            var currentMemberId = Converter.ToInt(criteria.MemberId);
+            if (currentMemberId < 0)
+            {
+                criteria.MemberId = Guid.NewGuid().ToString();
+                HttpContext.Response.SetCookie(new HttpCookie(CorePredictionCookie, criteria.MemberId));
+            }
+
             var result = _scorePredictionService.InsertOrUpdateScorePredictionItem(criteria);
             return Json(result);
         }
 
+        /// <summary>
+        /// Get current user prediction.
+        /// </summary>
+        /// <param name="getUserPredictionCriteria">Parameter for get data.</param>
+        /// <returns>User prediction information.</returns>
         [HttpPost]
         public JsonResult GetUserPrediction(GetUserPredictionCriteria getUserPredictionCriteria)
         {
+            var currentMemberId = Converter.ToInt(getUserPredictionCriteria.MemberId);
+
+            if (currentMemberId < 0)
+            {
+                var currentCookie = HttpContext.Request.Cookies[CorePredictionCookie];
+                if (currentCookie != null)
+                {
+                    getUserPredictionCriteria.MemberId = currentCookie.Value;
+                }
+            }
+
             var result = _scorePredictionService.GetUserPrediction(getUserPredictionCriteria);
             return Json(result);
         }
