@@ -196,6 +196,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Correct Score.
+        /// </summary>
+        public static string CorrectScore {
+            get {
+                return ResourceManager.GetString("CorrectScore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Current Odds.
         /// </summary>
         public static string CurrentOdds {
@@ -453,6 +462,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string OddChoices {
             get {
                 return ResourceManager.GetString("OddChoices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Odd/Even.
+        /// </summary>
+        public static string OddEven {
+            get {
+                return ResourceManager.GetString("OddEven", resourceCulture);
             }
         }
         

@@ -333,4 +333,10 @@
   <data name="Submit" xml:space="preserve">
     <value>Submit</value>
   </data>
+  <data name="CorrectScore" xml:space="preserve">
+    <value>Correct Score</value>
+  </data>
+  <data name="OddEven" xml:space="preserve">
+    <value>Odd/Even</value>
+  </data>
 </root>

@@ -220,6 +220,7 @@
     <Content Include="Content\Images\goal.gif" />
     <Content Include="Content\Images\live-icon.gif" />
     <Content Include="Content\Images\loader3.gif" />
+    <Content Include="Content\Images\right-arrow-more-detail.png" />
     <Content Include="Content\Images\Soccer_ball.png" />
     <Content Include="Content\Images\soccer_ball_full_page.png" />
     <Content Include="Content\Images\tile_bg.jpg" />
@@ -500,6 +501,7 @@
     <Content Include="Views\Introduction\zh-CN\Chart.cshtml" />
     <Content Include="Views\Introduction\zh-TW\Chart.cshtml" />
     <Content Include="Views\ScorePrediction\Index.cshtml" />
+    <None Include="Content\MovementCharts\ScorePredictionResult.less" />
     <None Include="Content\MovementCharts\ScorePrediction.less" />
     <Content Include="Views\ScorePrediction\ScorePredictionPartialView.cshtml" />
   </ItemGroup>

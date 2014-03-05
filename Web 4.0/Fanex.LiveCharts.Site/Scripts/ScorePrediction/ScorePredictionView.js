@@ -72,7 +72,7 @@ function ScorePredictionView() {
                 + '&homeName=' + CRITERIA.homeNameEncoded
                 + '&awayName=' + CRITERIA.awayNameEncoded,
                 '',
-                'width=660,height=640,directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,resizable=no');
+                'width=1000,height=700,directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,resizable=no');
         });
 
 
@@ -84,7 +84,9 @@ function ScorePredictionView() {
                         countDownMinutes: me.refreshMinutes,
                         countDownSeconds: 0,
                         refreshFunction: function (countDownObject, countDownStart) {
-                            console.log('aaa');
+                            me.getCorrectScoreResult({
+                                matchId: me.matchId
+                            });
                             setTimeout(function () {
                                 countDownStart(countDownObject);
                             }, 1000);

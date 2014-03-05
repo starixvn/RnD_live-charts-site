@@ -6,32 +6,61 @@
 }
 @section Styles
 {
-    <link rel="stylesheet" href="~/Content/MovementCharts/ScorePrediction.less" type="text/css" />
+    <link rel="stylesheet" href="~/Content/MovementCharts/ScorePredictionResult.less"
+        type="text/css" />
 }
 <div class="prediction-result-panel">
-    <div class="refresh-button ">
-        <div id="refreshCountDownOneXTwoResult" class="refresh-button-main">
+    <div class="result-panel">
+        <div class="result-information">
+            <span class="result-label">@Lang._1x2</span>
+            <div class="result-button">
+                <div class="refresh-button ">
+                    <div id="refreshCountDownOneXTwoResult" class="refresh-button-main">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="prediction-result" id="oneXTwoResultContainer">
         </div>
     </div>
-    <div class="prediction-result" id="oneXTwoResultContainer">
-    </div>
-    <div class="refresh-button">
-        <div id="refreshCountDownOddEvenResult" class="refresh-button-main">
+    <div class="result-panel">
+        <div class="result-information">
+            <span class="result-label">@Lang.OddEven</span>
+            <div class="result-button">
+                <div class="refresh-button">
+                    <div id="refreshCountDownOddEvenResult" class="refresh-button-main">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="prediction-result" id="oddEvenResultContainer">
         </div>
     </div>
-    <div class="prediction-result" id="oddEvenResultContainer">
-    </div>
-    <div class="refresh-button">
-        <div id="refreshCountDownCorrectScoreResult" class="refresh-button-main">
+    <div class="result-panel">
+        <div class="result-information">
+            <span class="result-label">@Lang.CorrectScore</span>
+            <div class="result-button">
+                <div class="refresh-button">
+                    <div id="refreshCountDownCorrectScoreResult" class="refresh-button-main">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="prediction-result" id="correctScoreResultContainer">
         </div>
     </div>
-    <div class="prediction-result" id="correctScoreResultContainer">
-    </div>
-    <div class="refresh-button">
-        <div id="refreshCountDownHandicapResult" class="refresh-button-main">
+    <div class="result-panel">
+        <div class="result-information">
+            <span class="result-label">@Lang.Handicap</span>
+            <div class="result-button">
+                <div class="refresh-button">
+                    <div id="refreshCountDownHandicapResult" class="refresh-button-main">
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="prediction-result" id="handicapResultContainer">
+        <div class="prediction-result" id="handicapResultContainer">
+        </div>
     </div>
 </div>
 <script type="text/javascript">
