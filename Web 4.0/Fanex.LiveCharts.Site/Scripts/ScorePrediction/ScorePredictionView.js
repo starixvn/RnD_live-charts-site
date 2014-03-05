@@ -8,28 +8,56 @@ function ScorePredictionView() {
     var me = this;
 
     me.scorePrediction = new ScorePrediction();
+    me.matchId = CRITERIA.matchId;
+    me.memberId = Math.floor((Math.random() * -10000) + 1);
+    me.refreshMinutes = 1;
 
     me.url = {
         insertOrUpdateScorePrediction: LIVECHARTS.resolveUrl('ScorePrediction/InsertOrUpdateScorePrediction'),
-        getCurrentUserPrediction: LIVECHARTS.resolveUrl('ScorePrediction/GetCharts'),
+        getCurrentUserPrediction: LIVECHARTS.resolveUrl('ScorePrediction/GetUserPrediction'),
         getScorePredictionResult: LIVECHARTS.resolveUrl('ScorePrediction/GetScorePrictionResult'),
         resultPage: LIVECHARTS.resolveUrl('ScorePrediction/Index')
     };
 
     me.init = function () {
-        me.txtHomeScore = $('#homePredictionValue');
-        me.txtAwayScore = $('#awayPredictionValue');
-        me.btnSubmitPrediction = $('#submitPreditionValue');
-        me.smallContainerResult = $('#smallResultContainer');
-        me.fullResultLink = $('#fullResultLink');
-        me.memberId = Math.floor((Math.random() * 10000) + 1);
+        me.$txtHomeScore = $('#homePredictionValue');
+        me.$txtAwayScore = $('#awayPredictionValue');
+        me.$btnSubmitPrediction = $('#submitPreditionValue');
+        me.$smallContainerResult = $('#smallResultContainer');
+        me.$fullResultLink = $('#fullResultLink');
+        me.$resultRefreshCountDown = $('#resultRefreshCountDown');
+        me.loadDefaultScorePrediction();
         me.registerEvents();
     };
 
+    me.loadDefaultScorePrediction = function () {
+        LIVECHARTS.callAjax({
+            url: me.url.getCurrentUserPrediction,
+            type: 'POST',
+            data: {
+                memberId: me.memberId,
+                matchId: me.matchId
+            },
+            done: function (result) {
+                var homeScore = 0, awayScore = 0;
+                if (result.MemberId) {
+                    homeScore = result.HomeScore;
+                    awayScore = result.AwayScore;
+                    me.getCorrectScoreResult({
+                        matchId: me.matchId
+                    });
+                }
+
+                me.$txtHomeScore.val(homeScore);
+                me.$txtAwayScore.val(awayScore);
+            }
+        });
+    };
+
     me.registerEvents = function () {
-        me.btnSubmitPrediction.unbind('click').click(function () {
-            var homeScore = me.txtHomeScore.val();
-            var awayScore = me.txtAwayScore.val();
+        me.$btnSubmitPrediction.unbind('click').click(function () {
+            var homeScore = me.$txtHomeScore.val();
+            var awayScore = me.$txtAwayScore.val();
             me.insertOrUpdateScorePrediction({
                 memberId: me.memberId,
                 matchId: CRITERIA.matchId,
@@ -38,7 +66,7 @@ function ScorePredictionView() {
             });
         });
 
-        me.fullResultLink.unbind('click').click(function () {
+        me.$fullResultLink.unbind('click').click(function () {
             window.open(me.url.resultPage
                 + '?matchId=' + CRITERIA.matchId
                 + '&homeName=' + CRITERIA.homeNameEncoded
@@ -46,6 +74,22 @@ function ScorePredictionView() {
                 '',
                 'width=660,height=640,directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,resizable=no');
         });
+
+
+        //// Load refresh countdown
+
+        me.$resultRefreshCountDown.parent().show();
+        me.$resultRefreshCountDown.refreshCountDown('stopCountDown')
+                    .refreshCountDown({
+                        countDownMinutes: me.refreshMinutes,
+                        countDownSeconds: 0,
+                        refreshFunction: function (countDownObject, countDownStart) {
+                            console.log('aaa');
+                            setTimeout(function () {
+                                countDownStart(countDownObject);
+                            }, 1000);
+                        }
+                    });
     };
 
     me.getCorrectScoreResult = function (params) { 
@@ -54,9 +98,9 @@ function ScorePredictionView() {
             type: 'POST',
             data: params,
             done: function (result) {
-                var resultArray = me.scorePrediction.getHandicapResult(result);
-                var scoreOption = me.scorePrediction.getScoreOption(resultArray);
-                me.smallContainerResult.highcharts(scoreOption);
+                var resultArray = me.scorePrediction.getCorrectScoreResult(result);
+                var scoreOption = me.scorePrediction.getScoreOption(resultArray, 'Correct Score');
+                me.$smallContainerResult.highcharts(scoreOption);
             }
         });
     };

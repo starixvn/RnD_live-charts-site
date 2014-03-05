@@ -501,6 +501,7 @@
     <Content Include="Views\Introduction\zh-TW\Chart.cshtml" />
     <Content Include="Views\ScorePrediction\Index.cshtml" />
     <None Include="Content\MovementCharts\ScorePrediction.less" />
+    <Content Include="Views\ScorePrediction\ScorePredictionPartialView.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

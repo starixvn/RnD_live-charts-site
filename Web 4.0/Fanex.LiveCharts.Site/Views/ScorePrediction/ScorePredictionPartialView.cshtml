@@ -1,0 +1,43 @@
+﻿<div class="score-prediction">
+    <div class="prediction-input span12">
+        <fieldset>
+            <legend>
+                @Lang.YourPrediction
+            </legend>
+            <div class="home-prediction span10">
+                <div class="home-name span5">
+                    @Model.HomeName
+                </div>
+                <div class="home-predict-value">
+                    <input type="text" id="homePredictionValue" class="span3" />
+                </div>
+            </div>
+            <div class="away-prediction span10">
+                <div class="away-name span5">
+                    @Model.AwayName
+                </div>
+                <div class="away-predict-value">
+                    <input type="text" id="awayPredictionValue" class="span3" />
+                </div>
+            </div>
+            <div class="prediction-submit">
+                <input type="submit" id="submitPreditionValue" value="@Lang.Submit" />
+            </div>
+        </fieldset>
+    </div>
+    <div class="result-information">
+        <span class="result-label">Correct Score</span>
+        <div class="result-button">
+            
+            <div class="full-result">
+                <span class="full-result-link btn-link" id="fullResultLink"></span>
+            </div>
+            <div class="refresh-button">
+                <div id="resultRefreshCountDown">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="prediction-small-result" id="smallResultContainer">
+    </div>
+</div>

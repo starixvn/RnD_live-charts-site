@@ -16,12 +16,14 @@ namespace Fanex.LiveCharts.Services.Impl
     using Fanex.LiveCharts.Repositories.Interface;
     using Fanex.LiveCharts.Services.Interface;
     using Fanex.NAP.Framework.Data;
+    using Fanex.LiveCharts.Core;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
     public class ScorePredictionService : ServiceBase, IScorePredictionService
     {
+        private const string ScorePredictionTotalCacheKey = "Fanex.LiveCharts.Services.Impl.ScorePredictionService";
         private IScorePredictionRepository _scorePredictionRepository;
 
         public ScorePredictionService()
@@ -42,12 +44,28 @@ namespace Fanex.LiveCharts.Services.Impl
         public ScorePredictionTotal GetTotalScorePrediction(
             GetAllScorePredictionCriteria getAllScorePredictionCriteria)
         {
+            var cacheKey = string.Format("{0}_{1}", ScorePredictionTotalCacheKey, getAllScorePredictionCriteria.MatchId);
+            var isUsingCache = AppSettings.ScorePredictionCacheTimeOutSeconds > 0;
+            if (isUsingCache)
+            {
+                var scorePredictionCache = CacheManager.Instance.Get<ScorePredictionTotal>(cacheKey);
+                if (scorePredictionCache != null)
+                {
+                    return scorePredictionCache;
+                }
+            }
+
             var scorePredictionTotal = new ScorePredictionTotal
             {
                 ScorePredictionOptions = _scorePredictionRepository.Fetch<ScorePredictionOption>(getAllScorePredictionCriteria).ToList()
             };
 
             scorePredictionTotal.TotalPrediction = scorePredictionTotal.ScorePredictionOptions.Sum(optionTotal => optionTotal.ScorePredictionCount);
+
+            if (isUsingCache)
+            {
+                CacheManager.Instance.Set<ScorePredictionTotal>(cacheKey, scorePredictionTotal);
+            }
 
             return scorePredictionTotal;
         }
@@ -61,7 +79,14 @@ namespace Fanex.LiveCharts.Services.Impl
         public ScorePredictionItem GetUserPrediction(
             GetUserPredictionCriteria getUserPredictionCriteria)
         {
-            return _scorePredictionRepository.Get<ScorePredictionItem>(getUserPredictionCriteria);
+            var currentUserPrediction = _scorePredictionRepository.Get<ScorePredictionItem>(getUserPredictionCriteria);
+
+            if (currentUserPrediction == null)
+            {
+                return new ScorePredictionItem();
+            }
+
+            return currentUserPrediction;
         }
     }
 }

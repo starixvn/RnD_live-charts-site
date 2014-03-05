@@ -10,8 +10,6 @@ if (jQuery !== undefined) {
     var FILTER;
     var MAIN_PAGE = (function ($) {
         'use strict';
-        //// Private Variables
-        this.currentIndex = 12;
         //// Public
         return {
             constants: {

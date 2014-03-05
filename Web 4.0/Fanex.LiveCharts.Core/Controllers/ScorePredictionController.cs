@@ -61,12 +61,7 @@ namespace Fanex.LiveCharts.Controllers
         [HttpPost]
         public JsonResult InsertOrUpdateScorePrediction(InsertOrUpdateScorePredictionItemCriteria criteria)
         {
-            var currentMemberId = Converter.ToInt(criteria.MemberId);
-            if (currentMemberId < 0)
-            {
-                criteria.MemberId = Guid.NewGuid().ToString();
-                HttpContext.Response.SetCookie(new HttpCookie(CorePredictionCookie, criteria.MemberId));
-            }
+            criteria.MemberId = GetUserIdFromCookie(criteria.MemberId);
 
             var result = _scorePredictionService.InsertOrUpdateScorePredictionItem(criteria);
             return Json(result);
@@ -80,19 +75,32 @@ namespace Fanex.LiveCharts.Controllers
         [HttpPost]
         public JsonResult GetUserPrediction(GetUserPredictionCriteria getUserPredictionCriteria)
         {
-            var currentMemberId = Converter.ToInt(getUserPredictionCriteria.MemberId);
+            getUserPredictionCriteria.MemberId = GetUserIdFromCookie(getUserPredictionCriteria.MemberId);
+
+            var result = _scorePredictionService.GetUserPrediction(getUserPredictionCriteria);
+            return Json(result);
+        }
+
+        [NonAction]
+        private string GetUserIdFromCookie(string memberId)
+        {
+            var currentMemberId = Converter.ToInt(memberId);
 
             if (currentMemberId < 0)
             {
                 var currentCookie = HttpContext.Request.Cookies[CorePredictionCookie];
                 if (currentCookie != null)
                 {
-                    getUserPredictionCriteria.MemberId = currentCookie.Value;
+                    return currentCookie.Value;
+                }
+                else
+                {
+                    var newMemberId = Guid.NewGuid().ToString();
+                    HttpContext.Response.SetCookie(new HttpCookie(CorePredictionCookie, newMemberId));
                 }
             }
 
-            var result = _scorePredictionService.GetUserPrediction(getUserPredictionCriteria);
-            return Json(result);
+            return memberId;
         }
     }
 }

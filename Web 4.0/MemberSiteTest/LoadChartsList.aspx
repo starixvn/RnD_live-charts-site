@@ -99,7 +99,7 @@
     %>
     <script type="text/javascript">
         function LoadChart(matchId, language) {
-            window.open('LoadChart.aspx?matchId=' + matchId + '&language=' + language, '', 'width=660,height=640,directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,resizable=no');
+            window.open('LoadChart.aspx?matchId=' + matchId + '&language=' + language, '', 'width=1024,height=700,directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,resizable=no');
         }
     </script>
 </body>

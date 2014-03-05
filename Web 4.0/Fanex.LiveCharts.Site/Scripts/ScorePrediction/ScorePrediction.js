@@ -15,11 +15,14 @@ function ScorePrediction (
     me.drawColor = '#C3D69B';
     me.evenColor = '#0b72bb';
     me.oddColor = '#ff9400';
+    me.otherColor = '#122121';
     me.homeName = homeName || '';
     me.awayName = awayName || '';
     me.drawName = drawName || '';
     me.oddName = oddName || 'Odd';
     me.evenName = evenName || 'Even';
+    me.otherName = 'Others';
+    me.minPercent = 4;
 
     me.getCorrectScoreResult = function (predictionOptionTotal) {
         var resultArray = [],
@@ -35,7 +38,7 @@ function ScorePrediction (
             });
         }
 
-        return me.sortResult(resultArray);
+        return me.combineLowerOptionToOther(me.sortResult(resultArray));
     };
 
     me.getHandicapResult = function (predictionOptionTotal) {
@@ -77,7 +80,7 @@ function ScorePrediction (
             });
         }
 
-        return me.sortResult(resultArray);
+        return me.combineLowerOptionToOther(me.sortResult(resultArray));
     };
 
     me.getScoreOption = function (points, name) {
@@ -88,20 +91,27 @@ function ScorePrediction (
 
         return {
             chart: {
-                type: 'bar'
+                type: 'bar',
+                marginRight: 20,
+                marginBottom: 20
             },
             credits: {
                 enabled: false
             },
             title: {
-                text: 'Demo'
+                text: null
             },
             xAxis: {
                 categories: sortedCategories
             },
             yAxis: {
                 min: 0,
-                max: 100
+                max: 100,
+                labels: {
+                    formatter: function () {
+                        return '' + this.value + '%';
+                    }
+                }
             },
             tooltip: {
                 valueSuffix: ' %'
@@ -109,14 +119,15 @@ function ScorePrediction (
             plotOptions: {
                 bar: {
                     dataLabels: {
-                        enabled: true
+                        enabled: true,
+                        format: '{y} %'
                     }
                 }
             },
-            //legend:
-            //    {
-            //        enabled: false
-            //    },
+            legend:
+                {
+                    enabled: false
+                },
             series: [
                 {
                     name: name,
@@ -216,7 +227,7 @@ function ScorePrediction (
                 enabled: false
             },
             title: {
-                text: 'Demo'
+                text: null
             },
             tooltip: {
                 pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -262,6 +273,28 @@ function ScorePrediction (
         return resultArray.sort(function (pointA, pointB) {
             return pointB.y - pointA.y;
         });
+    };
+
+    me.combineLowerOptionToOther = function (points) {
+        var otherOption = {
+            name: me.otherName,
+            color: me.otherColor,
+            y: 0
+        };
+
+        for (var i = points.length - 1; i >= 0; i--) {
+            var point = points[i];
+            if (point.y < me.minPercent) {
+                otherOption.y += point.y;
+                points.splice(i, 1);
+            }
+        }
+
+        if (otherOption.y > 0) {
+            points.push(otherOption);
+        }
+
+        return points;
     };
 
 }

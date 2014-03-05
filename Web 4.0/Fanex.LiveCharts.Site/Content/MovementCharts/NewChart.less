@@ -26,6 +26,14 @@
     #mainFilter {
         padding-left: 3px;
 		position: relative;
+
+		.match-info-container
+		{
+			width: 340px;
+			float: left;
+			min-height: 1px;
+			margin-left: 5px;
+		}
     }
 
     #ddlBetType, #ddlTeamChoice {
@@ -133,7 +141,7 @@
         }
 
 		.team-chosen {
-			max-width: 105px; 
+			max-width: 70px; 
 		}
 
 		.bettype-chosen {
@@ -166,6 +174,9 @@
 
     #lastInformation {
         float: right;
+		width: 225px;
+		min-height: 1px;
+		margin-left: 5px;
 
         .percent-container {
             -moz-box-shadow: 9px 8px 9px -4px #276873;
@@ -183,6 +194,7 @@
 
         .info-name {
             color: @homeColor;
+			margin-top: 2px;
         }
 
         .home-percent {
@@ -204,7 +216,7 @@
 				span {
 					display: inline-block;
 					height: 16px;
-					max-width: 70px;
+					max-width: 65px;
 					overflow: hidden;
 					position: relative;
 					text-overflow: ellipsis;
@@ -222,7 +234,7 @@
 		margin-left: 10px;
 		cursor: pointer;
 		position: absolute;
-		right: 8px;
+		right: 3px;
 	}
 
     .hdp-value {
@@ -324,4 +336,78 @@
         height: 35px;
         color: black;
     }
+}
+
+.score-prediction
+{
+	float: left;
+	width: 425px;
+	min-height: 1px;
+	margin-left: 5px;
+
+	.prediction-input
+	{
+		/*
+		width: 380px;
+		min-height: 1px;
+		margin-left: 5px;
+		*/
+		margin-bottom: 5px;
+
+		.prediction-submit
+		{
+			float:right;
+		}
+	}
+
+	.result-information
+	{
+		clear: both;
+		position: relative;
+		text-align: center;
+		padding: 5px 0px;
+		background-color: #f2f2f2;
+		border-radius: 2px;
+
+		.result-label
+		{
+			font-weight: bold;
+		}
+
+		.result-button
+		{
+			display: inline-block;
+			position: absolute;
+			right: 6px;
+
+			.refresh-button{
+				display: inline-block;
+				float: right;
+			}
+
+			.full-result
+			{
+				display: inline-block;
+				float: right;
+				margin: 2px 3px;
+
+				.full-result-link
+				{
+					width:16px;
+					height: 16px;
+					background: url(../Images/right-arrow-more-detail.png) no-repeat;
+					display: block;
+				}
+			}
+		}
+	}
+
+	.prediction-small-result
+	{
+		height: 400px;
+		clear: both;
+	}
+	
+	
+	
 }
