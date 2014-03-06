@@ -1655,7 +1655,7 @@ if (jQuery) {
                             left = currentPoint.plotX + chart.plotLeft - 9,
                             top = isHome ? (125 + pointLevel * 28) : (25 - pointLevel * 28),
                             addLeft = 0,
-                            paddingRight = 2,
+                            paddingRight = 3,
                             addTop = 15,
                             text = indicatorPoint.Name,
                             imageWidth = 14,
