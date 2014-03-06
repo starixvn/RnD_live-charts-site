@@ -1653,14 +1653,15 @@ if (jQuery) {
                 var self = this,
                     isHome = indicatorPoint.TeamId === CRITERIA.homeId,
                             left = currentPoint.plotX + chart.plotLeft - 9,
-                            top = isHome ? (107 + pointLevel * 28) : (12 - pointLevel * 28),
+                            top = isHome ? (125 + pointLevel * 28) : (25 - pointLevel * 28),
                             addLeft = 0,
+                            paddingRight = 2,
                             addTop = 15,
                             text = indicatorPoint.Name,
                             imageWidth = 14,
                             imageHeight = 17,
                             minusTop = -11,
-                            rendetText = true, bottomPoint = 68, addImageTop = (isHome ? -28 : 28), addHaftTimeTop = 0,
+                            rendetText = true, bottomPoint = 85, addImageTop = (isHome ? -28 : 28), addHaftTimeTop = 0,
                             hasValue = indicatorPoint.Value && indicatorPoint.Value.length > 1;
 
                 switch (indicatorPoint.EventType) {
@@ -1732,7 +1733,7 @@ if (jQuery) {
                 }
 
                 if (rendetText) {
-                    chart.renderer.text(text, left + addLeft, top)
+                    chart.renderer.text(text, left + paddingRight, top)
                         .attr({ zIndex: 5 })
                         .css(self.customDrawCss)
                         .add();
@@ -1781,12 +1782,12 @@ if (jQuery) {
                         priceChart = self.mainPage.elements.$priceChartContainer.highcharts(),
                         marketChart = self.mainPage.elements.$marketChartcontainer.highcharts(),
                         currentPoint = eventChart.series[0].data[pointIndex],
-                        eventBottomPoint = 78, priceBottomPoint = 110, marketBottomPoint = 186;
+                        eventBottomPoint = 95, priceBottomPoint = 110, marketBottomPoint = 186;
 
                     if (currentPoint) {
                         var left = currentPoint.plotX + eventChart.plotLeft,
                             currentMatchPoint = self.helper.getTime(pointIndex),
-                            paddingWidth = currentMatchPoint.timeValue >= 10 ? (currentMatchPoint.timeValue >= 100 ? 9 : 6) : 3;
+                            paddingWidth = currentMatchPoint.timeValue >= 10 ? (currentMatchPoint.timeValue >= 100 ? 9.5 : 6.5) : 3.5;
 
                         if (currentMatchPoint.isShow) {
                             if (currentMatchPoint.isHaftTime) {
@@ -1845,9 +1846,9 @@ if (jQuery) {
                     var left = marketChart.plotLeft,
                         awayText = CRITERIA.chooseOverUnder ? LANGUAGE.under : CRITERIA.awayName,
                         homeText = CRITERIA.chooseOverUnder ? LANGUAGE.over : CRITERIA.homeName,
-                        marketTop = 22, marketBottom = 98, eventTop = 9, eventBottom = 143, colorOpacity = 0.7;
+                        marketTop = 22, marketBottom = 98, eventTop = 9, eventBottom = 188, colorOpacity = 0.7;
 
-                    //self.renderPriceText();
+                    //self.renderPriceText();s
 
                     marketChart.renderer.text(awayText, left, marketTop)
                         .attr({ zIndex: 5 })

@@ -92,7 +92,7 @@ function ScorePrediction (
         return {
             chart: {
                 type: 'bar',
-                marginRight: 20,
+                marginRight: 42,
                 marginBottom: 20
             },
             credits: {

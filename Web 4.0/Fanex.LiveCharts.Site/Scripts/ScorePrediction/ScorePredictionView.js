@@ -11,6 +11,7 @@ function ScorePredictionView() {
     me.matchId = CRITERIA.matchId;
     me.memberId = Math.floor((Math.random() * -10000) + 1);
     me.refreshMinutes = 1;
+    me.isShowedResult = false;
 
     me.url = {
         insertOrUpdateScorePrediction: LIVECHARTS.resolveUrl('ScorePrediction/InsertOrUpdateScorePrediction'),
@@ -26,6 +27,7 @@ function ScorePredictionView() {
         me.$smallContainerResult = $('#smallResultContainer');
         me.$fullResultLink = $('#fullResultLink');
         me.$resultRefreshCountDown = $('#resultRefreshCountDown');
+        me.$resultContainer = $('#resultContainer');
         me.loadDefaultScorePrediction();
         me.registerEvents();
     };
@@ -74,10 +76,9 @@ function ScorePredictionView() {
                 '',
                 'width=1000,height=700,directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,resizable=no');
         });
+    };
 
-
-        //// Load refresh countdown
-
+    me.loadRefreshCountDown = function () {
         me.$resultRefreshCountDown.parent().show();
         me.$resultRefreshCountDown.refreshCountDown('stopCountDown')
                     .refreshCountDown({
@@ -94,7 +95,13 @@ function ScorePredictionView() {
                     });
     };
 
-    me.getCorrectScoreResult = function (params) { 
+    me.getCorrectScoreResult = function (params) {
+        if (!me.isShowedResult) {
+            me.$resultContainer.show();
+            me.loadRefreshCountDown();
+            me.isShowedResult = true;
+        }
+
         LIVECHARTS.callAjax({
             url: me.url.getScorePredictionResult,
             type: 'POST',

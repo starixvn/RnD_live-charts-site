@@ -339,4 +339,7 @@
   <data name="OddEven" xml:space="preserve">
     <value>Odd/Even</value>
   </data>
+  <data name="VsLabel" xml:space="preserve">
+    <value>-vs-</value>
+  </data>
 </root>

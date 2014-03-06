@@ -718,6 +718,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to -vs-.
+        /// </summary>
+        public static string VsLabel {
+            get {
+                return ResourceManager.GetString("VsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Your Prediction.
         /// </summary>
         public static string YourPrediction {

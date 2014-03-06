@@ -1,49 +1,156 @@
 
-.result-information
+.prediction-input
 {
-	clear: both;
-	position: relative;
-	text-align: center;
-	padding: 5px 0px;
-	background-color: #f2f2f2;
-	border-radius: 2px;
+	margin-bottom: 5px;
 
-	.result-label
+	fieldset
 	{
+		padding: 2px;
+
+		legend
+		{
+			display: block;
+			padding: 0;
+			font-size: 12px;
+			font-weight: bold;
+			margin: 4px 3px;
+		}
+	}
+
+	.home-prediction, .away-prediction
+	{
+		width: 40%;
+		float: left;
+		padding-top: 2px;
+	}
+
+	
+	.vs-label
+	{
+		width: 30px;
+		float: left;
+		text-align: center;
+		font-weight: bold;
+		padding-top: 2px;
+	}
+
+	.home-name, .away-name
+	{
+		
+		max-width: 70%;
+		overflow: hidden;
+		position: relative;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 		font-weight: bold;
 	}
 
-	.result-button
+	.home-name
 	{
-		display: inline-block;
-		position: absolute;
-		right: 6px;
+		float: right;
+		color: #0b72bb;
+		padding-top: 2px;
+		padding-right: 5px;
+	}
 
-		.refresh-button{
-			display: inline-block;
-			float: right;
-		}
+	 .away-name
+	 {
+		text-align: left;
+		color:#ff9400;
+		padding-left: 5px;
+		padding-top: 2px;
+	 }
 
-		.full-result
+	.home-predict-value
+	{
+		float: right;
+	}
+
+	.away-predict-value
+	{
+		float: left;
+	}
+
+	#homePredictionValue, #awayPredictionValue
+	{
+		height: 15px;
+		text-align: right;
+		width: 30px;
+	}
+	
+
+	.prediction-submit
+	{
+		margin-right: 4px;
+	}
+}
+
+.prediction-input, #resultContainer
+{
+	fieldset
+	{
+		padding: 2px;
+
+		legend
 		{
-			display: inline-block;
-			float: right;
-			margin: 2px 3px;
-
-			.full-result-link
-			{
-				width:16px;
-				height: 16px;
-				background: url(../Images/right-arrow-more-detail.png) no-repeat;
-				display: block;
-			}
+			display: block;
+			padding: 0;
+			font-size: 12px;
+			font-weight: bold;
+			margin: 4px 3px;
 		}
 	}
 }
 
-.prediction-small-result
+#resultContainer
 {
-	height: 400px;
-	clear: both;
+
+	.result-information
+	{
+		clear: both;
+		position: relative;
+		text-align: center;
+		padding: 3px 0px;
+		background-color: #f2f2f2;
+		border-radius: 2px;
+
+		.result-label
+		{
+			font-weight: bold;
+		}
+
+		.result-button
+		{
+			display: inline-block;
+			position: absolute;
+			right: 6px;
+
+			.refresh-button{
+				display: inline-block;
+				float: right;
+			}
+
+			.full-result
+			{
+				display: inline-block;
+				float: right;
+				margin: 2px 3px;
+
+				.full-result-link
+				{
+					width:16px;
+					height: 16px;
+					background: url(../Images/right-arrow-more-detail.png) no-repeat;
+					display: block;
+				}
+			}
+		}
+	}
+
+	.prediction-small-result
+	{
+		height: 220px;
+		clear: both;
+	}
 }
 
