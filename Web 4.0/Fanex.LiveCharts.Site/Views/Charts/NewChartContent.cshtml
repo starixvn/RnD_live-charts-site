@@ -145,7 +145,7 @@
     }
 </div>
 
-@if (showChart)
+@if (showChart && !AppSettings.IsAdminSite)
 {
     @Html.Partial("~/Views/ScorePrediction/ScorePredictionPartialView.cshtml", Model)
 }
@@ -183,6 +183,8 @@
         };
 
     CHART_COLOR.oddsColorsArray = CHART_COLOR.oddsColors.split(',');
+
+    var IS_ADMIN_SITE = @(AppSettings.IsAdminSite ? "true" : "false");
 </script>
 @section Scripts
 {

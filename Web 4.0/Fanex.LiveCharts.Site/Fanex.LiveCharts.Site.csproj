@@ -372,6 +372,11 @@
     <Content Include="Scripts\Charts\OpenSoon.js" />
     <Content Include="Scripts\Charts\NewChartContent.js" />
     <Content Include="Scripts\Charts\Charts.js" />
+    <Content Include="Scripts\Libs\Spinner\down.jpg" />
+    <Content Include="Scripts\Libs\Spinner\normal.jpg" />
+    <None Include="Scripts\Libs\Spinner\smartspinner.less" />
+    <Content Include="Scripts\Libs\Spinner\smartspinner.js" />
+    <Content Include="Scripts\Libs\Spinner\up.jpg" />
     <Content Include="Scripts\LIVECHARTS.js" />
     <Content Include="Scripts\Libs\HighChart\highcharts.js" />
     <Content Include="Scripts\Libs\HighChart\highcharts.src.js" />
@@ -501,8 +506,8 @@
     <Content Include="Views\Introduction\zh-CN\Chart.cshtml" />
     <Content Include="Views\Introduction\zh-TW\Chart.cshtml" />
     <Content Include="Views\ScorePrediction\Index.cshtml" />
-    <None Include="Content\MovementCharts\ScorePredictionResult.less" />
-    <None Include="Content\MovementCharts\ScorePrediction.less" />
+    <Content Include="Content\MovementCharts\ScorePredictionResult.less" />
+    <Content Include="Content\MovementCharts\ScorePrediction.less" />
     <Content Include="Views\ScorePrediction\ScorePredictionPartialView.cshtml" />
   </ItemGroup>
   <PropertyGroup>

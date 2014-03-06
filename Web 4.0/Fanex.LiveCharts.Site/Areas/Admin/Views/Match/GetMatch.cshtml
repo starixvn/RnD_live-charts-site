@@ -16,7 +16,7 @@
     @Html.Hidden("matchId", Model.Id)
 }
 <div class="right-chart">
-    <iframe id="frmChartContent" width="680px" height="635px" src="@(Url.Content("~/Charts/ChartContent?matchId=" + Model.Id.ToString()))" frameborder="0">
+    <iframe id="frmChartContent" width="600px" height="670px" src="@(Url.Content("~/Charts/ChartContent?matchId=" + Model.Id.ToString()))" frameborder="0">
     </iframe>
     @**@
     <div class="filter-content">
@@ -31,7 +31,7 @@
             </div>
             <div class="filter-row">
                 <div class="filter-cell">
-                    <div class="edit-field">
+                    <div class="edit-field small-width">
                         <select id="ddlHaves" data-val-value="@AdminSiteLang.HalfValueValidation">
                             <option value="1">1H</option>
                             <option value="2">2H</option>
@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 <div class="filter-cell">
-                    <div class="edit-field">
+                    <div class="edit-field  small-width">
                         <input type="text" placeholder="@AdminSiteLang.TimeFormat" name="q" id="txtRecordedTime" 
                                data-val-required="@AdminSiteLang.RecordedTimeRequired"
                                data-val-regex-pattern="^(\d?\d):([0-5]?\d)$" data-val-regex="@AdminSiteLang.RecordedTimeFormat" />

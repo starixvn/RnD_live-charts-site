@@ -27,6 +27,8 @@ function ScorePredictionResultView() {
         me.$handicapResultContainer = $('#handicapResultContainer');
         me.$refreshCountDownButton = $('.refresh-button-main');
 
+        
+
         me.loadResult();
         me.$refreshCountDownButton.parent().show();
         me.$refreshCountDownButton.refreshCountDown('stopCountDown').refreshCountDown(me.refreshCountDownOption);

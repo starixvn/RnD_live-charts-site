@@ -1,3 +1,5 @@
+@homeColor: #0b72bb;
+@awayColor: #ff9400;
 
 .prediction-input
 {
@@ -19,7 +21,7 @@
 
 	.home-prediction, .away-prediction
 	{
-		width: 40%;
+		width: 39%;
 		float: left;
 		padding-top: 2px;
 	}
@@ -31,7 +33,7 @@
 		float: left;
 		text-align: center;
 		font-weight: bold;
-		padding-top: 2px;
+		padding-top: 4px;
 	}
 
 	.home-name, .away-name
@@ -48,17 +50,17 @@
 	.home-name
 	{
 		float: right;
-		color: #0b72bb;
-		padding-top: 2px;
+		color: @homeColor;
+		padding-top: 4px;
 		padding-right: 5px;
 	}
 
 	 .away-name
 	 {
-		text-align: left;
-		color:#ff9400;
+		float: left;
+		color: @awayColor;
 		padding-left: 5px;
-		padding-top: 2px;
+		padding-top: 4px;
 	 }
 
 	.home-predict-value
@@ -73,15 +75,16 @@
 
 	#homePredictionValue, #awayPredictionValue
 	{
-		height: 15px;
+		//height: 19px;
+		//width: 30px;
 		text-align: right;
-		width: 30px;
 	}
 	
 
 	.prediction-submit
 	{
 		margin-right: 4px;
+		margin-top: 2px;
 	}
 }
 
@@ -102,55 +105,67 @@
 	}
 }
 
-#resultContainer
+.result-information
 {
+	clear: both;
+	position: relative;
+	text-align: center;
+	padding: 3px 0px;
+	background-color: #f2f2f2;
+	border-radius: 2px;
 
-	.result-information
+	.result-label
 	{
-		clear: both;
-		position: relative;
-		text-align: center;
-		padding: 3px 0px;
-		background-color: #f2f2f2;
-		border-radius: 2px;
+		font-weight: bold;
 
-		.result-label
+		.home-name
 		{
-			font-weight: bold;
+			color: @homeColor;
 		}
 
-		.result-button
+		.away-name
+		{
+			color: @awayColor;
+		}
+
+		.vs-name
+		{
+				
+		}
+	}
+
+	.result-button
+	{
+		display: inline-block;
+		position: absolute;
+		right: 6px;
+
+		.refresh-button{
+			display: inline-block;
+			float: right;
+		}
+
+		.full-result
 		{
 			display: inline-block;
-			position: absolute;
-			right: 6px;
+			float: right;
+			margin: 2px 3px;
 
-			.refresh-button{
-				display: inline-block;
-				float: right;
-			}
-
-			.full-result
+			.full-result-link
 			{
-				display: inline-block;
-				float: right;
-				margin: 2px 3px;
-
-				.full-result-link
-				{
-					width:16px;
-					height: 16px;
-					background: url(../Images/right-arrow-more-detail.png) no-repeat;
-					display: block;
-				}
+				width:16px;
+				height: 16px;
+				background: url(../Images/right-arrow-more-detail.png) no-repeat;
+				display: block;
 			}
 		}
 	}
-
-	.prediction-small-result
-	{
-		height: 220px;
-		clear: both;
-	}
 }
+
+.prediction-small-result
+{
+	height: 220px;
+	clear: both;
+}
+
 

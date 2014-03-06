@@ -27,15 +27,25 @@ function ScorePrediction (
     me.getCorrectScoreResult = function (predictionOptionTotal) {
         var resultArray = [],
             optionsLength = predictionOptionTotal.ScorePredictionOptions.length,
-            totalPrediction = predictionOptionTotal.TotalPrediction;
+            totalPrediction = predictionOptionTotal.TotalPrediction,
+            total = 0,
+            currentPercent;
 
         for (var i = 0; i < optionsLength; i++) {
             var currentOption = predictionOptionTotal.ScorePredictionOptions[i];
+            if (i === optionsLength - 1) {
+                currentPercent = parseFloat((100 - total).toFixed(1));
+            }
+            else {
+                currentPercent = parseFloat((currentOption.ScorePredictionCount / totalPrediction * 100).toFixed(1));
+            }
             resultArray.push({
                 name: '' + currentOption.HomeScore + '-' + currentOption.AwayScore,
                 color: me.getColor(currentOption.HomeScore, currentOption.AwayScore, false),
-                y: Math.round(currentOption.ScorePredictionCount / totalPrediction * 100)
+                y: currentPercent
             });
+
+            total += currentPercent;
         }
 
         return me.combineLowerOptionToOther(me.sortResult(resultArray));
@@ -45,7 +55,8 @@ function ScorePrediction (
         var resultArray = [],
             points = {},
         //optionsLength = predictionOptionTotal.ScorePredictionOptions.length,
-            totalPrediction = predictionOptionTotal.TotalPrediction;
+            totalPrediction = predictionOptionTotal.TotalPrediction,
+            lastIndex;
 
         for (var i in predictionOptionTotal.ScorePredictionOptions) {
             var option = predictionOptionTotal.ScorePredictionOptions[i];
@@ -69,15 +80,28 @@ function ScorePrediction (
             }
 
             points[handicapValue].total += option.ScorePredictionCount;
+            lastIndex = handicapValue;
         }
 
+        var total = 0;
         for (i in points) {
             var point = points[i];
+            var currentPercent;
+
+            if (lastIndex === i) {
+                currentPercent = 100 - total;
+            }
+            else {
+                currentPercent = parseFloat((point.total / totalPrediction * 100).toFixed(1));
+            }
+
             resultArray.push({
                 name: point.name,
                 color: point.color,
-                y: Math.round(point.total / totalPrediction * 100)
+                y: currentPercent
             });
+
+            total += currentPercent;
         }
 
         return me.combineLowerOptionToOther(me.sortResult(resultArray));
@@ -85,9 +109,11 @@ function ScorePrediction (
 
     me.getScoreOption = function (points, name) {
 
-        var sortedCategories = points.map(function (point) {
-            return point.name;
-        });
+        var sortedCategories = [];
+        for (var i in points) {
+            var point = points[i];
+            sortedCategories.push(point.name);
+        }
 
         return {
             chart: {

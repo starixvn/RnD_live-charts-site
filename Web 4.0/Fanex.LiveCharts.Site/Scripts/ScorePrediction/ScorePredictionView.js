@@ -23,11 +23,18 @@ function ScorePredictionView() {
     me.init = function () {
         me.$txtHomeScore = $('#homePredictionValue');
         me.$txtAwayScore = $('#awayPredictionValue');
+        me.$inputScore = $('#homePredictionValue, #awayPredictionValue');
         me.$btnSubmitPrediction = $('#submitPreditionValue');
         me.$smallContainerResult = $('#smallResultContainer');
         me.$fullResultLink = $('#fullResultLink');
         me.$resultRefreshCountDown = $('#resultRefreshCountDown');
         me.$resultContainer = $('#resultContainer');
+
+        //// Spinner
+        //me.$txtHomeScore.spinner();
+        //me.$inputScore.spinit({ height: 18, width: 35, min: 0, max: 20 });
+
+
         me.loadDefaultScorePrediction();
         me.registerEvents();
     };
@@ -130,6 +137,8 @@ function ScorePredictionView() {
 
 
 $(function () {
-    var scorePredictionView = new ScorePredictionView();
-    scorePredictionView.init();
+    if (!IS_ADMIN_SITE) {
+        var scorePredictionView = new ScorePredictionView();
+        scorePredictionView.init();
+    }
 });
