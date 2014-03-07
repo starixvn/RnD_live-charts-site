@@ -1,8 +1,14 @@
 ﻿@using Fanex.LiveCharts.ViewModel.ScorePredictionViewModel;
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
     var scorePredictionResultViewModel = Model as ScorePredictionResultViewModel;
+    ViewBag.Title = string.Format("{0} {1} {2} - {3}",
+        scorePredictionResultViewModel.HomeName,
+        Lang.VsLabel,
+        scorePredictionResultViewModel.AwayName,
+        Lang.TotalPredictionResult
+        );
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
 }
 @section Styles
 {

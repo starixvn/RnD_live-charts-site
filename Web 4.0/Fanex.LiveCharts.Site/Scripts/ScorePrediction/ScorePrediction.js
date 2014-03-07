@@ -33,12 +33,12 @@ function ScorePrediction (
 
         for (var i = 0; i < optionsLength; i++) {
             var currentOption = predictionOptionTotal.ScorePredictionOptions[i];
-            if (i === optionsLength - 1) {
-                currentPercent = parseFloat((100 - total).toFixed(1));
-            }
-            else {
-                currentPercent = parseFloat((currentOption.ScorePredictionCount / totalPrediction * 100).toFixed(1));
-            }
+//            if (i === optionsLength - 1) {
+//                currentPercent = parseFloat((100 - total).toFixed(2));
+//            }
+//            else {
+                currentPercent = parseFloat((currentOption.ScorePredictionCount / totalPrediction * 100).toFixed(2));
+            //}
             resultArray.push({
                 name: '' + currentOption.HomeScore + '-' + currentOption.AwayScore,
                 color: me.getColor(currentOption.HomeScore, currentOption.AwayScore, false),
@@ -55,8 +55,7 @@ function ScorePrediction (
         var resultArray = [],
             points = {},
         //optionsLength = predictionOptionTotal.ScorePredictionOptions.length,
-            totalPrediction = predictionOptionTotal.TotalPrediction,
-            lastIndex;
+            totalPrediction = predictionOptionTotal.TotalPrediction;
 
         for (var i in predictionOptionTotal.ScorePredictionOptions) {
             var option = predictionOptionTotal.ScorePredictionOptions[i];
@@ -85,7 +84,7 @@ function ScorePrediction (
         var total = 0;
         for (i in points) {
             var point = points[i];
-            currentPercent = parseFloat((point.total / totalPrediction * 100).toFixed(1));
+            currentPercent = parseFloat((point.total / totalPrediction * 100).toFixed(2));
 
 
             resultArray.push({
@@ -314,6 +313,7 @@ function ScorePrediction (
         }
 
         if (otherOption.y > 0) {
+            otherOption.y = parseFloat((otherOption.y).toFixed(2));
             points.push(otherOption);
         }
 

@@ -17,6 +17,7 @@ namespace Fanex.LiveCharts.Services.Impl
     using Fanex.LiveCharts.Services.Interface;
     using Fanex.NAP.Framework.Data;
     using Fanex.LiveCharts.Core;
+    using Fanex.LiveCharts.Resources;
 
     /// <summary>
     /// TODO: Update summary.
@@ -24,6 +25,7 @@ namespace Fanex.LiveCharts.Services.Impl
     public class ScorePredictionService : ServiceBase, IScorePredictionService
     {
         private const string ScorePredictionTotalCacheKey = "Fanex.LiveCharts.Services.Impl.ScorePredictionService";
+        private const int ReUpdateCode = 1000;
         private IScorePredictionRepository _scorePredictionRepository;
 
         public ScorePredictionService()
@@ -73,7 +75,16 @@ namespace Fanex.LiveCharts.Services.Impl
         public ICommandResult InsertOrUpdateScorePredictionItem(
             InsertOrUpdateScorePredictionItemCriteria insertOrUpdateScorePredictionItemCriteria)
         {
-            return _scorePredictionRepository.ModifyData(insertOrUpdateScorePredictionItemCriteria);
+            var updateResult = _scorePredictionRepository.ModifyData(insertOrUpdateScorePredictionItemCriteria);
+            if (updateResult.Code == ReUpdateCode)
+            {
+                return new CommandResult
+                {
+                    Code = 0,
+                    Message = Lang.UpdateSuccessfullyMessage
+                };
+            }
+            return updateResult;
         }
 
         public ScorePredictionItem GetUserPrediction(

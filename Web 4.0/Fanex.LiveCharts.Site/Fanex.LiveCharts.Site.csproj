@@ -372,11 +372,8 @@
     <Content Include="Scripts\Charts\OpenSoon.js" />
     <Content Include="Scripts\Charts\NewChartContent.js" />
     <Content Include="Scripts\Charts\Charts.js" />
-    <Content Include="Scripts\Libs\Spinner\down.jpg" />
-    <Content Include="Scripts\Libs\Spinner\normal.jpg" />
-    <None Include="Scripts\Libs\Spinner\smartspinner.less" />
-    <Content Include="Scripts\Libs\Spinner\smartspinner.js" />
-    <Content Include="Scripts\Libs\Spinner\up.jpg" />
+    <Content Include="Scripts\Libs\Spinner\images\stepper.png" />
+    <Content Include="Scripts\Libs\Spinner\jquery.stepper.js" />
     <Content Include="Scripts\LIVECHARTS.js" />
     <Content Include="Scripts\Libs\HighChart\highcharts.js" />
     <Content Include="Scripts\Libs\HighChart\highcharts.src.js" />
@@ -509,6 +506,7 @@
     <Content Include="Content\MovementCharts\ScorePredictionResult.less" />
     <Content Include="Content\MovementCharts\ScorePrediction.less" />
     <Content Include="Views\ScorePrediction\ScorePredictionPartialView.cshtml" />
+    <Content Include="Scripts\Libs\Spinner\jquery.stepper.less" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

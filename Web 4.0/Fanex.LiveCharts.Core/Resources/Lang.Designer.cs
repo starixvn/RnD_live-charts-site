@@ -664,6 +664,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Submit and view result.
+        /// </summary>
+        public static string SubmitAndViewResult {
+            get {
+                return ResourceManager.GetString("SubmitAndViewResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Time:.
         /// </summary>
         public static string Time {
@@ -705,6 +714,24 @@ namespace Fanex.LiveCharts.Resources {
         public static string Underdog {
             get {
                 return ResourceManager.GetString("Underdog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your submit has been updated successfully!.
+        /// </summary>
+        public static string UpdateSuccessfullyMessage {
+            get {
+                return ResourceManager.GetString("UpdateSuccessfullyMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View All Score Prediction Results.
+        /// </summary>
+        public static string ViewAllScorePredictionResults {
+            get {
+                return ResourceManager.GetString("ViewAllScorePredictionResults", resourceCulture);
             }
         }
         

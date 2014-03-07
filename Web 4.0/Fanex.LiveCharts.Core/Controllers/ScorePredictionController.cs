@@ -23,7 +23,7 @@ namespace Fanex.LiveCharts.Controllers
     /// </summary>
     public class ScorePredictionController : Controller
     {
-        private const string CorePredictionCookie = "Fanex.LiveCharts.Controllers.ScorePredictionController";
+        private const string CorePredictionCookie = "E86E0D7F-FD5A-412B-823F-A4E6517AE51D";
         private IScorePredictionService _scorePredictionService;
 
         public ScorePredictionController()
@@ -61,7 +61,7 @@ namespace Fanex.LiveCharts.Controllers
         [HttpPost]
         public JsonResult InsertOrUpdateScorePrediction(InsertOrUpdateScorePredictionItemCriteria criteria)
         {
-            criteria.MemberId = GetUserIdFromCookie(criteria.MemberId);
+            criteria.MemberId = GetUserIdFromCookie(criteria.MemberId, criteria.MatchId);
 
             var result = _scorePredictionService.InsertOrUpdateScorePredictionItem(criteria);
             return Json(result);
@@ -75,20 +75,21 @@ namespace Fanex.LiveCharts.Controllers
         [HttpPost]
         public JsonResult GetUserPrediction(GetUserPredictionCriteria getUserPredictionCriteria)
         {
-            getUserPredictionCriteria.MemberId = GetUserIdFromCookie(getUserPredictionCriteria.MemberId);
+            getUserPredictionCriteria.MemberId = GetUserIdFromCookie(getUserPredictionCriteria.MemberId, getUserPredictionCriteria.MatchId);
 
             var result = _scorePredictionService.GetUserPrediction(getUserPredictionCriteria);
             return Json(result);
         }
 
         [NonAction]
-        private string GetUserIdFromCookie(string memberId)
+        private string GetUserIdFromCookie(string memberId, int matchId)
         {
             var currentMemberId = Converter.ToInt(memberId);
 
             if (currentMemberId < 0)
             {
-                var currentCookie = HttpContext.Request.Cookies[CorePredictionCookie];
+                var cookieName = string.Format("{0}_{1}", CorePredictionCookie, matchId);
+                var currentCookie = HttpContext.Request.Cookies[cookieName];
                 if (currentCookie != null)
                 {
                     return currentCookie.Value;
@@ -96,7 +97,7 @@ namespace Fanex.LiveCharts.Controllers
                 else
                 {
                     var newMemberId = Guid.NewGuid().ToString();
-                    HttpContext.Response.SetCookie(new HttpCookie(CorePredictionCookie, newMemberId));
+                    HttpContext.Response.SetCookie(new HttpCookie(cookieName, newMemberId));
                 }
             }
 

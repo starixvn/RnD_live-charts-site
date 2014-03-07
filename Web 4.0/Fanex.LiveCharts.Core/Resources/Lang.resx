@@ -342,4 +342,13 @@
   <data name="VsLabel" xml:space="preserve">
     <value>-vs-</value>
   </data>
+  <data name="SubmitAndViewResult" xml:space="preserve">
+    <value>Submit and view result</value>
+  </data>
+  <data name="ViewAllScorePredictionResults" xml:space="preserve">
+    <value>View All Score Prediction Results</value>
+  </data>
+  <data name="UpdateSuccessfullyMessage" xml:space="preserve">
+    <value>Your submit has been updated successfully!</value>
+  </data>
 </root>

@@ -49,7 +49,38 @@ var LIVECHARTS = {
         warn: function (msg) { 'use strict'; LIVECHARTS.console.write(msg, console.warn); },
         error: function (msg) { 'use strict'; LIVECHARTS.console.write(msg, console.error); }
     },
+    messageType: {
+        success: 0,
+        error: 1
+    },
+    alertMessage: function (messageType, messageText, timeOut) {
 
+        var $message = $('#messageNotification');
+        if ($message.length === 0) {
+            $message = $('<div id="messageNotification"></div>');
+        }
+        var timeOut = timeOut || 3000;
+        switch (messageType) {
+            case LIVECHARTS.messageType.success:
+                $message.addClass('valid-message');
+                break;
+            case LIVECHARTS.messageType.error:
+                $message.addClass('error-message');
+                timeOut = 5000;
+                break;
+        }
+        var $body = $('body');
+        $message.empty().html(messageText).show().appendTo($body);
+        $message.css({
+            left: ($body.width() / 2) - ($message.width() /2) + 'px'
+        });
+        
+
+        var timeOutId = setTimeout(function () {
+            $message.hide();
+            clearTimeout(timeOutId);
+        }, timeOut);
+    },
     parseJSON: function (value) {
         'use strict';
         return $.parseJSON(value.replaceAll("'", "\""));

@@ -14,6 +14,7 @@ namespace Fanex.LiveCharts.Repositories.Impl
     using Fanex.Data;
     using Fanex.NAP.Core.Criteria.Misc;
     using Fanex.NAP.Framework.Data;
+    using Fanex.LiveCharts.Resources;
 
     /// <summary>
     /// TODO: Update summary.
@@ -47,11 +48,18 @@ namespace Fanex.LiveCharts.Repositories.Impl
             var errCode = hash["errcode"];
             var errMsg = hash["errmsg"];
 
-            return new CommandResult
+            var commandResult = new CommandResult
             {
                 Code = (errCode is DBNull) ? 0 : Convert.ToInt32(errCode),
                 Message = (errMsg is DBNull) ? string.Empty : Convert.ToString(errMsg)
             };
+
+            if (commandResult.Code == 0 && string.IsNullOrEmpty(commandResult.Message))
+            {
+                commandResult.Message = Lang.UpdateSuccessfullyMessage;
+            }
+
+            return commandResult;
         }
     }
 }

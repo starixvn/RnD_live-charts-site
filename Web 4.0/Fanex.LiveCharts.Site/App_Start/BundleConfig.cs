@@ -45,7 +45,7 @@ namespace Fanex.LiveCharts.Site
 
             bundles.Add(new ScriptBundle("~/bundles/newchartcontent")
                 .Include("~/Scripts/Libs/Bootstrap/bootstrap-dropdown.js")
-                .Include("~/Scripts/Libs/Spinner/smartspinner.js")
+                .Include("~/Scripts/Libs/Spinner/jquery.stepper.js")
                 .Include("~/Scripts/Charts/NewChartContent.js")
                 .Include("~/Scripts/ScorePrediction/ScorePrediction.js")
                 .Include("~/Scripts/ScorePrediction/ScorePredictionView.js"));

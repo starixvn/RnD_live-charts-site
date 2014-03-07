@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../Views/Charts/NewChartContent.cshtml" />
 /// <reference path="../LIVECHARTS.js" />
 /// <reference path="ScorePrediction.js" />
-/*global CRITERIA, LIVECHARTS, ScorePrediction*/
+/*global CRITERIA, LIVECHARTS, ScorePrediction, IS_ADMIN_SITE*/
 'use strict';
 
 function ScorePredictionView() {
@@ -12,6 +12,7 @@ function ScorePredictionView() {
     me.memberId = Math.floor((Math.random() * -10000) + 1);
     me.refreshMinutes = 1;
     me.isShowedResult = false;
+    me.reUpdateSuccessCode = 1000;
 
     me.url = {
         insertOrUpdateScorePrediction: LIVECHARTS.resolveUrl('ScorePrediction/InsertOrUpdateScorePrediction'),
@@ -31,8 +32,11 @@ function ScorePredictionView() {
         me.$resultContainer = $('#resultContainer');
 
         //// Spinner
-        //me.$txtHomeScore.spinner();
-        //me.$inputScore.spinit({ height: 18, width: 35, min: 0, max: 20 });
+
+        me.$inputScore.stepper({ min: 0,
+            max: 20,
+            step: 1
+        });
 
 
         me.loadDefaultScorePrediction();
@@ -127,8 +131,12 @@ function ScorePredictionView() {
             type: 'POST',
             data: params,
             done: function (result) {
-                if (result.IsSuccessful || result.Code === 1000) {
+                if (result.IsSuccessful || result.Code === me.reUpdateSuccessCode) {
+                    LIVECHARTS.alertMessage(LIVECHARTS.messageType.success, result.Message);
                     me.getCorrectScoreResult(params);
+                }
+                else {
+                    LIVECHARTS.alertMessage(LIVECHARTS.messageType.error, result.Message);
                 }
             }
         });
