@@ -84,7 +84,7 @@ function ScorePredictionView() {
                 + '?matchId=' + CRITERIA.matchId
                 + '&homeName=' + CRITERIA.homeNameEncoded
                 + '&awayName=' + CRITERIA.awayNameEncoded,
-                '',
+                'ScorePredictionResult',
                 'width=1000,height=700,directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,resizable=no');
         });
     };

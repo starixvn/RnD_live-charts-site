@@ -12,7 +12,7 @@
     <file relUrl="bin/System.Web.WebPages.Razor.dll" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Scripts/Libs/RefreshCountDown/Images/icon_refreshWait_live.gif" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Areas/UserLogin/scripts/lib/msgbox/images/btn-close.png" publishTime="12/17/2013 11:18:14" />
-    <file relUrl="Scripts/ScorePrediction/ScorePredictionView.js" publishTime="03/07/2014 12:56:17" />
+    <file relUrl="Scripts/ScorePrediction/ScorePredictionView.js" publishTime="03/07/2014 13:32:56" />
     <file relUrl="bin/Microsoft.Practices.EnterpriseLibrary.Common.dll" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Content/Bootstrap/close.less" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Content/jQueryUI/images/ui-icons_888888_256x240.png" publishTime="12/17/2013 11:18:14" />
@@ -366,7 +366,7 @@
     <file relUrl="Areas/UserLogin/themes/img/title-bg.jpg" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Content/Images/tile_bg.jpg" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Scripts/Libs/RefreshCountDown/Images/icon_refreshWait.gif" publishTime="12/17/2013 11:18:14" />
-    <file relUrl="Content/MovementCharts/ScorePrediction.less" publishTime="03/07/2014 13:16:29" />
+    <file relUrl="Content/MovementCharts/ScorePrediction.less" publishTime="03/07/2014 13:32:20" />
     <file relUrl="Content/themes/base/minified/images/ui-bg_glass_65_ffffff_1x400.png" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Content/Bootstrap/sprites.less" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Scripts/Libs/angular.min.js" publishTime="12/17/2013 11:18:14" />
