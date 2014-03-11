@@ -16,7 +16,7 @@
     @Html.Hidden("matchId", Model.Id)
 }
 <div class="right-chart">
-    <iframe id="frmChartContent" width="600px" height="670px" src="@(Url.Content("~/Charts/ChartContent?matchId=" + Model.Id.ToString()))" frameborder="0">
+    <iframe id="frmChartContent" width="585px" height="670px" src="@(Url.Content("~/Charts/ChartContent?matchId=" + Model.Id.ToString()))" frameborder="0">
     </iframe>
     @**@
     <div class="filter-content">

@@ -97,7 +97,9 @@ namespace Fanex.LiveCharts.Controllers
                 else
                 {
                     var newMemberId = Guid.NewGuid().ToString();
-                    HttpContext.Response.SetCookie(new HttpCookie(cookieName, newMemberId));
+                    var scorePredictionCookie = new HttpCookie(cookieName, newMemberId);
+                    scorePredictionCookie.Expires = DateTime.Now.AddDays(1);
+                    HttpContext.Response.SetCookie(scorePredictionCookie);
                 }
             }
 
