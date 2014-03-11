@@ -619,6 +619,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Score Prediction.
+        /// </summary>
+        public static string ScorePrediction {
+            get {
+                return ResourceManager.GetString("ScorePrediction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to --- Select a {0} ---.
         /// </summary>
         public static string SelectA {

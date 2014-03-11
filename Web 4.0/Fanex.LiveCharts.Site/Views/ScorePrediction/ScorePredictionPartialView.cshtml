@@ -1,16 +1,19 @@
-﻿<div class="score-prediction">
+﻿
+<div class="score-prediction">
+    <div class="chart-title">
+    @Lang.ScorePrediction
+</div>
     <div class="prediction-input">
         <div class="prediction-title">
             @Lang.YourPrediction
         </div>
         <div class="prediction-input-content">
             <div class="home-prediction">
-                
                 <div class="home-name">
                     @Model.HomeName
                 </div>
                 <div class="home-predict-value">
-                    <input type="text" id="homePredictionValue" class="span3" />
+                    <input type="text" id="homePredictionValue" />
                 </div>
             </div>
             <div class="vs-label">
@@ -18,7 +21,7 @@
             </div>
             <div class="away-prediction">
                 <div class="away-predict-value">
-                    <input type="text" id="awayPredictionValue" class="span3" />
+                    <input type="text" id="awayPredictionValue" />
                 </div>
                 <div class="away-name">
                     @Model.AwayName
@@ -34,7 +37,7 @@
             @Lang.TotalPredictionResult
         </div>
         <div class="result-information">
-     @*       <span class="result-label"><span class="home-name">@Model.HomeName</span> 
+            @*       <span class="result-label"><span class="home-name">@Model.HomeName</span> 
             <span class="vs-name">@Lang.VsLabel</span>
                 <span class="away-name">@Model.AwayName</span> </span>*@
             <div class="result-button">

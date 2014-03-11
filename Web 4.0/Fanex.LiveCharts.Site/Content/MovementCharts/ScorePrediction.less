@@ -4,6 +4,10 @@
 
 .score-prediction
 {
+	float: left;
+	width: 420px;
+	min-height: 1px;
+
 	.prediction-title
 	{
 		clear: both;
@@ -17,119 +21,89 @@
 	{
 		background-color: White;
 		padding-left: 5px;
-		height: 37px;
+		height: 35px;
 	}
 
-}
-
-.prediction-input
-{
-	margin-bottom: 5px;
-
-	fieldset
+	.prediction-input
 	{
-		padding: 2px;
+		margin-bottom: 0px;
 
-		legend
+		.prediction-submit
 		{
-			display: block;
-			padding: 0;
-			font-size: 12px;
-			font-weight: bold;
-			margin: 4px 3px;
+			float:right;
 		}
-	}
 
-	
-	
-
-	.home-prediction, .away-prediction
-	{
-		max-width: 37%;
-		float: left;
-		padding-top: 5px;
-	}
-
-	
-	.vs-label
-	{
-		width: 34px;
-		float: left;
-		text-align: center;
-		font-weight: bold;
-		padding-top: 8px;
-	}
-
-	.home-name, .away-name
-	{
-		
-		max-width: 74%;
-		overflow: hidden;
-		//position: relative;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-		//font-weight: bold;
-		text-transform: uppercase;
-	}
-
-	.home-name
-	{
-		float: left;
-		color: @homeColor;
-		padding-top: 4px;
-		padding-right: 5px;
-	}
-
-	 .away-name
-	 {
-		float: left;
-		color: @awayColor;
-		padding-left: 5px;
-		padding-top: 4px;
-	 }
-
-	.home-predict-value, .away-predict-value
-	{
-		float: left;
-		margin-top: 3px;
-	}
-
-	#homePredictionValue, #awayPredictionValue
-	{
-		//height: 19px;
-		width: 24px;
-		border-radius: 2px;
-		text-align: left;
-	}
-	
-
-	.prediction-submit
-	{
-		margin-right: 4px;
-		margin-top: 2px;
-	}
-
-	#submitPreditionValue
-	{
-		width: 64px;
-		margin-top: 3px;
-		font-weight: bold;
-	}
-}
-
-.prediction-input, #resultContainer
-{
-	fieldset
-	{
-		padding: 2px;
-
-		legend
+		.home-prediction, .away-prediction
 		{
-			display: block;
-			padding: 0;
-			font-size: 12px;
+			float: left;
+			padding-top: 4px;
+		}
+
+	
+		.vs-label
+		{
+			width: 34px;
+			float: left;
+			text-align: center;
 			font-weight: bold;
-			margin: 4px 3px;
+			padding-top: 7px;
+		}
+
+		.home-name, .away-name
+		{
+		
+			max-width: 115px;
+			overflow: hidden;
+			//position: relative;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			//font-weight: bold;
+			text-transform: uppercase;
+		}
+
+		.home-name
+		{
+			float: left;
+			color: @homeColor;
+			padding-top: 3px;
+			padding-right: 5px;
+		}
+
+		 .away-name
+		 {
+			float: left;
+			color: @awayColor;
+			padding-left: 5px;
+			padding-top: 3px;
+		 }
+
+		.home-predict-value, .away-predict-value
+		{
+			float: left;
+			margin-top: 3px;
+		}
+
+		#homePredictionValue, #awayPredictionValue
+		{
+			//height: 19px;
+			width: 24px;
+			line-height: 15px;
+			border-radius: 2px;
+			text-align: left;
+		}
+	
+
+		.prediction-submit
+		{
+			margin-right: 4px;
+			margin-top: 2px;
+		}
+
+		#submitPreditionValue
+		{
+			width: 64px;
+			margin-top: 2px;
+			font-weight: bold;
 		}
 	}
 }
@@ -172,9 +146,6 @@
 
 	.result-button
 	{
-		//display: inline-block;
-		//position: absolute;
-		//right: 6px;
 
 		.refresh-button{
 			display: inline-block;
@@ -204,11 +175,6 @@
 				background: url(../Images/score-prediction-sprite.png) no-repeat;
 				background-position: 7px -13px;
 				display: block;
-				
-				//background-image: linear-gradient(to bottom, #69A8EF, #64A3E6);
-				
-
-				
 			}
 		}
 	}
@@ -221,4 +187,10 @@
 }
 
 
+.ie8 .score-prediction .prediction-input{
+	.home-name, .away-name
+		{
+			white-space: inherit;
+		}
+}
 

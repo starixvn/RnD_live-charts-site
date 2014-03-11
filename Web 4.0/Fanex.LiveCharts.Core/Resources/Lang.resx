@@ -351,4 +351,7 @@
   <data name="UpdateSuccessfullyMessage" xml:space="preserve">
     <value>Your submit has been updated successfully!</value>
   </data>
+  <data name="ScorePrediction" xml:space="preserve">
+    <value>Score Prediction</value>
+  </data>
 </root>
