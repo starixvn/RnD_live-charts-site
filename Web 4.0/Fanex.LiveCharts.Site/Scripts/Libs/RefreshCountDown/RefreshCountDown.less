@@ -2,38 +2,44 @@
 
 .refresh-countdown {
     cursor: pointer;
-    height: 21px;
-    width: 50px;
+    height: 20px;
+	width: 36px;
     text-align: center;
-    background-color: grey;
+    background-image: linear-gradient(to bottom, white, #e6e6e6);
+	background-color: #FCFCFC;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     border-radius: 3px;
+	border: 1px solid #cccccc;
 
     &:hover {
-        background-color: orange;
+		background-image: linear-gradient(to top, white, #e6e6e6);
+		background-color: #EAEAE8;
     }
 
     .loading-icon {
-        background-image: url("Images/icon_refresh.png");
+        background-image: url("../../../Content/Images/score-prediction-sprite.png");
         background-repeat: no-repeat;
-        height: 12px;
-        width: 14px;
+        height: 17px;
+		width: 12px;
         display: inline-block;
-        background-position: center top;
-        margin-bottom: -1px;
+        background-position: 0px 5px;
+        float: left;
+		margin-left: 5px;
     }
 
     .wait-loading-icon {
         background-image: url("Images/icon_refreshWait.gif");
         background-repeat: no-repeat;
-        height: 12px;
-        width: 14px;
+        height: 17px;
+		width: 12px;
         display: inline-block;
-        background-position: center top;
+        background-position: -2px 3px;
+		 float: left;
+		margin-left: 5px;
     }
 
     .countdown-time {
-        color: white;
+        color: black;
     }
 }

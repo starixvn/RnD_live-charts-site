@@ -35,14 +35,9 @@
     </script>
 </head>
 <body>
-    <header>
-        @*Header*@
-    </header>
-   @* <section id="headline">
-        @RenderSection("Headline", false)
-    </section>*@
-    
-    @RenderBody()
+    <div id="main-chart-container">
+        @RenderBody()
+    </div>
     
     @Html.Hidden("LiveChartRoot", Url.Content("~/"))
     

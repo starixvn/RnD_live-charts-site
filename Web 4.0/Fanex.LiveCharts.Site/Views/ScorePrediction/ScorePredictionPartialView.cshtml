@@ -1,16 +1,16 @@
-﻿
-<div class="score-prediction">
+﻿<div class="score-prediction">
     <div class="prediction-input">
-        <fieldset>
-            <legend>
-                @Lang.YourPrediction
-            </legend>
+        <div class="prediction-title">
+            @Lang.YourPrediction
+        </div>
+        <div class="prediction-input-content">
             <div class="home-prediction">
-                <div class="home-predict-value">
-                    <input type="text" id="homePredictionValue" class="span3" />
-                </div>
+                
                 <div class="home-name">
                     @Model.HomeName
+                </div>
+                <div class="home-predict-value">
+                    <input type="text" id="homePredictionValue" class="span3" />
                 </div>
             </div>
             <div class="vs-label">
@@ -25,30 +25,30 @@
                 </div>
             </div>
             <div class="prediction-submit">
-                <input type="submit" id="submitPreditionValue" value="@Lang.Submit" class="btn btn-primary btn-sm" title="@Lang.SubmitAndViewResult" />
+                <input type="submit" id="submitPreditionValue" value="@Lang.Submit" class="btn" title="@Lang.SubmitAndViewResult" />
             </div>
-        </fieldset>
+        </div>
     </div>
     <div id="resultContainer" style="display: none;">
-        <fieldset>
-            <legend>
-                @Lang.TotalPredictionResult
-            </legend>
-            <div class="result-information">
-                <span class="result-label"><span class="home-name">@Model.HomeName</span> <span class="vs-name">@Lang.VsLabel</span>
-                    <span class="away-name">@Model.AwayName</span> </span>
-                <div class="result-button">
-                    <div class="full-result">
-                        <span class="full-result-link btn-link" id="fullResultLink" title="@Lang.ViewAllScorePredictionResults"></span>
-                    </div>
-                    <div class="refresh-button">
-                        <div id="resultRefreshCountDown">
-                        </div>
+        <div class="prediction-title">
+            @Lang.TotalPredictionResult
+        </div>
+        <div class="result-information">
+     @*       <span class="result-label"><span class="home-name">@Model.HomeName</span> 
+            <span class="vs-name">@Lang.VsLabel</span>
+                <span class="away-name">@Model.AwayName</span> </span>*@
+            <div class="result-button">
+                <div class="full-result">
+                    <span class="full-result-link btn-link" id="fullResultLink" title="@Lang.ViewAllScorePredictionResults">
+                    </span>
+                </div>
+                <div class="refresh-button">
+                    <div id="resultRefreshCountDown">
                     </div>
                 </div>
             </div>
-            <div class="prediction-small-result" id="smallResultContainer">
-            </div>
-        </fieldset>
+        </div>
+        <div class="prediction-small-result" id="smallResultContainer">
+        </div>
     </div>
 </div>

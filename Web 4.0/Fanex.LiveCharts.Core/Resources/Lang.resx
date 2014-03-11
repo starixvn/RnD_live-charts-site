@@ -340,7 +340,7 @@
     <value>Odd/Even</value>
   </data>
   <data name="VsLabel" xml:space="preserve">
-    <value>-vs-</value>
+    <value>- vs -</value>
   </data>
   <data name="SubmitAndViewResult" xml:space="preserve">
     <value>Submit and view result</value>

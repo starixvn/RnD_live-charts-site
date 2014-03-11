@@ -6,16 +6,16 @@ input.stepper-input{
  
 /* Stepper */
 .stepper{
-    width: 50px;
-    height: 30px;  
-    margin: 0 0 10px 0;
+    width: 34px;
+    height: 21px;
+    //margin: 0 0 10px 0;
     position: relative;
     overflow: hidden;
 }
 
 .stepper .stepper-input{
     width: 100%;
-    height: 30px;
+    height: 20px;
     color: #000;
     background: #FFF;
     border: 1px solid #CCC;
@@ -30,9 +30,9 @@ input.stepper-input{
 }
 
 .stepper .stepper-step {
-    width: 20px;
-    height: 46%;
-    background: #EEE url(images/stepper.png) no-repeat;
+    width: 7px;
+	height: 7px;
+    background: #EEE url(../../../Content/Images/score-prediction-sprite.png) no-repeat;
     border: 1px solid #CCC;
     cursor: pointer;
     display: block;
@@ -48,13 +48,15 @@ input.stepper-input{
  
 /* Up and Down arrows */
 .stepper .stepper-step.up {
-    background-position: center top;
-    border-bottom: none;
-    top: 0;
+    //background-position: center top;
+    //border-bottom: none;
+	background-position: 1px -32px;
+    top: 1px;
 }
 
 .stepper .stepper-step.down {
-    background-position: center bottom;
+	//background-position: center bottom;
+    background-position: 1px -40px;
     bottom: 0;
 }
  

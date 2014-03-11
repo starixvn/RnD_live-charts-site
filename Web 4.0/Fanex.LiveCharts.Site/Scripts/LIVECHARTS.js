@@ -54,12 +54,12 @@ var LIVECHARTS = {
         error: 1
     },
     alertMessage: function (messageType, messageText, timeOut) {
-
+        'use strict';
         var $message = $('#messageNotification');
         if ($message.length === 0) {
             $message = $('<div id="messageNotification"></div>');
         }
-        var timeOut = timeOut || 3000;
+        timeOut = timeOut || 3000;
         switch (messageType) {
             case LIVECHARTS.messageType.success:
                 $message.addClass('valid-message');
@@ -72,9 +72,9 @@ var LIVECHARTS = {
         var $body = $('body');
         $message.empty().html(messageText).show().appendTo($body);
         $message.css({
-            left: ($body.width() / 2) - ($message.width() /2) + 'px'
+            left: ($body.width() / 2) - ($message.width() / 2) + 'px'
         });
-        
+
 
         var timeOutId = setTimeout(function () {
             $message.hide();

@@ -221,6 +221,7 @@
     <Content Include="Content\Images\live-icon.gif" />
     <Content Include="Content\Images\loader3.gif" />
     <Content Include="Content\Images\right-arrow-more-detail.png" />
+    <Content Include="Content\Images\score-prediction-sprite.png" />
     <Content Include="Content\Images\Soccer_ball.png" />
     <Content Include="Content\Images\soccer_ball_full_page.png" />
     <Content Include="Content\Images\tile_bg.jpg" />

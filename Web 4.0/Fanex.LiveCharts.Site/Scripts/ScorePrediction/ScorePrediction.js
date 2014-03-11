@@ -115,7 +115,8 @@ function ScorePrediction (
             chart: {
                 type: 'bar',
                 marginRight: 42,
-                marginBottom: 20
+                marginBottom: 20,
+                borderRadius: 0
             },
             credits: {
                 enabled: false
@@ -243,7 +244,8 @@ function ScorePrediction (
             chart: {
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
-                plotShadow: false
+                plotShadow: false,
+                borderRadius: 0
             },
             credits: {
                 enabled: false
