@@ -15,7 +15,7 @@ function ScorePrediction (
     me.drawColor = '#C3D69B';
     me.evenColor = '#0b72bb';
     me.oddColor = '#ff9400';
-    me.otherColor = '#122121';
+    me.otherColor = '#BFBFBF';
     me.homeName = homeName || '';
     me.awayName = awayName || '';
     me.drawName = drawName || '';
