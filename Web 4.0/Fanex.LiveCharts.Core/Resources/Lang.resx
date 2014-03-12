@@ -354,4 +354,10 @@
   <data name="ScorePrediction" xml:space="preserve">
     <value>Score Prediction</value>
   </data>
+  <data name="DecreaseScore" xml:space="preserve">
+    <value>Decrease Score</value>
+  </data>
+  <data name="IncreaseScore" xml:space="preserve">
+    <value>Increase Score</value>
+  </data>
 </root>

@@ -45,7 +45,7 @@
 
     Fanex.RefreshCountDown = function (refreshCountDown, options) {
         this.options = options;
-        
+
         this.$refreshCountDown = $(refreshCountDown);
         this.id = refreshCountDown.id;
         this.calculateTotalTime();
@@ -62,8 +62,7 @@
             this.render();
             this.startCountDown(this);
         },
-        calculateTotalTime: function ()
-        {
+        calculateTotalTime: function () {
             this.sumCountDownSeconds = this.options.countDownMinutes * 60 + this.options.countDownSeconds;
         },
         render: function () {
@@ -84,14 +83,13 @@
                 }
             });
         },
-        convertTimeToString: function(seconds)
-        {
+        convertTimeToString: function (seconds) {
             if (seconds == 0) {
                 return seconds;
             }
 
             if (seconds <= 60) {
-                return seconds > 9 ? seconds : '0' + seconds ;
+                return seconds > 9 ? seconds : '0' + seconds;
             }
 
             var minute = Math.round((seconds - 30) / 60);
@@ -100,8 +98,7 @@
             }
 
             var secondText = seconds % 60;
-            if(secondText < 10)
-            {
+            if (secondText < 10) {
                 secondText = '0' + secondText;
             }
 
@@ -110,8 +107,9 @@
         startCountDown: function (currentCountDownObjects) {
             var me = currentCountDownObjects;
             var options = me.options;
-            me.$refreshCountDown.find('.wait-loading-icon').addClass('loading-icon').removeClass('wait-loading-icon')
-            clearInterval(Fanex.RefreshCountDown.listInterval[me.id]);
+            me.$refreshCountDown.find('.wait-loading-icon').addClass('loading-icon').removeClass('wait-loading-icon');
+            me.$refreshCountDown.find('.countdown-time').html(me.convertTimeToString(me.sumCountDownSeconds));
+            //clearInterval(Fanex.RefreshCountDown.listInterval[me.id]);
             Fanex.RefreshCountDown.listInterval[me.id] = setInterval(function () {
                 me.sumCountDownSeconds--;
                 me.$refreshCountDown.find('.countdown-time').html(me.convertTimeToString(me.sumCountDownSeconds));
@@ -123,7 +121,7 @@
         resetCountDown: function () {
             var me = this;
             var options = me.options;
-
+            clearInterval(Fanex.RefreshCountDown.listInterval[me.id]);
             me.calculateTotalTime();
             me.$refreshCountDown.find('.loading-icon').removeClass('loading-icon').addClass('wait-loading-icon');
             me.$refreshCountDown.find('.countdown-time').html('');

@@ -10,14 +10,15 @@
 namespace Fanex.LiveCharts.Services.Impl
 {
     using System.Linq;
+    using Fanex.LiveCharts.Core;
+    using Fanex.LiveCharts.Criterias;
     using Fanex.LiveCharts.Criterias.ScorePrediction;
     using Fanex.LiveCharts.Models.ScorePrediction;
     using Fanex.LiveCharts.Repositories.Impl;
     using Fanex.LiveCharts.Repositories.Interface;
+    using Fanex.LiveCharts.Resources;
     using Fanex.LiveCharts.Services.Interface;
     using Fanex.NAP.Framework.Data;
-    using Fanex.LiveCharts.Core;
-    using Fanex.LiveCharts.Resources;
 
     /// <summary>
     /// TODO: Update summary.
@@ -27,15 +28,17 @@ namespace Fanex.LiveCharts.Services.Impl
         private const string ScorePredictionTotalCacheKey = "Fanex.LiveCharts.Services.Impl.ScorePredictionService";
         private const int ReUpdateCode = 1000;
         private IScorePredictionRepository _scorePredictionRepository;
+        private IChartService _chartService;
 
         public ScorePredictionService()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public ScorePredictionService(IScorePredictionRepository scorePredictionRepository)
+        public ScorePredictionService(IScorePredictionRepository scorePredictionRepository, IChartService chartService)
         {
             _scorePredictionRepository = scorePredictionRepository ?? new ScorePredictionRepository();
+            _chartService = chartService ?? new ChartService();
         }
 
         /// <summary>
@@ -72,6 +75,11 @@ namespace Fanex.LiveCharts.Services.Impl
             return scorePredictionTotal;
         }
 
+        /// <summary>
+        /// Insert or update Score prediction item.
+        /// </summary>
+        /// <param name="insertOrUpdateScorePredictionItemCriteria">Parameters for updating.</param>
+        /// <returns>Result of command.</returns>
         public ICommandResult InsertOrUpdateScorePredictionItem(
             InsertOrUpdateScorePredictionItemCriteria insertOrUpdateScorePredictionItemCriteria)
         {
@@ -84,9 +92,15 @@ namespace Fanex.LiveCharts.Services.Impl
                     Message = Lang.UpdateSuccessfullyMessage
                 };
             }
+
             return updateResult;
         }
 
+        /// <summary>
+        /// Get user prediction, if not, then get Score of match to set default score.
+        /// </summary>
+        /// <param name="getUserPredictionCriteria">Get user prediction criteria.</param>
+        /// <returns>Current user prediction or default score.</returns>
         public ScorePredictionItem GetUserPrediction(
             GetUserPredictionCriteria getUserPredictionCriteria)
         {
@@ -94,7 +108,16 @@ namespace Fanex.LiveCharts.Services.Impl
 
             if (currentUserPrediction == null)
             {
-                return new ScorePredictionItem();
+                var currentMatchStatus = _chartService.GetCurrentMatchTime(new GetCurrentMatchTimeCriteria
+                {
+                    MatchId = getUserPredictionCriteria.MatchId
+                });
+
+                return new ScorePredictionItem
+                {
+                    AwayScore = currentMatchStatus.AwayScore,
+                    HomeScore = currentMatchStatus.HomeScore
+                };
             }
 
             return currentUserPrediction;

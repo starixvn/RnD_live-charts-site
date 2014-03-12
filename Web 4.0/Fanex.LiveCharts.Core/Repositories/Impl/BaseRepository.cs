@@ -12,9 +12,9 @@ namespace Fanex.LiveCharts.Repositories.Impl
     using System;
     using System.Collections;
     using Fanex.Data;
+    using Fanex.LiveCharts.Resources;
     using Fanex.NAP.Core.Criteria.Misc;
     using Fanex.NAP.Framework.Data;
-    using Fanex.LiveCharts.Resources;
 
     /// <summary>
     /// TODO: Update summary.

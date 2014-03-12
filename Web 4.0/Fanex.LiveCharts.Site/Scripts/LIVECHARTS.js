@@ -152,6 +152,10 @@ var LIVECHARTS = {
             ajaxOption.data = JSON.stringify(ajaxOption.data);
         }
 
+        if (typeof (ajaxOption.useBlockUI) === 'undefined') {
+            ajaxOption.useBlockUI = true;
+        }
+
         $.ajax({
             url: ajaxOption.url,
             type: ajaxOption.type,
@@ -159,16 +163,22 @@ var LIVECHARTS = {
             dataType: "json",
             data: ajaxOption.data,
             beforeSend: function () {
-                try { $.blockUI(); } catch (e) { }
+                if (ajaxOption.useBlockUI) {
+                    try { $.blockUI(); } catch (e) { }
+                }
             }
         }).done(function (data) {
             ajaxOption.done(data);
-            try { $.unblockUI(); } catch (e) { }
+            if (ajaxOption.useBlockUI) {
+                try { $.unblockUI(); } catch (e) { }
+            }
         }).fail(function (jqXHR, textStatus, errorThrown) {
             if (typeof (ajaxOption.fail) !== 'undefined') {
                 ajaxOption.fail(jqXHR, textStatus, errorThrown);
             }
-            try { $.unblockUI(); } catch (e) { }
+            if (ajaxOption.useBlockUI) {
+                try { $.unblockUI(); } catch (e) { }
+            }
             // Handle exception here
         }).always(function () {
             if (typeof (ajaxOption.always) !== 'undefined') {

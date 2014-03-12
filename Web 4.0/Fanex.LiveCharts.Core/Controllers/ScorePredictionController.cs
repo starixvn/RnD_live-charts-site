@@ -81,6 +81,12 @@ namespace Fanex.LiveCharts.Controllers
             return Json(result);
         }
 
+        /// <summary>
+        /// Get User Id from Cookie if current user is not member.
+        /// </summary>
+        /// <param name="memberId">Current member id, if it's less than 0, then it's not member.</param>
+        /// <param name="matchId">Current match id for score prediction.</param>
+        /// <returns>String contain member identity.</returns>
         [NonAction]
         private string GetUserIdFromCookie(string memberId, int matchId)
         {

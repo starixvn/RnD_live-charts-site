@@ -223,6 +223,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Decrease Score.
+        /// </summary>
+        public static string DecreaseScore {
+            get {
+                return ResourceManager.GetString("DecreaseScore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Draw.
         /// </summary>
         public static string Draw {
@@ -309,6 +318,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string HttpError_Default {
             get {
                 return ResourceManager.GetString("HttpError_Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Increase Score.
+        /// </summary>
+        public static string IncreaseScore {
+            get {
+                return ResourceManager.GetString("IncreaseScore", resourceCulture);
             }
         }
         

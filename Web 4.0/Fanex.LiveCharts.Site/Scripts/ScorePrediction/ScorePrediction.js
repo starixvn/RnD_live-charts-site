@@ -13,8 +13,8 @@ function ScorePrediction (
     me.homeColor = '#0b72bb';
     me.awayColor = '#ff9400';
     me.drawColor = '#C3D69B';
-    me.evenColor = '#0b72bb';
-    me.oddColor = '#ff9400';
+    me.evenColor = '#92CDDD';
+    me.oddColor = '#E6B9B8';
     me.otherColor = '#BFBFBF';
     me.homeName = homeName || '';
     me.awayName = awayName || '';
@@ -33,12 +33,7 @@ function ScorePrediction (
 
         for (var i = 0; i < optionsLength; i++) {
             var currentOption = predictionOptionTotal.ScorePredictionOptions[i];
-//            if (i === optionsLength - 1) {
-//                currentPercent = parseFloat((100 - total).toFixed(2));
-//            }
-//            else {
                 currentPercent = parseFloat((currentOption.ScorePredictionCount / totalPrediction * 100).toFixed(2));
-            //}
             resultArray.push({
                 name: '' + currentOption.HomeScore + '-' + currentOption.AwayScore,
                 color: me.getColor(currentOption.HomeScore, currentOption.AwayScore, false),
@@ -54,17 +49,16 @@ function ScorePrediction (
     me.getHandicapResult = function (predictionOptionTotal) {
         var resultArray = [],
             points = {},
-        //optionsLength = predictionOptionTotal.ScorePredictionOptions.length,
             totalPrediction = predictionOptionTotal.TotalPrediction;
 
         for (var i in predictionOptionTotal.ScorePredictionOptions) {
             var option = predictionOptionTotal.ScorePredictionOptions[i];
             var handicapValue = option.HomeScore - option.AwayScore;
             if (handicapValue > 4) {
-                handicapValue = '>+' + handicapValue;
+                handicapValue = '>+4';
             }
             else if (handicapValue < -4) {
-                handicapValue = '<' + handicapValue;
+                handicapValue = '<-4';
             }
             else {
                 handicapValue = handicapValue > 0 ? ('+' + handicapValue) : ('' + handicapValue);
@@ -80,8 +74,8 @@ function ScorePrediction (
 
             points[handicapValue].total += option.ScorePredictionCount;
         }
+
         var currentPercent;
-        var total = 0;
         for (i in points) {
             var point = points[i];
             currentPercent = parseFloat((point.total / totalPrediction * 100).toFixed(2));
@@ -92,15 +86,8 @@ function ScorePrediction (
                 color: point.color,
                 y: currentPercent
             });
-
-            total += currentPercent;
         }
-
-//        if (total > 100) {
-//            resultArray[resultArray.length -1].y = 
-//        }
-
-        return me.combineLowerOptionToOther(me.sortResult(resultArray));
+        return me.sortResult(resultArray);
     };
 
     me.getScoreOption = function (points, name) {
@@ -264,7 +251,7 @@ function ScorePrediction (
                         enabled: true,
                         color: '#000000',
                         connectorColor: '#000000',
-                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                        format: '<b>{point.name}</b>: {point.percentage:.2f} %'
                     }
                 }
             },

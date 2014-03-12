@@ -51,18 +51,16 @@ function ScorePredictionView() {
                 memberId: me.memberId,
                 matchId: me.matchId
             },
+            useBlockUI: false,
             done: function (result) {
-                var homeScore = 0, awayScore = 0;
                 if (result.MemberId) {
-                    homeScore = result.HomeScore;
-                    awayScore = result.AwayScore;
                     me.getCorrectScoreResult({
                         matchId: me.matchId
                     });
                 }
 
-                me.$txtHomeScore.val(homeScore);
-                me.$txtAwayScore.val(awayScore);
+                me.$txtHomeScore.val(result.HomeScore);
+                me.$txtAwayScore.val(result.AwayScore);
             }
         });
     };
@@ -117,6 +115,7 @@ function ScorePredictionView() {
             url: me.url.getScorePredictionResult,
             type: 'POST',
             data: params,
+            useBlockUI: false,
             done: function (result) {
                 var resultArray = me.scorePrediction.getCorrectScoreResult(result);
                 var scoreOption = me.scorePrediction.getScoreOption(resultArray, 'Correct Score');
