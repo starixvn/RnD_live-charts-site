@@ -26,7 +26,7 @@ if (typeof jQuery !== 'undefined') {
                 alert(LiveChartsAdmin.generalErrorMsg);
             },
             handleAjaxError: function () {
-                //LiveChartsAdmin.alertGeneralError();
+                LiveChartsAdmin.alertGeneralError();
             },
             console: {
                 write: function (msg, consoleFunc) {

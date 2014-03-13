@@ -34,7 +34,7 @@ function ScorePredictionView() {
         //// Spinner
 
         me.$inputScore.stepper({ min: 0,
-            max: 20,
+            max: 99,
             step: 1
         });
 
