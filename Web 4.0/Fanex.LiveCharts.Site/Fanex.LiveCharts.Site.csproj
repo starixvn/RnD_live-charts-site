@@ -477,6 +477,7 @@
     <Content Include="Areas\Admin\Views\Web.config" />
     <Content Include="Areas\Admin\Views\Match\GetEnableCharts.cshtml" />
     <Content Include="Areas\Admin\Views\Match\MatchList.cshtml" />
+    <Content Include="Areas\Admin\Views\ScorePrediction\ScorePredictionConfig.cshtml" />
     <None Include="Areas\UserLogin\themes\fonts\Abel.woff" />
     <None Include="Areas\UserLogin\themes\select-site.less" />
     <Content Include="Areas\UserLogin\Views\Common\Offline.cshtml" />

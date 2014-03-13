@@ -10,6 +10,7 @@
 namespace Fanex.LiveCharts.Services.Interface
 {
     using Fanex.LiveCharts.Criterias.ScorePrediction;
+    using Fanex.LiveCharts.Models;
     using Fanex.LiveCharts.Models.ScorePrediction;
     using Fanex.NAP.Framework.Data;
 
@@ -23,5 +24,11 @@ namespace Fanex.LiveCharts.Services.Interface
         ICommandResult InsertOrUpdateScorePredictionItem(InsertOrUpdateScorePredictionItemCriteria insertOrUpdateScorePredictionItemCriteria);
 
         ScorePredictionItem GetUserPrediction(GetUserPredictionCriteria getUserPredictionCriteria);
+
+        ICommandResult InsertOrUpdateDummyPrediction(ChartAdminInsertUpdateDummyPredictionCriteria insertCriteria);
+
+        SettingItem GetClosePredictionMinuteSetting(ChartAdminGetMinuteForClosingPredictionCriteria getClosingMinuteCriteria);
+
+        ICommandResult UpdateClosePredictionMinuteSetting(ChartAdminUpdateMinuteForClosingPredictionCriteria updateClosingMinuteCriteria);
     }
 }

@@ -125,6 +125,9 @@
     <Compile Include="Criterias\GetOddsCriteria.cs" />
     <Compile Include="Criterias\ImportMatchQueueCriteria.cs" />
     <Compile Include="Criterias\InsertEventCriteria.cs" />
+    <Compile Include="Criterias\ScorePrediction\ChartAdminGetMinuteForClosingPredictionCriteria.cs" />
+    <Compile Include="Criterias\ScorePrediction\ChartAdminInsertUpdateDummyPredictionCriteria.cs" />
+    <Compile Include="Criterias\ScorePrediction\ChartAdminUpdateMinuteForClosingPredictionCriteria.cs" />
     <Compile Include="Criterias\ScorePrediction\GetAllScorePredictionCriteria.cs" />
     <Compile Include="Criterias\ScorePrediction\GetUserPredictionCriteria.cs" />
     <Compile Include="Criterias\ScorePrediction\InsertOrUpdateScorePredictionItemCriteria.cs" />
@@ -151,6 +154,7 @@
     <Compile Include="Models\ScorePrediction\ScorePredictionItem.cs" />
     <Compile Include="Models\ScorePrediction\ScorePredictionOption.cs" />
     <Compile Include="Models\ScorePrediction\ScorePredictionTotal.cs" />
+    <Compile Include="Models\SettingItem.cs" />
     <Compile Include="Models\Team.cs" />
     <Compile Include="Models\TeamChoice.cs" />
     <Compile Include="Models\Sport.cs" />

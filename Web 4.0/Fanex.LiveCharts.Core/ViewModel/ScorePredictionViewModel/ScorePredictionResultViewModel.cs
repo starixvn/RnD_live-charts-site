@@ -19,5 +19,7 @@ namespace Fanex.LiveCharts.ViewModel.ScorePredictionViewModel
         public string HomeName { get; set; }
 
         public string AwayName { get; set; }
+
+        public bool IsAdminSite { get; set; }
     }
 }

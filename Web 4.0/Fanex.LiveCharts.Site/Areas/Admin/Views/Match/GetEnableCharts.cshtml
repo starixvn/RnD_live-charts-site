@@ -70,6 +70,9 @@
             <th>
                 @Lang.Odds
             </th>
+             <th>
+                Score Prediction Option
+            </th>
         </tr>
     </thead>
     <tbody id="grid-user">
@@ -109,9 +112,12 @@
                     {
                         if (odds.ChartStatus)
                         {
-                        <span>@odds.OddsInformationString</span> <br />
+                            <span>@odds.OddsInformationString</span> <br />
                         }
                     }
+                </td>
+                <td class="align-center">
+                    <a href="~/ScorePrediction/AdminPage?matchId=@(item.Id)&homeName=@(HttpUtility.UrlEncode(item.HomeName))&awayName=@(HttpUtility.UrlEncode(item.AwayName))">Score Prediction</a>
                 </td>
             </tr>
                     i++;
@@ -120,7 +126,7 @@
             else
             {
             <tr class="no-info">
-                <td colspan="@(isRunning? 6 : 5)" class="align-center">
+                <td colspan="@(isRunning? 7 : 6)" class="align-center">
                     @AdminSiteLang.NoInfoAvailable
                 </td>
             </tr>

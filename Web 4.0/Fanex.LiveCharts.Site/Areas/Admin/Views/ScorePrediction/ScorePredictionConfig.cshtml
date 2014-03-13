@@ -1,0 +1,26 @@
+﻿@using Fanex.LiveCharts.ViewModel.ScorePredictionViewModel;
+@using Fanex.LiveCharts.Models.ScorePrediction;
+@model ScorePredictionResultViewModel
+@{
+    ViewBag.Title = "Score Prediction Config Page";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var scorePredictionOptions = ViewBag.ScorePredictionOptions as ScorePredictionTotal;
+}
+
+
+<div>
+    @Model.HomeName - @Model.AwayName
+</div>
+
+<iframe id="frmChartContent" width="99%" height="670px" src="~/ScorePrediction/Index?matchId=@(Model.MatchId)&homeName=@(HttpUtility.UrlEncode(Model.HomeName))&awayName=@(HttpUtility.UrlEncode(Model.AwayName))" frameborder="0">
+    </iframe>
+
+@if (scorePredictionOptions.ScorePredictionOptions.Any())
+{
+    foreach (var option in scorePredictionOptions.ScorePredictionOptions)
+    {
+        <ul>
+            <li>@option.HomeScore - @option.AwayScore : @option.ScorePredictionCount - @option.DummyCount</li>
+        </ul>
+    }
+}

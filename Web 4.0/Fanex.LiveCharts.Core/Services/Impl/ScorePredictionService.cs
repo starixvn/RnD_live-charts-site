@@ -13,6 +13,7 @@ namespace Fanex.LiveCharts.Services.Impl
     using Fanex.LiveCharts.Core;
     using Fanex.LiveCharts.Criterias;
     using Fanex.LiveCharts.Criterias.ScorePrediction;
+    using Fanex.LiveCharts.Models;
     using Fanex.LiveCharts.Models.ScorePrediction;
     using Fanex.LiveCharts.Repositories.Impl;
     using Fanex.LiveCharts.Repositories.Interface;
@@ -65,7 +66,16 @@ namespace Fanex.LiveCharts.Services.Impl
                 ScorePredictionOptions = _scorePredictionRepository.Fetch<ScorePredictionOption>(getAllScorePredictionCriteria).ToList()
             };
 
-            scorePredictionTotal.TotalPrediction = scorePredictionTotal.ScorePredictionOptions.Sum(optionTotal => optionTotal.ScorePredictionCount);
+            foreach (var option in scorePredictionTotal.ScorePredictionOptions)
+            {
+                //// If member site, then reset dummy count.
+                if (!getAllScorePredictionCriteria.IsAdminSite)
+                {
+                    option.DummyCount = 0;
+                }
+
+                scorePredictionTotal.TotalPrediction += option.ScorePredictionCount;
+            }
 
             if (isUsingCache)
             {
@@ -121,6 +131,27 @@ namespace Fanex.LiveCharts.Services.Impl
             }
 
             return currentUserPrediction;
+        }
+
+        public ICommandResult InsertOrUpdateDummyPrediction(ChartAdminInsertUpdateDummyPredictionCriteria insertCriteria)
+        {
+            var result = _scorePredictionRepository.ModifyData(insertCriteria);
+
+            return result;
+        }
+
+        public SettingItem GetClosePredictionMinuteSetting(ChartAdminGetMinuteForClosingPredictionCriteria getClosingMinuteCriteria)
+        {
+            var closePredictionMinuteSetting = _scorePredictionRepository.Get<SettingItem>(getClosingMinuteCriteria);
+
+            return closePredictionMinuteSetting;
+        }
+
+        public ICommandResult UpdateClosePredictionMinuteSetting(ChartAdminUpdateMinuteForClosingPredictionCriteria updateClosingMinuteCriteria)
+        {
+            var result = _scorePredictionRepository.ModifyData(updateClosingMinuteCriteria);
+
+            return result;
         }
     }
 }

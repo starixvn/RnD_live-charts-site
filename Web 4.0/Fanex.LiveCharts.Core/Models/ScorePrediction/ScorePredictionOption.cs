@@ -23,5 +23,7 @@ namespace Fanex.LiveCharts.Models.ScorePrediction
         public int AwayScore { get; set; }
 
         public int ScorePredictionCount { get; set; }
+
+        public int DummyCount { get; set; }
     }
 }

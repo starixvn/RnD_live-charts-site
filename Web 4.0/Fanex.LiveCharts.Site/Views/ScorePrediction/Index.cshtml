@@ -1,10 +1,10 @@
 ﻿@using Fanex.LiveCharts.ViewModel.ScorePredictionViewModel;
+@model ScorePredictionResultViewModel
 @{
-    var scorePredictionResultViewModel = Model as ScorePredictionResultViewModel;
     ViewBag.Title = string.Format("{0} {1} {2} - {3}",
-        scorePredictionResultViewModel.HomeName,
+        Model.HomeName,
         Lang.VsLabel,
-        scorePredictionResultViewModel.AwayName,
+        Model.AwayName,
         Lang.TotalPredictionResult
         );
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -71,9 +71,9 @@
 </div>
 <script type="text/javascript">
     var scorePredictionViewModel = {
-        matchId: @(scorePredictionResultViewModel.MatchId),
-        homeName: '@(scorePredictionResultViewModel.HomeName)',
-        awayName: '@(scorePredictionResultViewModel.AwayName)'
+        matchId: @(Model.MatchId),
+        homeName: '@(Model.HomeName)',
+        awayName: '@(Model.AwayName)'
     };
 </script>
 @section Scripts

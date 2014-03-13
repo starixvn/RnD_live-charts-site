@@ -19,6 +19,9 @@ namespace Fanex.LiveCharts.Criterias.ScorePrediction
     {
         public int MatchId { get; set; }
 
+        [SpParam(Ignored = true)]
+        public bool IsAdminSite { get; set; }
+
         public override string GetSettingKey()
         {
             return "Chart_Get_All_Score_Prediction";
