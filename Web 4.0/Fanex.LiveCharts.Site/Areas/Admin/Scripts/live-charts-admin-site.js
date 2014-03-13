@@ -88,6 +88,46 @@ if (typeof jQuery !== 'undefined') {
                         });
                     });
                 }
+            },
+            callAjax: function (ajaxOption) {
+                'use strict';
+                if (ajaxOption.type === 'POST') {
+                    ajaxOption.data = JSON.stringify(ajaxOption.data);
+                }
+
+                if (typeof (ajaxOption.useBlockUI) === 'undefined') {
+                    ajaxOption.useBlockUI = true;
+                }
+
+                $.ajax({
+                    url: ajaxOption.url,
+                    type: ajaxOption.type,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: ajaxOption.data,
+                    beforeSend: function () {
+                        if (ajaxOption.useBlockUI) {
+                            try { $.blockUI(); } catch (e) { }
+                        }
+                    }
+                }).done(function (data) {
+                    ajaxOption.done(data);
+                    if (ajaxOption.useBlockUI) {
+                        try { $.unblockUI(); } catch (e) { }
+                    }
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    if (typeof (ajaxOption.fail) !== 'undefined') {
+                        ajaxOption.fail(jqXHR, textStatus, errorThrown);
+                    }
+                    if (ajaxOption.useBlockUI) {
+                        try { $.unblockUI(); } catch (e) { }
+                    }
+                    // Handle exception here
+                }).always(function () {
+                    if (typeof (ajaxOption.always) !== 'undefined') {
+                        ajaxOption.always();
+                    }
+                });
             }
         };
     })(jQuery);

@@ -178,6 +178,8 @@
     <Content Include="Areas\Admin\Scripts\live-charts-match-detail.js" />
     <Content Include="Areas\Admin\Scripts\live-charts-search-matches.js" />
     <Content Include="Areas\Admin\Scripts\modernizr-2.5.3.js" />
+    <Content Include="Areas\Admin\Scripts\ScorePrediction\score-prediction-config-view.js" />
+    <Content Include="Areas\Admin\Scripts\ScorePrediction\score-prediction-config.js" />
     <Content Include="Areas\Admin\Scripts\_Layout.js" />
     <Content Include="Areas\UserLogin\scripts\lib\jquery-1.8.0.min.js" />
     <Content Include="Areas\UserLogin\scripts\lib\msgbox\images\alert.png" />

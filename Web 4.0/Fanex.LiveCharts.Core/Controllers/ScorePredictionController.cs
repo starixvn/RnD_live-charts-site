@@ -37,6 +37,8 @@ namespace Fanex.LiveCharts.Controllers
             _scorePredictionService = scorePredictionService ?? new ScorePredictionService();
         }
 
+        #region Member Site
+
         public ActionResult Index(int matchId, string homeName, string awayName, bool isAdminSite = false)
         {
             return View(new ScorePredictionResultViewModel
@@ -45,32 +47,6 @@ namespace Fanex.LiveCharts.Controllers
                 HomeName = homeName,
                 AwayName = awayName
             });
-        }
-
-        /// <summary>
-        /// Admin page for score prediction configuration.
-        /// </summary>
-        /// <param name="matchId">Current match id for configuration.</param>
-        /// <param name="homeName">Current home name.</param>
-        /// <param name="awayName">Current away name.</param>
-        /// <returns>Return view.</returns>
-        [NapSuperAuth]
-        public ActionResult AdminPage(int matchId, string homeName, string awayName)
-        {
-            ViewBag.ScorePredictionOptions = _scorePredictionService.GetTotalScorePrediction(new GetAllScorePredictionCriteria
-            {
-                IsAdminSite = true,
-                MatchId = matchId
-            });
-
-            return View(
-                "~/Areas/Admin/Views/ScorePrediction/ScorePredictionConfig.cshtml", 
-                new ScorePredictionResultViewModel
-                {
-                    MatchId = matchId,
-                    HomeName = homeName,
-                    AwayName = awayName
-                });
         }
 
         [HttpPost]
@@ -138,5 +114,44 @@ namespace Fanex.LiveCharts.Controllers
 
             return memberId;
         }
+
+        #endregion Member Site
+
+        #region Admin Site
+
+        /// <summary>
+        /// Admin page for score prediction configuration.
+        /// </summary>
+        /// <param name="matchId">Current match id for configuration.</param>
+        /// <param name="homeName">Current home name.</param>
+        /// <param name="awayName">Current away name.</param>
+        /// <returns>Return view.</returns>
+        [NapSuperAuth]
+        public ActionResult AdminPage(int matchId, string homeName, string awayName)
+        {
+            ViewBag.ScorePredictionOptions = _scorePredictionService.GetTotalScorePrediction(new GetAllScorePredictionCriteria
+            {
+                IsAdminSite = true,
+                MatchId = matchId
+            });
+
+            return View(
+                "~/Areas/Admin/Views/ScorePrediction/ScorePredictionConfig.cshtml",
+                new ScorePredictionResultViewModel
+                {
+                    MatchId = matchId,
+                    HomeName = homeName,
+                    AwayName = awayName
+                });
+        }
+
+        [NapSuperAuth, HttpPost]
+        public JsonResult UpdateDummyPrediction(ChartAdminInsertUpdateDummyPredictionCriteria updateCriteria)
+        {
+            var result = _scorePredictionService.InsertOrUpdateDummyPrediction(updateCriteria);
+            return Json(result);
+        }
+
+        #endregion Admin Site
     }
 }

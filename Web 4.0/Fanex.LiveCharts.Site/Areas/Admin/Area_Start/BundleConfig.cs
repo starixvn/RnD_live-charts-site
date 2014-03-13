@@ -38,6 +38,11 @@ namespace Fanex.LiveCharts.Site.Areas.Admin.Area_Start
 
             bundles.Add(new ScriptBundle("~/areas/admin/searchmatchjs").Include(
                 "~/Areas/Admin/Scripts/live-charts-search-matches.js"));
+
+            bundles.Add(new ScriptBundle("~/areas/admin/scorepredictionconfigjs").Include(
+                "~/Areas/Admin/Scripts/ScorePrediction/score-prediction-config.js",
+                "~/Areas/Admin/Scripts/ScorePrediction/score-prediction-config-view.js"
+                ));
         }
     }
 }
