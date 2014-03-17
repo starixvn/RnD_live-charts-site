@@ -71,7 +71,7 @@
                 @Lang.Odds
             </th>
              <th>
-                Score Prediction Option
+                @Lang.ScorePrediction
             </th>
         </tr>
     </thead>
@@ -117,7 +117,7 @@
                     }
                 </td>
                 <td class="align-center">
-                    <a href="~/ScorePrediction/AdminPage?matchId=@(item.Id)&homeName=@(HttpUtility.UrlEncode(item.HomeName))&awayName=@(HttpUtility.UrlEncode(item.AwayName))">Score Prediction</a>
+                    <a href="~/ScorePrediction/AdminPage?matchId=@(item.Id)&homeName=@(HttpUtility.UrlEncode(item.HomeName))&awayName=@(HttpUtility.UrlEncode(item.AwayName))">@AdminSiteLang.Monitor</a>
                 </td>
             </tr>
                     i++;

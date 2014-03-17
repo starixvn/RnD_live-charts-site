@@ -1,7 +1,8 @@
 ﻿/* File Created: March 13, 2014 */
 /// <reference path="../live-charts-admin-site.js" />
-
+/*global LiveChartsAdmin*/
 function ScorePredictionConfigView() {
+    'use strict';
     var me = this;
 
     me.init = function () {
@@ -21,15 +22,17 @@ function ScorePredictionConfigView() {
                 ScorePredictionOptionId: 21,
                 DummyCount: 3
             },
-            success: function () { 
+            success: function () {
                 location.reload();
             }
         });
-    }
-};
+    };
+}
 
 
 $(function () {
+    'use strict';
+
     var scorePredictionConfigView = new ScorePredictionConfigView();
     scorePredictionConfigView.init();
 });

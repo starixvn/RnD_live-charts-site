@@ -23,24 +23,28 @@ function ScorePrediction (
     me.evenName = evenName || 'Even';
     me.otherName = 'Others';
     me.minPercent = 4;
+    me.isAdminSite = false;
+
 
     me.getCorrectScoreResult = function (predictionOptionTotal) {
         var resultArray = [],
             optionsLength = predictionOptionTotal.ScorePredictionOptions.length,
             totalPrediction = predictionOptionTotal.TotalPrediction,
-            total = 0,
             currentPercent;
 
         for (var i = 0; i < optionsLength; i++) {
             var currentOption = predictionOptionTotal.ScorePredictionOptions[i];
-                currentPercent = parseFloat((currentOption.ScorePredictionCount / totalPrediction * 100).toFixed(2));
+            currentPercent = me.formatValue(currentOption.ScorePredictionCount / totalPrediction * 100);
             resultArray.push({
                 name: '' + currentOption.HomeScore + '-' + currentOption.AwayScore,
                 color: me.getColor(currentOption.HomeScore, currentOption.AwayScore, false),
-                y: currentPercent
+                y: currentPercent,
+                customData: {
+                    currentPrediction: currentOption.ScorePredictionCount,
+                    totalPrediction: totalPrediction
+                }
             });
 
-            total += currentPercent;
         }
 
         return me.combineLowerOptionToOther(me.sortResult(resultArray));
@@ -78,13 +82,17 @@ function ScorePrediction (
         var currentPercent;
         for (i in points) {
             var point = points[i];
-            currentPercent = parseFloat((point.total / totalPrediction * 100).toFixed(2));
+            currentPercent = me.formatValue((point.total / totalPrediction) * 100);
 
 
             resultArray.push({
                 name: point.name,
                 color: point.color,
-                y: currentPercent
+                y: currentPercent,
+                customData: {
+                    currentPrediction: point.total,
+                    totalPrediction: totalPrediction
+                }
             });
         }
         return me.sortResult(resultArray);
@@ -130,7 +138,17 @@ function ScorePrediction (
                 bar: {
                     dataLabels: {
                         enabled: true,
-                        format: '{y} %'
+                        formatter: function () {
+                            var data = this,
+                                textFormat = '' + data.y + '%';
+
+                            if (me.isAdminSite) {
+                                textFormat += ' ('
+                                    + data.point.customData.currentPrediction + '/'
+                                    + data.point.customData.totalPrediction + ')';
+                            }
+                            return textFormat;
+                        }
                     }
                 }
             },
@@ -178,7 +196,11 @@ function ScorePrediction (
             resultArray.push({
                 name: point.name,
                 color: point.color,
-                y: point.total
+                y: point.total,
+                customData: {
+                    currentPrediction: point.total,
+                    totalPrediction: predictionOptionTotal.TotalPrediction
+                }
             });
         }
 
@@ -219,7 +241,11 @@ function ScorePrediction (
             resultArray.push({
                 name: point.name,
                 color: point.color,
-                y: point.total
+                y: point.total,
+                customData: {
+                    currentPrediction: point.total,
+                    totalPrediction: predictionOptionTotal.TotalPrediction
+                }
             });
         }
 
@@ -241,7 +267,7 @@ function ScorePrediction (
                 text: null
             },
             tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                pointFormat: '{series.name}: <b>{point.percentage:.2f}%</b>'
             },
             plotOptions: {
                 pie: {
@@ -251,7 +277,18 @@ function ScorePrediction (
                         enabled: true,
                         color: '#000000',
                         connectorColor: '#000000',
-                        format: '<b>{point.name}</b>: {point.percentage:.2f} %'
+                        //format: '<b>{point.name}</b>: {point.percentage:.2f} %'
+                        formatter: function () {
+                            var data = this,
+                                textData = '<b>' + data.point.name + '</b>: ' + me.formatValue(data.percentage) + '%';
+                            if (me.isAdminSite) {
+                                textData += ' ('
+                                    + data.point.customData.currentPrediction + '/'
+                                    + data.point.customData.totalPrediction + ')';
+                            }
+
+                            return textData;
+                        }
                     }
                 }
             },
@@ -290,23 +327,35 @@ function ScorePrediction (
         var otherOption = {
             name: me.otherName,
             color: me.otherColor,
-            y: 0
+            y: 0,
+            customData: {
+                currentPrediction: 0,
+                totalPrediction: 0
+            }
         };
 
         for (var i = points.length - 1; i >= 0; i--) {
             var point = points[i];
             if (point.y < me.minPercent) {
-                otherOption.y += point.y;
+                otherOption.y += point.y
+                otherOption.customData.currentPrediction += point.customData.currentPrediction;
+                if (otherOption.customData.totalPrediction === 0) {
+                    otherOption.customData.totalPrediction = point.customData.totalPrediction;
+                }
                 points.splice(i, 1);
             }
         }
 
         if (otherOption.y > 0) {
-            otherOption.y = parseFloat((otherOption.y).toFixed(2));
+            otherOption.y = me.formatValue(otherOption.y);
             points.push(otherOption);
         }
 
         return points;
     };
 
+
+    me.formatValue = function (value) {
+        return parseFloat(value.toFixed(2));
+    }
 }

@@ -90,7 +90,6 @@ if (typeof jQuery !== 'undefined') {
                 }
             },
             callAjax: function (ajaxOption) {
-                'use strict';
                 if (ajaxOption.type === 'POST') {
                     ajaxOption.data = JSON.stringify(ajaxOption.data);
                 }

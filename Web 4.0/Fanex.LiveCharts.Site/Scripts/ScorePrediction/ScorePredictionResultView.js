@@ -15,6 +15,11 @@ function ScorePredictionResultView() {
         scorePredictionViewModel.homeName,
         scorePredictionViewModel.awayName,
         LANGUAGE.draw);
+
+    if (typeof (isAdminSite) !== 'undefined') {
+        me.scorePrediction.isAdminSite = isAdminSite;
+    }
+
     me.url = {
         getScorePredictionResult: LIVECHARTS.resolveUrl('ScorePrediction/GetScorePrictionResult')
     };

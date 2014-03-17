@@ -45,7 +45,8 @@ namespace Fanex.LiveCharts.Controllers
             {
                 MatchId = matchId,
                 HomeName = homeName,
-                AwayName = awayName
+                AwayName = awayName,
+                IsAdminSite = isAdminSite
             });
         }
 
@@ -141,7 +142,8 @@ namespace Fanex.LiveCharts.Controllers
                 {
                     MatchId = matchId,
                     HomeName = homeName,
-                    AwayName = awayName
+                    AwayName = awayName,
+                    IsAdminSite = true
                 });
         }
 

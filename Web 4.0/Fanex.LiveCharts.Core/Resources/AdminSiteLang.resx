@@ -255,4 +255,10 @@
   <data name="OnProduction" xml:space="preserve">
     <value>On Production</value>
   </data>
+  <data name="Monitor" xml:space="preserve">
+    <value>Monitor</value>
+  </data>
+  <data name="VotingNumber" xml:space="preserve">
+    <value>Voting Number</value>
+  </data>
 </root>
