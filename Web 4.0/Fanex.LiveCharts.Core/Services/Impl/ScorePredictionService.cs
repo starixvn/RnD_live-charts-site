@@ -142,19 +142,5 @@ namespace Fanex.LiveCharts.Services.Impl
 
             return result;
         }
-
-        public SettingItem GetClosePredictionMinuteSetting(ChartAdminGetMinuteForClosingPredictionCriteria getClosingMinuteCriteria)
-        {
-            var closePredictionMinuteSetting = _scorePredictionRepository.Get<SettingItem>(getClosingMinuteCriteria);
-
-            return closePredictionMinuteSetting;
-        }
-
-        public ICommandResult UpdateClosePredictionMinuteSetting(ChartAdminUpdateMinuteForClosingPredictionCriteria updateClosingMinuteCriteria)
-        {
-            var result = _scorePredictionRepository.ModifyData(updateClosingMinuteCriteria);
-
-            return result;
-        }
     }
 }

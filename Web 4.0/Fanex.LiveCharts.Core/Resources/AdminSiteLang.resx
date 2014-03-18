@@ -267,6 +267,12 @@
   <data name="SubmitDummyData" xml:space="preserve">
     <value>Submit Dummy Data</value>
   </data>
+  <data name="AvailableTime" xml:space="preserve">
+    <value>Available Time</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>minutes</value>
+  </data>
   <data name="ModifyBy" xml:space="preserve">
     <value>Modify By</value>
   </data>

@@ -337,7 +337,7 @@ function ScorePrediction (
         for (var i = points.length - 1; i >= 0; i--) {
             var point = points[i];
             if (point.y < me.minPercent) {
-                otherOption.y += point.y
+                otherOption.y += point.y;
                 otherOption.customData.currentPrediction += point.customData.currentPrediction;
                 if (otherOption.customData.totalPrediction === 0) {
                     otherOption.customData.totalPrediction = point.customData.totalPrediction;
@@ -357,5 +357,5 @@ function ScorePrediction (
 
     me.formatValue = function (value) {
         return parseFloat(value.toFixed(2));
-    }
+    };
 }

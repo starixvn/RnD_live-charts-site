@@ -17,8 +17,8 @@ namespace Fanex.LiveCharts.Controllers
     using Fanex.LiveCharts.Services.Impl;
     using Fanex.LiveCharts.Services.Interface;
     using Fanex.LiveCharts.ViewModel.ScorePredictionViewModel;
-    using Fanex.NAP.Core.Web.Attribute;
     using Fanex.LiveCharts.Web;
+    using Fanex.NAP.Core.Web.Attribute;
 
     /// <summary>
     /// TODO: Update summary.
@@ -27,7 +27,6 @@ namespace Fanex.LiveCharts.Controllers
     {
         private const string CorePredictionCookie = "E86E0D7F-FD5A-412B-823F-A4E6517AE51D";
         private IScorePredictionService _scorePredictionService;
-
 
         public ScorePredictionController()
             : this(null)
@@ -87,37 +86,6 @@ namespace Fanex.LiveCharts.Controllers
             return Json(result);
         }
 
-        /// <summary>
-        /// Get User Id from Cookie if current user is not member.
-        /// </summary>
-        /// <param name="memberId">Current member id, if it's less than 0, then it's not member.</param>
-        /// <param name="matchId">Current match id for score prediction.</param>
-        /// <returns>String contain member identity.</returns>
-        [NonAction]
-        private string GetUserIdFromCookie(string memberId, int matchId)
-        {
-            var currentMemberId = Converter.ToInt(memberId);
-
-            if (currentMemberId < 0)
-            {
-                var cookieName = string.Format("{0}_{1}", CorePredictionCookie, matchId);
-                var currentCookie = HttpContext.Request.Cookies[cookieName];
-                if (currentCookie != null)
-                {
-                    return currentCookie.Value;
-                }
-                else
-                {
-                    var newMemberId = Guid.NewGuid().ToString();
-                    var scorePredictionCookie = new HttpCookie(cookieName, newMemberId);
-                    scorePredictionCookie.Expires = DateTime.Now.AddDays(1);
-                    HttpContext.Response.SetCookie(scorePredictionCookie);
-                }
-            }
-
-            return memberId;
-        }
-
         #endregion Member Site
 
         #region Admin Site
@@ -170,7 +138,37 @@ namespace Fanex.LiveCharts.Controllers
             return View("~/Areas/Admin/Views/ScorePrediction/ScorePredictionLogTablePartial.cshtml", result.ScorePredictionOptions);
         }
 
-
         #endregion Admin Site
+
+        /// <summary>
+        /// Get User Id from Cookie if current user is not member.
+        /// </summary>
+        /// <param name="memberId">Current member id, if it's less than 0, then it's not member.</param>
+        /// <param name="matchId">Current match id for score prediction.</param>
+        /// <returns>String contain member identity.</returns>
+        [NonAction]
+        private string GetUserIdFromCookie(string memberId, int matchId)
+        {
+            var currentMemberId = Converter.ToInt(memberId);
+
+            if (currentMemberId < 0)
+            {
+                var cookieName = string.Format("{0}_{1}", CorePredictionCookie, matchId);
+                var currentCookie = HttpContext.Request.Cookies[cookieName];
+                if (currentCookie != null)
+                {
+                    return currentCookie.Value;
+                }
+                else
+                {
+                    var newMemberId = Guid.NewGuid().ToString();
+                    var scorePredictionCookie = new HttpCookie(cookieName, newMemberId);
+                    scorePredictionCookie.Expires = DateTime.Now.AddDays(1);
+                    HttpContext.Response.SetCookie(scorePredictionCookie);
+                }
+            }
+
+            return memberId;
+        }
     }
 }

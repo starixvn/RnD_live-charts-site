@@ -9,21 +9,43 @@
 
 namespace Fanex.LiveCharts.Controllers.Admin
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Web.Mvc;
+    using Fanex.LiveCharts.Criterias.ScorePrediction;
+    using Fanex.LiveCharts.Services.Impl;
+    using Fanex.LiveCharts.Services.Interface;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
     public class SettingController : Controller
     {
-        public ActionResult ScorePrediction()
+        private readonly ISettingService _settingService;
+
+        public SettingController()
+            : this(null)
         {
-            return View();
         }
 
+        public SettingController(SettingService settingService)
+        {
+            _settingService = settingService ?? new SettingService();
+        }
+
+        [HttpGet]
+        public ActionResult ScorePrediction()
+        {
+            var settingItem = _settingService.GetClosePredictionMinuteSetting(new ChartAdminGetMinuteForClosingPredictionCriteria());
+            return View(settingItem);
+        }
+
+        [HttpPost]
+        public ActionResult ScorePrediction(int availableTime)
+        {
+            var updateResult = _settingService.UpdateClosePredictionMinuteSetting(new ChartAdminUpdateMinuteForClosingPredictionCriteria
+                {
+                    ClosePredictionMinute = availableTime
+                });
+            return View();
+        }
     }
 }

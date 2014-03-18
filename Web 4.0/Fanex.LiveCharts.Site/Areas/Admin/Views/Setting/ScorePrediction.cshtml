@@ -2,5 +2,17 @@
     ViewBag.Title = "Score Prediction Setting";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-
-<h2>ScorePrediction</h2>
+<div class="setting-container">
+    <form method="post" action="@(Url.Content("~"))">
+    <div class="form dummy-prediction-container">
+        <div class="form-row">
+            <div class="lbl-field">@AdminSiteLang.AvailableTime</div>
+            <div class="edit-field">
+                <input type="text" id="availableTime" value="0" />
+                <span class="minute-available">@AdminSiteLang.Minutes</span>
+                <input type="button" id="updateDummy" type="submit" value="@Lang.Submit" />
+            </div>
+        </div>
+    </div>
+    </form>
+</div>

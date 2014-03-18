@@ -2,7 +2,7 @@
 /// <reference path="../../Views/Shared/_Layout.cshtml" />
 
 /// <reference path="ScorePrediction.js" />
-/*global LANGUAGE, LIVECHARTS, scorePredictionViewModel, ScorePrediction*/
+/*global LANGUAGE, LIVECHARTS, scorePredictionViewModel, ScorePrediction, isAdminSite*/
 'use strict';
 
 function ScorePredictionResultView() {

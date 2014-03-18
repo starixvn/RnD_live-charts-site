@@ -88,6 +88,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Available Time.
+        /// </summary>
+        public static string AvailableTime {
+            get {
+                return ResourceManager.GetString("AvailableTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string Cancel {
@@ -345,6 +354,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string MatchStatus {
             get {
                 return ResourceManager.GetString("MatchStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to minutes.
+        /// </summary>
+        public static string Minutes {
+            get {
+                return ResourceManager.GetString("Minutes", resourceCulture);
             }
         }
         

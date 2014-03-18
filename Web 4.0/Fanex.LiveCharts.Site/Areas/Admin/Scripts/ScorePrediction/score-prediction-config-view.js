@@ -1,7 +1,7 @@
 ﻿/* File Created: March 13, 2014 */
 /// <reference path="../../Views/ScorePrediction/ScorePredictionConfig.cshtml" />
 /// <reference path="../live-charts-admin-site.js" />
-/*global LiveChartsAdmin*/
+/*global LiveChartsAdmin,scorePredictionConfig*/
 function ScorePredictionConfigView() {
     'use strict';
     var me = this;
@@ -71,7 +71,7 @@ function ScorePredictionConfigView() {
                 $('#predictionDummyGrid .edit-dummy-value').off('click').on('click', me.selectScorePredictionOption);
             }
         });
-    }
+    };
 }
 
 

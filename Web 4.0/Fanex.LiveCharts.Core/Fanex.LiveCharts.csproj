@@ -163,10 +163,12 @@
     <Compile Include="Repositories\Impl\BaseRepository.cs" />
     <Compile Include="Repositories\Impl\ChartRepository.cs" />
     <Compile Include="Repositories\Impl\ScorePredictionRepository.cs" />
+    <Compile Include="Repositories\Impl\SettingRepository.cs" />
     <Compile Include="Repositories\Impl\UserRepository.cs" />
     <Compile Include="Repositories\Interface\IBaseRepository.cs" />
     <Compile Include="Repositories\Interface\IChartRepository.cs" />
     <Compile Include="Repositories\Interface\IScorePredictionRepository.cs" />
+    <Compile Include="Repositories\Interface\ISettingRepository.cs" />
     <Compile Include="Repositories\Interface\IUserRepository.cs" />
     <Compile Include="Resources\AdminSiteLang.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -186,11 +188,13 @@
     <Compile Include="Services\Impl\RemoveLockObjectService.cs" />
     <Compile Include="Services\Impl\ScorePredictionService.cs" />
     <Compile Include="Services\Impl\ServiceBase.cs" />
+    <Compile Include="Services\Impl\SettingService.cs" />
     <Compile Include="Services\Impl\UserService.cs" />
     <Compile Include="Services\Interface\ICachingService.cs" />
     <Compile Include="Services\Interface\IChartService.cs" />
     <Compile Include="Services\Interface\IMatchService.cs" />
     <Compile Include="Services\Interface\IScorePredictionService.cs" />
+    <Compile Include="Services\Interface\ISettingService.cs" />
     <Compile Include="Services\Interface\IUserService.cs" />
     <Compile Include="ViewModel\ChartContentViewModel.cs" />
     <Compile Include="ViewModel\ScorePredictionViewModel\ScorePredictionResultViewModel.cs" />

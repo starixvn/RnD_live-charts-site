@@ -11,28 +11,28 @@
     {
         if (option.DummyCount > 0)
         {
-    <tr>
-        <td>
-            <a href="javascript:void(0);" 
-                                data-home-score="@option.HomeScore"
-                                data-away-score="@option.AwayScore"
-                                data-dummy-value="@option.DummyCount"
-                                class="edit-dummy-value"
-                                >@option.ScorePredictionOptionId</a>
-        </td>
-        <td>
-            @option.HomeScore - @option.AwayScore
-        </td>
-        <td>
-            @option.DummyCount
-        </td>
-        <td>
-            @option.AdminName
-        </td>
-        <td>
-            @option.UpdateDummyTime
-        </td>
-    </tr>
+            <tr>
+                <td>
+                    <a href="javascript:void(0);" 
+                                        data-home-score="@option.HomeScore"
+                                        data-away-score="@option.AwayScore"
+                                        data-dummy-value="@option.DummyCount"
+                                        class="edit-dummy-value"
+                                        >@option.ScorePredictionOptionId</a>
+                </td>
+                <td>
+                    @option.HomeScore - @option.AwayScore
+                </td>
+                <td>
+                    @option.DummyCount
+                </td>
+                <td>
+                    @option.AdminName
+                </td>
+                <td>
+                    @option.UpdateDummyTime
+                </td>
+            </tr>
         }
 
         dummyCount += option.DummyCount;
