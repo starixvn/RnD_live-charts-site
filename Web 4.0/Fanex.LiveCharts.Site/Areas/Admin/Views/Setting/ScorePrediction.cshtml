@@ -1,18 +1,21 @@
-﻿@{
+﻿@model Fanex.LiveCharts.Models.SettingItem
+@{
     ViewBag.Title = "Score Prediction Setting";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 <div class="setting-container">
-    <form method="post" action="@(Url.Content("~"))">
-    <div class="form dummy-prediction-container">
-        <div class="form-row">
-            <div class="lbl-field">@AdminSiteLang.AvailableTime</div>
-            <div class="edit-field">
-                <input type="text" id="availableTime" value="0" />
-                <span class="minute-available">@AdminSiteLang.Minutes</span>
-                <input type="button" id="updateDummy" type="submit" value="@Lang.Submit" />
+    <form method="post" action="@(Url.Action("ScorePrediction", "Setting", new { Area = "Admin" }))">
+        <div class="form dummy-prediction-container">
+            <div class="form-row">
+                <div class="lbl-field">@AdminSiteLang.AvailableTime</div>
+                <div class="edit-field">
+                    <input type="hidden" name="SettingId" id="SettingId" value="@Model.SettingId" />
+                    <input type="hidden" name="SettingName" id="SettingName" value="@Model.SettingName" />
+                    <input type="text" name="SettingValue" id="SettingValue" value="@Model.SettingValue" />
+                    <span class="minute-available">@AdminSiteLang.Minutes</span>
+                    <input id="updateDummy" type="submit" value="@Lang.Submit" />
+                </div>
             </div>
         </div>
-    </div>
     </form>
 </div>

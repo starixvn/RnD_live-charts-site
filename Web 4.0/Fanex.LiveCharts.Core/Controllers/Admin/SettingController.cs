@@ -13,6 +13,8 @@ namespace Fanex.LiveCharts.Controllers.Admin
     using Fanex.LiveCharts.Criterias.ScorePrediction;
     using Fanex.LiveCharts.Services.Impl;
     using Fanex.LiveCharts.Services.Interface;
+    using Fanex.Common;
+    using Fanex.LiveCharts.Models;
 
     /// <summary>
     /// TODO: Update summary.
@@ -39,13 +41,13 @@ namespace Fanex.LiveCharts.Controllers.Admin
         }
 
         [HttpPost]
-        public ActionResult ScorePrediction(int availableTime)
+        public ActionResult ScorePrediction(SettingItem settingItem)
         {
             var updateResult = _settingService.UpdateClosePredictionMinuteSetting(new ChartAdminUpdateMinuteForClosingPredictionCriteria
                 {
-                    ClosePredictionMinute = availableTime
+                    ClosePredictionMinute = Converter.ToInt(settingItem.SettingValue)
                 });
-            return View();
+            return View(settingItem);
         }
     }
 }
