@@ -1,0 +1,80 @@
+﻿@using Fanex.LiveCharts.ViewModel.ScorePredictionViewModel;
+@using Fanex.LiveCharts.Models.ScorePrediction;
+@model ScorePredictionResultViewModel
+@{
+    ViewBag.Title = "Score Prediction Config Page";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var scorePredictionOptions = ViewBag.ScorePredictionOptions as ScorePredictionTotal;
+}
+@section Head {
+    <link type="text/css" rel="Stylesheet" href="~/Areas/Admin/Content/ScorePrediction.less" />
+}
+<div class="admin-prediction-container">
+    <div class="prediction-result-container">
+        <div class="container-title">@AdminSiteLang.ScorePredictionResult</div>
+        <iframe id="frmChartContent" src="~/ScorePrediction/Index?matchId=@(Model.MatchId)&homeName=@(HttpUtility.UrlEncode(Model.HomeName))&awayName=@(HttpUtility.UrlEncode(Model.AwayName))&isAdminSite=true" frameborder="0">
+        </iframe>
+    </div>
+    <div class="prediction-update-container">
+        <div class="container-title">@AdminSiteLang.SubmitDummyData</div>
+        <div class="form dummy-prediction-container">
+            <div class="form-row team-name">
+                <div class="lbl-field">@Model.HomeName</div>
+                <div class="edit-field">
+                    <input type="text" id="homeScore" value="0" />
+                </div>
+            </div>
+            <div class="form-row team-name">
+                <div class="lbl-field">@Model.AwayName</div>
+                <div class="edit-field">
+                    <input type="text" id="awayScore" value="0" />
+                </div>
+            </div>
+            <div class="form-row prediction-value">
+                <div class="lbl-field">@AdminSiteLang.VotingNumber</div>
+                <div class="edit-field">
+                    <input type="text" id="predictionValue" value="0" />
+                </div>
+            </div>
+            <div class="form-row submit-dummy-predict">
+                <input type="button" id="updateDummy" value="@Lang.Submit" />
+            </div>
+        </div>
+        <div class="dummy-prediction-log">
+            <table class="grid">
+                <thead>
+                    <tr>
+                        <th>
+                            #
+                        </th>
+                        <th>
+                            @Lang.CorrectScore
+                        </th>
+                        <th>
+                            @AdminSiteLang.NumberOfPrediction
+                        </th>
+                        <th>
+                            @AdminSiteLang.ModifyBy
+                        </th>
+                        <th>
+                            @AdminSiteLang.ModifyTime
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="predictionDummyGrid">
+                    @Html.Partial("~/Areas/Admin/Views/ScorePrediction/ScorePredictionLogTablePartial.cshtml", scorePredictionOptions.ScorePredictionOptions)
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section Foot {
+    <script type="text/javascript"> 
+        var scorePredictionConfig = { 
+            updateDummyUrl: '@(Url.Action("UpdateDummyPrediction", "ScorePrediction"))',
+            updateScorePredictionLogTableUrl: '@(Url.Action("GetScorePredictionLogTable", "ScorePrediction"))',
+            matchId: @(Model.MatchId)
+        } 
+    </script>
+    @Scripts.Render("~/areas/admin/scorepredictionconfigjs")
+}

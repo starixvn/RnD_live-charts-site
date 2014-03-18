@@ -25,6 +25,10 @@ namespace Fanex.LiveCharts.Criterias.ScorePrediction
 
         public int DummyCount { get; set; }
 
+        public int AdminId { get; set; }
+
+        public string AdminName { get; set; }
+
         public int ScorePredictionOptionId { get; set; }
 
         public override string GetSettingKey()

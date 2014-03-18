@@ -18,14 +18,16 @@ namespace Fanex.LiveCharts.Controllers
     using Fanex.LiveCharts.Services.Interface;
     using Fanex.LiveCharts.ViewModel.ScorePredictionViewModel;
     using Fanex.NAP.Core.Web.Attribute;
+    using Fanex.LiveCharts.Web;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class ScorePredictionController : Controller
+    public class ScorePredictionController : BaseController
     {
         private const string CorePredictionCookie = "E86E0D7F-FD5A-412B-823F-A4E6517AE51D";
         private IScorePredictionService _scorePredictionService;
+
 
         public ScorePredictionController()
             : this(null)
@@ -137,7 +139,7 @@ namespace Fanex.LiveCharts.Controllers
             });
 
             return View(
-                "~/Areas/Admin/Views/ScorePrediction/ScorePredictionConfig.cshtml",
+                "~/Areas/Admin/Views/ScorePrediction/ScorePredictionMonitor.cshtml",
                 new ScorePredictionResultViewModel
                 {
                     MatchId = matchId,
@@ -150,9 +152,24 @@ namespace Fanex.LiveCharts.Controllers
         [NapSuperAuth, HttpPost]
         public JsonResult UpdateDummyPrediction(ChartAdminInsertUpdateDummyPredictionCriteria updateCriteria)
         {
+            updateCriteria.AdminId = SessionManager.CurrentSession.AdminId;
+            updateCriteria.AdminName = SessionManager.CurrentSession.AdminName;
             var result = _scorePredictionService.InsertOrUpdateDummyPrediction(updateCriteria);
             return Json(result);
         }
+
+        [NapSuperAuth, HttpGet]
+        public ActionResult GetScorePredictionLogTable(int matchId)
+        {
+            var result = _scorePredictionService.GetTotalScorePrediction(new GetAllScorePredictionCriteria
+                {
+                    IsAdminSite = true,
+                    MatchId = matchId
+                });
+
+            return View("~/Areas/Admin/Views/ScorePrediction/ScorePredictionLogTablePartial.cshtml", result.ScorePredictionOptions);
+        }
+
 
         #endregion Admin Site
     }

@@ -1,0 +1,50 @@
+﻿@using Fanex.LiveCharts.Models.ScorePrediction
+@model IEnumerable<ScorePredictionOption>
+@{
+    Layout = null;
+    var dummyCount = 0;
+    var hasData = Model.Any();
+}
+@if (hasData)
+{
+    foreach (var option in Model)
+    {
+        if (option.DummyCount > 0)
+        {
+    <tr>
+        <td>
+            <a href="javascript:void(0);" 
+                                data-home-score="@option.HomeScore"
+                                data-away-score="@option.AwayScore"
+                                data-dummy-value="@option.DummyCount"
+                                class="edit-dummy-value"
+                                >@option.ScorePredictionOptionId</a>
+        </td>
+        <td>
+            @option.HomeScore - @option.AwayScore
+        </td>
+        <td>
+            @option.DummyCount
+        </td>
+        <td>
+            @option.AdminName
+        </td>
+        <td>
+            @option.UpdateDummyTime
+        </td>
+    </tr>
+        }
+
+        dummyCount += option.DummyCount;
+    }
+}
+
+
+@if (dummyCount == 0 || !hasData)
+{
+    <tr class="no-info">
+        <td colspan="5" class="align-center">
+            @AdminSiteLang.NoInfoAvailable
+        </td>
+    </tr>
+}

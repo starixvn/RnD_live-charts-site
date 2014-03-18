@@ -150,6 +150,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Area_Start\BundleConfig.cs" />
     <Compile Include="Areas\Admin\Area_Start\RouteConfig.cs" />
+    <None Include="Areas\Admin\Content\ScorePrediction.less" />
     <Content Include="Areas\Admin\Content\AdminSite.less" />
     <Compile Include="Areas\UserLogin\Controllers\BaseController.cs" />
     <Compile Include="Areas\UserLogin\Controllers\CommonController.cs" />
@@ -479,7 +480,9 @@
     <Content Include="Areas\Admin\Views\Web.config" />
     <Content Include="Areas\Admin\Views\Match\GetEnableCharts.cshtml" />
     <Content Include="Areas\Admin\Views\Match\MatchList.cshtml" />
-    <Content Include="Areas\Admin\Views\ScorePrediction\ScorePredictionConfig.cshtml" />
+    <Content Include="Areas\Admin\Views\ScorePrediction\ScorePredictionMonitor.cshtml" />
+    <Content Include="Areas\Admin\Views\Setting\ScorePrediction.cshtml" />
+    <Content Include="Areas\Admin\Views\ScorePrediction\ScorePredictionLogTablePartial.cshtml" />
     <None Include="Areas\UserLogin\themes\fonts\Abel.woff" />
     <None Include="Areas\UserLogin\themes\select-site.less" />
     <Content Include="Areas\UserLogin\Views\Common\Offline.cshtml" />

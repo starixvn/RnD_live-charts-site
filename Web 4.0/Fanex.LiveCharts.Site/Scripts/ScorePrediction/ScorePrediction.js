@@ -282,9 +282,9 @@ function ScorePrediction (
                             var data = this,
                                 textData = '<b>' + data.point.name + '</b>: ' + me.formatValue(data.percentage) + '%';
                             if (me.isAdminSite) {
-                                textData += ' ('
+                                textData += '<br/><div style="text-align:center;">('
                                     + data.point.customData.currentPrediction + '/'
-                                    + data.point.customData.totalPrediction + ')';
+                                    + data.point.customData.totalPrediction + ')</div>';
                             }
 
                             return textData;

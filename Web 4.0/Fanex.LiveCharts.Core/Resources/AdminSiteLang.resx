@@ -261,4 +261,19 @@
   <data name="VotingNumber" xml:space="preserve">
     <value>Voting Number</value>
   </data>
+  <data name="ScorePredictionResult" xml:space="preserve">
+    <value>Score Prediction Result</value>
+  </data>
+  <data name="SubmitDummyData" xml:space="preserve">
+    <value>Submit Dummy Data</value>
+  </data>
+  <data name="ModifyBy" xml:space="preserve">
+    <value>Modify By</value>
+  </data>
+  <data name="ModifyTime" xml:space="preserve">
+    <value>Modify Time</value>
+  </data>
+  <data name="NumberOfPrediction" xml:space="preserve">
+    <value>Number of predictions</value>
+  </data>
 </root>

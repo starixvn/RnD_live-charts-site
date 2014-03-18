@@ -24,7 +24,7 @@ namespace Fanex.LiveCharts.Site.Areas.Admin.Area_Start
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/areas/admin/adminscripts").Include(
-                "~/Areas/Admin/Scripts/modernizr-2.5.3.js",
+                //"~/Areas/Admin/Scripts/modernizr-2.5.3.js",
                 "~/Areas/Admin/Scripts/html5shiv.js",
                 "~/Areas/Admin/scripts/_Layout.js",
                 "~/Areas/Admin/scripts/live-charts-admin-site.js",
@@ -40,6 +40,7 @@ namespace Fanex.LiveCharts.Site.Areas.Admin.Area_Start
                 "~/Areas/Admin/Scripts/live-charts-search-matches.js"));
 
             bundles.Add(new ScriptBundle("~/areas/admin/scorepredictionconfigjs").Include(
+                "~/Scripts/Libs/Spinner/jquery.stepper.js",
                 "~/Areas/Admin/Scripts/ScorePrediction/score-prediction-config.js",
                 "~/Areas/Admin/Scripts/ScorePrediction/score-prediction-config-view.js"
                 ));

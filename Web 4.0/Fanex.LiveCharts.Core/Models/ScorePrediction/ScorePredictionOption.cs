@@ -9,6 +9,8 @@
 
 namespace Fanex.LiveCharts.Models.ScorePrediction
 {
+    using System;
+
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
@@ -25,5 +27,11 @@ namespace Fanex.LiveCharts.Models.ScorePrediction
         public int ScorePredictionCount { get; set; }
 
         public int DummyCount { get; set; }
+
+        public int AdminId { get; set; }
+
+        public string AdminName { get; set; }
+
+        public DateTime? UpdateDummyTime { get; set; }
     }
 }

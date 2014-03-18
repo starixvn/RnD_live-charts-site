@@ -349,6 +349,24 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Modify By.
+        /// </summary>
+        public static string ModifyBy {
+            get {
+                return ResourceManager.GetString("ModifyBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modify Time.
+        /// </summary>
+        public static string ModifyTime {
+            get {
+                return ResourceManager.GetString("ModifyTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Monitor.
         /// </summary>
         public static string Monitor {
@@ -363,6 +381,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string NoInfoAvailable {
             get {
                 return ResourceManager.GetString("NoInfoAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of predictions.
+        /// </summary>
+        public static string NumberOfPrediction {
+            get {
+                return ResourceManager.GetString("NumberOfPrediction", resourceCulture);
             }
         }
         
@@ -412,6 +439,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Score Prediction Result.
+        /// </summary>
+        public static string ScorePredictionResult {
+            get {
+                return ResourceManager.GetString("ScorePredictionResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search Matches.
         /// </summary>
         public static string SearchMatches {
@@ -435,6 +471,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string Submit {
             get {
                 return ResourceManager.GetString("Submit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Submit Dummy Data.
+        /// </summary>
+        public static string SubmitDummyData {
+            get {
+                return ResourceManager.GetString("SubmitDummyData", resourceCulture);
             }
         }
         

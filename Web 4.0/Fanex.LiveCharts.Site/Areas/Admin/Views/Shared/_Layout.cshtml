@@ -23,11 +23,19 @@
         </div>
 		<nav>
 	        <ul class="menu">
-                <li class="first has-kids">
+                <li class="has-kids">
                     @Html.ActionLink(AdminSiteLang.EnableCharts, "GetEnableCharts", "Match", new { Area = "Admin" }, new { })
                 </li>
-                <li class="last has-kids">
+                <li class="has-kids">
                     @Html.ActionLink(AdminSiteLang.SearchMatches, "Search", "Match", new { Area = "Admin" }, new { })
+                </li>
+                 <li class="has-kids">
+                    <a href="javascript:void(0);">Settings</a>
+                    <ul>
+                        <li>
+                            @Html.ActionLink("Score Prediction", "ScorePrediction", "Setting", new { Area = "Admin" }, new { })
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </nav>

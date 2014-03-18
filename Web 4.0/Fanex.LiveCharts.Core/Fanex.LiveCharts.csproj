@@ -92,6 +92,7 @@
   <ItemGroup>
     <Compile Include="Controllers\Admin\EventController.cs" />
     <Compile Include="Controllers\Admin\MatchController.cs" />
+    <Compile Include="Controllers\Admin\SettingController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ChartApiController.cs" />
     <Compile Include="Controllers\ChartsController.cs" />

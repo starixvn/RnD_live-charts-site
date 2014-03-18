@@ -98,12 +98,21 @@ if (typeof jQuery !== 'undefined') {
                     ajaxOption.useBlockUI = true;
                 }
 
+                if (typeof (ajaxOption.contentType) === 'undefined') {
+                    ajaxOption.contentType = "application/json; charset=utf-8";
+                }
+
+                if (typeof (ajaxOption.dataType) === 'undefined') {
+                    ajaxOption.dataType = "json";
+                }
+
                 $.ajax({
                     url: ajaxOption.url,
                     type: ajaxOption.type,
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
+                    contentType: ajaxOption.contentType,
+                    dataType: ajaxOption.dataType,
                     data: ajaxOption.data,
+                    cache: false,
                     beforeSend: function () {
                         if (ajaxOption.useBlockUI) {
                             try { $.blockUI(); } catch (e) { }

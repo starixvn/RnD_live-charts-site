@@ -72,6 +72,9 @@ namespace Fanex.LiveCharts.Services.Impl
                 if (!getAllScorePredictionCriteria.IsAdminSite)
                 {
                     option.DummyCount = 0;
+                    option.AdminId = 0;
+                    option.AdminName = string.Empty;
+                    option.UpdateDummyTime = null;
                 }
 
                 scorePredictionTotal.TotalPrediction += option.ScorePredictionCount;

@@ -478,7 +478,7 @@ FormValidator = (function ($) {
 $(document).ready(function () {
     'use strict';
     MatchDetail.init();
-    LiveChartsAdmin.setPlaceHolder();
+    //LiveChartsAdmin.setPlaceHolder();
     MatchDetail.bindEventHandlers();
     MatchDetail.loadEvents({
         url: MatchDetail.url.getEventsUrl,
