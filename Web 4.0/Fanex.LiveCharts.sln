@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.LiveCharts.Authentica
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.LiveCharts.Authentication.WebApi", "Fanex.LiveCharts.Authentication.WebApi\Fanex.LiveCharts.Authentication.WebApi.csproj", "{F0E3B82C-7895-43A9-BB83-8DD4583B5E31}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "MemberSiteTest", "MemberSiteTest", "{2B59E5E8-A98E-48AC-A5FB-28B0DD362E08}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "MemberSiteTest", "MemberSiteTest\", "{2B59E5E8-A98E-48AC-A5FB-28B0DD362E08}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv2.0"
 		ProjectReferences = "{0F5C6429-BF0D-4293-A596-37FC4A832567}|Fanex.LiveCharts.ClientAuthentication.dll;"
@@ -34,6 +34,8 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "MemberSiteTest", "MemberSit
 		VWDPort = "12247"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.LiveCharts.Chat", "Fanex.LiveCharts.Chat\Fanex.LiveCharts.Chat.csproj", "{8D35B1EE-B13E-45E7-A773-D86F1B029A4A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -115,6 +117,16 @@ Global
 		{2B59E5E8-A98E-48AC-A5FB-28B0DD362E08}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{2B59E5E8-A98E-48AC-A5FB-28B0DD362E08}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
 		{2B59E5E8-A98E-48AC-A5FB-28B0DD362E08}.Release|x86.ActiveCfg = Debug|Any CPU
+		{8D35B1EE-B13E-45E7-A773-D86F1B029A4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D35B1EE-B13E-45E7-A773-D86F1B029A4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D35B1EE-B13E-45E7-A773-D86F1B029A4A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{8D35B1EE-B13E-45E7-A773-D86F1B029A4A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{8D35B1EE-B13E-45E7-A773-D86F1B029A4A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8D35B1EE-B13E-45E7-A773-D86F1B029A4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D35B1EE-B13E-45E7-A773-D86F1B029A4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D35B1EE-B13E-45E7-A773-D86F1B029A4A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{8D35B1EE-B13E-45E7-A773-D86F1B029A4A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{8D35B1EE-B13E-45E7-A773-D86F1B029A4A}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

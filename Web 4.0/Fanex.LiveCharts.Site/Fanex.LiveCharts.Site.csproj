@@ -463,6 +463,10 @@
     <Content Include="Content\MovementCharts\MovementCharts.less" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Fanex.LiveCharts.Chat\Fanex.LiveCharts.Chat.csproj">
+      <Project>{8D35B1EE-B13E-45E7-A773-D86F1B029A4A}</Project>
+      <Name>Fanex.LiveCharts.Chat</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fanex.LiveCharts.Core\Fanex.LiveCharts.csproj">
       <Project>{bd7160a7-866e-4ee0-b25b-21ba55300b6f}</Project>
       <Name>Fanex.LiveCharts</Name>
