@@ -23,6 +23,7 @@ namespace Fanex.LiveCharts.Repositories.Impl
     {
         private const int ErrorCodeDefault = 1001;
         private const string ErrorMessageDefault = "Invalid Input!";
+
         /// <summary>
         /// Modify data to database.
         /// </summary>
@@ -49,8 +50,6 @@ namespace Fanex.LiveCharts.Repositories.Impl
                     Message = ErrorMessageDefault
                 };
             }
-
-
         }
 
         /// <summary>

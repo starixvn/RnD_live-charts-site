@@ -26,7 +26,6 @@ if (typeof jQuery !== 'undefined') {
                 alert(LiveChartsAdmin.generalErrorMsg);
             },
             alertMessage: function (messageType, messageText, timeOut) {
-                'use strict';
                 var $message = $('#messageNotification');
                 var $body = $('body');
                 if ($message.length === 0) {

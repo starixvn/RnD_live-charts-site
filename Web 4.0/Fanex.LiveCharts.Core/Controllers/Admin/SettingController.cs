@@ -10,11 +10,11 @@
 namespace Fanex.LiveCharts.Controllers.Admin
 {
     using System.Web.Mvc;
+    using Fanex.Common;
     using Fanex.LiveCharts.Criterias.ScorePrediction;
+    using Fanex.LiveCharts.Models;
     using Fanex.LiveCharts.Services.Impl;
     using Fanex.LiveCharts.Services.Interface;
-    using Fanex.Common;
-    using Fanex.LiveCharts.Models;
 
     /// <summary>
     /// TODO: Update summary.

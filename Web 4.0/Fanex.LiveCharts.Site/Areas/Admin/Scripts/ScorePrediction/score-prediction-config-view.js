@@ -31,7 +31,7 @@ function ScorePredictionConfigView() {
         me.$btnResetValue.unbind('click').click(me.resetValue);
         me.$txtHomeScore.stepper(me.stepperOption);
         me.$txtAwayScore.stepper(me.stepperOption);
-        me.$txtPredictionValue.parent().find()
+        me.$txtPredictionValue.parent().find();
         $('#predictionDummyGrid .edit-dummy-value').off('click').on('click', me.selectScorePredictionOption);
     };
 
