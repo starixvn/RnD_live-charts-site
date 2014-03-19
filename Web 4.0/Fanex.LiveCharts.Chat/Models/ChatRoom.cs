@@ -10,12 +10,18 @@
 namespace Fanex.LiveCharts.Chat.Models
 {
     using System;
+    using System.Collections.Generic;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
     public class ChatRoom
     {
+        public ChatRoom()
+        {
+            ChatUsers = new List<ChatUser>();
+        }
+
         public int ChatRoomId { get; set; }
 
         public int ChatRoomName { get; set; }
@@ -25,5 +31,7 @@ namespace Fanex.LiveCharts.Chat.Models
         public DateTime CreateTime { get; set; }
 
         public string WelcomeMessage { get; set; }
+
+        public IList<ChatUser> ChatUsers { get; set; }
     }
 }

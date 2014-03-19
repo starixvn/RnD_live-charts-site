@@ -16,9 +16,12 @@ namespace Fanex.LiveCharts.Chat.Models
     /// </summary>
     public class ChatMessage
     {
-        public int ChatMessageId { get; set; }
+        public ChatMessage()
+        {
+            ChatUser = new ChatUser();
+        }
 
-        public int ChatUserId { get; set; }
+        public int ChatMessageId { get; set; }
 
         public string Content { get; set; }
 
@@ -29,5 +32,7 @@ namespace Fanex.LiveCharts.Chat.Models
         public bool IsDeleted { get; set; }
 
         public int DeletedBy { get; set; }
+
+        public ChatUser ChatUser { get; set; }
     }
 }

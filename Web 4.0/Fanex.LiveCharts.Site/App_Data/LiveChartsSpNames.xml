@@ -122,4 +122,16 @@
     <Setting Key="Chart_Admin_Insert_Update_Dummy_Prediction" SpName="Chart_Admin_Insert_Update_Dummy_Prediction" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0">
     </Setting>
   </Function>
+
+  <Function Name="Chat">
+    <Setting Key="Chart_Chat_Get_Chat_Message_By_Time" SpName="Chart_Chat_Get_Chat_Message_By_Time" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Get_Chat_Message_By_User_Id" SpName="Chart_Chat_Get_Chat_Message_By_User_Id" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Get_Chat_User" SpName="Chart_Chat_Get_Chat_User" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Insert_Chat_Message" SpName="Chart_Chat_Insert_Chat_Message" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Insert_Chat_Room" SpName="Chart_Chat_Insert_Chat_Room" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Insert_Chat_User" SpName="Chart_Chat_Insert_Chat_User" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Update_Chat_Message" SpName="Chart_Chat_Update_Chat_Message" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Update_Chat_Room" SpName="Chart_Chat_Update_Chat_Room" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Update_Chat_User" SpName="Chart_Chat_Update_Chat_User" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
+  </Function>
 </Functions>

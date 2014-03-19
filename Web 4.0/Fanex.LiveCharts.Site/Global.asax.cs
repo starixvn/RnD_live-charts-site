@@ -37,6 +37,8 @@ namespace Fanex.LiveCharts.Site
         {
             AreaRegistration.RegisterAllAreas();
 
+            RouteTable.Routes.MapHubs();
+
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
