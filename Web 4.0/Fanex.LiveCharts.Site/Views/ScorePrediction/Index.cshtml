@@ -8,40 +8,14 @@
         Lang.TotalPredictionResult
         );
     Layout = "~/Views/Shared/_Layout.cshtml";
-    
+    var panelClass = Model.IsAdminSite ? "admin-prediction-result-panel" : "prediction-result-panel";
 }
 @section Styles
 {
     <link rel="stylesheet" href="~/Content/MovementCharts/ScorePredictionResult.less"
         type="text/css" />
 }
-<div class="prediction-result-panel">
-    <div class="result-panel">
-        <div class="result-information">
-            <span class="result-label">@Lang._1x2</span>
-            <div class="result-button">
-                <div class="refresh-button ">
-                    <div id="refreshCountDownOneXTwoResult" class="refresh-button-main">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="prediction-result" id="oneXTwoResultContainer">
-        </div>
-    </div>
-    <div class="result-panel">
-        <div class="result-information">
-            <span class="result-label">@Lang.OddEven</span>
-            <div class="result-button">
-                <div class="refresh-button">
-                    <div id="refreshCountDownOddEvenResult" class="refresh-button-main">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="prediction-result" id="oddEvenResultContainer">
-        </div>
-    </div>
+<div class="@(panelClass)">
     <div class="result-panel">
         <div class="result-information">
             <span class="result-label">@Lang.CorrectScore</span>
@@ -66,6 +40,32 @@
             </div>
         </div>
         <div class="prediction-result" id="handicapResultContainer">
+        </div>
+    </div>
+    <div class="result-panel">
+        <div class="result-information">
+            <span class="result-label">@Lang._1x2</span>
+            <div class="result-button">
+                <div class="refresh-button ">
+                    <div id="refreshCountDownOneXTwoResult" class="refresh-button-main">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="prediction-result" id="oneXTwoResultContainer">
+        </div>
+    </div>
+    <div class="result-panel">
+        <div class="result-information">
+            <span class="result-label">@Lang.OddEven</span>
+            <div class="result-button">
+                <div class="refresh-button">
+                    <div id="refreshCountDownOddEvenResult" class="refresh-button-main">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="prediction-result" id="oddEvenResultContainer">
         </div>
     </div>
 </div>

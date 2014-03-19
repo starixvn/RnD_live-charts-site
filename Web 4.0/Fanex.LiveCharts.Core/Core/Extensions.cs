@@ -35,5 +35,11 @@ namespace Fanex.LiveCharts.Core
 
             return toDic;
         }
+
+        public static string ToGMT8(this DateTime currentDateTime)
+        {
+            TimeZoneInfo gmt8TimeZone = TimeZoneInfo.FindSystemTimeZoneById("Singapore Standard Time");
+            return TimeZoneInfo.ConvertTimeFromUtc(currentDateTime.ToUniversalTime(), gmt8TimeZone).ToString(Constants.FORMAT_DATE_TIME);
+        }
     }
 }

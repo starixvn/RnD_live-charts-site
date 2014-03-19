@@ -27,7 +27,7 @@ namespace Fanex.LiveCharts.Criterias.ScorePrediction
 
          public override bool IsValid()
          {
-             throw new NotImplementedException();
+             return true;
          }
     }
 }

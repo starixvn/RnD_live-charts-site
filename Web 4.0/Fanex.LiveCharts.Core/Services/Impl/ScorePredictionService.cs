@@ -80,6 +80,11 @@ namespace Fanex.LiveCharts.Services.Impl
                 scorePredictionTotal.TotalPrediction += option.ScorePredictionCount;
             }
 
+            if (getAllScorePredictionCriteria.IsAdminSite)
+            {
+                scorePredictionTotal.ScorePredictionOptions = scorePredictionTotal.ScorePredictionOptions.OrderByDescending(spo => spo.DummyCount).ToList();
+            }
+
             if (isUsingCache)
             {
                 CacheManager.Instance.Set<ScorePredictionTotal>(cacheKey, scorePredictionTotal);

@@ -13,16 +13,21 @@
     	float: left;
     }
 
-	.container-title
+	.container-title, .container-title-new-line
     {
 		font-weight: bold;
 		text-align: left;
     }
 
+	.container-title-new-line
+    {
+		margin-bottom: 10px;
+	}
+
 	#frmChartContent
     {
     	height: 670px;
-		width: 870px;
+		width: 755px;
     }
 
 	.form
@@ -33,23 +38,30 @@
 			.lbl-field
             {
 				text-align: left;
+				width: 110px;
             }
 
 			.stepper
             {
-            	width: 40px;
+            	width: 50px;
             }
 
     		.edit-field
 			{
         		input
 				{
-            		width: 30px;
+            		width: 40px;
 				}
+
+				input[type=text]
+                {
+                	text-align:right;
+                }
 
 				#predictionValue
 				{
-            		width: 28px;
+            		width: 38px;
+					text-align: right;
 				}
 			}
 		}
@@ -62,3 +74,4 @@
 		margin-top: 20px;
     }
 }
+

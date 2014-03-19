@@ -40,8 +40,7 @@ namespace Fanex.LiveCharts.Models
         {
             get
             {
-                TimeZoneInfo gmt8TimeZone = TimeZoneInfo.FindSystemTimeZoneById("Singapore Standard Time");
-                return TimeZoneInfo.ConvertTimeFromUtc(KickOffTime.ToUniversalTime(), gmt8TimeZone).ToString(Constants.FORMAT_DATE_TIME);
+                return KickOffTime.ToGMT8();
             }
         }
 

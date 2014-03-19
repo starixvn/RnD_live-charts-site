@@ -88,11 +88,29 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The Available Time field should be greater than 0..
+        /// </summary>
+        public static string AvailableRequired {
+            get {
+                return ResourceManager.GetString("AvailableRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Available Time.
         /// </summary>
         public static string AvailableTime {
             get {
                 return ResourceManager.GetString("AvailableTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Available Time is updated successfully.
+        /// </summary>
+        public static string AvailableTimeUpdateSuccess {
+            get {
+                return ResourceManager.GetString("AvailableTimeUpdateSuccess", resourceCulture);
             }
         }
         
@@ -156,6 +174,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string Delete {
             get {
                 return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dummy Predictions.
+        /// </summary>
+        public static string DummyPredictions {
+            get {
+                return ResourceManager.GetString("DummyPredictions", resourceCulture);
             }
         }
         
@@ -277,6 +304,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid Input!.
+        /// </summary>
+        public static string InvalidInput {
+            get {
+                return ResourceManager.GetString("InvalidInput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Keyword.
         /// </summary>
         public static string Keyword {
@@ -367,7 +403,16 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Modify By.
+        ///   Looks up a localized string similar to Modified Time (GMT+8).
+        /// </summary>
+        public static string ModifiedTimeGMT8 {
+            get {
+                return ResourceManager.GetString("ModifiedTimeGMT8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modified By.
         /// </summary>
         public static string ModifyBy {
             get {
@@ -403,7 +448,7 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Number of predictions.
+        ///   Looks up a localized string similar to Number of Predictions.
         /// </summary>
         public static string NumberOfPrediction {
             get {
@@ -444,6 +489,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string RequiredEventType {
             get {
                 return ResourceManager.GetString("RequiredEventType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset.
+        /// </summary>
+        public static string Reset {
+            get {
+                return ResourceManager.GetString("Reset", resourceCulture);
             }
         }
         
@@ -493,7 +547,7 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Submit Dummy Data.
+        ///   Looks up a localized string similar to Add/Edit Dummy Prediction.
         /// </summary>
         public static string SubmitDummyData {
             get {
@@ -543,6 +597,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string ToDate {
             get {
                 return ResourceManager.GetString("ToDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Successfully!.
+        /// </summary>
+        public static string UpdateSuccessfully {
+            get {
+                return ResourceManager.GetString("UpdateSuccessfully", resourceCulture);
             }
         }
         

@@ -25,6 +25,39 @@ if (typeof jQuery !== 'undefined') {
             alertGeneralError: function () {
                 alert(LiveChartsAdmin.generalErrorMsg);
             },
+            alertMessage: function (messageType, messageText, timeOut) {
+                'use strict';
+                var $message = $('#messageNotification');
+                var $body = $('body');
+                if ($message.length === 0) {
+                    $message = $('<div id="messageNotification"></div>').appendTo($body);
+                }
+                timeOut = timeOut || 3000;
+                switch (messageType) {
+                    case LiveChartsAdmin.messageType.success:
+                        $message.addClass('valid-message').removeClass('error-message');
+                        break;
+                    case LiveChartsAdmin.messageType.error:
+                        $message.addClass('error-message').removeClass('valid-message');
+                        timeOut = 5000;
+                        break;
+                }
+                
+                $message.empty().html(messageText).show();
+                $message.css({
+                    left: ($body.width() / 2) - ($message.width() / 2) + 'px'
+                });
+
+
+                var timeOutId = setTimeout(function () {
+                    $message.hide();
+                    clearTimeout(timeOutId);
+                }, timeOut);
+            },
+            messageType: {
+                success: 0,
+                error: 1
+            },
             handleAjaxError: function () {
                 LiveChartsAdmin.alertGeneralError();
             },
@@ -41,7 +74,7 @@ if (typeof jQuery !== 'undefined') {
                 warn: function (msg) { LiveChartsAdmin.console.write(msg, console.warn); },
                 error: function (msg) { LiveChartsAdmin.console.write(msg, console.error); }
             },
-
+            
             parseJSON: function (value) {
                 return $.parseJSON(value.replaceAll("'", "\""));
             },
@@ -127,6 +160,10 @@ if (typeof jQuery !== 'undefined') {
                     if (typeof (ajaxOption.fail) !== 'undefined') {
                         ajaxOption.fail(jqXHR, textStatus, errorThrown);
                     }
+                    else {
+                        LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.error, LiveChartsAdmin.generalErrorMsg);
+                    }
+
                     if (ajaxOption.useBlockUI) {
                         try { $.unblockUI(); } catch (e) { }
                     }

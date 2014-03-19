@@ -1,4 +1,5 @@
 ﻿@using Fanex.LiveCharts.Models.ScorePrediction
+@using Fanex.LiveCharts.Core;
 @model IEnumerable<ScorePredictionOption>
 @{
     Layout = null;
@@ -7,12 +8,13 @@
 }
 @if (hasData)
 {
+    var index = 0;
     foreach (var option in Model)
     {
         if (option.DummyCount > 0)
         {
-            <tr>
-                <td>
+            <tr class="@(index % 2 == 0 ? string.Empty : "alt")">
+                <td class="align-center">
                     <a href="javascript:void(0);" 
                                         data-home-score="@option.HomeScore"
                                         data-away-score="@option.AwayScore"
@@ -20,19 +22,21 @@
                                         class="edit-dummy-value"
                                         >@option.ScorePredictionOptionId</a>
                 </td>
-                <td>
+                <td class="align-center">
                     @option.HomeScore - @option.AwayScore
                 </td>
-                <td>
+                <td class="align-center">
                     @option.DummyCount
                 </td>
-                <td>
+                <td class="align-center">
+                    @(option.UpdateDummyTime != null ? ((DateTime)option.UpdateDummyTime).ToGMT8() : string.Empty)
+                </td>
+                 <td class="align-center">
                     @option.AdminName
                 </td>
-                <td>
-                    @option.UpdateDummyTime
-                </td>
             </tr>
+    
+            index++;
         }
 
         dummyCount += option.DummyCount;

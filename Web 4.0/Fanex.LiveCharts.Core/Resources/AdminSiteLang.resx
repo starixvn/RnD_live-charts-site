@@ -265,7 +265,7 @@
     <value>Score Prediction Result</value>
   </data>
   <data name="SubmitDummyData" xml:space="preserve">
-    <value>Submit Dummy Data</value>
+    <value>Add/Edit Dummy Prediction</value>
   </data>
   <data name="AvailableTime" xml:space="preserve">
     <value>Available Time</value>
@@ -274,12 +274,33 @@
     <value>minutes</value>
   </data>
   <data name="ModifyBy" xml:space="preserve">
-    <value>Modify By</value>
+    <value>Modified By</value>
   </data>
   <data name="ModifyTime" xml:space="preserve">
     <value>Modify Time</value>
   </data>
   <data name="NumberOfPrediction" xml:space="preserve">
-    <value>Number of predictions</value>
+    <value>Number of Predictions</value>
+  </data>
+  <data name="ModifiedTimeGMT8" xml:space="preserve">
+    <value>Modified Time (GMT+8)</value>
+  </data>
+  <data name="AvailableRequired" xml:space="preserve">
+    <value>The Available Time field should be greater than 0.</value>
+  </data>
+  <data name="DummyPredictions" xml:space="preserve">
+    <value>Dummy Predictions</value>
+  </data>
+  <data name="InvalidInput" xml:space="preserve">
+    <value>Invalid Input!</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="UpdateSuccessfully" xml:space="preserve">
+    <value>Update Successfully!</value>
+  </data>
+  <data name="AvailableTimeUpdateSuccess" xml:space="preserve">
+    <value>Available Time is updated successfully</value>
   </data>
 </root>

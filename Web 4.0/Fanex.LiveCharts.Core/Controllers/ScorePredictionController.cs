@@ -12,6 +12,7 @@ namespace Fanex.LiveCharts.Controllers
     using System;
     using System.Web;
     using System.Web.Mvc;
+    using System.Linq;
     using Fanex.Common;
     using Fanex.LiveCharts.Criterias.ScorePrediction;
     using Fanex.LiveCharts.Services.Impl;

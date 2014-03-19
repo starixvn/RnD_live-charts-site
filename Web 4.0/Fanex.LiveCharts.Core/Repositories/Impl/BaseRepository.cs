@@ -21,6 +21,8 @@ namespace Fanex.LiveCharts.Repositories.Impl
     /// </summary>
     public class BaseRepository : DynamicRepository
     {
+        private const int ErrorCodeDefault = 1001;
+        private const string ErrorMessageDefault = "Invalid Input!";
         /// <summary>
         /// Modify data to database.
         /// </summary>
@@ -31,11 +33,24 @@ namespace Fanex.LiveCharts.Repositories.Impl
             Hashtable hash = criteria.GetSpParams();
             hash = (new ResultCriteria()).AddSpParams(hash);
 
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            if (criteria.IsValid())
             {
-                db.ExecuteNonQuery(hash);
-                return GetCommandResult(hash);
+                using (var db = new ObjectDb(criteria.GetSettingKey()))
+                {
+                    db.ExecuteNonQuery(hash);
+                    return GetCommandResult(hash);
+                }
             }
+            else
+            {
+                return new CommandResult
+                {
+                    Code = ErrorCodeDefault,
+                    Message = ErrorMessageDefault
+                };
+            }
+
+
         }
 
         /// <summary>

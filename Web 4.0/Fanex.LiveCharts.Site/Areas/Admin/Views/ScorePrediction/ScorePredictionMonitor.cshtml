@@ -18,6 +18,12 @@
     <div class="prediction-update-container">
         <div class="container-title">@AdminSiteLang.SubmitDummyData</div>
         <div class="form dummy-prediction-container">
+            <div class="form-row summary" id="messageDetailsContainer" style="display: none;">
+                <div class="validation-summary-errors" data-valmsg-summary="true">
+                    <ul class="messageDetails">
+                    </ul>
+                </div>
+            </div>
             <div class="form-row team-name">
                 <div class="lbl-field">@Model.HomeName</div>
                 <div class="edit-field">
@@ -37,15 +43,19 @@
                 </div>
             </div>
             <div class="form-row submit-dummy-predict">
-                <input type="button" id="updateDummy" value="@Lang.Submit" />
+                <div class="edit-field">
+                    <input type="submit" id="updateDummy" value="@Lang.Submit" />
+                    <input type="submit" id="resetDummy" value="@AdminSiteLang.Cancel" />
+                </div>
             </div>
         </div>
         <div class="dummy-prediction-log">
+            <div class="container-title-new-line">@AdminSiteLang.DummyPredictions</div>
             <table class="grid">
                 <thead>
                     <tr>
                         <th>
-                            #
+                            @AdminSiteLang.ID
                         </th>
                         <th>
                             @Lang.CorrectScore
@@ -54,10 +64,10 @@
                             @AdminSiteLang.NumberOfPrediction
                         </th>
                         <th>
-                            @AdminSiteLang.ModifyBy
+                            @AdminSiteLang.ModifiedTimeGMT8
                         </th>
                         <th>
-                            @AdminSiteLang.ModifyTime
+                            @AdminSiteLang.ModifyBy
                         </th>
                     </tr>
                 </thead>
@@ -70,11 +80,13 @@
 </div>
 @section Foot {
     <script type="text/javascript"> 
-        var scorePredictionConfig = { 
+        var SCORE_PREDICTION_CONFIG = { 
             updateDummyUrl: '@(Url.Action("UpdateDummyPrediction", "ScorePrediction"))',
             updateScorePredictionLogTableUrl: '@(Url.Action("GetScorePredictionLogTable", "ScorePrediction"))',
-            matchId: @(Model.MatchId)
+            matchId: @(Model.MatchId),
+            errorMessage: '@(AdminSiteLang.InvalidInput)'
         } 
     </script>
+    
     @Scripts.Render("~/areas/admin/scorepredictionconfigjs")
 }

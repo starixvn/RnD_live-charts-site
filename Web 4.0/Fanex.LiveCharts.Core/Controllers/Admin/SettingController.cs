@@ -43,7 +43,7 @@ namespace Fanex.LiveCharts.Controllers.Admin
         [HttpPost]
         public ActionResult ScorePrediction(SettingItem settingItem)
         {
-            var updateResult = _settingService.UpdateClosePredictionMinuteSetting(new ChartAdminUpdateMinuteForClosingPredictionCriteria
+            ViewBag.updateResult = _settingService.UpdateClosePredictionMinuteSetting(new ChartAdminUpdateMinuteForClosingPredictionCriteria
                 {
                     ClosePredictionMinute = Converter.ToInt(settingItem.SettingValue)
                 });
