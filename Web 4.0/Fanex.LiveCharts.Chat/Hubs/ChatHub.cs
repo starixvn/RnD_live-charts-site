@@ -31,9 +31,10 @@ namespace Fanex.LiveCharts.Chat.Hubs
             _chatService = chatService ?? new ChatService();
         }
 
-        public void SendMessage(ChatMessage chatMessage, ChatRoom chatRoom)
+        public void SendMessage(ChatMessage chatMessage, string roomName)
         {
-            Clients.Group(chatRoom.ChatRoomName).addMessage(chatMessage);
+            //Clients.Group(roomName).addMessage(chatMessage);
+            Clients.All.addMessage(chatMessage);
         }
 
         public Task JoinRoom(ChatUser chatUser, ChatRoom chatRoom)

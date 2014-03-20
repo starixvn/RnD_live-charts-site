@@ -17,7 +17,7 @@ namespace Fanex.LiveCharts.Chat.Hubs
     /// </summary>
     public interface IChatHub
     {
-        void SendMessage(ChatMessage chatMessage, ChatRoom chatRoom);
+        void SendMessage(ChatMessage chatMessage, string chatRoom);
 
         Task JoinRoom(ChatUser chatUser, ChatRoom chatRoom);
 

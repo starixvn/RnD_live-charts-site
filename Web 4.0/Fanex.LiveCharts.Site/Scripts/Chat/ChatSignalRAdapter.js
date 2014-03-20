@@ -8,8 +8,8 @@ function ChatSignalRAdapter() {
         // These are the methods that ARE CALLED BY THE SERVER.
         // Client functions should not call these functions.
         me.hub = $.connection.chatHub;
-        me.hub.client.sendMessage = function (message) {
-            chat.client.sendMessage(message);
+        me.hub.client.addMessage = function (message) {
+            chat.client.addMessage(message);
         };
 
         me.hub.client.sendTypingSignal = function (otherUserId) {
@@ -30,20 +30,11 @@ function ChatSignalRAdapter() {
         });
     };
 
-
-    // These are the methods that ARE CALLED BY THE CLIENT
-        // Client functions should call these functions
     me.server =
     {
 
-        sendMessage: function (otherUserId, messageText, clientGuid, done) {
-            /// <summary>Sends a message to server</summary>
-            /// <param FullName="otherUserId" type="Number">The id of the user to which the message is being sent</param>
-            /// <param FullName="messageText" type="String">Message text</param>
-            /// <param FullName="clientGuid" type="String">Message client guid. Each message must have a client id 
-            /// in order for it to be recognized when it comes back from the server</param>
-            /// <param FullName="done" type="Function">Function to be called when this method completes</param>
-            me.hub.server.sendMessage(otherUserId, messageText, clientGuid).done(function (result) {
+        sendMessage: function (chatMessage, roomName, done) {
+            me.hub.server.sendMessage(chatMessage, roomName).done(function (result) {
                 if (done) {
                     done(result);
                 }
@@ -51,9 +42,6 @@ function ChatSignalRAdapter() {
         },
 
         sendTypingSignal: function (otherUserId, done) {
-            /// <summary>Sends a typing signal to the server</summary>
-            /// <param FullName="otherUserId" type="Number">The id of the user to which the typing signal is being sent</param>
-            /// <param FullName="done" type="Function">Function to be called when this method completes</param>
             me.hub.server.sendTypingSignal(otherUserId).done(function (result) {
                 if (done) {
                     done(result);
@@ -62,9 +50,6 @@ function ChatSignalRAdapter() {
         },
 
         getMessageHistory: function (otherUserId, done) {
-            /// <summary>Gets message history from the server</summary>
-            /// <param FullName="otherUserId" type="Number">The id of the user from which you want the history</param>
-            /// <param FullName="done" type="Number">Function to be called when this method completes</param>
             me.hub.server.getMessageHistory(otherUserId).done(function (result) {
                 if (done) {
                     done(result);
@@ -73,9 +58,6 @@ function ChatSignalRAdapter() {
         },
 
         getUserInfo: function (otherUserId, done) {
-            /// <summary>Gets information about the user</summary>
-            /// <param FullName="otherUserId" type="Number">The id of the user from which you want the information</param>
-            /// <param FullName="done" type="Function">FUnction to be called when this method completes</param>
             me.hub.server.getUserInfo(otherUserId).done(function (result) {
                 if (done) {
                     done(result);
@@ -84,10 +66,15 @@ function ChatSignalRAdapter() {
         },
 
         getUsersList: function (done) {
-            /// <summary>Gets the list of the users in the current room</summary>
-            /// <param FullName="otherUserId" type="Number">The id of the user from which you want the information</param>
-            /// <param FullName="done" type="Function">FUnction to be called when this method completes</param>
             me.hub.server.getUsersList().done(function (result) {
+                if (done) {
+                    done(result);
+                }
+            });
+        },
+
+        joinRoom: function (chatUser, chatRoom) {
+            me.hub.server.joinRoom(chatUser, chatRoom).done(function (result) {
                 if (done) {
                     done(result);
                 }
