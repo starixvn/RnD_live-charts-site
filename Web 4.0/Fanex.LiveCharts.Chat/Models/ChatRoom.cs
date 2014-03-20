@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="ChatRoomId.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="ChatRoom.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -24,7 +24,7 @@ namespace Fanex.LiveCharts.Chat.Models
 
         public int ChatRoomId { get; set; }
 
-        public int ChatRoomName { get; set; }
+        public string ChatRoomName { get; set; }
 
         public int MatchId { get; set; }
 

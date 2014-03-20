@@ -58,6 +58,11 @@ namespace Fanex.LiveCharts.Site
             bundles.Add(new ScriptBundle("~/bundles/scorepredictionresult")
                 .Include("~/Scripts/ScorePrediction/ScorePrediction.js")
                 .Include("~/Scripts/ScorePrediction/ScorePredictionResultView.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/chatroomjs")
+                .Include("~/Scripts/Chat/ChatSignalRAdapter.js")
+                .Include("~/Scripts/Chat/Chat.js")
+                .Include("~/Scripts/Chat/ChatWindow.js"));
         }
     }
 }

@@ -177,6 +177,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Scripts\Chat\ChatSignalRAdapter.js" />
+    <Content Include="Scripts\Chat\ChatWindow.js" />
+    <Content Include="Scripts\Chat\Chat.js" />
     <Content Include="Views\Chat\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

@@ -360,4 +360,22 @@
   <data name="IncreaseScore" xml:space="preserve">
     <value>Increase Score</value>
   </data>
+  <data name="ChatRoom" xml:space="preserve">
+    <value>Chat Room</value>
+  </data>
+  <data name="JoinedMessage" xml:space="preserve">
+    <value>{0} joined the room.</value>
+  </data>
+  <data name="LeftMessage" xml:space="preserve">
+    <value>{0} has just left the room.</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>Members</value>
+  </data>
+  <data name="Text" xml:space="preserve">
+    <value>text</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Send</value>
+  </data>
 </root>

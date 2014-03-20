@@ -9,20 +9,52 @@
 
 namespace Fanex.LiveCharts.Chat.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Web.Mvc;
+    using Fanex.LiveCharts.Chat.Criteria;
+    using Fanex.LiveCharts.Chat.Services;
+    using Fanex.LiveCharts.Controllers;
+    using Fanex.LiveCharts.Web;
+    using Fanex.LiveCharts.Chat.ViewModels;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class ChatController : Controller
+    public class ChatController : BaseController
     {
-        public ActionResult Index() 
-        { 
-            return View();
+        private readonly IChatService _chatService;
+
+        public ChatController()
+            : this(null)
+        {
+        }
+
+        public ChatController(IChatService chatService)
+        {
+            _chatService = chatService ?? new ChatService();
+        }
+
+        public ActionResult Index(int matchId)
+        {
+            return View(new ChatViewModel { 
+                MatchId = matchId,
+                MemberId = SessionManager.CurrentSession.MemberId
+            });
+        }
+
+        [HttpPost]
+        public JsonResult GetChatMessageByTime(GetChatMessageByTimeCriteria getChatMessageByTimeCriteria)
+        {
+            var result = _chatService.GetChatMessagesByTime(getChatMessageByTimeCriteria);
+
+            return Json(result);
+        }
+
+        [HttpPost]
+        public JsonResult GetChatMessageByUser(GetChatMessageByUserIdCriteria getChatMessageByUserCriteria)
+        {
+            var result = _chatService.GetChatMessagesByUser(getChatMessageByUserCriteria);
+
+            return Json(result);
         }
     }
 }

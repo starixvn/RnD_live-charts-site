@@ -9,21 +9,19 @@
 
 namespace Fanex.LiveCharts.Chat.Hubs
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using Fanex.LiveCharts.Chat.Models;
-    using Fanex.LiveCharts.Chat.Criteria;
     using System.Threading.Tasks;
+    using Fanex.LiveCharts.Chat.Models;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
     public interface IChatHub
     {
+        void SendMessage(ChatMessage chatMessage, ChatRoom chatRoom);
 
-        void SendMessage(ChatMessage chatMessage);
+        Task JoinRoom(ChatUser chatUser, ChatRoom chatRoom);
+
+        Task LeaveRoom(ChatUser chatUser, ChatRoom chatRoom);
 
         /// <summary>
         /// When a new client connects

@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="DemoHub.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="ChatHub.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -9,17 +9,43 @@
 
 namespace Fanex.LiveCharts.Chat.Hubs
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
+    using System.Threading.Tasks;
+    using Fanex.LiveCharts.Chat.Models;
+    using Fanex.LiveCharts.Chat.Services;
     using Microsoft.AspNet.SignalR;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class ChatHub : Hub
+    public class ChatHub : Hub, IChatHub
     {
+        private readonly IChatService _chatService;
+
+        public ChatHub()
+            : this(null)
+        {
+        }
+
+        public ChatHub(IChatService chatService)
+        {
+            _chatService = chatService ?? new ChatService();
+        }
+
+        public void SendMessage(ChatMessage chatMessage, ChatRoom chatRoom)
+        {
+            Clients.Group(chatRoom.ChatRoomName).addMessage(chatMessage);
+        }
+
+        public Task JoinRoom(ChatUser chatUser, ChatRoom chatRoom)
+        {
+            return Groups.Add(Context.ConnectionId, chatRoom.ChatRoomName);
+        }
+
+        public Task LeaveRoom(ChatUser chatUser, ChatRoom chatRoom)
+        {
+            return Groups.Add(Context.ConnectionId, chatRoom.ChatRoomName);
+        }
+
         public void Send(string name, string message)
         {
             // Call the broadcastMessage method to update clients.

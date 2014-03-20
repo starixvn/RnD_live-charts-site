@@ -19,9 +19,9 @@ namespace Fanex.LiveCharts.Chat.Services
     /// </summary>
     public interface IChatService
     {
-        IList<ChatMessage> GetChatMessagesByTime(GetChatMessageByTimeCriteria getChatMessageCriteria);
+        IEnumerable<ChatMessage> GetChatMessagesByTime(GetChatMessageByTimeCriteria getChatMessageCriteria);
 
-        IList<ChatMessage> GetChatMessagesByTime(GetChatMessageByUserIdCriteria getChatMessageCriteria);
+        IEnumerable<ChatMessage> GetChatMessagesByUser(GetChatMessageByUserIdCriteria getChatMessageCriteria);
 
         ChatUser GetChatUser(GetChatUserCriteria getChatUserCriteria);
 

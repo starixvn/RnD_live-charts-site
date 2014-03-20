@@ -160,6 +160,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chat Room.
+        /// </summary>
+        public static string ChatRoom {
+            get {
+                return ResourceManager.GetString("ChatRoom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please choose a Betting Odds!.
         /// </summary>
         public static string ChooseABettingOdd {
@@ -340,6 +349,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} joined the room..
+        /// </summary>
+        public static string JoinedMessage {
+            get {
+                return ResourceManager.GetString("JoinedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kicked Off.
         /// </summary>
         public static string KickedOff {
@@ -385,6 +403,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} has just left the room..
+        /// </summary>
+        public static string LeftMessage {
+            get {
+                return ResourceManager.GetString("LeftMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LIVE.
         /// </summary>
         public static string Live {
@@ -426,6 +453,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string Match {
             get {
                 return ResourceManager.GetString("Match", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Members.
+        /// </summary>
+        public static string Members {
+            get {
+                return ResourceManager.GetString("Members", resourceCulture);
             }
         }
         
@@ -655,6 +691,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Send.
+        /// </summary>
+        public static string Send {
+            get {
+                return ResourceManager.GetString("Send", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Soccer.
         /// </summary>
         public static string Soccer {
@@ -696,6 +741,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string SubmitAndViewResult {
             get {
                 return ResourceManager.GetString("SubmitAndViewResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to text.
+        /// </summary>
+        public static string Text {
+            get {
+                return ResourceManager.GetString("Text", resourceCulture);
             }
         }
         

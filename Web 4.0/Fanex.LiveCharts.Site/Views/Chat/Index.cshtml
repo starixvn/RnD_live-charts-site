@@ -1,25 +1,52 @@
-﻿@{
+﻿@model Fanex.LiveCharts.Chat.ViewModels.ChatViewModel
+@{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
- <style type="text/css">
+@* <style type="text/css">
         .container {
             background-color: #99CCFF;
             border: thick solid #808080;
             padding: 20px;
             margin: 20px;
         }
+        
+        .discussion
+        {
+            max-height: 500px;
+        }
     </style>
 <div class="container">
+    <ul id="discussion">
+    </ul>
     <input type="text" id="message" />
     <input type="button" id="sendmessage" value="Send" />
     <input type="hidden" id="displayname" />
-    <ul id="discussion">
-    </ul>
+</div>*@
+<div class="chat-room-container">
+    <div class="chat-room-title">
+        @Lang.ChatRoom
+    </div>
+    <div class="room-container">
+        <div class="main-room">
+            <ul id="mainChatRoom">
+            </ul>
+        </div>
+        <div class="footer-room">
+        </div>
+    </div>
+    <div class="format-tools">
+    </div>
+    <div class="room-input">
+        <div class="text-input">
+            <textarea rows="1"  id="messageInput">
+            </textarea>
+        </div>
+        <div class="text-submit">
+            <input type="submit"  id="submitMessage" value="@Lang.Send" />
+        </div>
+    </div>
 </div>
-
-
-
-
 @section Scripts
 {
     <script src="~/Scripts/Libs/jquery.signalR-1.2.1.min.js"></script>
@@ -27,31 +54,39 @@
     <script src="~/signalr/hubs"></script>
     <!--Add script to update the page and send messages.-->
     <script type="text/javascript">
-        $(function () {
-            // Declare a proxy to reference the hub. 
-            var chat = $.connection.chatHub;
-            // Create a function that the hub can call to broadcast messages.
-            chat.client.broadcastMessage = function (name, message) {
-                // Html encode display name and message. 
-                var encodedName = $('<div />').text(name).html();
-                var encodedMsg = $('<div />').text(message).html();
-                // Add the message to the page. 
-                $('#discussion').append('<li><strong>' + encodedName
-                    + '</strong>:&nbsp;&nbsp;' + encodedMsg + '</li>');
-            };
-            // Get the user name and store it to prepend to messages.
-            $('#displayname').val(prompt('Enter your name:', ''));
-            // Set initial focus to message input box.  
-            $('#message').focus();
-            // Start the connection.
-            $.connection.hub.start().done(function () {
-                $('#sendmessage').click(function () {
-                    // Call the Send method on the hub. 
-                    chat.server.send($('#displayname').val(), $('#message').val());
-                    // Clear text box and reset focus for next comment. 
-                    $('#message').val('').focus();
-                });
-            });
-        });
-</script>
+        //        $(function () {
+        //            // Declare a proxy to reference the hub. 
+        //            var chat = $.connection.chatHub;
+        //            // Create a function that the hub can call to broadcast messages.
+        //            chat.client.broadcastMessage = function (name, message) {
+        //                // Html encode display name and message. 
+        //                var encodedName = $('<div />').text(name).html();
+        //                var encodedMsg = $('<div />').text(message).html();
+        //                // Add the message to the page. 
+        //                $('#discussion').append('<li><strong>' + encodedName
+        //                    + '</strong>:&nbsp;&nbsp;' + encodedMsg + '</li>');
+        //            };
+        //            // Get the user name and store it to prepend to messages.
+        //            $('#displayname').val(prompt('Enter your name:', ''));
+        //            // Set initial focus to message input box.  
+        //            $('#message').focus();
+        //            // Start the connection.
+        //            $.connection.hub.start().done(function () {
+        //                $('#sendmessage').click(function () {
+        //                    // Call the Send method on the hub. 
+        //                    chat.server.send($('#displayname').val(), $('#message').val());
+        //                    // Clear text box and reset focus for next comment. 
+        //                    $('#message').val('').focus();
+        //                });
+        //            });
+        //        });
+    </script>
+    <script type="text/javascript">
+        var DEFAULT_OBJECT =
+        {
+            matchId: @(Model.MatchId),
+            memeberId: @(Model.MemberId)
+        }
+    </script>
+    @Scripts.Render("~/bundles/chatroomjs")
 }
