@@ -9,10 +9,11 @@
 
 namespace Fanex.LiveCharts.Chat.ViewModels
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
+    using Fanex.LiveCharts.Chat.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
     /// <summary>
     /// TODO: Update summary.
@@ -20,6 +21,7 @@ namespace Fanex.LiveCharts.Chat.ViewModels
     public class ChatViewModel
     {
         public int MatchId { get; set; }
-        public int MemberId { get; set; }
+
+        public ChatUser ChatUser { get; set; }
     }
 }

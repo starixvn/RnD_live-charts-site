@@ -22,7 +22,7 @@ namespace Fanex.LiveCharts.Chat.Models
             OffLine = 0,
         }
 
-        public int ChartUserId { get; set; }
+        public int ChatUserId { get; set; }
 
         public string ChatName { get; set; }
 

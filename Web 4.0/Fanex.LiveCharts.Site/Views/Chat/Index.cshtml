@@ -33,6 +33,7 @@
             </ul>
         </div>
         <div class="footer-room">
+            <span class="member-online" id="memberOnline">0</span>
         </div>
     </div>
     <div class="format-tools">
@@ -85,7 +86,9 @@
         var DEFAULT_OBJECT =
         {
             matchId: @(Model.MatchId),
-            memeberId: @(Model.MemberId),
+            memeberId: @(Model.ChatUser.MemberId),
+            chatUserId: @(Model.ChatUser.ChatUserId),
+            chatName: '@(Model.ChatUser.ChatName ?? string.Empty)',
             isBanned: false
         }
     </script>

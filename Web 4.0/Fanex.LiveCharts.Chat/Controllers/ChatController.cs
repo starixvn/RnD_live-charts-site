@@ -35,9 +35,14 @@ namespace Fanex.LiveCharts.Chat.Controllers
 
         public ActionResult Index(int matchId)
         {
+            var chatUser = _chatService.GetChatUser(new GetChatUserCriteria
+                {
+                     MemberId = SessionManager.CurrentSession.MemberId
+                });
+            
             return View(new ChatViewModel { 
                 MatchId = matchId,
-                MemberId = SessionManager.CurrentSession.MemberId
+                ChatUser = chatUser
             });
         }
 
@@ -55,6 +60,14 @@ namespace Fanex.LiveCharts.Chat.Controllers
             var result = _chatService.GetChatMessagesByUser(getChatMessageByUserCriteria);
 
             return Json(result);
+        }
+
+        [HttpPost]
+        public JsonResult InsertChatUser(InsertChatUserCriteria insertChatUserCriteria)
+        {
+            var commandResult = _chatService.InsertChatUser(insertChatUserCriteria);
+
+            return Json(commandResult);
         }
     }
 }

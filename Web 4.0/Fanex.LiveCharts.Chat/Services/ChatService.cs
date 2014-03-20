@@ -49,7 +49,10 @@ namespace Fanex.LiveCharts.Chat.Services
         public ChatUser GetChatUser(GetChatUserCriteria getChatUserCriteria)
         {
             var chatUser = _chatRepository.Get<ChatUser>(getChatUserCriteria);
-
+            if (chatUser == null)
+            {
+                chatUser = new ChatUser();
+            }
             return chatUser;
         }
 

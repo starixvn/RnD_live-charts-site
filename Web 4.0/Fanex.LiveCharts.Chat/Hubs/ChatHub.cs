@@ -52,5 +52,27 @@ namespace Fanex.LiveCharts.Chat.Hubs
             // Call the broadcastMessage method to update clients.
             Clients.All.broadcastMessage(name, message);
         }
+
+
+
+        public void SendMessage(ChatMessage chatMessage, ChatRoom chatRoom)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void NotifyUserLeftRoom(ChatUser chatUser, ChatRoom chatRoom)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void NotifyUserJoinedRoom(ChatUser chatUser, ChatRoom chatRoom)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void AnnounceGeneralMessage(ChatMessage chatMessage, ChatRoom chatRoom)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
