@@ -65,12 +65,15 @@
     <Compile Include="Criteria\GetChatRoomByNameCriteria.cs" />
     <Compile Include="Criteria\GetChatRoomUsersCriteria.cs" />
     <Compile Include="Criteria\GetChatUserCriteria.cs" />
+    <Compile Include="Criteria\GetChatUserInRoomCriteria.cs" />
     <Compile Include="Criteria\InsertChatMessageCriteria.cs" />
     <Compile Include="Criteria\InsertChatRoomCriteria.cs" />
     <Compile Include="Criteria\InsertChatUserCriteria.cs" />
+    <Compile Include="Criteria\InsertChatUserInRoomCriteria.cs" />
     <Compile Include="Criteria\UpdateChatMessageCriteria.cs" />
     <Compile Include="Criteria\UpdateChatRoomCriteria.cs" />
     <Compile Include="Criteria\UpdateChatUserCriteria.cs" />
+    <Compile Include="Criteria\UpdateChatUserInRoomCriteria.cs" />
     <Compile Include="Hubs\ChatHub.cs" />
     <Compile Include="Hubs\IChatHub.cs" />
     <Compile Include="Models\ChatMessage.cs" />
