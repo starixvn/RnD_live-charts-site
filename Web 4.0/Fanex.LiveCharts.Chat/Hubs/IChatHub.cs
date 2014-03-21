@@ -11,6 +11,7 @@ namespace Fanex.LiveCharts.Chat.Hubs
 {
     using System.Threading.Tasks;
     using Fanex.LiveCharts.Chat.Models;
+    using System.Collections.Generic;
 
     /// <summary>
     /// TODO: Update summary.
@@ -24,6 +25,8 @@ namespace Fanex.LiveCharts.Chat.Hubs
         void NotifyUserJoinedRoom(ChatUser chatUser, ChatRoom chatRoom);
 
         void AnnounceGeneralMessage(ChatMessage chatMessage, ChatRoom chatRoom);
+
+        IEnumerable<ChatUser> GetUserList(ChatRoom chatRoom);
 
         Task JoinRoom(ChatUser chatUser, ChatRoom chatRoom);
 

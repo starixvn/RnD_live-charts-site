@@ -143,6 +143,7 @@
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\EventType.cs" />
     <Compile Include="Models\IndicatorPoint.cs" />
+    <Compile Include="Models\InsertResult.cs" />
     <Compile Include="Models\Odds.cs" />
     <Compile Include="Models\BetType.cs" />
     <Compile Include="Models\Chart.cs" />

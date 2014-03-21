@@ -45,10 +45,15 @@ namespace Fanex.LiveCharts.Chat.Controllers
                     MemberId = SessionManager.CurrentSession.MemberId
                 });
 
+            var chatRoom = _chatService.GetChatRoomByName(new GetChatRoomByNameCriteria {
+                ChatRoomName = string.Format("{0}_{1}", matchId, SessionManager.CurrentSession.Language.Replace('-','_')),
+                MatchId = matchId
+            });
+
             return View(
                 new ChatViewModel
                 {
-                    MatchId = matchId,
+                    ChatRoom = chatRoom,
                     ChatUser = chatUser
                 });
         }

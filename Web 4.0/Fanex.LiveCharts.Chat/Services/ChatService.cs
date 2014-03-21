@@ -14,6 +14,7 @@ namespace Fanex.LiveCharts.Chat.Services
     using Fanex.LiveCharts.Chat.Models;
     using Fanex.LiveCharts.Chat.Repositories;
     using Fanex.NAP.Framework.Data;
+    using Fanex.LiveCharts.Models;
 
     /// <summary>
     /// TODO: Update summary.
@@ -51,28 +52,30 @@ namespace Fanex.LiveCharts.Chat.Services
             var chatUser = _chatRepository.Get<ChatUser>(getChatUserCriteria);
             if (chatUser == null)
             {
-                chatUser = new ChatUser();
+                chatUser = new ChatUser { 
+                    MemberId = getChatUserCriteria.MemberId
+                };
             }
             return chatUser;
         }
 
-        public ICommandResult InsertChatMessage(InsertChatMessageCriteria insertChatMessageCriteria)
+        public InsertResult InsertChatMessage(InsertChatMessageCriteria insertChatMessageCriteria)
         {
-            var commandResult = _chatRepository.ModifyData(insertChatMessageCriteria);
+            var commandResult = _chatRepository.ModifyData(insertChatMessageCriteria, "ChatMessageId");
 
             return commandResult;
         }
 
-        public ICommandResult InsertChatRoom(InsertChatRoomCriteria insertChatRoomCriteria)
+        public InsertResult InsertChatRoom(InsertChatRoomCriteria insertChatRoomCriteria)
         {
-            var commandResult = _chatRepository.ModifyData(insertChatRoomCriteria);
+            var commandResult = _chatRepository.ModifyData(insertChatRoomCriteria, "ChatRoomId");
 
             return commandResult;
         }
 
-        public ICommandResult InsertChatUser(InsertChatUserCriteria insertchatUserCriteria)
+        public InsertResult InsertChatUser(InsertChatUserCriteria insertchatUserCriteria)
         {
-            var commandResult = _chatRepository.ModifyData(insertchatUserCriteria);
+            var commandResult = _chatRepository.ModifyData(insertchatUserCriteria, "ChatUserId");
 
             return commandResult;
         }
@@ -97,5 +100,20 @@ namespace Fanex.LiveCharts.Chat.Services
 
             return commandResult;
         }
+
+        public ChatRoom GetChatRoomByName(GetChatRoomByNameCriteria getChatRoomByName)
+        {
+            var chatRoom = _chatRepository.Get<ChatRoom>(getChatRoomByName);
+
+            return chatRoom;
+        }
+
+        public IEnumerable<ChatUser> GetChatRoomUsers(GetChatRoomUsersCriteria getChatRoomUsersCriteria)
+        {
+            var chatUsers = _chatRepository.Fetch<ChatUser>(getChatRoomUsersCriteria);
+
+            return chatUsers;
+        }
+
     }
 }

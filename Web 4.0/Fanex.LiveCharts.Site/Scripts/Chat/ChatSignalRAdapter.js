@@ -20,6 +20,8 @@ function ChatSignalRAdapter() {
             chat.client.usersListChanged(usersList);
         };
 
+        //me.hub.client.
+
         if (!window.hubReady) {
             window.hubReady = $.connection.hub.start();
         }
@@ -33,8 +35,8 @@ function ChatSignalRAdapter() {
     me.server =
     {
 
-        sendMessage: function (chatMessage, roomName, done) {
-            me.hub.server.sendMessage(chatMessage, roomName).done(function (result) {
+        sendMessage: function (chatMessage, chatRoom, done) {
+            me.hub.server.sendMessage(chatMessage, chatRoom).done(function (result) {
                 if (done) {
                     done(result);
                 }
@@ -65,15 +67,15 @@ function ChatSignalRAdapter() {
             });
         },
 
-        getUsersList: function (done) {
-            me.hub.server.getUsersList().done(function (result) {
+        getUserList: function (chatRoom, done) {
+            me.hub.server.getUserList(chatRoom).done(function (result) {
                 if (done) {
                     done(result);
                 }
             });
         },
 
-        joinRoom: function (chatUser, chatRoom) {
+        joinRoom: function (chatUser, chatRoom, done) {
             me.hub.server.joinRoom(chatUser, chatRoom).done(function (result) {
                 if (done) {
                     done(result);

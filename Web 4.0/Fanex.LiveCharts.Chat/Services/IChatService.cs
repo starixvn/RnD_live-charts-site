@@ -13,6 +13,7 @@ namespace Fanex.LiveCharts.Chat.Services
     using Fanex.LiveCharts.Chat.Criteria;
     using Fanex.LiveCharts.Chat.Models;
     using Fanex.NAP.Framework.Data;
+    using Fanex.LiveCharts.Models;
 
     /// <summary>
     /// TODO: Update summary.
@@ -25,16 +26,20 @@ namespace Fanex.LiveCharts.Chat.Services
 
         ChatUser GetChatUser(GetChatUserCriteria getChatUserCriteria);
 
-        ICommandResult InsertChatMessage(InsertChatMessageCriteria insertChatMessageCriteria);
+        IEnumerable<ChatUser> GetChatRoomUsers(GetChatRoomUsersCriteria getChatRoomUsersCriteria);
 
-        ICommandResult InsertChatRoom(InsertChatRoomCriteria insertChatRoomCriteria);
+        InsertResult InsertChatMessage(InsertChatMessageCriteria insertChatMessageCriteria);
 
-        ICommandResult InsertChatUser(InsertChatUserCriteria insertchatUserCriteria);
+        InsertResult InsertChatRoom(InsertChatRoomCriteria insertChatRoomCriteria);
+
+        InsertResult InsertChatUser(InsertChatUserCriteria insertchatUserCriteria);
 
         ICommandResult UpdateChatMessage(UpdateChatMessageCriteria updateChatMessageCriteria);
 
         ICommandResult UpdateChatRoom(UpdateChatRoomCriteria updateChatRoomCriteria);
 
         ICommandResult UpdateChatUser(UpdateChatUserCriteria updateChatUserCriteria);
+
+        ChatRoom GetChatRoomByName(GetChatRoomByNameCriteria getChatRoomByName);
     }
 }

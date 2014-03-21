@@ -104,6 +104,9 @@
     <script type="text/javascript">
         function LoadChart(matchId, language) {
             var memberId = document.getElementById('memberId').value;
+            if (isNaN(memberId)) {
+                memberId = -1;
+            }
             window.open('LoadChart.aspx?matchId=' + matchId
             + '&language=' + language
             + '&memberId=' + memberId, '', 'width=1000,height=690,directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,resizable=no');

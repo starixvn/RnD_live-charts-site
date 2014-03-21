@@ -15,6 +15,8 @@ namespace Fanex.LiveCharts.Repositories.Impl
     using Fanex.LiveCharts.Resources;
     using Fanex.NAP.Core.Criteria.Misc;
     using Fanex.NAP.Framework.Data;
+using Fanex.LiveCharts.Models;
+    using Fanex.Common;
 
     /// <summary>
     /// TODO: Update summary.
@@ -50,6 +52,45 @@ namespace Fanex.LiveCharts.Repositories.Impl
                     Message = ErrorMessageDefault
                 };
             }
+        }
+
+        /// <summary>
+        /// Modify data with insert command.
+        /// </summary>
+        /// <param name="criteria">Get data criteria.</param>
+        /// <param name="resultIdParamName">Result param name of id field.</param>
+        /// <returns>Insert result.</returns>
+        public InsertResult ModifyData(ICriteria criteria, string resultIdParamName)
+        {
+            var insertResult = new InsertResult
+            {
+                CommandResult = new CommandResult
+                {
+                    Code = ErrorCodeDefault,
+                    Message = ErrorMessageDefault
+                }
+            };
+
+            Hashtable hash = criteria.GetSpParams();
+            hash = (new ResultCriteria()).AddSpParams(hash);
+
+            resultIdParamName = resultIdParamName.ToLower();
+            if (!hash.ContainsKey(resultIdParamName))
+            {
+                hash.Add(resultIdParamName, 0);
+            }
+
+            if (criteria.IsValid())
+            {
+                using (var db = new ObjectDb(criteria.GetSettingKey()))
+                {
+                    db.ExecuteNonQuery(hash);
+                    insertResult.CommandResult = GetCommandResult(hash);
+                    insertResult.InsertedId = Converter.ToInt(hash[resultIdParamName]);
+                }
+            }
+
+            return insertResult;
         }
 
         /// <summary>

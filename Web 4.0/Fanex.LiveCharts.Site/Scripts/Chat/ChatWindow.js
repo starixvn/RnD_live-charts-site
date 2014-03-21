@@ -4,22 +4,19 @@
 /// <reference path="../LIVECHARTS.js" />
 /// <reference path="ChatSignalRAdapter.js" />
 /// <reference path="Chat.js" />
-/*global Chat, LIVECHARTS, DEFAULT_OBJECT, ChatClient*/
+
+/*global Chat, LIVECHARTS, CURRENT_CHAT_USER, ChatClient, CURRENT_CHAT_ROOM*/
 function ChatWindow() {
     'use strict';
     var me = this;
-    me.chatUser =
-        {
-            chatUserId: DEFAULT_OBJECT.chatUserId,
-            chatName: DEFAULT_OBJECT.chatName,
-            memberId: DEFAULT_OBJECT.memeberId
-        };
+    me.chatUser = CURRENT_CHAT_USER;
+    me.chatRoom = CURRENT_CHAT_ROOM;
     me.chatClient = new ChatClient();
     me.chatAdapter = new ChatSignalRAdapter();
     me.url = {
-        getGetChatMessageByTimeUrl: LIVECHARTS.resolveUrl('Chat/getGetChatMessageByTime'),
+        getGetChatMessageByTimeUrl: LIVECHARTS.resolveUrl('Chat/GetGetChatMessageByTime'),
         getChatMessageByUserUrl: LIVECHARTS.resolveUrl('Chat/GetChatMessageByUser'),
-        insertChatUserUrl: LIVECHARTS.resolveUrl('Chat/InsertChatUserUrl')
+        insertChatUserUrl: LIVECHARTS.resolveUrl('Chat/InsertChatUser')
     };
 
     //// Innitial all information
@@ -28,6 +25,7 @@ function ChatWindow() {
         me.cacheDOMElements();
         me.chatClient.init();
         me.checkValidUser();
+        
     };
     //// cacheDomElements
     me.cacheDOMElements = function () {
@@ -42,27 +40,35 @@ function ChatWindow() {
         me.$btnSubmitMessage.unbind('click').click(me.client.sendMessage);
     };
     me.checkValidUser = function () {
-        if (DEFAULT_OBJECT.chatName === '') {
-            me.insertChatUser();
+        if (me.chatUser.chatName === '') {
+            var chatName = prompt('Enter your name:', '');
+            me.insertChatUser(chatName);
         }
         else {
             me.connectServer();
         }
     };
-    me.insertChatUser = function () {
-        LIVECHARTS.callAjax({
-            url: me.url.getGetChatMessageByTimeUrl,
-            type: 'POST',
-            data: {
-                memberId: me.chatUser.chatUserId
-            },
-            useBlockUI: false,
-            done: function (result) {
-                if (result.IsSuccessful) {
-                    me.connectServer();
+    me.insertChatUser = function (chatName) {
+        if (chatName != null && chatName !== '') {
+            LIVECHARTS.callAjax({
+                url: me.url.insertChatUserUrl,
+                type: 'POST',
+                data: {
+                    memberId: me.chatUser.memberId,
+                    chatName: chatName
+                },
+                useBlockUI: false,
+                done: function (result) {
+                    if (result.CommanResult.IsSuccessful) {
+                        me.chatUser.chatUserId = result.InsertedId;
+                        me.connectServer();
+                    }
+                    else {
+                        alert(result.Message);
+                    }
                 }
-            }
-        });
+            });
+        }
     };
     me.connectServer = function () {
         me.chatAdapter.init(me, me.connectToServerDone);
@@ -70,31 +76,28 @@ function ChatWindow() {
     me.connectToServerDone = function () {
         try { $.unblockUI(); } catch (e) { }
         me.registerEvents();
+        me.client.joinRoom();
+        //me.client.getUserList();
     };
     
 
     //// Chat Client
-    me.client = 
+    me.client =
     {
         addMessage: function (chatMessage) {
             me.$mainChatRoom.append('<li>' + chatMessage.Content + '</li>');
         },
         sendMessage: function () {
             me.chatAdapter.server.sendMessage({
-                ChatRoomId: DEFAULT_OBJECT.matchId,
+                ChatRoomId: me.chatRoom.matchId,
                 Content: me.$txtMessageInput.val(),
-                ChatUser: {
-                    MemberId: DEFAULT_OBJECT.memberId
-                }
-            }, DEFAULT_OBJECT.matchId);
+                ChatUser: me.chatUser
+            }, me.chatRoom);
 
             me.$txtMessageInput.empty();
         },
         joinRoom: function () {
-            me.chatAdapter.server.joinRoom({
-                ChatUserId: me.chatUser.chatUserId,
-                MemberId: me.chatUser.memberId
-            });
+            me.chatAdapter.server.joinRoom(me.chatUser, me.chatRoom);
         },
         userListChange: function (totalUser) {
             if (me.$memberOnline) {
@@ -106,10 +109,15 @@ function ChatWindow() {
         },
         notifyUserJoinedRoom: function (chatUser) {
             me.$mainChatRoom.append('<li>' + chatUser.chatName + ' joined room.</li>');
+        },
+        getUserList: function () { 
+            me.chatAdapter.server.getUserList(me.chatRoom, me.updateListUser);
         }
     };
 
-  
+    me.updateListUser = function (userList) {
+        alert(userList.length);
+    };
     //// Query Data
     me.getHistoryMessage = function () {
         LIVECHARTS.callAjax({

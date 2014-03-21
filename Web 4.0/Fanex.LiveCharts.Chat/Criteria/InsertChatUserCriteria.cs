@@ -32,7 +32,7 @@ namespace Fanex.LiveCharts.Chat.Criteria
 
         public override bool IsValid()
         {
-            throw new NotImplementedException();
+            return MemberId > 0 && !string.IsNullOrEmpty(ChatName);
         }
     }
 }

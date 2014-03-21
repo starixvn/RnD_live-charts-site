@@ -32,7 +32,7 @@ namespace Fanex.LiveCharts.Chat.Criteria
 
         public override bool IsValid()
         {
-            throw new NotImplementedException();
+            return ChatUserId > 0 && ChatRoomId > 0;
         }
     }
 }

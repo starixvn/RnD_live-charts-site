@@ -20,7 +20,7 @@ using System.Text;
     /// </summary>
     public class ChatViewModel
     {
-        public int MatchId { get; set; }
+        public ChatRoom ChatRoom { get; set; }
 
         public ChatUser ChatUser { get; set; }
     }

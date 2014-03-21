@@ -13,6 +13,8 @@ namespace Fanex.LiveCharts.Chat.Hubs
     using Fanex.LiveCharts.Chat.Models;
     using Fanex.LiveCharts.Chat.Services;
     using Microsoft.AspNet.SignalR;
+    using Fanex.LiveCharts.Chat.Criteria;
+using System.Collections.Generic;
 
     /// <summary>
     /// TODO: Update summary.
@@ -31,47 +33,59 @@ namespace Fanex.LiveCharts.Chat.Hubs
             _chatService = chatService ?? new ChatService();
         }
 
-        public void SendMessage(ChatMessage chatMessage, string roomName)
+        public void SendMessage(ChatMessage chatMessage, ChatRoom chatRoom)
         {
-            Clients.All.addMessage(chatMessage);
+            var commandResult = _chatService.InsertChatMessage(new InsertChatMessageCriteria
+            {
+                ChatRoomId = chatRoom.ChatRoomId,
+                ChatUserId = chatMessage.ChatUser.ChatUserId,
+                Content = chatMessage.Content
+            });
+
+            if (commandResult.CommandResult.IsSuccessful)
+            {
+                chatMessage.ChatMessageId = commandResult.InsertedId;
+            }
+
+            Clients.Group(chatRoom.ChatRoomName).addMessage(chatMessage);
+        }
+
+        public IEnumerable<ChatUser> GetUserList(ChatRoom chatRoom)
+        {
+            var chatUsers = _chatService.GetChatRoomUsers(new GetChatRoomUsersCriteria
+            {
+                ChatRoomId = chatRoom.ChatRoomId
+            });
+
+
+            return chatUsers;
         }
 
         public Task JoinRoom(ChatUser chatUser, ChatRoom chatRoom)
         {
+            NotifyUserJoinedRoom(chatUser, chatRoom);
             return Groups.Add(Context.ConnectionId, chatRoom.ChatRoomName);
         }
 
         public Task LeaveRoom(ChatUser chatUser, ChatRoom chatRoom)
         {
+            NotifyUserLeftRoom(chatUser, chatRoom);
             return Groups.Add(Context.ConnectionId, chatRoom.ChatRoomName);
-        }
-
-        public void Send(string name, string message)
-        {
-            // Call the broadcastMessage method to update clients.
-            Clients.All.broadcastMessage(name, message);
-        }
-
-
-
-        public void SendMessage(ChatMessage chatMessage, ChatRoom chatRoom)
-        {
-            throw new System.NotImplementedException();
         }
 
         public void NotifyUserLeftRoom(ChatUser chatUser, ChatRoom chatRoom)
         {
-            throw new System.NotImplementedException();
+            Clients.Group(chatRoom.ChatRoomName).notifyUserJoinedRoom(chatUser);
         }
 
         public void NotifyUserJoinedRoom(ChatUser chatUser, ChatRoom chatRoom)
         {
-            throw new System.NotImplementedException();
+            Clients.Group(chatRoom.ChatRoomName).notifyUserLeftRoom(chatUser);
         }
 
         public void AnnounceGeneralMessage(ChatMessage chatMessage, ChatRoom chatRoom)
         {
-            throw new System.NotImplementedException();
+            Clients.Group(chatRoom.ChatRoomName).addAnnounceGeneralMessage(chatMessage);
         }
     }
 }

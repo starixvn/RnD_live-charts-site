@@ -9,10 +9,7 @@
 
 namespace Fanex.LiveCharts.Repositories.Interface
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
+    using Fanex.LiveCharts.Models;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
@@ -21,5 +18,7 @@ namespace Fanex.LiveCharts.Repositories.Interface
     public interface IBaseRepository : IDynamicRepository
     {
         ICommandResult ModifyData(ICriteria criteria);
+
+        InsertResult ModifyData(ICriteria criteria, string resultIdParamName);
     }
 }
