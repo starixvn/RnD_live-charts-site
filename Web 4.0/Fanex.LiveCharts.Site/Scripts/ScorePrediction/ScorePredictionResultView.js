@@ -11,6 +11,7 @@ function ScorePredictionResultView() {
     
     /*Properties*/
     me.isLoading = false;
+    me.isStopPrediction = false;
     me.scorePrediction = new ScorePrediction(
         scorePredictionViewModel.homeName,
         scorePredictionViewModel.awayName,
@@ -21,7 +22,8 @@ function ScorePredictionResultView() {
     }
 
     me.url = {
-        getScorePredictionResult: LIVECHARTS.resolveUrl('ScorePrediction/GetScorePrictionResult')
+        getScorePredictionResult: LIVECHARTS.resolveUrl('ScorePrediction/GetScorePrictionResult'),
+        checkStopScorePrediction: LIVECHARTS.resolveUrl('ScorePrediction/CheckStopScorePrediction')
     };
 
     /*Functions*/
@@ -32,9 +34,15 @@ function ScorePredictionResultView() {
         me.$handicapResultContainer = $('#handicapResultContainer');
         me.$refreshCountDownButton = $('.refresh-button-main');
 
-        
+
 
         me.loadResult();
+        if (!me.isStopPrediction) {
+            me.startCountDown();
+        }
+    };
+
+    me.startCountDown = function () {
         me.$refreshCountDownButton.parent().show();
         me.$refreshCountDownButton.refreshCountDown('stopCountDown').refreshCountDown(me.refreshCountDownOption);
     };
@@ -50,10 +58,28 @@ function ScorePredictionResultView() {
                 me.loadResult();
             }
 
-            setTimeout(function () {
-                me.$refreshCountDownButton.refreshCountDown('stopCountDown').refreshCountDown(me.refreshCountDownOption);
-            }, 1000);
+            if (!me.isStopPrediction) {
+                setTimeout(function () {
+                    me.$refreshCountDownButton.refreshCountDown('stopCountDown').refreshCountDown(me.refreshCountDownOption);
+                }, 1000);
+            }
+            else {
+                me.$refreshCountDownButton.parent().hide();
+            }
         }
+    };
+
+    me.checkMatchStatus = function () { 
+        LIVECHARTS.callAjax({
+            url: me.url.checkStopScorePrediction,
+            type: 'POST',
+            data: {
+                matchId: scorePredictionViewModel.matchId
+            },
+            done: function (result) {
+                me.isStopPrediction = result.IsStopScorePrediction;
+            }
+        });
     };
 
     me.loadResult = function () {

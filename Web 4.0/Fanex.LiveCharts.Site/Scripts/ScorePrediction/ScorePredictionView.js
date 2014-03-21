@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../Views/Charts/NewChartContent.cshtml" />
 /// <reference path="../LIVECHARTS.js" />
 /// <reference path="ScorePrediction.js" />
-/*global CRITERIA, LIVECHARTS, ScorePrediction, IS_ADMIN_SITE*/
+/*global CRITERIA, LIVECHARTS, ScorePrediction, IS_ADMIN_SITE, scorePredictionViewModel*/
 'use strict';
 
 function ScorePredictionView() {
@@ -9,16 +9,18 @@ function ScorePredictionView() {
 
     me.scorePrediction = new ScorePrediction();
     me.matchId = CRITERIA.matchId;
-    me.memberId = Math.floor((Math.random() * -10000) + 1);
+    me.memberId = CRITERIA.memberId;
     me.refreshMinutes = 1;
     me.isShowedResult = false;
+    me.isStopPrediction = false;
     me.reUpdateSuccessCode = 1000;
 
     me.url = {
         insertOrUpdateScorePrediction: LIVECHARTS.resolveUrl('ScorePrediction/InsertOrUpdateScorePrediction'),
         getCurrentUserPrediction: LIVECHARTS.resolveUrl('ScorePrediction/GetUserPrediction'),
         getScorePredictionResult: LIVECHARTS.resolveUrl('ScorePrediction/GetScorePrictionResult'),
-        resultPage: LIVECHARTS.resolveUrl('ScorePrediction/Index')
+        resultPage: LIVECHARTS.resolveUrl('ScorePrediction/Index'),
+        checkStopScorePrediction: LIVECHARTS.resolveUrl('ScorePrediction/CheckStopScorePrediction')
     };
 
     me.init = function () {
@@ -83,7 +85,7 @@ function ScorePredictionView() {
                 + '&homeName=' + CRITERIA.homeNameEncoded
                 + '&awayName=' + CRITERIA.awayNameEncoded,
                 'ScorePredictionResult' + CRITERIA.matchId,
-                'width=850,height=650,directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,resizable=no');
+                'width=860,height=650,directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,resizable=no');
         });
     };
 
@@ -97,9 +99,15 @@ function ScorePredictionView() {
                             me.getCorrectScoreResult({
                                 matchId: me.matchId
                             });
-                            setTimeout(function () {
-                                countDownStart(countDownObject);
-                            }, 1000);
+
+                            if (!me.isStopPrediction) {
+                                setTimeout(function () {
+                                    countDownStart(countDownObject);
+                                }, 1000);
+                            }
+                            else {
+                                me.$resultRefreshCountDown.parent().hide();
+                            }
                         }
                     });
     };
@@ -107,7 +115,9 @@ function ScorePredictionView() {
     me.getCorrectScoreResult = function (params) {
         if (!me.isShowedResult) {
             me.$resultContainer.show();
-            me.loadRefreshCountDown();
+            if (!me.isStopPrediction) {
+                me.loadRefreshCountDown();
+            }
             me.isShowedResult = true;
         }
 
@@ -120,6 +130,19 @@ function ScorePredictionView() {
                 var resultArray = me.scorePrediction.getCorrectScoreResult(result);
                 var scoreOption = me.scorePrediction.getScoreOption(resultArray, 'Correct Score');
                 me.$smallContainerResult.highcharts(scoreOption);
+            }
+        });
+    };
+
+    me.checkMatchStatus = function () {
+        LIVECHARTS.callAjax({
+            url: me.url.checkStopScorePrediction,
+            type: 'POST',
+            data: {
+                matchId: scorePredictionViewModel.matchId
+            },
+            done: function (result) {
+                me.isStopPrediction = result.IsStopScorePrediction;
             }
         });
     };

@@ -13,6 +13,7 @@ namespace Fanex.LiveCharts.Controllers
     using System.Web;
     using System.Web.Mvc;
     using Fanex.Common;
+    using Fanex.LiveCharts.Criterias;
     using Fanex.LiveCharts.Criterias.ScorePrediction;
     using Fanex.LiveCharts.Services.Impl;
     using Fanex.LiveCharts.Services.Interface;
@@ -84,6 +85,30 @@ namespace Fanex.LiveCharts.Controllers
 
             var result = _scorePredictionService.GetUserPrediction(getUserPredictionCriteria);
             return Json(result);
+        }
+
+        /// <summary>
+        /// Get Current Match Status for closing score prediction.
+        /// </summary>
+        /// <param name="matchId">Current Match Id.</param>
+        /// <returns>Stop score prediction decision.</returns>
+        [HttpPost]
+        public JsonResult CheckStopScorePrediction(int matchId)
+        {
+            IChartService chartService = new ChartService();
+            ISettingService settingService = new SettingService();
+            var currentMatchTime = chartService.GetCurrentMatchTime(new GetCurrentMatchTimeCriteria
+                {
+                    MatchId = matchId
+                });
+            var currentStopPredictionMinute = settingService.GetClosePredictionMinuteSetting(new ChartAdminGetMinuteForClosingPredictionCriteria());
+
+            bool isStopScorePrediction = Converter.ToInt(currentStopPredictionMinute.SettingValue) > currentMatchTime.CurrentMinute;
+
+            return Json(new
+            {
+                IsStopScorePrediction = isStopScorePrediction
+            });
         }
 
         #endregion Member Site

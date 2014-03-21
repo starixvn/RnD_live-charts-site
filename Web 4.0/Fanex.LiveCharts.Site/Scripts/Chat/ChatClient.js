@@ -1,9 +1,9 @@
 ﻿/* File Created: March 20, 2014 */
 /// <reference path="ChatSignalRAdapter.js" />
 
-/*global DEFAULT_VALUE, ChatSignalRAdapter */
-/*exported ChatClient.js*/
-function ChatClient.js() {
+/*global DEFAULT_OBJECT*/
+/*exported ChatClient*/
+function ChatClient() {
     'use strict';
     var me = this;
 

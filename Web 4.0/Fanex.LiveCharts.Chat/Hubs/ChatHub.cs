@@ -33,7 +33,6 @@ namespace Fanex.LiveCharts.Chat.Hubs
 
         public void SendMessage(ChatMessage chatMessage, string roomName)
         {
-            //Clients.Group(roomName).addMessage(chatMessage);
             Clients.All.addMessage(chatMessage);
         }
 

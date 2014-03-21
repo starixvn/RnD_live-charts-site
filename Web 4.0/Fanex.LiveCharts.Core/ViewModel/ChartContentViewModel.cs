@@ -66,5 +66,7 @@ namespace Fanex.LiveCharts.ViewModel
                 return CacheRef.GetTeamName(AwayId);
             }
         }
+
+        public int MemberId { get; set; }
     }
 }

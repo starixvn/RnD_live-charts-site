@@ -4,7 +4,7 @@
 /// <reference path="../LIVECHARTS.js" />
 /// <reference path="ChatSignalRAdapter.js" />
 /// <reference path="Chat.js" />
-/*global Chat, LIVECHARTS*/
+/*global Chat, LIVECHARTS, DEFAULT_OBJECT, ChatClient*/
 function ChatWindow() {
     'use strict';
     var me = this;
@@ -35,7 +35,7 @@ function ChatWindow() {
         me.$mainChatRoom = $('#mainChatRoom');
         me.$txtMessageInput = $('#messageInput');
         me.$btnSubmitMessage = $('#submitMessage');
-        me.$memberOnline = $('#memberOnline')
+        me.$memberOnline = $('#memberOnline');
     };
     //// Events
     me.registerEvents = function () {
@@ -61,17 +61,14 @@ function ChatWindow() {
                 if (result.IsSuccessful) {
                     me.connectServer();
                 }
-                else {
-
-                }
             }
         });
-    }
+    };
     me.connectServer = function () {
         me.chatAdapter.init(me, me.connectToServerDone);
-    }
+    };
     me.connectToServerDone = function () {
-        try { $.unblockUI(); } catch (e) { };
+        try { $.unblockUI(); } catch (e) { }
         me.registerEvents();
     };
     

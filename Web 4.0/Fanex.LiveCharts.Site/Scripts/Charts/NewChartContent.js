@@ -1854,28 +1854,32 @@ if (jQuery) {
                         .attr({ zIndex: 5 })
                         .css({
                             color: awayColor,
-                            opacity: colorOpacity
+                            opacity: colorOpacity,
+                            textTransform: 'uppercase'
                         }).add();
 
                     marketChart.renderer.text(homeText, left, marketBottom)
                         .attr({ zIndex: 5 })
                         .css({
                             color: homeColor,
-                            opacity: colorOpacity
+                            opacity: colorOpacity,
+                            textTransform: 'uppercase'
                         }).add();
 
                     eventChart.renderer.text(CRITERIA.awayName, left, eventTop)
                        .attr({ zIndex: 5 })
                        .css({
                            color: awayColor,
-                           opacity: colorOpacity
+                           opacity: colorOpacity,
+                           textTransform: 'uppercase'
                        }).add();
 
                     eventChart.renderer.text(CRITERIA.homeName, left, eventBottom)
                         .attr({ zIndex: 5 })
                         .css({
                             color: homeColor,
-                            opacity: colorOpacity
+                            opacity: colorOpacity,
+                            textTransform: 'uppercase'
                         }).add();
                 }
             },

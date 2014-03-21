@@ -44,6 +44,10 @@
     <title></title>
 </head>
 <body>
+    <div>
+        <label for="memberId">MemberId:</label>
+        <input type="text" name="memberId" id="memberId" value="1"/>
+    </div>
     <h4>
         Chart List on
         <%= kickOffDate.ToShortDateString()%>
@@ -99,7 +103,10 @@
     %>
     <script type="text/javascript">
         function LoadChart(matchId, language) {
-            window.open('LoadChart.aspx?matchId=' + matchId + '&language=' + language, '', 'width=1000,height=690,directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,resizable=no');
+            var memberId = document.getElementById('memberId').value;
+            window.open('LoadChart.aspx?matchId=' + matchId
+            + '&language=' + language
+            + '&memberId=' + memberId, '', 'width=1000,height=690,directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,resizable=no');
         }
     </script>
 </body>

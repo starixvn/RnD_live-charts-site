@@ -25,6 +25,7 @@ public partial class LoadChart : System.Web.UI.Page
     {
         string urlAccess = string.Empty;
         int currentMatchId = Convert.ToInt32(Request["matchId"]);
+        int currentMemberId = Convert.ToInt32(Request["memberId"]);
         if (!string.IsNullOrEmpty(Request["language"]))
         {
             LanguageType currentLanguage = LanguageType.English;
@@ -50,11 +51,11 @@ public partial class LoadChart : System.Web.UI.Page
                     break; // Vietnamese
             }
 
-            urlAccess = LiveChartsTokenService.GetAccessUrl(1, currentMatchId, (int)currentLanguage);
+            urlAccess = LiveChartsTokenService.GetAccessUrl(currentMemberId, currentMatchId, (int)currentLanguage);
         }
         else
         {
-            urlAccess = LiveChartsTokenService.GetAccessUrl(1, currentMatchId, (int)LanguageType.English);
+            urlAccess = LiveChartsTokenService.GetAccessUrl(currentMemberId, currentMatchId, (int)LanguageType.English);
         }
 
         Response.Redirect(urlAccess);

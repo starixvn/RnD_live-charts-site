@@ -165,7 +165,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Area_Start\BundleConfig.cs" />
     <Compile Include="Areas\Admin\Area_Start\RouteConfig.cs" />
-    <None Include="Areas\Admin\Content\ScorePrediction.less" />
+    <Content Include="Areas\Admin\Content\ScorePrediction.less" />
     <Content Include="Areas\Admin\Content\AdminSite.less" />
     <Compile Include="Areas\UserLogin\Controllers\BaseController.cs" />
     <Compile Include="Areas\UserLogin\Controllers\CommonController.cs" />

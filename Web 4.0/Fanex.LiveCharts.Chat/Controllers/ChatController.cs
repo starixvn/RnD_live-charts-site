@@ -12,9 +12,9 @@ namespace Fanex.LiveCharts.Chat.Controllers
     using System.Web.Mvc;
     using Fanex.LiveCharts.Chat.Criteria;
     using Fanex.LiveCharts.Chat.Services;
+    using Fanex.LiveCharts.Chat.ViewModels;
     using Fanex.LiveCharts.Controllers;
     using Fanex.LiveCharts.Web;
-    using Fanex.LiveCharts.Chat.ViewModels;
 
     /// <summary>
     /// TODO: Update summary.
@@ -33,17 +33,24 @@ namespace Fanex.LiveCharts.Chat.Controllers
             _chatService = chatService ?? new ChatService();
         }
 
+        /// <summary>
+        /// Return index page of chat portal.
+        /// </summary>
+        /// <param name="matchId">Current match id.</param>
+        /// <returns>View of index page.</returns>
         public ActionResult Index(int matchId)
         {
             var chatUser = _chatService.GetChatUser(new GetChatUserCriteria
                 {
-                     MemberId = SessionManager.CurrentSession.MemberId
+                    MemberId = SessionManager.CurrentSession.MemberId
                 });
-            
-            return View(new ChatViewModel { 
-                MatchId = matchId,
-                ChatUser = chatUser
-            });
+
+            return View(
+                new ChatViewModel
+                {
+                    MatchId = matchId,
+                    ChatUser = chatUser
+                });
         }
 
         [HttpPost]

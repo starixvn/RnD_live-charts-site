@@ -210,7 +210,8 @@ namespace Fanex.LiveCharts.Controllers
                     IsChrome = Request.Browser.Browser.ToLower().Contains("chrome"),
                     ShowHandicap = handicapOddList.Any(),
                     ShowOverUnder = overUnderOddList.Any(),
-                    OpenSoonCountdown = openSoonCountDown
+                    OpenSoonCountdown = openSoonCountDown,
+                    MemberId = SessionManager.CurrentSession.MemberId
                 };
             }
             else
