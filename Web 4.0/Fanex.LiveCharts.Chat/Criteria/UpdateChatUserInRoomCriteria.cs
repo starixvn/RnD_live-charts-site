@@ -23,7 +23,7 @@ namespace Fanex.LiveCharts.Chat.Criteria
     {
         public int ChatUserInRoomId { get; set; }
 
-        public int ConnectionId { get; set; }
+        public string ConnectionId { get; set; }
 
         public bool IsLeft { get; set; }
 

@@ -9,6 +9,7 @@ function ChatClient(chatUser, chatRoom) {
 
     me.chatUser = chatUser;
     me.chatRoom = chatRoom;
+    me.currentUserList = null;
 
     me.cachedDomElement = function () {
         me.$mainChatRoom = $('#mainChatRoom');
@@ -25,10 +26,23 @@ function ChatClient(chatUser, chatRoom) {
     };
     me.showTypingSignal = function () { };
     me.updateUserList = function (userList) {
-        if (me.$memberOnline) {
+        if (me.$memberOnline && userList) {
             me.$memberOnline.html(userList.length);
+            me.currentUserList = userList;
         }
     }
+    me.showDetailUserList = function () {
+        if(me.currentUserList && me.currentUserList.length > 0)
+        {
+            var userChatNameList = [];
+            for (var index in me.currentUserList) {
+                var chatUser = me.currentUserList[index];
+                userChatNameList.push(chatUser.ChatName);
+            }
+
+            alert(userChatNameList.join(',\n'));
+        }
+    };
     me.showAnnounceMessage = function () { };
     me.kickOutUserChat = function (chatUser) {
         if(chatUser && chatUser.chatUserId === me.chatUser.chatUserId)
@@ -37,16 +51,18 @@ function ChatClient(chatUser, chatRoom) {
         }
     };
     me.removeMessage = function () { };
-    me.notifyUserLeftRoom = function (chatUserInRoom) {
+    me.notifyUserLeftRoom = function (chatUserInRoom, currentChatUserList) {
         //if (chatUser != null && chatUser.ChatName) {
         //    me.$mainChatRoom.append('<li>' + chatUser.ChatName + ' has left.</li>');
         //}
         me.$mainChatRoom.append('<li>' + chatUserInRoom.ChatUserId + ' has left.</li>');
+        me.updateUserList(currentChatUserList);
     };
 
-    me.notifyUserJoinedRoom = function (chatUser) {
+    me.notifyUserJoinedRoom = function (chatUser, currentChatUserList) {
         if (chatUser && chatUser.ChatName) {
             me.$mainChatRoom.append('<li>' + chatUser.ChatName + ' joined room.</li>');
         }
+        me.updateUserList(currentChatUserList);
     };
 }

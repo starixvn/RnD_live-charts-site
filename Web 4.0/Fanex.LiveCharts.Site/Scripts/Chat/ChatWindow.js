@@ -44,7 +44,9 @@ function ChatWindow() {
     //// Events
     me.registerEvents = function () {
         me.$btnSubmitMessage.unbind('click').click(me.chatServer.sendMessage);
-        me.$memberOnline.unbind('click').click(me.chatServer.getUserList);
+        me.$memberOnline.unbind('click').click(me.chatClient.showDetailUserList);
+        
+        
         //// Send Spam Notify: implement later
         //// Auto Enter
         //// 
@@ -69,8 +71,9 @@ function ChatWindow() {
                 },
                 useBlockUI: false,
                 done: function (result) {
-                    if (result.CommanResult.IsSuccessful) {
+                    if (result && result.CommandResult.IsSuccessful) {
                         me.chatUser.chatUserId = result.InsertedId;
+                        me.chatUser.chatName = chatName;
                         me.connectServer();
                     }
                     else {

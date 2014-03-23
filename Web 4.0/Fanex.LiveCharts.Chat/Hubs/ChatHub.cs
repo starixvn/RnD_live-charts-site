@@ -85,12 +85,12 @@ namespace Fanex.LiveCharts.Chat.Hubs
 
         public void NotifyUserLeftRoom(ChatUser chatUser, ChatRoom chatRoom)
         {
-            Clients.Group(chatRoom.ChatRoomName).notifyUserLeftRoom(chatUser);
+            Clients.Group(chatRoom.ChatRoomName).notifyUserLeftRoom(chatUser, GetCurrentUserList(chatRoom.ChatRoomId));
         }
 
         public void NotifyUserJoinedRoom(ChatUser chatUser, ChatRoom chatRoom)
         {
-            Clients.Group(chatRoom.ChatRoomName).notifyUserJoinedRoom(chatUser);
+            Clients.Group(chatRoom.ChatRoomName).notifyUserJoinedRoom(chatUser, GetCurrentUserList(chatRoom.ChatRoomId));
         }
 
         public void AnnounceGeneralMessage(ChatMessage chatMessage, ChatRoom chatRoom)
@@ -104,13 +104,37 @@ namespace Fanex.LiveCharts.Chat.Hubs
                 new GetChatUserInRoomByConnectionIdCriteria { 
                     ConnectionId = Context.ConnectionId
                 });
+
+           
+
             if (currentChatUserInRoom != null)
             {
-                Clients.Group(currentChatUserInRoom.ChatRoomName).notifyUserLeftRoom(currentChatUserInRoom);
+                var updateResult = _chatService.UpdateChatUserInRoom(new UpdateChatUserInRoomCriteria
+                {
+                    ChatUserInRoomId = currentChatUserInRoom.ChatUserInRoomId,
+                    ConnectionId = Context.ConnectionId,
+                    IsLeft = true
+                });
+                
+                if (updateResult.IsSuccessful)
+                {
+                    Clients.Group(currentChatUserInRoom.ChatRoomName).notifyUserLeftRoom(currentChatUserInRoom, GetCurrentUserList(currentChatUserInRoom.ChatRoomId));
+                }
                 //Clients.All.notifyUserLeftRoom();
             }
 
             return base.OnDisconnected();
+        }
+
+        private IEnumerable<ChatUser> GetCurrentUserList(int chatRoomId, bool isLeft = false)
+        {
+            var currentUserList = _chatService.GetChatRoomUsers(new GetChatRoomUsersCriteria
+            {
+                ChatRoomId = chatRoomId,
+                IsLeft = isLeft
+            });
+
+            return currentUserList;
         }
     }
 }

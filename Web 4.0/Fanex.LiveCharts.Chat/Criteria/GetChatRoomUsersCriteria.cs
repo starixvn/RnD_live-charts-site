@@ -22,6 +22,8 @@ namespace Fanex.LiveCharts.Chat.Criteria
         public bool IncludingBanned { get; set; }
 
         public bool KickedOut { get; set; }
+
+        public bool IsLeft { get; set; }
         public override string GetSettingKey()
         {
             return "Chart_Chat_Get_Chat_Room_Users";
