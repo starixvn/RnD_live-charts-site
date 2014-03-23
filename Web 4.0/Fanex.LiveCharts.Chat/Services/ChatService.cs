@@ -130,5 +130,27 @@ namespace Fanex.LiveCharts.Chat.Services
 
             return updateResult;
         }
+
+        public ChatUserInRoom GetChatUserInRoom(GetChatUserInRoomCriteria getChatUserInRoomCriteria)
+        {
+            var chatUserInRoom = _chatRepository.Get<ChatUserInRoom>(getChatUserInRoomCriteria);
+
+            if(chatUserInRoom == null)
+            {
+                chatUserInRoom = new ChatUserInRoom { 
+                    ChatRoomId = getChatUserInRoomCriteria.ChatRoomId,
+                    ChatUserId = getChatUserInRoomCriteria.ChatUserId
+                };
+            }
+
+            return chatUserInRoom;
+        }
+
+        public ChatUserInRoom GetChatUserInRoomByConnectionId(GetChatUserInRoomByConnectionIdCriteria getChatUserInRoomByConnectionIdCriteria)
+        {
+            var chatUserInRoom = _chatRepository.Get<ChatUserInRoom>(getChatUserInRoomByConnectionIdCriteria);
+
+            return chatUserInRoom;
+        }
     }
 }

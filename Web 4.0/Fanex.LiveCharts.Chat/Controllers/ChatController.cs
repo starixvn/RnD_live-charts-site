@@ -15,6 +15,7 @@ namespace Fanex.LiveCharts.Chat.Controllers
     using Fanex.LiveCharts.Chat.ViewModels;
     using Fanex.LiveCharts.Controllers;
     using Fanex.LiveCharts.Web;
+    using Fanex.LiveCharts.Chat.Models;
 
     /// <summary>
     /// TODO: Update summary.
@@ -57,11 +58,23 @@ namespace Fanex.LiveCharts.Chat.Controllers
                 MatchId = matchId
             });
 
+            var chatUserInRoom = new ChatUserInRoom();
+            if(chatUser.ChatUserId > 0)
+            {
+                chatUserInRoom = _chatService.GetChatUserInRoom(new GetChatUserInRoomCriteria
+                    {
+                        ChatUserId = chatUser.ChatUserId,
+                        ChatRoomId = chatRoom.ChatRoomId
+                    });
+            }
+
+
             return View(
                 new ChatViewModel
                 {
                     ChatRoom = chatRoom,
-                    ChatUser = chatUser
+                    ChatUser = chatUser,
+                    ChatUserInRoom = chatUserInRoom
                 });
         }
 

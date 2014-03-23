@@ -37,11 +37,11 @@ function ChatClient(chatUser, chatRoom) {
         }
     };
     me.removeMessage = function () { };
-    me.notifyUserLeftRoom = function (chatUser) {
+    me.notifyUserLeftRoom = function (chatUserInRoom) {
         //if (chatUser != null && chatUser.ChatName) {
         //    me.$mainChatRoom.append('<li>' + chatUser.ChatName + ' has left.</li>');
         //}
-        me.$mainChatRoom.append('<li>a has left.</li>');
+        me.$mainChatRoom.append('<li>' + chatUserInRoom.ChatUserId + ' has left.</li>');
     };
 
     me.notifyUserJoinedRoom = function (chatUser) {

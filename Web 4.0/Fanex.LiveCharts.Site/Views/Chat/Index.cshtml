@@ -63,6 +63,12 @@
             welcomeMessage: '@(Model.ChatRoom.WelcomeMessage)'
         }
 
+        var CURRENT_CHAT_USER_IN_ROOM = 
+            {
+                chatUserInRoomId: @(Model.ChatUserInRoom.ChatUserInRoomId),
+                kickedOut: @(Model.ChatUserInRoom.KickedOut ? "true" : "false")
+            };
+
         var CURRENT_CHAT_USER = 
         {
             memberId: @(Model.ChatUser.MemberId),

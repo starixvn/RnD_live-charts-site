@@ -61,10 +61,18 @@ namespace Fanex.LiveCharts.Chat.Hubs
             return chatUsers;
         }
 
-        public Task JoinRoom(ChatUser chatUser, ChatRoom chatRoom)
+        public Task JoinRoom(ChatUser chatUser, ChatRoom chatRoom, ChatUserInRoom chatUserInRoom)
         {
-            return Groups.Add(Context.ConnectionId, chatRoom.ChatRoomName).ContinueWith(demo =>
+            _chatService.InsertChatUserInRoom(new InsertChatUserInRoomCriteria
                 {
+                    ChatRoomId = chatRoom.ChatRoomId,
+                    ChatUserId = chatUser.ChatUserId,
+                    ChatUserInRoomId =  chatUserInRoom.ChatUserInRoomId,
+                    ConnectionId = Context.ConnectionId
+                });
+            return Groups.Add(Context.ConnectionId, chatRoom.ChatRoomName).ContinueWith(jr =>
+                {
+
                     NotifyUserJoinedRoom(chatUser, chatRoom);
                 });
         }
@@ -92,7 +100,15 @@ namespace Fanex.LiveCharts.Chat.Hubs
 
         public override Task OnDisconnected()
         {
-            Clients.All.notifyUserLeftRoom();
+            var currentChatUserInRoom = _chatService.GetChatUserInRoomByConnectionId(
+                new GetChatUserInRoomByConnectionIdCriteria { 
+                    ConnectionId = Context.ConnectionId
+                });
+            if (currentChatUserInRoom != null)
+            {
+                Clients.Group(currentChatUserInRoom.ChatRoomName).notifyUserLeftRoom(currentChatUserInRoom);
+                //Clients.All.notifyUserLeftRoom();
+            }
 
             return base.OnDisconnected();
         }

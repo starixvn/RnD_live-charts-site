@@ -28,7 +28,7 @@ namespace Fanex.LiveCharts.Chat.Hubs
 
         IEnumerable<ChatUser> GetUserList(ChatRoom chatRoom);
 
-        Task JoinRoom(ChatUser chatUser, ChatRoom chatRoom);
+        Task JoinRoom(ChatUser chatUser, ChatRoom chatRoom, ChatUserInRoom chatUserInRoom);
 
         Task LeaveRoom(ChatUser chatUser, ChatRoom chatRoom);
 

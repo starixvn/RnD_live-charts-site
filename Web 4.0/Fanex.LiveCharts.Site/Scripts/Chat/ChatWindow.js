@@ -13,9 +13,10 @@ function ChatWindow() {
     //// Properties
     me.chatUser = CURRENT_CHAT_USER;
     me.chatRoom = CURRENT_CHAT_ROOM;
+    me.chatUserInRoom = CURRENT_CHAT_USER_IN_ROOM;
     me.chatAdapter = new ChatSignalRAdapter();
     me.chatClient = new ChatClient(me.chatUser, me.chatRoom);
-    me.chatServer = new ChatServer(me.chatAdapter, me.chatClient, me.chatUser, me.chatRoom);
+    me.chatServer = new ChatServer(me.chatAdapter, me.chatClient, me.chatUser, me.chatRoom, me.chatUserInRoom);
     me.url = {
         getGetChatMessageByTimeUrl: LIVECHARTS.resolveUrl('Chat/GetGetChatMessageByTime'),
         getChatMessageByUserUrl: LIVECHARTS.resolveUrl('Chat/GetChatMessageByUser'),

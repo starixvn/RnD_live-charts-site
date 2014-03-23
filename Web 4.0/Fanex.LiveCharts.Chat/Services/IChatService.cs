@@ -30,6 +30,10 @@ namespace Fanex.LiveCharts.Chat.Services
 
         ChatUser GetChatUser(GetChatUserCriteria getChatUserCriteria);
 
+        ChatUserInRoom GetChatUserInRoom(GetChatUserInRoomCriteria getChatUserInRoomCriteria);
+
+        ChatUserInRoom GetChatUserInRoomByConnectionId(GetChatUserInRoomByConnectionIdCriteria getChatUserInRoomByConnectionIdCriteria);
+
         InsertResult InsertChatMessage(InsertChatMessageCriteria insertChatMessageCriteria);
 
         InsertResult InsertChatRoom(InsertChatRoomCriteria insertChatRoomCriteria);
@@ -45,5 +49,7 @@ namespace Fanex.LiveCharts.Chat.Services
         ICommandResult UpdateChatUser(UpdateChatUserCriteria updateChatUserCriteria);
 
         ICommandResult UpdateChatUserInRoom(UpdateChatUserInRoomCriteria updateChatUserInRoomCriteria);
+
+
     }
 }

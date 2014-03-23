@@ -1,6 +1,6 @@
 ﻿
 
-function ChatServer(chatAdapter, chatClient, chatUser, chatRoom)
+function ChatServer(chatAdapter, chatClient, chatUser, chatRoom, chatUserInRoom )
 {
     var me = this;
 
@@ -8,6 +8,7 @@ function ChatServer(chatAdapter, chatClient, chatUser, chatRoom)
     me.chatRoom = chatRoom;
     me.chatUser = chatUser;
     me.chatClient = chatClient;
+    me.chatUserInRoom = chatUserInRoom
 
     me.cachedDomElements = function () {
         me.$mainChatRoom = $('#mainChatRoom');
@@ -31,7 +32,7 @@ function ChatServer(chatAdapter, chatClient, chatUser, chatRoom)
     };
 
     me.joinRoom = function () {
-        me.chatAdapter.server.joinRoom(me.chatUser, me.chatRoom);
+        me.chatAdapter.server.joinRoom(me.chatUser, me.chatRoom, me.chatUserInRoom);
     };
 
     me.getUserList = function () {

@@ -16,12 +16,6 @@ namespace Fanex.LiveCharts.Chat.Models
     /// </summary>
     public class ChatUser
     {
-        public enum UserStatus : int
-        {
-            Online = 1,
-            OffLine = 0,
-        }
-
         public int ChatUserId { get; set; }
 
         public string ChatName { get; set; }
@@ -35,5 +29,6 @@ namespace Fanex.LiveCharts.Chat.Models
         public DateTime ModifiedTime { get; set; }
 
         public string ConnectionId { get; set; }
+
     }
 }

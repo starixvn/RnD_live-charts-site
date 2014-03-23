@@ -23,5 +23,7 @@ using System.Text;
         public ChatRoom ChatRoom { get; set; }
 
         public ChatUser ChatUser { get; set; }
+
+        public ChatUserInRoom ChatUserInRoom { get; set; }
     }
 }
