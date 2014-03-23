@@ -61,44 +61,44 @@ namespace Fanex.LiveCharts.Chat.Services
 
         public InsertResult InsertChatMessage(InsertChatMessageCriteria insertChatMessageCriteria)
         {
-            var commandResult = _chatRepository.ModifyData(insertChatMessageCriteria, "ChatMessageId");
+            var insertResult = _chatRepository.ModifyData(insertChatMessageCriteria, "ChatMessageId");
 
-            return commandResult;
+            return insertResult;
         }
 
         public InsertResult InsertChatRoom(InsertChatRoomCriteria insertChatRoomCriteria)
         {
-            var commandResult = _chatRepository.ModifyData(insertChatRoomCriteria, "ChatRoomId");
+            var insertResult = _chatRepository.ModifyData(insertChatRoomCriteria, "ChatRoomId");
 
-            return commandResult;
+            return insertResult;
         }
 
         public InsertResult InsertChatUser(InsertChatUserCriteria insertchatUserCriteria)
         {
-            var commandResult = _chatRepository.ModifyData(insertchatUserCriteria, "ChatUserId");
+            var insertResult = _chatRepository.ModifyData(insertchatUserCriteria, "ChatUserId");
 
-            return commandResult;
+            return insertResult;
         }
 
         public ICommandResult UpdateChatMessage(UpdateChatMessageCriteria updateChatMessageCriteria)
         {
-            var commandResult = _chatRepository.ModifyData(updateChatMessageCriteria);
+            var updateResult = _chatRepository.ModifyData(updateChatMessageCriteria);
 
-            return commandResult;
+            return updateResult;
         }
 
         public ICommandResult UpdateChatRoom(UpdateChatRoomCriteria updateChatRoomCriteria)
         {
-            var commandResult = _chatRepository.ModifyData(updateChatRoomCriteria);
+            var updateResult = _chatRepository.ModifyData(updateChatRoomCriteria);
 
-            return commandResult;
+            return updateResult;
         }
 
         public ICommandResult UpdateChatUser(UpdateChatUserCriteria updateChatUserCriteria)
         {
-            var commandResult = _chatRepository.ModifyData(updateChatUserCriteria);
+            var updateResult = _chatRepository.ModifyData(updateChatUserCriteria);
 
-            return commandResult;
+            return updateResult;
         }
 
         public ChatRoom GetChatRoomByName(GetChatRoomByNameCriteria getChatRoomByName)
@@ -115,5 +115,20 @@ namespace Fanex.LiveCharts.Chat.Services
             return chatUsers;
         }
 
+
+
+        public InsertResult InsertChatUserInRoom(InsertChatUserInRoomCriteria insertChatUserInRoomCriteria)
+        {
+            var insertResult = _chatRepository.ModifyData(insertChatUserInRoomCriteria, "ChatUserInRoomId");
+
+            return insertResult;
+        }
+
+        public ICommandResult UpdateChatUserInRoom(UpdateChatUserInRoomCriteria updateChatUserInRoomCriteria)
+        {
+            var updateResult = _chatRepository.ModifyData(updateChatUserInRoomCriteria);
+
+            return updateResult;
+        }
     }
 }

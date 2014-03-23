@@ -1,18 +1,21 @@
-﻿
-/* File Created: March 20, 2014 */
+﻿/* File Created: March 20, 2014 */
 /// <reference path="../../Views/Chat/Index.cshtml" />
 /// <reference path="../LIVECHARTS.js" />
 /// <reference path="ChatSignalRAdapter.js" />
 /// <reference path="Chat.js" />
+/// <reference path="ChatServer.js" />
 
 /*global Chat, LIVECHARTS, CURRENT_CHAT_USER, ChatClient, CURRENT_CHAT_ROOM*/
 function ChatWindow() {
     'use strict';
     var me = this;
+
+    //// Properties
     me.chatUser = CURRENT_CHAT_USER;
     me.chatRoom = CURRENT_CHAT_ROOM;
-    me.chatClient = new ChatClient();
     me.chatAdapter = new ChatSignalRAdapter();
+    me.chatClient = new ChatClient(me.chatUser, me.chatRoom);
+    me.chatServer = new ChatServer(me.chatAdapter, me.chatClient, me.chatUser, me.chatRoom);
     me.url = {
         getGetChatMessageByTimeUrl: LIVECHARTS.resolveUrl('Chat/GetGetChatMessageByTime'),
         getChatMessageByUserUrl: LIVECHARTS.resolveUrl('Chat/GetChatMessageByUser'),
@@ -24,9 +27,10 @@ function ChatWindow() {
         try { $.blockUI(); } catch (e) { }
         me.cacheDOMElements();
         me.chatClient.init();
+        me.chatServer.init();
         me.checkValidUser();
-        
     };
+
     //// cacheDomElements
     me.cacheDOMElements = function () {
         me.$soundContainer = $('#soundContainer');
@@ -34,10 +38,15 @@ function ChatWindow() {
         me.$txtMessageInput = $('#messageInput');
         me.$btnSubmitMessage = $('#submitMessage');
         me.$memberOnline = $('#memberOnline');
+        me.$btnEmotiocons = $('#emobitonButton');
     };
     //// Events
     me.registerEvents = function () {
-        me.$btnSubmitMessage.unbind('click').click(me.client.sendMessage);
+        me.$btnSubmitMessage.unbind('click').click(me.chatServer.sendMessage);
+        me.$memberOnline.unbind('click').click(me.chatServer.getUserList);
+        //// Send Spam Notify: implement later
+        //// Auto Enter
+        //// 
     };
     me.checkValidUser = function () {
         if (me.chatUser.chatName === '') {
@@ -69,6 +78,12 @@ function ChatWindow() {
                 }
             });
         }
+        else
+        {
+            try { $.unblockUI(); } catch (e) { }
+            alert('Username cannot be null!');
+        }
+
     };
     me.connectServer = function () {
         me.chatAdapter.init(me, me.connectToServerDone);
@@ -76,47 +91,7 @@ function ChatWindow() {
     me.connectToServerDone = function () {
         try { $.unblockUI(); } catch (e) { }
         me.registerEvents();
-        me.client.joinRoom();
-        //me.client.getUserList();
-    };
-    
-
-    //// Chat Client
-    me.client =
-    {
-        addMessage: function (chatMessage) {
-            me.$mainChatRoom.append('<li>' + chatMessage.Content + '</li>');
-        },
-        sendMessage: function () {
-            me.chatAdapter.server.sendMessage({
-                ChatRoomId: me.chatRoom.matchId,
-                Content: me.$txtMessageInput.val(),
-                ChatUser: me.chatUser
-            }, me.chatRoom);
-
-            me.$txtMessageInput.empty();
-        },
-        joinRoom: function () {
-            me.chatAdapter.server.joinRoom(me.chatUser, me.chatRoom);
-        },
-        userListChange: function (totalUser) {
-            if (me.$memberOnline) {
-                me.$memberOnline.html(totalUser);
-            }
-        },
-        notifyUserLeftRoom: function (chatUser) {
-            me.$mainChatRoom.append('<li>' + chatUser.ChatName + ' has left.</li>');
-        },
-        notifyUserJoinedRoom: function (chatUser) {
-            me.$mainChatRoom.append('<li>' + chatUser.chatName + ' joined room.</li>');
-        },
-        getUserList: function () { 
-            me.chatAdapter.server.getUserList(me.chatRoom, me.updateListUser);
-        }
-    };
-
-    me.updateListUser = function (userList) {
-        alert(userList.length);
+        me.chatServer.joinRoom();
     };
     //// Query Data
     me.getHistoryMessage = function () {

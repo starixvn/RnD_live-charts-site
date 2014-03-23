@@ -4,23 +4,18 @@ function ChatSignalRAdapter() {
     'use strict';
     var me = this;
 
-    me.init = function (chat, done) {
+    me.init = function (chatWindow, callBackFunctionAfterConnected) {
         // These are the methods that ARE CALLED BY THE SERVER.
         // Client functions should not call these functions.
         me.hub = $.connection.chatHub;
-        me.hub.client.addMessage = function (message) {
-            chat.client.addMessage(message);
-        };
-
-        me.hub.client.sendTypingSignal = function (otherUserId) {
-            chat.client.sendTypingSignal(otherUserId);
-        };
-
-        me.hub.client.usersListChanged = function (usersList) {
-            chat.client.usersListChanged(usersList);
-        };
-
-        //me.hub.client.
+        me.hub.client.addMessage = chatWindow.chatClient.addMessage;
+        me.hub.client.showTypingSignal = chatWindow.chatClient.showTypingSignal;
+        me.hub.client.updateUserList = chatWindow.chatClient.updateUserList;
+        me.hub.client.showAnnounceMessage = chatWindow.chatClient.showAnnounceMessage;
+        me.hub.client.kickOutUserChat = chatWindow.chatClient.kickOutUserChat;
+        me.hub.client.removeMessage = chatWindow.chatClient.removeMessage;
+        me.hub.client.notifyUserLeftRoom = chatWindow.chatClient.notifyUserLeftRoom;
+        me.hub.client.notifyUserJoinedRoom = chatWindow.chatClient.notifyUserJoinedRoom;
 
         if (!window.hubReady) {
             window.hubReady = $.connection.hub.start();
@@ -28,59 +23,48 @@ function ChatSignalRAdapter() {
 
         window.hubReady.done(function () {
             // function passed by ChatJS to the adapter to be called when the adapter initialization is completed
-            done();
+            if (callBackFunctionAfterConnected) {
+                callBackFunctionAfterConnected();
+            }
         });
     };
 
     me.server =
     {
-
-        sendMessage: function (chatMessage, chatRoom, done) {
-            me.hub.server.sendMessage(chatMessage, chatRoom).done(function (result) {
-                if (done) {
-                    done(result);
-                }
+        sendMessage: function (chatMessage, done) {
+            me.hub.server.sendMessage(chatMessage).done(function (result) {
+                me.server.callBackDone(done, result);
             });
         },
-
         sendTypingSignal: function (otherUserId, done) {
             me.hub.server.sendTypingSignal(otherUserId).done(function (result) {
-                if (done) {
-                    done(result);
-                }
+                me.server.callBackDone(done, result);
             });
         },
-
         getMessageHistory: function (otherUserId, done) {
             me.hub.server.getMessageHistory(otherUserId).done(function (result) {
-                if (done) {
-                    done(result);
-                }
+                me.server.callBackDone(done, result);
             });
         },
-
         getUserInfo: function (otherUserId, done) {
             me.hub.server.getUserInfo(otherUserId).done(function (result) {
-                if (done) {
-                    done(result);
-                }
+                me.server.callBackDone(done, result);
             });
         },
-
         getUserList: function (chatRoom, done) {
             me.hub.server.getUserList(chatRoom).done(function (result) {
-                if (done) {
-                    done(result);
-                }
+                me.server.callBackDone(done, result);
             });
         },
-
         joinRoom: function (chatUser, chatRoom, done) {
             me.hub.server.joinRoom(chatUser, chatRoom).done(function (result) {
-                if (done) {
-                    done(result);
-                }
+                me.server.callBackDone(done, result);
             });
+        },
+        callBackDone: function (doneFunction, result) {
+            if (doneFunction) {
+                doneFunction(result);
+            }
         }
     };
 }

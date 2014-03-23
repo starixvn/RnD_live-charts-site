@@ -24,9 +24,11 @@ namespace Fanex.LiveCharts.Chat.Services
 
         IEnumerable<ChatMessage> GetChatMessagesByUser(GetChatMessageByUserIdCriteria getChatMessageCriteria);
 
-        ChatUser GetChatUser(GetChatUserCriteria getChatUserCriteria);
+        ChatRoom GetChatRoomByName(GetChatRoomByNameCriteria getChatRoomByName);
 
         IEnumerable<ChatUser> GetChatRoomUsers(GetChatRoomUsersCriteria getChatRoomUsersCriteria);
+
+        ChatUser GetChatUser(GetChatUserCriteria getChatUserCriteria);
 
         InsertResult InsertChatMessage(InsertChatMessageCriteria insertChatMessageCriteria);
 
@@ -34,12 +36,14 @@ namespace Fanex.LiveCharts.Chat.Services
 
         InsertResult InsertChatUser(InsertChatUserCriteria insertchatUserCriteria);
 
+        InsertResult InsertChatUserInRoom(InsertChatUserInRoomCriteria insertChatUserInRoomCriteria);
+
         ICommandResult UpdateChatMessage(UpdateChatMessageCriteria updateChatMessageCriteria);
 
         ICommandResult UpdateChatRoom(UpdateChatRoomCriteria updateChatRoomCriteria);
 
         ICommandResult UpdateChatUser(UpdateChatUserCriteria updateChatUserCriteria);
 
-        ChatRoom GetChatRoomByName(GetChatRoomByNameCriteria getChatRoomByName);
+        ICommandResult UpdateChatUserInRoom(UpdateChatUserInRoomCriteria updateChatUserInRoomCriteria);
     }
 }

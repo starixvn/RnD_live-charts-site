@@ -16,18 +16,18 @@ namespace Fanex.LiveCharts.Web
     /// </summary>
     public class SessionManager
     {
-        private const string ApolloCurrentSessionKey = "Fanex.LiveCharts.Web.CurrentSession";
+        private const string ChartCurrentSessionKey = "Fanex.LiveCharts.Web.CurrentSession";
 
         public static CurrentSession CurrentSession
         {
             get
             {
-                return (CurrentSession)HttpContext.Current.Session[ApolloCurrentSessionKey];
+                return (CurrentSession)HttpContext.Current.Session[ChartCurrentSessionKey];
             }
 
             set
             {
-                HttpContext.Current.Session[ApolloCurrentSessionKey] = value;
+                HttpContext.Current.Session[ChartCurrentSessionKey] = value;
             }
         }
 

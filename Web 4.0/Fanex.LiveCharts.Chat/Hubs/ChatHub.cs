@@ -14,7 +14,7 @@ namespace Fanex.LiveCharts.Chat.Hubs
     using Fanex.LiveCharts.Chat.Services;
     using Microsoft.AspNet.SignalR;
     using Fanex.LiveCharts.Chat.Criteria;
-using System.Collections.Generic;
+    using System.Collections.Generic;
 
     /// <summary>
     /// TODO: Update summary.
@@ -33,11 +33,11 @@ using System.Collections.Generic;
             _chatService = chatService ?? new ChatService();
         }
 
-        public void SendMessage(ChatMessage chatMessage, ChatRoom chatRoom)
+        public void SendMessage(ChatMessage chatMessage)
         {
             var commandResult = _chatService.InsertChatMessage(new InsertChatMessageCriteria
             {
-                ChatRoomId = chatRoom.ChatRoomId,
+                ChatRoomId = chatMessage.ChatRoom.ChatRoomId,
                 ChatUserId = chatMessage.ChatUser.ChatUserId,
                 Content = chatMessage.Content
             });
@@ -47,7 +47,7 @@ using System.Collections.Generic;
                 chatMessage.ChatMessageId = commandResult.InsertedId;
             }
 
-            Clients.Group(chatRoom.ChatRoomName).addMessage(chatMessage);
+            Clients.Group(chatMessage.ChatRoom.ChatRoomName).addMessage(chatMessage);
         }
 
         public IEnumerable<ChatUser> GetUserList(ChatRoom chatRoom)
@@ -63,8 +63,10 @@ using System.Collections.Generic;
 
         public Task JoinRoom(ChatUser chatUser, ChatRoom chatRoom)
         {
-            NotifyUserJoinedRoom(chatUser, chatRoom);
-            return Groups.Add(Context.ConnectionId, chatRoom.ChatRoomName);
+            return Groups.Add(Context.ConnectionId, chatRoom.ChatRoomName).ContinueWith(demo =>
+                {
+                    NotifyUserJoinedRoom(chatUser, chatRoom);
+                });
         }
 
         public Task LeaveRoom(ChatUser chatUser, ChatRoom chatRoom)
@@ -75,17 +77,24 @@ using System.Collections.Generic;
 
         public void NotifyUserLeftRoom(ChatUser chatUser, ChatRoom chatRoom)
         {
-            Clients.Group(chatRoom.ChatRoomName).notifyUserJoinedRoom(chatUser);
+            Clients.Group(chatRoom.ChatRoomName).notifyUserLeftRoom(chatUser);
         }
 
         public void NotifyUserJoinedRoom(ChatUser chatUser, ChatRoom chatRoom)
         {
-            Clients.Group(chatRoom.ChatRoomName).notifyUserLeftRoom(chatUser);
+            Clients.Group(chatRoom.ChatRoomName).notifyUserJoinedRoom(chatUser);
         }
 
         public void AnnounceGeneralMessage(ChatMessage chatMessage, ChatRoom chatRoom)
         {
             Clients.Group(chatRoom.ChatRoomName).addAnnounceGeneralMessage(chatMessage);
+        }
+
+        public override Task OnDisconnected()
+        {
+            Clients.All.notifyUserLeftRoom();
+
+            return base.OnDisconnected();
         }
     }
 }

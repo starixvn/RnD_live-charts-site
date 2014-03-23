@@ -23,7 +23,11 @@ namespace Fanex.LiveCharts.Chat.Criteria
     {
         public int ChatUserInRoomId { get; set; }
 
+        public int ConnectionId { get; set; }
+
         public bool IsLeft { get; set; }
+
+        public bool KickedOut { get; set; }
 
         public override string GetSettingKey()
         {

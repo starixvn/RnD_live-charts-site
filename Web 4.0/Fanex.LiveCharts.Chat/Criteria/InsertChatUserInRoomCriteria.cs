@@ -25,6 +25,8 @@ namespace Fanex.LiveCharts.Chat.Criteria
 
         public int ChatRoomId { get; set; }
 
+        public string ConnectionId { get; set; }
+
         public int ChatUserInRoomId { get; set; }
 
         public override string GetSettingKey()

@@ -32,8 +32,8 @@ namespace Fanex.LiveCharts.Chat.Models
 
         public DateTime CreateTime { get; set; }
 
-        public DateTime LastOnlineTime { get; set; }
+        public DateTime ModifiedTime { get; set; }
 
-        public string SignalRClient { get; set; }
+        public string ConnectionId { get; set; }
     }
 }

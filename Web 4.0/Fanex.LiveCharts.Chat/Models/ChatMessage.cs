@@ -25,8 +25,6 @@ namespace Fanex.LiveCharts.Chat.Models
 
         public string Content { get; set; }
 
-        public int ChatRoomId { get; set; }
-
         public DateTime CreateTime { get; set; }
 
         public bool IsDeleted { get; set; }
@@ -34,5 +32,7 @@ namespace Fanex.LiveCharts.Chat.Models
         public int DeletedBy { get; set; }
 
         public ChatUser ChatUser { get; set; }
+
+        public ChatRoom ChatRoom { get; set; }
     }
 }

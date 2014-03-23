@@ -22,8 +22,7 @@ namespace Fanex.LiveCharts.Chat.Criteria
     {
         public int ChatUserId { get; set; }
 
-        public string SinalRClientId { get; set; }
-
+        public bool IsBanned { get; set; }
         public override string GetSettingKey()
         {
             return "Chart_Chat_Update_Chat_User";
