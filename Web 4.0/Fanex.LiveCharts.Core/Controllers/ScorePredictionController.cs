@@ -103,7 +103,7 @@ namespace Fanex.LiveCharts.Controllers
                 });
             var currentStopPredictionMinute = settingService.GetClosePredictionMinuteSetting(new ChartAdminGetMinuteForClosingPredictionCriteria());
 
-            bool isStopScorePrediction = Converter.ToInt(currentStopPredictionMinute.SettingValue) > currentMatchTime.CurrentMinute;
+            bool isStopScorePrediction = Converter.ToInt(currentStopPredictionMinute.SettingValue) < currentMatchTime.CurrentMinute;
 
             return Json(new
             {

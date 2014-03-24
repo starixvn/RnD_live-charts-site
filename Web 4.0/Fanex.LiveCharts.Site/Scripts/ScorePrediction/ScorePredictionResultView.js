@@ -51,25 +51,23 @@ function ScorePredictionResultView() {
         countDownMinutes: reloadTimeOutMinutes,
         countDownSeconds: 0,
         refreshFunction: function () {
-            me.$refreshCountDownButton.find('.loading-icon').removeClass('loading-icon').addClass('wait-loading-icon');
-            me.$refreshCountDownButton.find('.countdown-time').html('').hide();
-            if (!me.isLoading) {
-                me.isLoading = true;
-                me.loadResult();
-            }
-
             if (!me.isStopPrediction) {
+                me.$refreshCountDownButton.find('.loading-icon').removeClass('loading-icon').addClass('wait-loading-icon');
+                me.$refreshCountDownButton.find('.countdown-time').html('').hide();
+                if (!me.isLoading) {
+                    me.isLoading = true;
+                    me.loadResult();
+                }
+                me.checkMatchStatus();
+
                 setTimeout(function () {
                     me.$refreshCountDownButton.refreshCountDown('stopCountDown').refreshCountDown(me.refreshCountDownOption);
                 }, 1000);
             }
-            else {
-                me.$refreshCountDownButton.parent().hide();
-            }
         }
     };
 
-    me.checkMatchStatus = function () { 
+    me.checkMatchStatus = function () {
         LIVECHARTS.callAjax({
             url: me.url.checkStopScorePrediction,
             type: 'POST',
@@ -78,6 +76,10 @@ function ScorePredictionResultView() {
             },
             done: function (result) {
                 me.isStopPrediction = result.IsStopScorePrediction;
+                if (me.isStopPrediction) {
+                    me.$refreshCountDownButton.parent().hide();
+                    me.$refreshCountDownButton.refreshCountDown('stopCountDown');
+                }
             }
         });
     };

@@ -32,6 +32,7 @@ function ScorePredictionView() {
         me.$fullResultLink = $('#fullResultLink');
         me.$resultRefreshCountDown = $('#resultRefreshCountDown');
         me.$resultContainer = $('#resultContainer');
+        me.$predictionContainer = $('#predictionContainer');
 
         //// Spinner
 
@@ -96,17 +97,18 @@ function ScorePredictionView() {
                         countDownMinutes: me.refreshMinutes,
                         countDownSeconds: 0,
                         refreshFunction: function (countDownObject, countDownStart) {
-                            me.getCorrectScoreResult({
-                                matchId: me.matchId
-                            });
-
                             if (!me.isStopPrediction) {
+                                me.getCorrectScoreResult({
+                                    matchId: me.matchId
+                                });
+                                me.checkMatchStatus();
+
                                 setTimeout(function () {
                                     countDownStart(countDownObject);
                                 }, 1000);
                             }
                             else {
-                                me.$resultRefreshCountDown.parent().hide();
+                                me.$resultRefreshCountDown.refreshCountDown('stopCountDown');
                             }
                         }
                     });
@@ -139,10 +141,17 @@ function ScorePredictionView() {
             url: me.url.checkStopScorePrediction,
             type: 'POST',
             data: {
-                matchId: scorePredictionViewModel.matchId
+                matchId: CRITERIA.matchId
             },
             done: function (result) {
-                me.isStopPrediction = result.IsStopScorePrediction;
+                if (result) {
+                    me.isStopPrediction = result.IsStopScorePrediction;
+                    if (me.isStopPrediction) {
+                        me.$predictionContainer.hide();
+                        me.$resultRefreshCountDown.parent().hide();
+                    }
+
+                }
             }
         });
     };
