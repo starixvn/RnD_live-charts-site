@@ -10,6 +10,7 @@
 namespace Fanex.LiveCharts.Chat.Criteria
 {
     using Fanex.NAP.Framework.Data;
+    using System;
 
     /// <summary>
     /// TODO: Update summary.
@@ -23,6 +24,8 @@ namespace Fanex.LiveCharts.Chat.Criteria
         public bool IsLeft { get; set; }
 
         public bool KickedOut { get; set; }
+
+        public DateTime LastOnlineTime { get; set; }
 
         public override string GetSettingKey()
         {

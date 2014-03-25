@@ -27,6 +27,8 @@ namespace Fanex.LiveCharts.Chat.Criteria
 
         public int ChatMessageSpamId { get; set; }
 
+        public DateTime ReportTime { get; set; }
+
         public override string GetSettingKey()
         {
             return "Chart_Chat_Insert_Update_Chat_Message_Spam";

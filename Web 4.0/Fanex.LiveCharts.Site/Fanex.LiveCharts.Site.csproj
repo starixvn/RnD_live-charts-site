@@ -181,6 +181,7 @@
     <Content Include="Scripts\Chat\ChatServer.js" />
     <Content Include="Scripts\Chat\ChatSignalRAdapter.js" />
     <Content Include="Scripts\Chat\ChatWindow.js" />
+    <Content Include="Scripts\Libs\Moment\moment.js" />
     <Content Include="Views\Chat\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

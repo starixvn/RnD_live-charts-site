@@ -60,6 +60,7 @@ namespace Fanex.LiveCharts.Site
                 .Include("~/Scripts/ScorePrediction/ScorePredictionResultView.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/chatroomjs")
+                .Include("~/Scripts/Libs/Moment/moment.js")
                 .Include("~/Scripts/Chat/ChatSignalRAdapter.js")
                 .Include("~/Scripts/Chat/ChatServer.js")
                 .Include("~/Scripts/Chat/ChatClient.js")

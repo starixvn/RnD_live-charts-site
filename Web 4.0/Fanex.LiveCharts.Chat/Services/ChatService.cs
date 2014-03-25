@@ -15,6 +15,7 @@ namespace Fanex.LiveCharts.Chat.Services
     using Fanex.LiveCharts.Chat.Repositories;
     using Fanex.LiveCharts.Models;
     using Fanex.NAP.Framework.Data;
+    using System;
 
     /// <summary>
     /// TODO: Update summary.
@@ -35,7 +36,8 @@ namespace Fanex.LiveCharts.Chat.Services
 
         public IEnumerable<ChatMessage> GetChatMessagesByTime(GetChatMessageByTimeCriteria getChatMessageCriteria)
         {
-            var chatMessage = _chatRepository.Fetch<ChatMessage>(getChatMessageCriteria);
+            var chatMessage = _chatRepository.GetChatMessagesByTime(getChatMessageCriteria);
+
 
             return chatMessage;
         }
@@ -63,6 +65,7 @@ namespace Fanex.LiveCharts.Chat.Services
 
         public InsertResult InsertChatMessage(InsertChatMessageCriteria insertChatMessageCriteria)
         {
+            insertChatMessageCriteria.CreateTime = DateTime.Now;
             var insertResult = _chatRepository.ModifyData(insertChatMessageCriteria, "ChatMessageId");
 
             return insertResult;
@@ -70,6 +73,7 @@ namespace Fanex.LiveCharts.Chat.Services
 
         public InsertResult InsertChatRoom(InsertChatRoomCriteria insertChatRoomCriteria)
         {
+            insertChatRoomCriteria.CreateTime = DateTime.Now;
             var insertResult = _chatRepository.ModifyData(insertChatRoomCriteria, "ChatRoomId");
 
             return insertResult;
@@ -77,6 +81,7 @@ namespace Fanex.LiveCharts.Chat.Services
 
         public InsertResult InsertChatUser(InsertChatUserCriteria insertchatUserCriteria)
         {
+            insertchatUserCriteria.CreateTime = DateTime.Now;
             var insertResult = _chatRepository.ModifyData(insertchatUserCriteria, "ChatUserId");
 
             return insertResult;
@@ -98,6 +103,7 @@ namespace Fanex.LiveCharts.Chat.Services
 
         public ICommandResult UpdateChatUser(UpdateChatUserCriteria updateChatUserCriteria)
         {
+            updateChatUserCriteria.ModifiedTime = DateTime.Now;
             var updateResult = _chatRepository.ModifyData(updateChatUserCriteria);
 
             return updateResult;
@@ -119,6 +125,7 @@ namespace Fanex.LiveCharts.Chat.Services
 
         public InsertResult InsertChatUserInRoom(InsertChatUserInRoomCriteria insertChatUserInRoomCriteria)
         {
+            insertChatUserInRoomCriteria.LastOnlineTime = DateTime.Now;
             var insertResult = _chatRepository.ModifyData(insertChatUserInRoomCriteria, "ChatUserInRoomId");
 
             return insertResult;
@@ -126,6 +133,7 @@ namespace Fanex.LiveCharts.Chat.Services
 
         public ICommandResult UpdateChatUserInRoom(UpdateChatUserInRoomCriteria updateChatUserInRoomCriteria)
         {
+            updateChatUserInRoomCriteria.LastOnlineTime = DateTime.Now;
             var updateResult = _chatRepository.ModifyData(updateChatUserInRoomCriteria);
 
             return updateResult;

@@ -9,6 +9,8 @@ function ChatClient(chatUser, chatRoom) {
     me.chatUser = chatUser;
     me.chatRoom = chatRoom;
     me.currentUserList = null;
+    me.currentMessageHistory = null;
+    me.formatTimer = CURRENT_TIME_FORMAT;
 
     me.cachedDomElement = function () {
         me.$mainChatRoom = $('#mainChatRoom');
@@ -21,8 +23,24 @@ function ChatClient(chatUser, chatRoom) {
     };
 
     me.addMessage = function (chatMessage) {
-        me.$mainChatRoom.append('<li>' + chatMessage.Content + '</li>');
+        if (chatMessage) {
+            var messageTime = moment(chatMessage.CreateTime).zone(me.formatTimer.timeZone).format(me.formatTimer.format);
+            me.$mainChatRoom.append('<li>'
+                                    + '<div class="message-chat-user">' + chatMessage.ChatUser.ChatName + '</div>'
+                                    + '<div class="message-content">' + chatMessage.Conetnt + '<div>'
+                                    + '<div class="message-time">' + messageTime
+                                + '</li>');
+        }
+
     };
+
+    me.updateChatMessageHistory = function (chatMessages) {
+        for (var index in chatMessages) {
+            var currentMesage = chatMessages[index];
+            me.addMessage(currentMesage);
+        }
+    };
+
     me.showTypingSignal = function () { };
     me.updateUserList = function (userList) {
         if (me.$memberOnline && userList) {

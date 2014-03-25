@@ -10,11 +10,15 @@
 namespace Fanex.LiveCharts.Chat.Repositories
 {
     using Fanex.LiveCharts.Repositories.Interface;
+    using System.Collections.Generic;
+    using Fanex.LiveCharts.Chat.Criteria;
+    using Fanex.LiveCharts.Chat.Models;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
     public interface IChatRepository : IBaseRepository
     {
+        IEnumerable<ChatMessage> GetChatMessagesByTime(GetChatMessageByTimeCriteria getChatMessageCriteria);
     }
 }

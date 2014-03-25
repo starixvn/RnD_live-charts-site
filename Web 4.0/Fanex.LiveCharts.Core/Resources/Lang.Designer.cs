@@ -259,6 +259,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to GMT+8.
+        /// </summary>
+        public static string GMTPlus8 {
+            get {
+                return ResourceManager.GetString("GMTPlus8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Handicap.
         /// </summary>
         public static string Handicap {
@@ -345,6 +354,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string Interval {
             get {
                 return ResourceManager.GetString("Interval", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid input!.
+        /// </summary>
+        public static string InvalidInput {
+            get {
+                return ResourceManager.GetString("InvalidInput", resourceCulture);
             }
         }
         

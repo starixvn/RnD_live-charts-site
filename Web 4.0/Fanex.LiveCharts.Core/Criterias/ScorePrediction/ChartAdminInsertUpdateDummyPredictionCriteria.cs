@@ -31,6 +31,8 @@ namespace Fanex.LiveCharts.Criterias.ScorePrediction
 
         public int ScorePredictionOptionId { get; set; }
 
+        public DateTime UpdateDummyTime { get; set; }
+
         public override string GetSettingKey()
         {
             return "Chart_Admin_Insert_Update_Dummy_Prediction";

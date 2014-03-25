@@ -102,6 +102,7 @@ namespace Fanex.LiveCharts.Services.Impl
         public ICommandResult InsertOrUpdateScorePredictionItem(
             InsertOrUpdateScorePredictionItemCriteria insertOrUpdateScorePredictionItemCriteria)
         {
+            insertOrUpdateScorePredictionItemCriteria.ScorePredictionTime = DateTime.Now;
             var updateResult = _scorePredictionRepository.ModifyData(insertOrUpdateScorePredictionItemCriteria);
             if (updateResult.Code == ReUpdateCode)
             {
@@ -144,6 +145,7 @@ namespace Fanex.LiveCharts.Services.Impl
 
         public ICommandResult InsertOrUpdateDummyPrediction(ChartAdminInsertUpdateDummyPredictionCriteria insertCriteria)
         {
+            insertCriteria.UpdateDummyTime = DateTime.Now;
             var result = _scorePredictionRepository.ModifyData(insertCriteria);
 
             return result;

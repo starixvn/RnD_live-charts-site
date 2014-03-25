@@ -24,7 +24,6 @@ namespace Fanex.LiveCharts.Repositories.Impl
     public class BaseRepository : DynamicRepository
     {
         private const int ErrorCodeDefault = 1001;
-        private const string ErrorMessageDefault = "Invalid Input!";
 
         /// <summary>
         /// Modify data to database.
@@ -49,7 +48,7 @@ namespace Fanex.LiveCharts.Repositories.Impl
                 return new CommandResult
                 {
                     Code = ErrorCodeDefault,
-                    Message = ErrorMessageDefault
+                    Message = Lang.InvalidInput
                 };
             }
         }
@@ -67,7 +66,7 @@ namespace Fanex.LiveCharts.Repositories.Impl
                 CommandResult = new CommandResult
                 {
                     Code = ErrorCodeDefault,
-                    Message = ErrorMessageDefault
+                    Message = Lang.InvalidInput
                 }
             };
 

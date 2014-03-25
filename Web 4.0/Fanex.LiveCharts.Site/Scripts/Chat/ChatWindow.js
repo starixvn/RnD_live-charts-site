@@ -24,6 +24,7 @@ function ChatWindow() {
     me.chatAdapter = new ChatSignalRAdapter();
     me.chatClient = new ChatClient(me.chatUser, me.chatRoom);
     me.chatServer = new ChatServer(me.chatAdapter, me.chatClient, me.chatUser, me.chatRoom, me.chatUserInRoom);
+    me.formatTimer = CURRENT_TIME_FORMAT;
     me.url = {
         getGetChatMessageByTimeUrl: LIVECHARTS.resolveUrl('Chat/GetGetChatMessageByTime'),
         getChatMessageByUserUrl: LIVECHARTS.resolveUrl('Chat/GetChatMessageByUser'),
@@ -37,6 +38,7 @@ function ChatWindow() {
         me.chatClient.init();
         me.chatServer.init();
         me.checkValidUser();
+        me.startTimer();
     };
 
     //// cacheDomElements
@@ -47,6 +49,7 @@ function ChatWindow() {
         me.$btnSubmitMessage = $('#submitMessage');
         me.$memberOnline = $('#memberOnline');
         me.$btnEmotiocons = $('#emobitonButton');
+        me.$gmt8Timer = $('#gmt8Timer');
     };
     //// Events
     me.registerEvents = function () {
@@ -58,6 +61,7 @@ function ChatWindow() {
         //// Auto Enter
         //// 
     };
+
     me.checkValidUser = function () {
         if (me.chatUser.chatName === '') {
             var chatName = prompt('Enter your name:', '');
@@ -67,6 +71,7 @@ function ChatWindow() {
             me.connectServer();
         }
     };
+
     me.insertChatUser = function (chatName) {
         if (chatName != null && chatName !== '') {
             LIVECHARTS.callAjax({
@@ -94,8 +99,8 @@ function ChatWindow() {
             try { $.unblockUI(); } catch (e) { }
             alert('Username cannot be null!');
         }
-
     };
+
     me.connectServer = function () {
         me.chatAdapter.init(me, me.connectToServerDone);
     };
@@ -103,6 +108,7 @@ function ChatWindow() {
         try { $.unblockUI(); } catch (e) { }
         me.registerEvents();
         me.chatServer.joinRoom();
+        
     };
     //// Query Data
     me.getHistoryMessage = function () {
@@ -127,8 +133,16 @@ function ChatWindow() {
 //            + filename + '.ogg" type="audio/ogg" /><embed hidden="true" autostart="true" loop="false" src="'
 //            + filename + '.mp3" /></audio>');
     };
+    
+    
     me.checkBadWords = function (messageText) {
-            
+
+    };
+
+    me.startTimer = function () {
+        setInterval(function () {
+            me.$gmt8Timer.html(moment().zone(me.formatTimer.timeZone).format(me.formatTimer.format));
+        }, 1000);
     };
 }
 

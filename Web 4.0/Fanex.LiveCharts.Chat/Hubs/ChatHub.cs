@@ -15,6 +15,7 @@ namespace Fanex.LiveCharts.Chat.Hubs
     using Fanex.LiveCharts.Chat.Models;
     using Fanex.LiveCharts.Chat.Services;
     using Microsoft.AspNet.SignalR;
+    using System;
 
     /// <summary>
     /// TODO: Update summary.
@@ -69,6 +70,7 @@ namespace Fanex.LiveCharts.Chat.Hubs
                     ChatUserInRoomId = chatUserInRoom.ChatUserInRoomId,
                     ConnectionId = Context.ConnectionId
                 });
+
             return Groups.Add(Context.ConnectionId, chatRoom.ChatRoomName).ContinueWith(jr =>
                 {
                     NotifyUserJoinedRoom(chatUser, chatRoom);
@@ -132,6 +134,21 @@ namespace Fanex.LiveCharts.Chat.Hubs
             });
 
             return currentUserList;
+        }
+
+
+        public IEnumerable<ChatMessage> GetChatMessageHistory(int chatRoomId, int pastMinutes)
+        {
+            GetChatMessageByTimeCriteria getChatMessageByTimeCriteria = new GetChatMessageByTimeCriteria
+            {
+                ChatRoomId = chatRoomId,
+                ToTime = DateTime.Now,
+                FromTime = DateTime.Now.Subtract(new TimeSpan(0, pastMinutes, 0))
+            };
+            
+            var chatMessageList = _chatService.GetChatMessagesByTime(getChatMessageByTimeCriteria);
+
+            return chatMessageList;
         }
     }
 }

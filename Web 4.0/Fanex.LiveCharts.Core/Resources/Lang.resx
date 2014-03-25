@@ -378,4 +378,10 @@
   <data name="Send" xml:space="preserve">
     <value>Send</value>
   </data>
+  <data name="InvalidInput" xml:space="preserve">
+    <value>Invalid input!</value>
+  </data>
+  <data name="GMTPlus8" xml:space="preserve">
+    <value>GMT+8</value>
+  </data>
 </root>

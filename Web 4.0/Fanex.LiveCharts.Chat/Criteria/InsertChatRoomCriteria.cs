@@ -28,6 +28,8 @@ namespace Fanex.LiveCharts.Chat.Criteria
 
         public int ChatRoomId { get; set; }
 
+        public DateTime CreateTime { get; set; }
+
         public override string GetSettingKey()
         {
             return "Chart_Chat_Insert_Chat_Room";

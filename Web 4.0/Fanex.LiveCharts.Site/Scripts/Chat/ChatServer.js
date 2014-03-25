@@ -10,6 +10,7 @@ function ChatServer(chatAdapter, chatClient, chatUser, chatRoom, chatUserInRoom 
     me.chatUser = chatUser;
     me.chatClient = chatClient;
     me.chatUserInRoom = chatUserInRoom;
+    me.pastMinutes = 120;
 
     me.cachedDomElements = function () {
         me.$mainChatRoom = $('#mainChatRoom');
@@ -34,10 +35,14 @@ function ChatServer(chatAdapter, chatClient, chatUser, chatRoom, chatUserInRoom 
 
     me.joinRoom = function () {
         me.chatAdapter.server.joinRoom(me.chatUser, me.chatRoom, me.chatUserInRoom);
+        me.getChatMessageHistory();
     };
 
     me.getUserList = function () {
         me.chatAdapter.server.getUserList(me.chatRoom, me.updateListUser);
     };
 
+    me.getChatMessageHistory = function () {
+        me.chatAdapter.server.getChatMessageHistory(me.chatRoom.chatRoomId, me.pastMinutes, me.chatClient.updateChatMessageHistory);
+    };
 }

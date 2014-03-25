@@ -41,8 +41,8 @@ function ChatSignalRAdapter() {
                 me.server.callBackDone(done, result);
             });
         },
-        getMessageHistory: function (otherUserId, done) {
-            me.hub.server.getMessageHistory(otherUserId).done(function (result) {
+        getChatMessageHistory: function (chatRoomId, pastMinutes, done) {
+            me.hub.server.getChatMessageHistory(chatRoomId, pastMinutes).done(function (result) {
                 me.server.callBackDone(done, result);
             });
         },

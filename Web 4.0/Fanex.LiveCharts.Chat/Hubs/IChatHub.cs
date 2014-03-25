@@ -12,6 +12,7 @@ namespace Fanex.LiveCharts.Chat.Hubs
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Fanex.LiveCharts.Chat.Models;
+    using Fanex.LiveCharts.Chat.Criteria;
 
     /// <summary>
     /// TODO: Update summary.
@@ -27,6 +28,8 @@ namespace Fanex.LiveCharts.Chat.Hubs
         void AnnounceGeneralMessage(ChatMessage chatMessage, ChatRoom chatRoom);
 
         IEnumerable<ChatUser> GetUserList(ChatRoom chatRoom);
+
+        IEnumerable<ChatMessage> GetChatMessageHistory(int chatRoomId, int pastMinutes);
 
         Task JoinRoom(ChatUser chatUser, ChatRoom chatRoom, ChatUserInRoom chatUserInRoom);
 

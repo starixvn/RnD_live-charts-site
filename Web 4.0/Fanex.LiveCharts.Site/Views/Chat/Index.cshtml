@@ -3,26 +3,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@* <style type="text/css">
-        .container {
-            background-color: #99CCFF;
-            border: thick solid #808080;
-            padding: 20px;
-            margin: 20px;
-        }
-        
-        .discussion
-        {
-            max-height: 500px;
-        }
-    </style>
-<div class="container">
-    <ul id="discussion">
-    </ul>
-    <input type="text" id="message" />
-    <input type="button" id="sendmessage" value="Send" />
-    <input type="hidden" id="displayname" />
-</div>*@
+
 <div class="chat-room-container">
     <div class="chat-room-title">
         @Lang.ChatRoom
@@ -33,7 +14,14 @@
             </ul>
         </div>
         <div class="footer-room">
-            <span class="member-online" id="memberOnline">0</span>
+            <div class="members-info-container">
+                <span class="member-text">@(Lang.Members):</span>
+                <span class="member-online" id="memberOnline">0</span>
+            </div>
+            <div class="timer-container">
+                <span class="timer-text">@(Lang.GMTPlus8):</span>
+                <span class="gmt-8-timer" id="gmt8Timer"></span>
+            </div>
         </div>
     </div>
     <div class="format-tools">
@@ -48,6 +36,7 @@
         </div>
     </div>
 </div>
+
 @section Scripts
 {
     <script src="~/Scripts/Libs/jquery.signalR-1.2.1.min.js"></script>
@@ -76,6 +65,13 @@
             chatName: '@(Model.ChatUser.ChatName)',
             isBanned: '@(Model.ChatUser.IsBanned)'
         }
+
+        var CURRENT_TIME_FORMAT = 
+        { 
+            timeZone:'+08:00',
+            format: 'HH:mm'
+        }
+
     </script>
     
     @Scripts.Render("~/bundles/chatroomjs")
