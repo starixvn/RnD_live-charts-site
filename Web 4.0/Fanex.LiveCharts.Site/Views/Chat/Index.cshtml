@@ -4,6 +4,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section Styles
+{
+    <link rel="stylesheet" href="~/Content/MovementCharts/Chat.less" type="text/css" />
+}
+
 <div class="chat-room-container">
     <div class="chat-room-title">
         @Lang.ChatRoom
@@ -24,12 +29,12 @@
             </div>
         </div>
     </div>
-    <div class="format-tools">
-    </div>
     <div class="room-input">
         <div class="text-input">
             <textarea rows="1"  id="messageInput">
             </textarea>
+            <div class="emoticon-container">
+            </div>
         </div>
         <div class="text-submit">
             <input type="submit"  id="submitMessage" value="@Lang.Send" />

@@ -1,0 +1,152 @@
+﻿@import "../Bootstrap/bootstrap.less";
+
+
+
+.chat-room-container
+{
+	.chat-room-title
+    {
+		font-size: 14px;
+		font-weight: bold;
+		color: #5796e3;
+		padding-left: 5px;
+		text-transform: uppercase;
+    }
+
+	.room-container
+    {
+    	.main-room
+        {
+			.chat-message
+            {
+				position: relative;
+				list-style: none;
+            
+				.message-chat-name
+				{
+					clear: both;
+					max-width: 170px;
+					padding: 5px;
+					color: #0A72BB;
+				}
+
+				.message-content
+				{
+					clear:both;
+
+					.message-content-main
+                    {
+						float: left;
+						margin-right: 95px;
+						padding: 5px;
+						word-wrap: break-word;
+
+						&.joined-message
+                        {
+							color: #14A009;
+
+							
+							.notification-name
+                            {
+                            	font-weight: bold;
+                            }
+                        }
+
+						&.left-message
+                        {
+							color: #5A5A5A;
+
+							
+							.notification-name
+                            {
+                            	font-weight: bold;
+                            }
+
+							.notification-message
+                            {
+								color: #A9A9A9;
+                            }
+                        }
+
+                    }
+
+					.message-content-time
+					{
+						position: absolute;
+						padding: 5px;
+						top: 0px;
+						right: 0px;
+						width: 85px;
+						text-align: right;
+					}
+				}
+
+				
+			}
+        }
+
+		.footer-room
+        {
+			clear: both;
+
+        	.members-info-container
+            {
+				float: left;
+				max-width: 200px;
+
+				.member-text
+                {
+                
+                }
+
+				.member-online
+                {
+                
+                }
+            }
+
+			.timer-container
+            {
+				float: right;
+				max-width: 200px;
+
+				.timer-text
+                {
+                
+                }
+
+				.gmt-8-timer
+                {
+                
+                }
+            }
+        }
+    }
+
+	.room-input
+    {
+		clear: both;
+
+    	.text-input
+        {
+			#messageInput
+            {
+            
+            }
+
+			.emoticon-container
+			{
+        
+			}
+        }
+
+		.text-submit
+        {
+        
+			#submitMessage
+            {
+            
+            }
+        }
+    }
+}

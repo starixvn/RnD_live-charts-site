@@ -10,7 +10,7 @@ function ChatServer(chatAdapter, chatClient, chatUser, chatRoom, chatUserInRoom 
     me.chatUser = chatUser;
     me.chatClient = chatClient;
     me.chatUserInRoom = chatUserInRoom;
-    me.pastMinutes = 120;
+    me.pastMinutes = 500;
 
     me.cachedDomElements = function () {
         me.$mainChatRoom = $('#mainChatRoom');

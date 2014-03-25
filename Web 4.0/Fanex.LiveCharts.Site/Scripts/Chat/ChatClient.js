@@ -25,10 +25,12 @@ function ChatClient(chatUser, chatRoom) {
     me.addMessage = function (chatMessage) {
         if (chatMessage) {
             var messageTime = moment(chatMessage.CreateTime).zone(me.formatTimer.timeZone).format(me.formatTimer.format);
-            me.$mainChatRoom.append('<li>'
-                                    + '<div class="message-chat-user">' + chatMessage.ChatUser.ChatName + '</div>'
-                                    + '<div class="message-content">' + chatMessage.Conetnt + '<div>'
-                                    + '<div class="message-time">' + messageTime
+            me.$mainChatRoom.append('<li class="chat-message">'
+                                    + '<div class="message-chat-name">' + chatMessage.ChatUser.ChatName + '</div>'
+                                    + '<div class="message-content">'
+                                        + '<div class="message-content-main">' + chatMessage.Content + '</div>'
+                                        + '<div class="message-content-time">' + messageTime + '</div>'
+                                    + '</div>'
                                 + '</li>');
         }
 
@@ -72,14 +74,32 @@ function ChatClient(chatUser, chatRoom) {
         //if (chatUser != null && chatUser.ChatName) {
         //    me.$mainChatRoom.append('<li>' + chatUser.ChatName + ' has left.</li>');
         //}
-        me.$mainChatRoom.append('<li>' + chatUserInRoom.ChatUserId + ' has left.</li>');
+
+        //me.renderUserNotification(chatUser, ' joined room.');
+        //me.$mainChatRoom.append('<li>' + chatUserInRoom.ChatUserId + ' has left.</li>');
+        me.renderUserNotification(chatUserInRoom, ' has left.', false);
         me.updateUserList(currentChatUserList);
     };
 
     me.notifyUserJoinedRoom = function (chatUser, currentChatUserList) {
         if (chatUser && chatUser.ChatName) {
-            me.$mainChatRoom.append('<li>' + chatUser.ChatName + ' joined room.</li>');
+            me.renderUserNotification(chatUser, ' joined room.', true);
         }
         me.updateUserList(currentChatUserList);
     };
+
+    me.renderUserNotification = function (chatUser, messageText, isJoin) {
+        var message = '<span class="notification-name">' + chatUser.ChatName + '</span>'
+                    + '<span class="notification-message">' + messageText + '</span>';
+        var classMessage = isJoin ? 'joined-message' : 'left-message';
+
+        me.$mainChatRoom.append('<li class="chat-message">'
+                    + '<div class="message-content">'
+                        + '<div class="message-content-main ' + classMessage + '">'
+                                + message
+                        + '</div>'
+                        + '<div class="message-content-time">' + moment().zone(me.formatTimer.timeZone).format(me.formatTimer.format) + '</div>'
+                    + '</div>'
+               + '</li>');
+    }
 }
