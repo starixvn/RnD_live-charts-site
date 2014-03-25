@@ -9,7 +9,6 @@
 
 namespace Fanex.LiveCharts.Chat.Criteria
 {
-    using System;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
@@ -24,6 +23,7 @@ namespace Fanex.LiveCharts.Chat.Criteria
         public string SignalRClientId { get; set; }
 
         public bool IsBanned { get; set; }
+
         public int ChatUserId { get; set; }
 
         public override string GetSettingKey()

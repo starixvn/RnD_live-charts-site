@@ -5,7 +5,14 @@
 /// <reference path="Chat.js" />
 /// <reference path="ChatServer.js" />
 
-/*global Chat, LIVECHARTS, CURRENT_CHAT_USER, ChatClient, CURRENT_CHAT_ROOM*/
+/*global LIVECHARTS, 
+        CURRENT_CHAT_USER, 
+        ChatClient, 
+        CURRENT_CHAT_ROOM, 
+        CURRENT_CHAT_USER_IN_ROOM, 
+        ChatClient,
+        ChatSignalRAdapter,
+        ChatServer*/
 function ChatWindow() {
     'use strict';
     var me = this;
@@ -112,13 +119,13 @@ function ChatWindow() {
 
     //// Utilities
     me.playSound = function () {
-        if (!me.$soundContainer.length) {
-            me.$soundContainer = $("<div>").attr("id", "soundContainer").appendTo($("body"));
-        }
-        $soundContainer.html('<audio autoplay="autoplay"><source src="'
-            + filename + '.mp3" type="audio/mpeg" /><source src="'
-            + filename + '.ogg" type="audio/ogg" /><embed hidden="true" autostart="true" loop="false" src="'
-            + filename + '.mp3" /></audio>');
+//        if (!me.$soundContainer.length) {
+//            me.$soundContainer = $("<div>").attr("id", "soundContainer").appendTo($("body"));
+//        }
+//        $soundContainer.html('<audio autoplay="autoplay"><source src="'
+//            + filename + '.mp3" type="audio/mpeg" /><source src="'
+//            + filename + '.ogg" type="audio/ogg" /><embed hidden="true" autostart="true" loop="false" src="'
+//            + filename + '.mp3" /></audio>');
     };
     me.checkBadWords = function (messageText) {
             

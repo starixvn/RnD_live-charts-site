@@ -13,7 +13,6 @@ namespace Fanex.LiveCharts.Controllers
     using System.Web;
     using System.Web.Mvc;
     using Fanex.Common;
-    using Fanex.LiveCharts.Criterias;
     using Fanex.LiveCharts.Criterias.ScorePrediction;
     using Fanex.LiveCharts.Services.Impl;
     using Fanex.LiveCharts.Services.Interface;
@@ -48,7 +47,8 @@ namespace Fanex.LiveCharts.Controllers
                 MatchId = matchId,
                 HomeName = homeName,
                 AwayName = awayName,
-                IsAdminSite = isAdminSite
+                IsAdminSite = isAdminSite,
+                IsStopScorePrediction = _scorePredictionService.IsStopScorePrediction(matchId)
             });
         }
 
@@ -95,19 +95,9 @@ namespace Fanex.LiveCharts.Controllers
         [HttpPost]
         public JsonResult CheckStopScorePrediction(int matchId)
         {
-            IChartService chartService = new ChartService();
-            ISettingService settingService = new SettingService();
-            var currentMatchTime = chartService.GetCurrentMatchTime(new GetCurrentMatchTimeCriteria
-                {
-                    MatchId = matchId
-                });
-            var currentStopPredictionMinute = settingService.GetClosePredictionMinuteSetting(new ChartAdminGetMinuteForClosingPredictionCriteria());
-
-            bool isStopScorePrediction = Converter.ToInt(currentStopPredictionMinute.SettingValue) < currentMatchTime.CurrentMinute;
-
             return Json(new
             {
-                IsStopScorePrediction = isStopScorePrediction
+                IsStopScorePrediction = _scorePredictionService.IsStopScorePrediction(matchId)
             });
         }
 

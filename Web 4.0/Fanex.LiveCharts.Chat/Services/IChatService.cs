@@ -12,8 +12,8 @@ namespace Fanex.LiveCharts.Chat.Services
     using System.Collections.Generic;
     using Fanex.LiveCharts.Chat.Criteria;
     using Fanex.LiveCharts.Chat.Models;
-    using Fanex.NAP.Framework.Data;
     using Fanex.LiveCharts.Models;
+    using Fanex.NAP.Framework.Data;
 
     /// <summary>
     /// TODO: Update summary.
@@ -49,7 +49,5 @@ namespace Fanex.LiveCharts.Chat.Services
         ICommandResult UpdateChatUser(UpdateChatUserCriteria updateChatUserCriteria);
 
         ICommandResult UpdateChatUserInRoom(UpdateChatUserInRoomCriteria updateChatUserInRoomCriteria);
-
-
     }
 }

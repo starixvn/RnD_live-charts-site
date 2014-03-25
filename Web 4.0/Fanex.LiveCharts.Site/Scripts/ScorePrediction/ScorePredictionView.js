@@ -1,19 +1,20 @@
 ﻿/// <reference path="../../Views/Charts/NewChartContent.cshtml" />
 /// <reference path="../LIVECHARTS.js" />
 /// <reference path="ScorePrediction.js" />
-/*global CRITERIA, LIVECHARTS, ScorePrediction, IS_ADMIN_SITE, scorePredictionViewModel*/
+/*global CRITERIA, LIVECHARTS, ScorePrediction, IS_ADMIN_SITE*/
 'use strict';
 
-function ScorePredictionView() {
+function ScorePredictionView(defaultValue) {
     var me = this;
 
     me.scorePrediction = new ScorePrediction();
-    me.matchId = CRITERIA.matchId;
-    me.memberId = CRITERIA.memberId;
+    me.matchId = defaultValue.matchId;
+    me.memberId = defaultValue.memberId;
     me.refreshMinutes = 1;
     me.isShowedResult = false;
-    me.isStopPrediction = false;
+    me.isStopPrediction = defaultValue.isStopScorePrediction || false;
     me.reUpdateSuccessCode = 1000;
+    me.resultChart = null;
 
     me.url = {
         insertOrUpdateScorePrediction: LIVECHARTS.resolveUrl('ScorePrediction/InsertOrUpdateScorePrediction'),
@@ -74,7 +75,7 @@ function ScorePredictionView() {
             var awayScore = me.$txtAwayScore.val();
             me.insertOrUpdateScorePrediction({
                 memberId: me.memberId,
-                matchId: CRITERIA.matchId,
+                matchId: defaultValue.matchId,
                 homeScore: homeScore,
                 awayScore: awayScore
             });
@@ -82,10 +83,10 @@ function ScorePredictionView() {
 
         me.$fullResultLink.unbind('click').click(function () {
             window.open(me.url.resultPage
-                + '?matchId=' + CRITERIA.matchId
-                + '&homeName=' + CRITERIA.homeNameEncoded
-                + '&awayName=' + CRITERIA.awayNameEncoded,
-                'ScorePredictionResult' + CRITERIA.matchId,
+                + '?matchId=' + defaultValue.matchId
+                + '&homeName=' + defaultValue.homeNameEncoded
+                + '&awayName=' + defaultValue.awayNameEncoded,
+                'ScorePredictionResult' + defaultValue.matchId,
                 'width=860,height=650,directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,resizable=no');
         });
     };
@@ -131,7 +132,7 @@ function ScorePredictionView() {
             done: function (result) {
                 var resultArray = me.scorePrediction.getCorrectScoreResult(result);
                 var scoreOption = me.scorePrediction.getScoreOption(resultArray, 'Correct Score');
-                me.$smallContainerResult.highcharts(scoreOption);
+                me.resultChart = me.$smallContainerResult.highcharts(scoreOption);
             }
         });
     };
@@ -141,19 +142,27 @@ function ScorePredictionView() {
             url: me.url.checkStopScorePrediction,
             type: 'POST',
             data: {
-                matchId: CRITERIA.matchId
+                matchId: defaultValue.matchId
             },
             done: function (result) {
                 if (result) {
                     me.isStopPrediction = result.IsStopScorePrediction;
-                    if (me.isStopPrediction) {
-                        me.$predictionContainer.hide();
-                        me.$resultRefreshCountDown.parent().hide();
-                    }
-
+                    me.stopPrediction();
                 }
             }
         });
+    };
+
+    me.stopPrediction = function () {
+        if (me.isStopPrediction) {
+            me.$predictionContainer.hide();
+            me.$resultRefreshCountDown.parent().hide();
+            me.$smallContainerResult.addClass('stop-prediction');
+            if (me.$smallContainerResult) {
+                var currentChart = me.$smallContainerResult.highcharts();
+                currentChart.reflow();
+            }
+        }
     };
 
     me.insertOrUpdateScorePrediction = function (params) {
@@ -177,7 +186,7 @@ function ScorePredictionView() {
 
 $(function () {
     if (!IS_ADMIN_SITE) {
-        var scorePredictionView = new ScorePredictionView();
+        var scorePredictionView = new ScorePredictionView(CRITERIA);
         scorePredictionView.init();
     }
 });

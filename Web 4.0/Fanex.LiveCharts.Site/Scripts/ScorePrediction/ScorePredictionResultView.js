@@ -5,13 +5,13 @@
 /*global LANGUAGE, LIVECHARTS, scorePredictionViewModel, ScorePrediction, isAdminSite*/
 'use strict';
 
-function ScorePredictionResultView() {
+function ScorePredictionResultView(scorePredictionViewModel) {
     var me = this,
         reloadTimeOutMinutes = 1;
     
     /*Properties*/
     me.isLoading = false;
-    me.isStopPrediction = false;
+    me.isStopPrediction = scorePredictionViewModel.isStopScorePrediction || false;
     me.scorePrediction = new ScorePrediction(
         scorePredictionViewModel.homeName,
         scorePredictionViewModel.awayName,
@@ -133,6 +133,6 @@ function ScorePredictionResultView() {
 }
 
 $(function () {
-    var scorePredictionResultView = new ScorePredictionResultView();
+    var scorePredictionResultView = new ScorePredictionResultView(scorePredictionViewModel);
     scorePredictionResultView.init();
 });

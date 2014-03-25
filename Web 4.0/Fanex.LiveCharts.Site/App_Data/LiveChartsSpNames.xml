@@ -140,6 +140,7 @@
     <Setting Key="Chart_Chat_Update_Chat_User_In_Room" SpName="Chart_Chat_Update_Chat_User_In_Room" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
     <Setting Key="Chart_Chat_Get_Chat_User_In_Room" SpName="Chart_Chat_Get_Chat_User_In_Room" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
     <Setting Key="Chart_Chat_Get_Chat_User_In_Room_By_ConnectionId" SpName="Chart_Chat_Get_Chat_User_In_Room_By_ConnectionId" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Insert_Update_Chat_Message_Spam" SpName="Chart_Chat_Insert_Update_Chat_Message_Spam" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
     
   </Function>
 </Functions>

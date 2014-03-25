@@ -9,9 +9,9 @@
 
 namespace Fanex.LiveCharts.Chat.Hubs
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using Fanex.LiveCharts.Chat.Models;
-    using System.Collections.Generic;
 
     /// <summary>
     /// TODO: Update summary.
@@ -32,14 +32,8 @@ namespace Fanex.LiveCharts.Chat.Hubs
 
         Task LeaveRoom(ChatUser chatUser, ChatRoom chatRoom);
 
-        /// <summary>
-        /// When a new client connects
-        /// </summary>
         Task OnConnected();
 
-        /// <summary>
-        /// When a client disconnects
-        /// </summary>
         Task OnDisconnected();
     }
 }

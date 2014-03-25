@@ -13,8 +13,8 @@ namespace Fanex.LiveCharts.Chat.Services
     using Fanex.LiveCharts.Chat.Criteria;
     using Fanex.LiveCharts.Chat.Models;
     using Fanex.LiveCharts.Chat.Repositories;
-    using Fanex.NAP.Framework.Data;
     using Fanex.LiveCharts.Models;
+    using Fanex.NAP.Framework.Data;
 
     /// <summary>
     /// TODO: Update summary.
@@ -52,10 +52,12 @@ namespace Fanex.LiveCharts.Chat.Services
             var chatUser = _chatRepository.Get<ChatUser>(getChatUserCriteria);
             if (chatUser == null)
             {
-                chatUser = new ChatUser { 
+                chatUser = new ChatUser
+                {
                     MemberId = getChatUserCriteria.MemberId
                 };
             }
+
             return chatUser;
         }
 
@@ -115,8 +117,6 @@ namespace Fanex.LiveCharts.Chat.Services
             return chatUsers;
         }
 
-
-
         public InsertResult InsertChatUserInRoom(InsertChatUserInRoomCriteria insertChatUserInRoomCriteria)
         {
             var insertResult = _chatRepository.ModifyData(insertChatUserInRoomCriteria, "ChatUserInRoomId");
@@ -135,9 +135,10 @@ namespace Fanex.LiveCharts.Chat.Services
         {
             var chatUserInRoom = _chatRepository.Get<ChatUserInRoom>(getChatUserInRoomCriteria);
 
-            if(chatUserInRoom == null)
+            if (chatUserInRoom == null)
             {
-                chatUserInRoom = new ChatUserInRoom { 
+                chatUserInRoom = new ChatUserInRoom
+                {
                     ChatRoomId = getChatUserInRoomCriteria.ChatRoomId,
                     ChatUserId = getChatUserInRoomCriteria.ChatUserId
                 };

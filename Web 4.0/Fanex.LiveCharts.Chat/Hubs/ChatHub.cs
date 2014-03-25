@@ -9,12 +9,12 @@
 
 namespace Fanex.LiveCharts.Chat.Hubs
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
+    using Fanex.LiveCharts.Chat.Criteria;
     using Fanex.LiveCharts.Chat.Models;
     using Fanex.LiveCharts.Chat.Services;
     using Microsoft.AspNet.SignalR;
-    using Fanex.LiveCharts.Chat.Criteria;
-    using System.Collections.Generic;
 
     /// <summary>
     /// TODO: Update summary.
@@ -57,7 +57,6 @@ namespace Fanex.LiveCharts.Chat.Hubs
                 ChatRoomId = chatRoom.ChatRoomId
             });
 
-
             return chatUsers;
         }
 
@@ -67,12 +66,11 @@ namespace Fanex.LiveCharts.Chat.Hubs
                 {
                     ChatRoomId = chatRoom.ChatRoomId,
                     ChatUserId = chatUser.ChatUserId,
-                    ChatUserInRoomId =  chatUserInRoom.ChatUserInRoomId,
+                    ChatUserInRoomId = chatUserInRoom.ChatUserInRoomId,
                     ConnectionId = Context.ConnectionId
                 });
             return Groups.Add(Context.ConnectionId, chatRoom.ChatRoomName).ContinueWith(jr =>
                 {
-
                     NotifyUserJoinedRoom(chatUser, chatRoom);
                 });
         }
@@ -101,11 +99,10 @@ namespace Fanex.LiveCharts.Chat.Hubs
         public override Task OnDisconnected()
         {
             var currentChatUserInRoom = _chatService.GetChatUserInRoomByConnectionId(
-                new GetChatUserInRoomByConnectionIdCriteria { 
+                new GetChatUserInRoomByConnectionIdCriteria
+                {
                     ConnectionId = Context.ConnectionId
                 });
-
-           
 
             if (currentChatUserInRoom != null)
             {
@@ -115,12 +112,12 @@ namespace Fanex.LiveCharts.Chat.Hubs
                     ConnectionId = Context.ConnectionId,
                     IsLeft = true
                 });
-                
+
                 if (updateResult.IsSuccessful)
                 {
                     Clients.Group(currentChatUserInRoom.ChatRoomName).notifyUserLeftRoom(currentChatUserInRoom, GetCurrentUserList(currentChatUserInRoom.ChatRoomId));
                 }
-                //Clients.All.notifyUserLeftRoom();
+                //// Clients.All.notifyUserLeftRoom();
             }
 
             return base.OnDisconnected();

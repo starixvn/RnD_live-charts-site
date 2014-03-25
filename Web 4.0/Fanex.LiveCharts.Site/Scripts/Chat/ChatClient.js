@@ -1,7 +1,6 @@
 ﻿/* File Created: March 20, 2014 */
 /// <reference path="ChatSignalRAdapter.js" />
 
-/*global DEFAULT_OBJECT*/
 /*exported ChatClient*/
 function ChatClient(chatUser, chatRoom) {
     'use strict';
@@ -30,7 +29,7 @@ function ChatClient(chatUser, chatRoom) {
             me.$memberOnline.html(userList.length);
             me.currentUserList = userList;
         }
-    }
+    };
     me.showDetailUserList = function () {
         if(me.currentUserList && me.currentUserList.length > 0)
         {

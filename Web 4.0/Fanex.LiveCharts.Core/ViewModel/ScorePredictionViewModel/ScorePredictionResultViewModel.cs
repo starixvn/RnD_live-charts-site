@@ -21,5 +21,7 @@ namespace Fanex.LiveCharts.ViewModel.ScorePredictionViewModel
         public string AwayName { get; set; }
 
         public bool IsAdminSite { get; set; }
+
+        public bool IsStopScorePrediction { get; set; }
     }
 }

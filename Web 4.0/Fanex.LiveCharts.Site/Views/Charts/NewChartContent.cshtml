@@ -183,7 +183,8 @@
         showChart: @(showChart ? "true" : "false"),
         homeNameEncoded: '@(HttpUtility.UrlEncode(Model.HomeName))',
         awayNameEncoded: '@(HttpUtility.UrlEncode(Model.AwayName))',
-        memberId: @(Model.MemberId)
+        memberId: @(Model.MemberId),
+        isStopScorePrediction: @(Model.IsStopScorePrediction ? "true" : "false")
         };
 
     CHART_COLOR.oddsColorsArray = CHART_COLOR.oddsColors.split(',');

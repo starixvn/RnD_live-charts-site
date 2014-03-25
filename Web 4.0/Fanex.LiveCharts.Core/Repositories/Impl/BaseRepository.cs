@@ -11,12 +11,12 @@ namespace Fanex.LiveCharts.Repositories.Impl
 {
     using System;
     using System.Collections;
+    using Fanex.Common;
     using Fanex.Data;
+    using Fanex.LiveCharts.Models;
     using Fanex.LiveCharts.Resources;
     using Fanex.NAP.Core.Criteria.Misc;
     using Fanex.NAP.Framework.Data;
-using Fanex.LiveCharts.Models;
-    using Fanex.Common;
 
     /// <summary>
     /// TODO: Update summary.
@@ -58,7 +58,7 @@ using Fanex.LiveCharts.Models;
         /// Modify data with insert command.
         /// </summary>
         /// <param name="criteria">Get data criteria.</param>
-        /// <param name="resultIdParamName">Result param name of id field.</param>
+        /// <param name="resultIdParamName">Result parameters name of id field.</param>
         /// <returns>Insert result.</returns>
         public InsertResult ModifyData(ICriteria criteria, string resultIdParamName)
         {

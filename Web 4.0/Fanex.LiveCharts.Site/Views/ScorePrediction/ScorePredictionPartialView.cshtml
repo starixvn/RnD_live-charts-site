@@ -1,9 +1,15 @@
-﻿
+﻿@using Fanex.LiveCharts.ViewModel
+@model ChartContentViewModel
+
+@{
+    var dislayNone = Model.IsStopScorePrediction ? "display:none;" : string.Empty;
+    var resultConatinerStopPredictionClass = Model.IsStopScorePrediction ? "stop-prediction" : string.Empty;
+    }
 <div class="score-prediction">
     <div class="chart-title">
     @Lang.ScorePrediction
 </div>
-    <div id="predictionContainer" class="prediction-input">
+    <div id="predictionContainer" class="prediction-input" style="@(dislayNone)">
         <div class="prediction-title">
             @Lang.YourPrediction
         </div>
@@ -45,13 +51,13 @@
                     <span class="full-result-link btn-link" id="fullResultLink" title="@Lang.ViewAllScorePredictionResults">
                     </span>
                 </div>
-                <div class="refresh-button">
+                <div class="refresh-button" style="@(dislayNone)">
                     <div id="resultRefreshCountDown">
                     </div>
                 </div>
             </div>
         </div>
-        <div class="prediction-small-result" id="smallResultContainer">
+        <div class="prediction-small-result @(resultConatinerStopPredictionClass)" id="smallResultContainer">
         </div>
     </div>
 </div>

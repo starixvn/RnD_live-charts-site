@@ -71,6 +71,7 @@
     <Compile Include="Criteria\InsertChatRoomCriteria.cs" />
     <Compile Include="Criteria\InsertChatUserCriteria.cs" />
     <Compile Include="Criteria\InsertChatUserInRoomCriteria.cs" />
+    <Compile Include="Criteria\InsertUpdateChatMessageSpamCriteria.cs" />
     <Compile Include="Criteria\UpdateChatMessageCriteria.cs" />
     <Compile Include="Criteria\UpdateChatRoomCriteria.cs" />
     <Compile Include="Criteria\UpdateChatUserCriteria.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Hubs\ChatHub.cs" />
     <Compile Include="Hubs\IChatHub.cs" />
     <Compile Include="Models\ChatMessage.cs" />
+    <Compile Include="Models\ChatMessageSpam.cs" />
     <Compile Include="Models\ChatRoom.cs" />
     <Compile Include="Models\ChatUser.cs" />
     <Compile Include="Models\ChatUserInRoom.cs" />

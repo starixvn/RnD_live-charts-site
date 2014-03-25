@@ -9,6 +9,7 @@
         );
     Layout = "~/Views/Shared/_Layout.cshtml";
     var panelClass = Model.IsAdminSite ? "admin-prediction-result-panel" : "prediction-result-panel";
+    var isStopPredictionStyle = Model.IsStopScorePrediction ? "dislay:none;" : string.Empty;
 }
 @section Styles
 {
@@ -19,7 +20,7 @@
     <div class="result-panel">
         <div class="result-information">
             <span class="result-label">@Lang.CorrectScore</span>
-            <div class="result-button">
+            <div class="result-button" style="@(isStopPredictionStyle)">
                 <div class="refresh-button">
                     <div id="refreshCountDownCorrectScoreResult" class="refresh-button-main">
                     </div>
@@ -32,7 +33,7 @@
     <div class="result-panel">
         <div class="result-information">
             <span class="result-label">@Lang.Handicap</span>
-            <div class="result-button">
+            <div class="result-button" style="@(isStopPredictionStyle)">
                 <div class="refresh-button">
                     <div id="refreshCountDownHandicapResult" class="refresh-button-main">
                     </div>
@@ -45,7 +46,7 @@
     <div class="result-panel">
         <div class="result-information">
             <span class="result-label">@Lang._1x2</span>
-            <div class="result-button">
+            <div class="result-button" style="@(isStopPredictionStyle)">
                 <div class="refresh-button ">
                     <div id="refreshCountDownOneXTwoResult" class="refresh-button-main">
                     </div>
@@ -58,7 +59,7 @@
     <div class="result-panel">
         <div class="result-information">
             <span class="result-label">@Lang.OddEven</span>
-            <div class="result-button">
+            <div class="result-button" style="@(isStopPredictionStyle)">
                 <div class="refresh-button">
                     <div id="refreshCountDownOddEvenResult" class="refresh-button-main">
                     </div>
@@ -73,7 +74,8 @@
     var scorePredictionViewModel = {
         matchId: @(Model.MatchId),
         homeName: '@(Model.HomeName)',
-        awayName: '@(Model.AwayName)'
+        awayName: '@(Model.AwayName)',
+        isStopScorePrediction: @(Model.IsStopScorePrediction ? "true" : "false")
     };
 </script>
 @if (Model.IsAdminSite)

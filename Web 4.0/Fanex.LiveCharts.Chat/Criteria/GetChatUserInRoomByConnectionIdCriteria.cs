@@ -1,11 +1,17 @@
-﻿using Fanex.NAP.Framework.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿// --------------------------------------------------------------------------
+// <copyright file="GetChatUserInRoomByConnectionIdCriteria.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="Ricky.Nguyen" date="2014.3.25">Created</change>
+// </history>
 
 namespace Fanex.LiveCharts.Chat.Criteria
 {
+    using System;
+    using Fanex.NAP.Framework.Data;
+
     public class GetChatUserInRoomByConnectionIdCriteria : CriteriaBase
     {
         public string ConnectionId { get; set; }

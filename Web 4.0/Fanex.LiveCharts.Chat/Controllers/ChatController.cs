@@ -11,11 +11,11 @@ namespace Fanex.LiveCharts.Chat.Controllers
 {
     using System.Web.Mvc;
     using Fanex.LiveCharts.Chat.Criteria;
+    using Fanex.LiveCharts.Chat.Models;
     using Fanex.LiveCharts.Chat.Services;
     using Fanex.LiveCharts.Chat.ViewModels;
     using Fanex.LiveCharts.Controllers;
     using Fanex.LiveCharts.Web;
-    using Fanex.LiveCharts.Chat.Models;
 
     /// <summary>
     /// TODO: Update summary.
@@ -53,13 +53,14 @@ namespace Fanex.LiveCharts.Chat.Controllers
                     MemberId = SessionManager.CurrentSession.MemberId
                 });
 
-            var chatRoom = _chatService.GetChatRoomByName(new GetChatRoomByNameCriteria {
-                ChatRoomName = string.Format("{0}_{1}", matchId, SessionManager.CurrentSession.Language.Replace('-','_')),
+            var chatRoom = _chatService.GetChatRoomByName(new GetChatRoomByNameCriteria
+            {
+                ChatRoomName = string.Format("{0}_{1}", matchId, SessionManager.CurrentSession.Language.Replace('-', '_')),
                 MatchId = matchId
             });
 
             var chatUserInRoom = new ChatUserInRoom();
-            if(chatUser.ChatUserId > 0)
+            if (chatUser.ChatUserId > 0)
             {
                 chatUserInRoom = _chatService.GetChatUserInRoom(new GetChatUserInRoomCriteria
                     {
@@ -67,7 +68,6 @@ namespace Fanex.LiveCharts.Chat.Controllers
                         ChatRoomId = chatRoom.ChatRoomId
                     });
             }
-
 
             return View(
                 new ChatViewModel

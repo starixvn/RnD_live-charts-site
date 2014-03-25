@@ -68,5 +68,7 @@ namespace Fanex.LiveCharts.ViewModel
         }
 
         public int MemberId { get; set; }
+
+        public bool IsStopScorePrediction { get; set; }
     }
 }

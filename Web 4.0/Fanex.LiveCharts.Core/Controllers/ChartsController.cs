@@ -30,15 +30,17 @@ namespace Fanex.LiveCharts.Controllers
     public class ChartsController : BaseController
     {
         private readonly IChartService _chartService;
+        private readonly IScorePredictionService _scorePredictionService;
 
         public ChartsController()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public ChartsController(IChartService chartService)
+        public ChartsController(IChartService chartService, IScorePredictionService scorePredictionService)
         {
             _chartService = chartService ?? new ChartService();
+            _scorePredictionService = scorePredictionService ?? new ScorePredictionService();
         }
 
         /// <summary>
@@ -211,7 +213,8 @@ namespace Fanex.LiveCharts.Controllers
                     ShowHandicap = handicapOddList.Any(),
                     ShowOverUnder = overUnderOddList.Any(),
                     OpenSoonCountdown = openSoonCountDown,
-                    MemberId = SessionManager.CurrentSession.MemberId
+                    MemberId = SessionManager.CurrentSession.MemberId,
+                    IsStopScorePrediction = _scorePredictionService.IsStopScorePrediction(matchId)
                 };
             }
             else

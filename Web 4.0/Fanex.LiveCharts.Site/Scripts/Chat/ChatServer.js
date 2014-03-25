@@ -1,14 +1,15 @@
-﻿
+﻿/*exported ChatServer*/
 
 function ChatServer(chatAdapter, chatClient, chatUser, chatRoom, chatUserInRoom )
 {
+    'use strict';
     var me = this;
 
     me.chatAdapter = chatAdapter;
     me.chatRoom = chatRoom;
     me.chatUser = chatUser;
     me.chatClient = chatClient;
-    me.chatUserInRoom = chatUserInRoom
+    me.chatUserInRoom = chatUserInRoom;
 
     me.cachedDomElements = function () {
         me.$mainChatRoom = $('#mainChatRoom');

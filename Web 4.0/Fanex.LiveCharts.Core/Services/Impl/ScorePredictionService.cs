@@ -9,11 +9,12 @@
 
 namespace Fanex.LiveCharts.Services.Impl
 {
+    using System;
     using System.Linq;
+    using Fanex.Common;
     using Fanex.LiveCharts.Core;
     using Fanex.LiveCharts.Criterias;
     using Fanex.LiveCharts.Criterias.ScorePrediction;
-    using Fanex.LiveCharts.Models;
     using Fanex.LiveCharts.Models.ScorePrediction;
     using Fanex.LiveCharts.Repositories.Impl;
     using Fanex.LiveCharts.Repositories.Interface;
@@ -146,6 +147,33 @@ namespace Fanex.LiveCharts.Services.Impl
             var result = _scorePredictionRepository.ModifyData(insertCriteria);
 
             return result;
+        }
+
+        /// <summary>
+        /// Check current match is stop score prediction function or not.
+        /// </summary>
+        /// <param name="matchId">Current match id.</param>
+        /// <returns>Current score prediction status.</returns>
+        public bool IsStopScorePrediction(int matchId)
+        {
+            bool isStopScorePrediction = false;
+            try
+            {
+                ISettingService settingService = new SettingService();
+                var currentMatchTime = _chartService.GetCurrentMatchTime(new GetCurrentMatchTimeCriteria
+                {
+                    MatchId = matchId
+                });
+                var currentStopPredictionMinute = settingService.GetClosePredictionMinuteSetting(new ChartAdminGetMinuteForClosingPredictionCriteria());
+
+                isStopScorePrediction = Converter.ToInt(currentStopPredictionMinute.SettingValue) < currentMatchTime.CurrentMinute;
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler(ex);
+            }
+
+            return isStopScorePrediction;
         }
     }
 }

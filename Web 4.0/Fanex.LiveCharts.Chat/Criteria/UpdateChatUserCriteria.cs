@@ -10,9 +10,6 @@
 namespace Fanex.LiveCharts.Chat.Criteria
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
@@ -23,6 +20,7 @@ namespace Fanex.LiveCharts.Chat.Criteria
         public int ChatUserId { get; set; }
 
         public bool IsBanned { get; set; }
+
         public override string GetSettingKey()
         {
             return "Chart_Chat_Update_Chat_User";

@@ -10,10 +10,6 @@
 namespace Fanex.LiveCharts.Chat.ViewModels
 {
     using Fanex.LiveCharts.Chat.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
     /// <summary>
     /// TODO: Update summary.
