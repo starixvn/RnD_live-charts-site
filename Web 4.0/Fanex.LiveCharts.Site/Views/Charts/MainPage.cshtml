@@ -14,7 +14,7 @@
     <div class="score-prediction-page">
         <iframe id="frmScorePredictionPage" width="100%" height="100%" src="~/ScorePrediction/Index?matchId=@(Model.MatchId.ToString())" frameborder="0"></iframe>
     </div>
-    <div class="chat-page" style="display: none;">
-        <iframe id="frmChatPage" width="100%" height="100%" src="" frameborder="0"></iframe>
+    <div class="chat-page">
+        <iframe id="frmChatPage" width="100%" height="100%" src="~/Chat/Index?matchId=@(Model.MatchId.ToString())" frameborder="0"></iframe>
     </div>
 </div>

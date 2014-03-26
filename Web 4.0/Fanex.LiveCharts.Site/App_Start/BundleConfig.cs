@@ -23,31 +23,28 @@ namespace Fanex.LiveCharts.Site
     {
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/jquerylibs")
-                .Include("~/Scripts/Libs/HighChart/highcharts.js")
-                .Include("~/Scripts/Libs/HighChart/themes/grid.js")
-                .Include("~/Scripts/Libs/HighChart/themes/dark-blue.js")
-                .Include("~/Scripts/Libs/HighChart/themes/dark-green.js")
-                .Include("~/Scripts/Libs/HighChart/themes/gray.js")
-                .Include("~/Scripts/Libs/HighChart/themes/skies.js")
-                .Include("~/Scripts/Libs/Bootstrap/bootstrap-tooltip.js")
-                .Include("~/Scripts/Libs/Bootstrap/bootstrap-popover.js")
-                .Include("~/Scripts/Libs/RefreshCountDown/RefreshCountDown.js")
-                .Include("~/Scripts/LIVECHARTS.js"));
-
             bundles.Add(new ScriptBundle("~/bundles/jquery")
                 .Include("~/Scripts/Libs/jquery-1.9.1.js")
-                .Include("~/Scripts/Libs/jquery-ui-1.10.3.custom.js")
-                .Include("~/Scripts/Libs/BlockUI/jquery.blockUI.js"));
+                .Include("~/Scripts/Libs/BlockUI/jquery.blockUI.js")
+                .Include("~/Scripts/LIVECHARTS.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/chart")
+                .Include("~/Scripts/Libs/HighChart/highcharts.js")
+                .Include("~/Scripts/Libs/RefreshCountDown/RefreshCountDown.js")
+                .Include("~/Scripts/Libs/jquery-ui-1.10.3.custom.js")
+                .Include("~/Scripts/Libs/Bootstrap/bootstrap-tooltip.js")
+                .Include("~/Scripts/Libs/Bootstrap/bootstrap-popover.js")
                 .Include("~/Scripts/Charts/Charts.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/newchartcontent")
+                .Include("~/Scripts/Libs/HighChart/highcharts.js")
+                .Include("~/Scripts/Libs/RefreshCountDown/RefreshCountDown.js")
                 .Include("~/Scripts/Libs/Bootstrap/bootstrap-dropdown.js")
                 .Include("~/Scripts/Charts/NewChartContent.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/scorepredictionjs")
+                .Include("~/Scripts/Libs/HighChart/highcharts.js")
+                .Include("~/Scripts/Libs/RefreshCountDown/RefreshCountDown.js")
                 .Include("~/Scripts/Libs/Spinner/jquery.stepper.js")
                 .Include("~/Scripts/ScorePrediction/ScorePrediction.js")
                 .Include("~/Scripts/ScorePrediction/ScorePredictionView.js"));
@@ -58,6 +55,8 @@ namespace Fanex.LiveCharts.Site
                 .Include("~/Scripts/Charts/OpenSoon.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/scorepredictionresult")
+                .Include("~/Scripts/Libs/HighChart/highcharts.js")
+                .Include("~/Scripts/Libs/RefreshCountDown/RefreshCountDown.js")
                 .Include("~/Scripts/ScorePrediction/ScorePrediction.js")
                 .Include("~/Scripts/ScorePrediction/ScorePredictionResultView.js"));
 
