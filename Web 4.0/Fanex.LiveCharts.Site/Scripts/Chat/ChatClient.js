@@ -1,6 +1,6 @@
 ﻿/* File Created: March 20, 2014 */
 /// <reference path="ChatSignalRAdapter.js" />
-
+/*global moment, CURRENT_TIME_FORMAT*/
 /*exported ChatClient*/
 function ChatClient(chatUser, chatRoom) {
     'use strict';
@@ -11,6 +11,8 @@ function ChatClient(chatUser, chatRoom) {
     me.currentUserList = null;
     me.currentMessageHistory = null;
     me.formatTimer = CURRENT_TIME_FORMAT;
+    me.lastMessageBelongToChatUserId = 0;
+    me.isNextMessageFromSameUser = false;
 
     me.cachedDomElement = function () {
         me.$mainChatRoom = $('#mainChatRoom');
@@ -24,14 +26,16 @@ function ChatClient(chatUser, chatRoom) {
 
     me.addMessage = function (chatMessage) {
         if (chatMessage) {
+            me.isNextMessageFromSameUser = me.lastMessageBelongToChatUserId === chatMessage.ChatUser.ChatUserId;
             var messageTime = moment(chatMessage.CreateTime).zone(me.formatTimer.timeZone).format(me.formatTimer.format);
             me.$mainChatRoom.append('<li class="chat-message">'
-                                    + '<div class="message-chat-name">' + chatMessage.ChatUser.ChatName + '</div>'
+                                    + (me.isNextMessageFromSameUser ? '' : '<div class="message-chat-name">' + chatMessage.ChatUser.ChatName + ':</div>')
                                     + '<div class="message-content">'
                                         + '<div class="message-content-main">' + chatMessage.Content + '</div>'
                                         + '<div class="message-content-time">' + messageTime + '</div>'
                                     + '</div>'
                                 + '</li>');
+            me.lastMessageBelongToChatUserId = chatMessage.ChatUser.ChatUserId;
         }
 
     };
@@ -101,5 +105,11 @@ function ChatClient(chatUser, chatRoom) {
                         + '<div class="message-content-time">' + moment().zone(me.formatTimer.timeZone).format(me.formatTimer.format) + '</div>'
                     + '</div>'
                + '</li>');
-    }
+        me.resetContinueMessage();
+    };
+
+    me.resetContinueMessage = function () {
+        me.lastMessageBelongToChatUserId = 0;
+        me.isNextMessageFromSameUser = false;
+    };
 }

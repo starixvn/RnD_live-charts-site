@@ -53,7 +53,6 @@ namespace Fanex.LiveCharts.Controllers
             return View(mainPageViewModel);
         }
 
-
         /// <summary>
         /// Index Page, load chart Page.
         /// </summary>

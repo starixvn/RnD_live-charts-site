@@ -13,13 +13,13 @@ namespace Fanex.LiveCharts.Controllers
     using System.Web;
     using System.Web.Mvc;
     using Fanex.Common;
+    using Fanex.LiveCharts.Criterias;
     using Fanex.LiveCharts.Criterias.ScorePrediction;
     using Fanex.LiveCharts.Services.Impl;
     using Fanex.LiveCharts.Services.Interface;
     using Fanex.LiveCharts.ViewModel.ScorePrediction;
     using Fanex.LiveCharts.Web;
     using Fanex.NAP.Core.Web.Attribute;
-    using Fanex.LiveCharts.Criterias;
 
     /// <summary>
     /// TODO: Update summary.
@@ -43,6 +43,11 @@ namespace Fanex.LiveCharts.Controllers
 
         #region Member Site
 
+        /// <summary>
+        /// Index page for score prediction.
+        /// </summary>
+        /// <param name="matchId">Prediction for match id.</param>
+        /// <returns>View of score prediction page.</returns>
         public ActionResult Index(int matchId)
         {
             var match = _chartService.GetMatchDetail(new GetMatchDetailCriteria
@@ -50,7 +55,8 @@ namespace Fanex.LiveCharts.Controllers
                 MatchId = matchId
             });
 
-            return View(new ScorePredictionViewModel {
+            return View(new ScorePredictionViewModel
+            {
                 Match = match,
                 IsStopScorePrediction = _scorePredictionService.IsStopScorePrediction(matchId),
                 MemberId = SessionManager.CurrentSession.MemberId

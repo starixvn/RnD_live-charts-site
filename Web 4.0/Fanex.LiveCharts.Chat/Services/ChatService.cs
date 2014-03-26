@@ -9,13 +9,14 @@
 
 namespace Fanex.LiveCharts.Chat.Services
 {
+    using System;
     using System.Collections.Generic;
+    using System.Web;
     using Fanex.LiveCharts.Chat.Criteria;
     using Fanex.LiveCharts.Chat.Models;
     using Fanex.LiveCharts.Chat.Repositories;
     using Fanex.LiveCharts.Models;
     using Fanex.NAP.Framework.Data;
-    using System;
 
     /// <summary>
     /// TODO: Update summary.
@@ -38,7 +39,6 @@ namespace Fanex.LiveCharts.Chat.Services
         {
             var chatMessage = _chatRepository.GetChatMessagesByTime(getChatMessageCriteria);
 
-
             return chatMessage;
         }
 
@@ -49,6 +49,11 @@ namespace Fanex.LiveCharts.Chat.Services
             return chatMessage;
         }
 
+        /// <summary>
+        /// Get chat user information from member id.
+        /// </summary>
+        /// <param name="getChatUserCriteria">Criteria for get data.</param>
+        /// <returns>Chat user information.</returns>
         public ChatUser GetChatUser(GetChatUserCriteria getChatUserCriteria)
         {
             var chatUser = _chatRepository.Get<ChatUser>(getChatUserCriteria);
@@ -63,9 +68,19 @@ namespace Fanex.LiveCharts.Chat.Services
             return chatUser;
         }
 
+        /// <summary>
+        /// Insert chat message to database.
+        /// </summary>
+        /// <param name="insertChatMessageCriteria">Insert chat message criteria.</param>
+        /// <returns>Status of insert command.</returns>
         public InsertResult InsertChatMessage(InsertChatMessageCriteria insertChatMessageCriteria)
         {
             insertChatMessageCriteria.CreateTime = DateTime.Now;
+            if (!string.IsNullOrEmpty(insertChatMessageCriteria.Content))
+            {
+                insertChatMessageCriteria.Content = HttpUtility.HtmlEncode(insertChatMessageCriteria.Content);
+            }
+
             var insertResult = _chatRepository.ModifyData(insertChatMessageCriteria, "ChatMessageId");
 
             return insertResult;
@@ -79,9 +94,19 @@ namespace Fanex.LiveCharts.Chat.Services
             return insertResult;
         }
 
+        /// <summary>
+        /// Insert chat user.
+        /// </summary>
+        /// <param name="insertchatUserCriteria">Data for insert.</param>
+        /// <returns>Insert command result.</returns>
         public InsertResult InsertChatUser(InsertChatUserCriteria insertchatUserCriteria)
         {
             insertchatUserCriteria.CreateTime = DateTime.Now;
+            if (!string.IsNullOrEmpty(insertchatUserCriteria.ChatName))
+            {
+                insertchatUserCriteria.ChatName = HttpUtility.HtmlEncode(insertchatUserCriteria.ChatName);
+            }
+
             var insertResult = _chatRepository.ModifyData(insertchatUserCriteria, "ChatUserId");
 
             return insertResult;
@@ -96,6 +121,11 @@ namespace Fanex.LiveCharts.Chat.Services
 
         public ICommandResult UpdateChatRoom(UpdateChatRoomCriteria updateChatRoomCriteria)
         {
+            if (!string.IsNullOrEmpty(updateChatRoomCriteria.WelcomeMessage))
+            {
+                updateChatRoomCriteria.WelcomeMessage = HttpUtility.HtmlEncode(updateChatRoomCriteria.WelcomeMessage);
+            }
+
             var updateResult = _chatRepository.ModifyData(updateChatRoomCriteria);
 
             return updateResult;
@@ -139,6 +169,11 @@ namespace Fanex.LiveCharts.Chat.Services
             return updateResult;
         }
 
+        /// <summary>
+        /// Get chat user in room from chat user id and chat room.
+        /// </summary>
+        /// <param name="getChatUserInRoomCriteria">Criteria for getting data.</param>
+        /// <returns>Current information of chat user in room.</returns>
         public ChatUserInRoom GetChatUserInRoom(GetChatUserInRoomCriteria getChatUserInRoomCriteria)
         {
             var chatUserInRoom = _chatRepository.Get<ChatUserInRoom>(getChatUserInRoomCriteria);

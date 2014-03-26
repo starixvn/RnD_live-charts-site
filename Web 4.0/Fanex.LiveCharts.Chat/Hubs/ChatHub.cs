@@ -9,13 +9,13 @@
 
 namespace Fanex.LiveCharts.Chat.Hubs
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Fanex.LiveCharts.Chat.Criteria;
     using Fanex.LiveCharts.Chat.Models;
     using Fanex.LiveCharts.Chat.Services;
     using Microsoft.AspNet.SignalR;
-    using System;
 
     /// <summary>
     /// TODO: Update summary.
@@ -34,6 +34,10 @@ namespace Fanex.LiveCharts.Chat.Hubs
             _chatService = chatService ?? new ChatService();
         }
 
+        /// <summary>
+        /// Send a message to a group.
+        /// </summary>
+        /// <param name="chatMessage">Current message need be sent.</param>
         public void SendMessage(ChatMessage chatMessage)
         {
             var commandResult = _chatService.InsertChatMessage(new InsertChatMessageCriteria
@@ -42,7 +46,7 @@ namespace Fanex.LiveCharts.Chat.Hubs
                 ChatUserId = chatMessage.ChatUser.ChatUserId,
                 Content = chatMessage.Content
             });
-
+            chatMessage.CreateTime = DateTime.Now;
             if (commandResult.CommandResult.IsSuccessful)
             {
                 chatMessage.ChatMessageId = commandResult.InsertedId;
@@ -61,6 +65,13 @@ namespace Fanex.LiveCharts.Chat.Hubs
             return chatUsers;
         }
 
+        /// <summary>
+        /// Join a chat user to a room.
+        /// </summary>
+        /// <param name="chatUser">Current user need join room.</param>
+        /// <param name="chatRoom">Current room.</param>
+        /// <param name="chatUserInRoom">If current user already have information in this room, then just change connection id.</param>
+        /// <returns>Notify other user in room.</returns>
         public Task JoinRoom(ChatUser chatUser, ChatRoom chatRoom, ChatUserInRoom chatUserInRoom)
         {
             _chatService.InsertChatUserInRoom(new InsertChatUserInRoomCriteria
@@ -98,6 +109,10 @@ namespace Fanex.LiveCharts.Chat.Hubs
             Clients.Group(chatRoom.ChatRoomName).addAnnounceGeneralMessage(chatMessage);
         }
 
+        /// <summary>
+        /// Update chat user status when chat user disconnected.
+        /// </summary>
+        /// <returns>Announce other user in room.</returns>
         public override Task OnDisconnected()
         {
             var currentChatUserInRoom = _chatService.GetChatUserInRoomByConnectionId(
@@ -124,6 +139,26 @@ namespace Fanex.LiveCharts.Chat.Hubs
 
             return base.OnDisconnected();
         }
+        
+        /// <summary>
+        /// Get chat message history when user chat just join in room.
+        /// </summary>
+        /// <param name="chatRoomId">Current chat room.</param>
+        /// <param name="pastMinutes">How many minutes for getting data.</param>
+        /// <returns>History messages.</returns>
+        public IEnumerable<ChatMessage> GetChatMessageHistory(int chatRoomId, int pastMinutes)
+        {
+            GetChatMessageByTimeCriteria getChatMessageByTimeCriteria = new GetChatMessageByTimeCriteria
+            {
+                ChatRoomId = chatRoomId,
+                ToTime = DateTime.Now,
+                FromTime = DateTime.Now.Subtract(new TimeSpan(0, pastMinutes, 0))
+            };
+
+            var chatMessageList = _chatService.GetChatMessagesByTime(getChatMessageByTimeCriteria);
+
+            return chatMessageList;
+        }
 
         private IEnumerable<ChatUser> GetCurrentUserList(int chatRoomId, bool isLeft = false)
         {
@@ -134,21 +169,6 @@ namespace Fanex.LiveCharts.Chat.Hubs
             });
 
             return currentUserList;
-        }
-
-
-        public IEnumerable<ChatMessage> GetChatMessageHistory(int chatRoomId, int pastMinutes)
-        {
-            GetChatMessageByTimeCriteria getChatMessageByTimeCriteria = new GetChatMessageByTimeCriteria
-            {
-                ChatRoomId = chatRoomId,
-                ToTime = DateTime.Now,
-                FromTime = DateTime.Now.Subtract(new TimeSpan(0, pastMinutes, 0))
-            };
-            
-            var chatMessageList = _chatService.GetChatMessagesByTime(getChatMessageByTimeCriteria);
-
-            return chatMessageList;
         }
     }
 }

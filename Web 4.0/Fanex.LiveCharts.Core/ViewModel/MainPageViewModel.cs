@@ -9,18 +9,15 @@
 
 namespace Fanex.LiveCharts.ViewModel
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
     public class MainPageViewModel
     {
         public int MatchId { get; set; }
+
         public int HomeId { get; set; }
+
         public int AwayId { get; set; }
     }
 }

@@ -12,6 +12,9 @@ namespace Fanex.LiveCharts.Chat.Criteria
     using System;
     using Fanex.NAP.Framework.Data;
 
+    /// <summary>
+    /// Get User in a room with user connection id.
+    /// </summary>
     public class GetChatUserInRoomByConnectionIdCriteria : CriteriaBase
     {
         public string ConnectionId { get; set; }
@@ -23,7 +26,7 @@ namespace Fanex.LiveCharts.Chat.Criteria
 
         public override bool IsValid()
         {
-            throw new NotImplementedException();
+            return !string.IsNullOrEmpty(ConnectionId);
         }
     }
 }

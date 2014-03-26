@@ -9,10 +9,10 @@
 
 namespace Fanex.LiveCharts.Chat.Repositories
 {
-    using Fanex.LiveCharts.Repositories.Interface;
     using System.Collections.Generic;
     using Fanex.LiveCharts.Chat.Criteria;
     using Fanex.LiveCharts.Chat.Models;
+    using Fanex.LiveCharts.Repositories.Interface;
 
     /// <summary>
     /// TODO: Update summary.

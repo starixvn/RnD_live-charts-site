@@ -9,10 +9,6 @@
 
 namespace Fanex.LiveCharts.ViewModel.ScorePrediction
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using Fanex.LiveCharts.Models;
 
     /// <summary>
@@ -21,7 +17,9 @@ namespace Fanex.LiveCharts.ViewModel.ScorePrediction
     public class ScorePredictionViewModel
     {
         public Match Match { get; set; }
+
         public int MemberId { get; set; }
+
         public bool IsStopScorePrediction { get; set; }
     }
 }

@@ -12,7 +12,6 @@ namespace Fanex.LiveCharts.Chat.Hubs
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Fanex.LiveCharts.Chat.Models;
-    using Fanex.LiveCharts.Chat.Criteria;
 
     /// <summary>
     /// TODO: Update summary.

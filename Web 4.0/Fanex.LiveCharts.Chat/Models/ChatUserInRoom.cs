@@ -11,6 +11,9 @@ namespace Fanex.LiveCharts.Chat.Models
 {
     using System;
 
+    /// <summary>
+    /// Current chat user information in a room.
+    /// </summary>
     public class ChatUserInRoom
     {
         public int ChatUserInRoomId { get; set; }

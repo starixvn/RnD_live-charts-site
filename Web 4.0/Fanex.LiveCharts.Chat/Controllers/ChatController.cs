@@ -39,15 +39,8 @@ namespace Fanex.LiveCharts.Chat.Controllers
         /// </summary>
         /// <param name="matchId">Current match id.</param>
         /// <returns>View of index page.</returns>
-        public ActionResult Index(int matchId, int memberId = 1, string language = "en-US")
+        public ActionResult Index(int matchId)
         {
-            SessionManager.CurrentSession = new CurrentSession
-            {
-                MatchId = matchId,
-                MemberId = memberId,
-                Language = language
-            };
-
             var chatUser = _chatService.GetChatUser(new GetChatUserCriteria
                 {
                     MemberId = SessionManager.CurrentSession.MemberId

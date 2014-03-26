@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../Views/Charts/NewChartContent.cshtml" />
 /// <reference path="../LIVECHARTS.js" />
 /// <reference path="ScorePrediction.js" />
-/*global CRITERIA, LIVECHARTS, ScorePrediction, IS_ADMIN_SITE*/
+/*global LIVECHARTS, ScorePrediction, SCORE_PREDICTION*/
 'use strict';
 
 function ScorePredictionView(defaultValue) {

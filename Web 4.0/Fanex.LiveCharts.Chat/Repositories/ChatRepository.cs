@@ -9,20 +9,22 @@
 
 namespace Fanex.LiveCharts.Chat.Repositories
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using Fanex.LiveCharts.Repositories.Impl;
-    using Fanex.LiveCharts.Chat.Models;
-    using Fanex.LiveCharts.Chat.Criteria;
     using Fanex.Data;
+    using Fanex.LiveCharts.Chat.Criteria;
+    using Fanex.LiveCharts.Chat.Models;
+    using Fanex.LiveCharts.Repositories.Impl;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
     public class ChatRepository : BaseRepository, IChatRepository
     {
+        /// <summary>
+        /// Get history message.
+        /// </summary>
+        /// <param name="getChatMessageCriteria">Criteria for get data.</param>
+        /// <returns>List message.</returns>
         public IEnumerable<ChatMessage> GetChatMessagesByTime(GetChatMessageByTimeCriteria getChatMessageCriteria)
         {
             var chatMessages = new List<ChatMessage>();

@@ -12,7 +12,9 @@
         CURRENT_CHAT_USER_IN_ROOM, 
         ChatClient,
         ChatSignalRAdapter,
-        ChatServer*/
+        ChatServer,
+        CURRENT_TIME_FORMAT,
+        moment*/
 function ChatWindow() {
     'use strict';
     var me = this;
@@ -110,18 +112,7 @@ function ChatWindow() {
         me.chatServer.joinRoom();
         
     };
-    //// Query Data
-    me.getHistoryMessage = function () {
-        LIVECHARTS.callAjax({
-            url: me.url.getGetChatMessageByTimeUrl,
-            type: 'POST',
-            data: me.chat.getChartMessageCriteria,
-            useBlockUI: false,
-            done: function (result) {
-                //// Handle Later
-            }
-        });
-    };
+
 
     //// Utilities
     me.playSound = function () {
@@ -132,11 +123,6 @@ function ChatWindow() {
 //            + filename + '.mp3" type="audio/mpeg" /><source src="'
 //            + filename + '.ogg" type="audio/ogg" /><embed hidden="true" autostart="true" loop="false" src="'
 //            + filename + '.mp3" /></audio>');
-    };
-    
-    
-    me.checkBadWords = function (messageText) {
-
     };
 
     me.startTimer = function () {
