@@ -148,11 +148,6 @@
     }
 </div>
 
-@if (showChart && !AppSettings.IsAdminSite)
-{
-    @Html.Partial("~/Views/ScorePrediction/ScorePredictionPartialView.cshtml", Model)
-}
-
 <script type="text/javascript">
     var BROWSER = {
         isChrome: @(Model.IsChrome ? "true" : "false"),
@@ -182,14 +177,10 @@
         showLiveAndDeadball: @(Model.ShowLiveAndDeadball ? "true" : "false"),
         showChart: @(showChart ? "true" : "false"),
         homeNameEncoded: '@(HttpUtility.UrlEncode(Model.HomeName))',
-        awayNameEncoded: '@(HttpUtility.UrlEncode(Model.AwayName))',
-        memberId: @(Model.MemberId),
-        isStopScorePrediction: @(Model.IsStopScorePrediction ? "true" : "false")
+        awayNameEncoded: '@(HttpUtility.UrlEncode(Model.AwayName))'
         };
 
     CHART_COLOR.oddsColorsArray = CHART_COLOR.oddsColors.split(',');
-
-    var IS_ADMIN_SITE = @(AppSettings.IsAdminSite ? "true" : "false");
 </script>
 @section Scripts
 {

@@ -72,7 +72,7 @@ var LIVECHARTS = {
         var $body = $('body');
         $message.empty().html(messageText).show().appendTo($body);
         $message.css({
-            left: ($body.width() / 2) - ($message.width() / 2) + 'px'
+            left: ($body.width() / 2) - ($message.width() / 2 + 30) + 'px'
         });
 
 

@@ -1,90 +1,85 @@
-﻿@using Fanex.LiveCharts.ViewModel.ScorePredictionViewModel;
-@model ScorePredictionResultViewModel
+﻿@using Fanex.LiveCharts.ViewModel.ScorePrediction
+@using Fanex.LiveCharts.Core
+
+@model ScorePredictionViewModel
+
 @{
-    ViewBag.Title = string.Format("{0} {1} {2} - {3}",
-        Model.HomeName,
-        Lang.VsLabel,
-        Model.AwayName,
-        Lang.TotalPredictionResult
-        );
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    var panelClass = Model.IsAdminSite ? "admin-prediction-result-panel" : "prediction-result-panel";
-    var isStopPredictionStyle = Model.IsStopScorePrediction ? "dislay:none;" : string.Empty;
+    var dislayNone = Model.IsStopScorePrediction ? "display:none;" : string.Empty;
+    var resultConatinerStopPredictionClass = Model.IsStopScorePrediction ? "stop-prediction" : string.Empty;
 }
+
 @section Styles
 {
-    <link rel="stylesheet" href="~/Content/MovementCharts/ScorePredictionResult.less"
-        type="text/css" />
+    <link rel="stylesheet" href="~/Content/MovementCharts/ScorePrediction.less" type="text/css" />
 }
-<div class="@(panelClass)">
-    <div class="result-panel">
-        <div class="result-information">
-            <span class="result-label">@Lang.CorrectScore</span>
-            <div class="result-button" style="@(isStopPredictionStyle)">
-                <div class="refresh-button">
-                    <div id="refreshCountDownCorrectScoreResult" class="refresh-button-main">
-                    </div>
+<div class="score-prediction">
+    <div class="chart-title">
+    @Lang.ScorePrediction
+</div>
+    <div id="predictionContainer" class="prediction-input" style="@(dislayNone)">
+        <div class="prediction-title">
+            @Lang.YourPrediction
+        </div>
+        <div class="prediction-input-content">
+            <div class="home-prediction">
+                <div class="home-name">
+                    @Model.Match.HomeName
+                </div>
+                <div class="home-predict-value">
+                    <input type="text" id="homePredictionValue" />
                 </div>
             </div>
-        </div>
-        <div class="prediction-result" id="correctScoreResultContainer">
+            <div class="vs-label">
+                @Lang.VsLabel
+            </div>
+            <div class="away-prediction">
+                <div class="away-predict-value">
+                    <input type="text" id="awayPredictionValue" />
+                </div>
+                <div class="away-name">
+                    @Model.Match.AwayName
+                </div>
+            </div>
+            <div class="prediction-submit">
+                <input type="submit" id="submitPreditionValue" value="@Lang.Submit" class="btn" title="@Lang.SubmitAndViewResult" />
+            </div>
         </div>
     </div>
-    <div class="result-panel">
+    <div id="resultContainer" style="display: none;">
+        <div class="prediction-title">
+            @Lang.TotalPredictionResult
+        </div>
         <div class="result-information">
-            <span class="result-label">@Lang.Handicap</span>
-            <div class="result-button" style="@(isStopPredictionStyle)">
-                <div class="refresh-button">
-                    <div id="refreshCountDownHandicapResult" class="refresh-button-main">
+            @*       <span class="result-label"><span class="home-name">@Model.HomeName</span> 
+            <span class="vs-name">@Lang.VsLabel</span>
+                <span class="away-name">@Model.AwayName</span> </span>*@
+            <div class="result-button">
+                <div class="full-result">
+                    <span class="full-result-link btn-link" id="fullResultLink" title="@Lang.ViewAllScorePredictionResults">
+                    </span>
+                </div>
+                <div class="refresh-button" style="@(dislayNone)">
+                    <div id="resultRefreshCountDown">
                     </div>
                 </div>
             </div>
         </div>
-        <div class="prediction-result" id="handicapResultContainer">
-        </div>
-    </div>
-    <div class="result-panel">
-        <div class="result-information">
-            <span class="result-label">@Lang._1x2</span>
-            <div class="result-button" style="@(isStopPredictionStyle)">
-                <div class="refresh-button ">
-                    <div id="refreshCountDownOneXTwoResult" class="refresh-button-main">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="prediction-result" id="oneXTwoResultContainer">
-        </div>
-    </div>
-    <div class="result-panel">
-        <div class="result-information">
-            <span class="result-label">@Lang.OddEven</span>
-            <div class="result-button" style="@(isStopPredictionStyle)">
-                <div class="refresh-button">
-                    <div id="refreshCountDownOddEvenResult" class="refresh-button-main">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="prediction-result" id="oddEvenResultContainer">
+        <div class="prediction-small-result @(resultConatinerStopPredictionClass)" id="smallResultContainer">
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    var scorePredictionViewModel = {
-        matchId: @(Model.MatchId),
-        homeName: '@(Model.HomeName)',
-        awayName: '@(Model.AwayName)',
-        isStopScorePrediction: @(Model.IsStopScorePrediction ? "true" : "false")
-    };
-</script>
-@if (Model.IsAdminSite)
-{
-    <script type="text/javascript">
-        var isAdminSite = true;
-    </script>
-}
+
 @section Scripts
 {
-    @Scripts.Render("~/bundles/scorepredictionresult")
+    <script type="text/javascript">
+        var SCORE_PREDICTION =
+        {
+            matchId: @(Model.Match.Id),
+            isStopScorePrediction: @(Model.IsStopScorePrediction ? "true" : "false"),
+            homeNameEncoded: '@(HttpUtility.UrlEncode(Model.Match.HomeName))',
+            awayNameEncoded: '@(HttpUtility.UrlEncode(Model.Match.AwayName))',
+            memberId: @(Model.MemberId)
+        };
+    </script>
+    @Scripts.Render("~/bundles/scorepredictionjs")
 }

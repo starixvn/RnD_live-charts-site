@@ -20,7 +20,7 @@ function ScorePredictionView(defaultValue) {
         insertOrUpdateScorePrediction: LIVECHARTS.resolveUrl('ScorePrediction/InsertOrUpdateScorePrediction'),
         getCurrentUserPrediction: LIVECHARTS.resolveUrl('ScorePrediction/GetUserPrediction'),
         getScorePredictionResult: LIVECHARTS.resolveUrl('ScorePrediction/GetScorePrictionResult'),
-        resultPage: LIVECHARTS.resolveUrl('ScorePrediction/Index'),
+        resultPage: LIVECHARTS.resolveUrl('ScorePrediction/ResultPage'),
         checkStopScorePrediction: LIVECHARTS.resolveUrl('ScorePrediction/CheckStopScorePrediction')
     };
 
@@ -185,8 +185,6 @@ function ScorePredictionView(defaultValue) {
 
 
 $(function () {
-    if (!IS_ADMIN_SITE) {
-        var scorePredictionView = new ScorePredictionView(CRITERIA);
+        var scorePredictionView = new ScorePredictionView(SCORE_PREDICTION);
         scorePredictionView.init();
-    }
 });

@@ -7,7 +7,7 @@
 //   <change who="Ricky.Nguyen" date="2014.3.4">Created</change>
 // </history>
 
-namespace Fanex.LiveCharts.ViewModel.ScorePredictionViewModel
+namespace Fanex.LiveCharts.ViewModel.ScorePrediction
 {
     /// <summary>
     /// View model contains information about score prediction result.

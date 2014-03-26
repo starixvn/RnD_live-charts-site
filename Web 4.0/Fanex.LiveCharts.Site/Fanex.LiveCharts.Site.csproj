@@ -177,6 +177,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Content\MovementCharts\MainPage.less" />
     <Content Include="Content\MovementCharts\Chat.less" />
     <Content Include="Scripts\Chat\ChatClient.js" />
     <Content Include="Scripts\Chat\ChatServer.js" />
@@ -537,11 +538,12 @@
     <Content Include="Content\MovementCharts\Introduction.less" />
     <Content Include="Views\Introduction\zh-CN\Chart.cshtml" />
     <Content Include="Views\Introduction\zh-TW\Chart.cshtml" />
-    <Content Include="Views\ScorePrediction\Index.cshtml" />
+    <Content Include="Views\ScorePrediction\ResultPage.cshtml" />
     <Content Include="Content\MovementCharts\ScorePredictionResult.less" />
     <Content Include="Content\MovementCharts\ScorePrediction.less" />
-    <Content Include="Views\ScorePrediction\ScorePredictionPartialView.cshtml" />
+    <Content Include="Views\ScorePrediction\Index.cshtml" />
     <Content Include="Scripts\Libs\Spinner\jquery.stepper.less" />
+    <Content Include="Views\Charts\MainPage.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

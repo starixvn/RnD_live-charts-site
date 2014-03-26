@@ -16,9 +16,10 @@ namespace Fanex.LiveCharts.Controllers
     using Fanex.LiveCharts.Criterias.ScorePrediction;
     using Fanex.LiveCharts.Services.Impl;
     using Fanex.LiveCharts.Services.Interface;
-    using Fanex.LiveCharts.ViewModel.ScorePredictionViewModel;
+    using Fanex.LiveCharts.ViewModel.ScorePrediction;
     using Fanex.LiveCharts.Web;
     using Fanex.NAP.Core.Web.Attribute;
+    using Fanex.LiveCharts.Criterias;
 
     /// <summary>
     /// TODO: Update summary.
@@ -27,20 +28,36 @@ namespace Fanex.LiveCharts.Controllers
     {
         private const string CorePredictionCookie = "E86E0D7F-FD5A-412B-823F-A4E6517AE51D";
         private IScorePredictionService _scorePredictionService;
+        private IChartService _chartService;
 
         public ScorePredictionController()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public ScorePredictionController(IScorePredictionService scorePredictionService)
+        public ScorePredictionController(IScorePredictionService scorePredictionService, IChartService chartService)
         {
             _scorePredictionService = scorePredictionService ?? new ScorePredictionService();
+            _chartService = chartService ?? new ChartService();
         }
 
         #region Member Site
 
-        public ActionResult Index(int matchId, string homeName, string awayName, bool isAdminSite = false)
+        public ActionResult Index(int matchId)
+        {
+            var match = _chartService.GetMatchDetail(new GetMatchDetailCriteria
+            {
+                MatchId = matchId
+            });
+
+            return View(new ScorePredictionViewModel {
+                Match = match,
+                IsStopScorePrediction = _scorePredictionService.IsStopScorePrediction(matchId),
+                MemberId = SessionManager.CurrentSession.MemberId
+            });
+        }
+
+        public ActionResult ResultPage(int matchId, string homeName, string awayName, bool isAdminSite = false)
         {
             return View(new ScorePredictionResultViewModel
             {

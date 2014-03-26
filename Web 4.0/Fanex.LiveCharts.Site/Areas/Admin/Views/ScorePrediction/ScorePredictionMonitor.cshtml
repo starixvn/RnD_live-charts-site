@@ -1,4 +1,4 @@
-﻿@using Fanex.LiveCharts.ViewModel.ScorePredictionViewModel;
+﻿@using Fanex.LiveCharts.ViewModel.ScorePrediction;
 @using Fanex.LiveCharts.Models.ScorePrediction;
 @model ScorePredictionResultViewModel
 @{
@@ -12,7 +12,7 @@
 <div class="admin-prediction-container">
     <div class="prediction-result-container">
         <div class="container-title">@AdminSiteLang.ScorePredictionResult</div>
-        <iframe id="frmChartContent" src="~/ScorePrediction/Index?matchId=@(Model.MatchId)&homeName=@(HttpUtility.UrlEncode(Model.HomeName))&awayName=@(HttpUtility.UrlEncode(Model.AwayName))&isAdminSite=true" frameborder="0">
+        <iframe id="frmChartContent" src="~/ScorePrediction/ResultPage?matchId=@(Model.MatchId)&homeName=@(HttpUtility.UrlEncode(Model.HomeName))&awayName=@(HttpUtility.UrlEncode(Model.AwayName))&isAdminSite=true" frameborder="0">
         </iframe>
     </div>
     <div class="prediction-update-container">
@@ -49,6 +49,7 @@
                 </div>
             </div>
         </div>
+        <div class="new-line"></div>
         <div class="dummy-prediction-log">
             <div class="container-title-new-line">@AdminSiteLang.DummyPredictions</div>
             <table class="grid">

@@ -43,6 +43,17 @@ namespace Fanex.LiveCharts.Controllers
             _scorePredictionService = scorePredictionService ?? new ScorePredictionService();
         }
 
+        public ActionResult MainPage(int matchId)
+        {
+            var mainPageViewModel = new MainPageViewModel
+            {
+                MatchId = matchId
+            };
+
+            return View(mainPageViewModel);
+        }
+
+
         /// <summary>
         /// Index Page, load chart Page.
         /// </summary>
@@ -86,16 +97,12 @@ namespace Fanex.LiveCharts.Controllers
         /// <param name="matchId">Match monitor.</param>
         /// <param name="betTypeId">Current bet type.</param>
         /// <param name="teamChoosing">Team choosing, home or away.</param>
-        /// <param name="memberId">Member id need view chart.</param>
-        /// <param name="token">View chart Token.</param>
         /// <returns>Return View.</returns>
         [ReCheckIn]
         public ActionResult ChartContent(
             int matchId,
             int betTypeId = (int)BetTypeEnum.Handicap,
-            int teamChoosing = (int)TeamChoosingType.Home,
-            int memberId = 0,
-            string token = "")
+            int teamChoosing = (int)TeamChoosingType.Home)
         {
             if (SessionManager.IsValid())
             {
@@ -212,9 +219,7 @@ namespace Fanex.LiveCharts.Controllers
                     IsChrome = Request.Browser.Browser.ToLower().Contains("chrome"),
                     ShowHandicap = handicapOddList.Any(),
                     ShowOverUnder = overUnderOddList.Any(),
-                    OpenSoonCountdown = openSoonCountDown,
-                    MemberId = SessionManager.CurrentSession.MemberId,
-                    IsStopScorePrediction = _scorePredictionService.IsStopScorePrediction(matchId)
+                    OpenSoonCountdown = openSoonCountDown
                 };
             }
             else

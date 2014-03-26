@@ -125,7 +125,7 @@ namespace Fanex.LiveCharts.Controllers
                     FormsAuthentication.SetAuthCookie(memberId.ToString(), false);
                     SetLanguage(language);
                     return RedirectToAction(
-                        "ChartContent",
+                        "MainPage",
                         "Charts",
                         new
                     {
