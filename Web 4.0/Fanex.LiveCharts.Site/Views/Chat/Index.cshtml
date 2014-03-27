@@ -8,7 +8,6 @@
 {
     <link rel="stylesheet" href="~/Content/MovementCharts/Chat.less" type="text/css" />
 }
-http://hassankhan.github.io/emojify.js/
 <div class="chat-room-container">
     <div class="chat-room-title">
         @Lang.ChatRoom
@@ -32,7 +31,7 @@ http://hassankhan.github.io/emojify.js/
     <div class="room-input">
         <div class="text-input">
             <textarea rows="1"  id="messageInput" placeholder="@Lang.Text"></textarea>
-            <div class="emoticon-container">
+            <div class="emoticon-container" id="btnEmoticon">
             </div>
         </div>
         <div class="text-submit">
@@ -76,6 +75,10 @@ http://hassankhan.github.io/emojify.js/
             format: 'HH:mm'
         }
 
+        var DEFAULT_OBJECT = 
+        {
+            emoticonsFolder: '@Url.Content("~/Scripts/Libs/Emoticon/Images")'
+        }
     </script>
     
     @Scripts.Render("~/bundles/chatroomjs")

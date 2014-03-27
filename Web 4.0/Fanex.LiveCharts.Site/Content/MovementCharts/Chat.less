@@ -1,4 +1,5 @@
 ﻿@import "../Bootstrap/bootstrap.less";
+@import "../../Scripts/Libs/PowerTip/jquery.powertip.less";
 
 @backGroundColor: #f2f2f2;
 @borderColor: #cccccc;
@@ -101,7 +102,10 @@
 					}
 				}
 
-				
+				.notification-content
+                {
+					margin-top: 0px;
+                }
 			}
         }
 
@@ -164,6 +168,7 @@
 				resize: none;
 				border-radius: 0px;
 				margin-top: 1px;
+				height: 20px;
             }
 
 			.emoticon-container
@@ -197,5 +202,13 @@
 				font-weight: bold;
             }
         }
+    }
+}
+
+.emoticon-img
+{
+	&:hover
+    {
+    	cursor: pointer;
     }
 }

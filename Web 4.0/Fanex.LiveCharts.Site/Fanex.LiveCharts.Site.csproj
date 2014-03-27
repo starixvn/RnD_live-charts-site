@@ -177,13 +177,31 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Content\Images\chart-spite.png" />
     <Content Include="Content\MovementCharts\MainPage.less" />
     <Content Include="Content\MovementCharts\Chat.less" />
     <Content Include="Scripts\Chat\ChatClient.js" />
     <Content Include="Scripts\Chat\ChatServer.js" />
     <Content Include="Scripts\Chat\ChatSignalRAdapter.js" />
     <Content Include="Scripts\Chat\ChatWindow.js" />
+    <Content Include="Scripts\Libs\Emoticon\Images\face-angel.png" />
+    <Content Include="Scripts\Libs\Emoticon\Images\face-crying.png" />
+    <Content Include="Scripts\Libs\Emoticon\Images\face-devilish.png" />
+    <Content Include="Scripts\Libs\Emoticon\Images\face-glasses.png" />
+    <Content Include="Scripts\Libs\Emoticon\Images\face-grin.png" />
+    <Content Include="Scripts\Libs\Emoticon\Images\face-kiss.png" />
+    <Content Include="Scripts\Libs\Emoticon\Images\face-monkey.png" />
+    <Content Include="Scripts\Libs\Emoticon\Images\face-plain.png" />
+    <Content Include="Scripts\Libs\Emoticon\Images\face-sad.png" />
+    <Content Include="Scripts\Libs\Emoticon\Images\face-smile-big.png" />
+    <Content Include="Scripts\Libs\Emoticon\Images\face-smile.png" />
+    <Content Include="Scripts\Libs\Emoticon\Images\face-surprise.png" />
+    <Content Include="Scripts\Libs\Emoticon\Images\face-wink.png" />
+    <Content Include="Scripts\Libs\Emoticon\jquery.emoticons.js" />
     <Content Include="Scripts\Libs\Moment\moment.js" />
+    <None Include="Scripts\Libs\PowerTip\jquery.powertip.less" />
+    <Content Include="Scripts\Libs\PowerTip\jquery.powertip.js" />
+    <Content Include="Scripts\Libs\PowerTip\jquery.powertip.min.js" />
     <Content Include="Views\Chat\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -247,7 +265,6 @@
     <Content Include="Content\Images\live-icon.gif" />
     <Content Include="Content\Images\loader3.gif" />
     <Content Include="Content\Images\right-arrow-more-detail.png" />
-    <Content Include="Content\Images\score-prediction-sprite.png" />
     <Content Include="Content\Images\Soccer_ball.png" />
     <Content Include="Content\Images\soccer_ball_full_page.png" />
     <Content Include="Content\Images\tile_bg.jpg" />

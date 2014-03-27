@@ -52,16 +52,15 @@ function ChatWindow() {
         me.$memberOnline = $('#memberOnline');
         me.$btnEmotiocons = $('#emobitonButton');
         me.$gmt8Timer = $('#gmt8Timer');
+        me.$btnEmoticon = $('#btnEmoticon');
     };
     //// Events
     me.registerEvents = function () {
         me.$btnSubmitMessage.unbind('click').click(me.chatServer.sendMessage);
         me.$memberOnline.unbind('click').click(me.chatClient.showDetailUserList);
-        
-        
+        me.registerEmoticon();
         //// Send Spam Notify: implement later
         //// Auto Enter
-        //// 
     };
 
     me.checkValidUser = function () {
@@ -73,6 +72,35 @@ function ChatWindow() {
             me.connectServer();
         }
     };
+
+    me.registerEmoticon = function () {
+        var tooltip = $("<div class='emoticon-icons'>" +
+                            ":) :-( ;) :D <br/>" +
+                            ":O (6) (A) :'( <br/>" +
+                            ":| :o) 8-) :-* (M)<br/>" +
+                        "</div>");
+        tooltip.emoticons(DEFAULT_OBJECT.emoticonsFolder);
+        tooltip.find('.emoticon-img').on('click', function () {
+            var $this = $(this);
+            me.$txtMessageInput.val(me.$txtMessageInput.val() + ' ' + $this.attr('alt'));
+        });
+        me.$btnEmoticon.data('powertipjq', tooltip);
+        me.$btnEmoticon.powerTip({
+            placement: 'n',
+            mouseOnToPopup: true
+        });
+    };
+
+    me.bindEventKeys = function () { };
+
+    me.startTimer = function () {
+        setInterval(function () {
+            me.$gmt8Timer.html(moment().zone(me.formatTimer.timeZone).format(me.formatTimer.format));
+        }, 1000);
+    };
+
+
+    //// Connect and Ajax
 
     me.insertChatUser = function (chatName) {
         if (chatName != null && chatName !== '') {
@@ -125,11 +153,7 @@ function ChatWindow() {
 //            + filename + '.mp3" /></audio>');
     };
 
-    me.startTimer = function () {
-        setInterval(function () {
-            me.$gmt8Timer.html(moment().zone(me.formatTimer.timeZone).format(me.formatTimer.format));
-        }, 1000);
-    };
+    
 }
 
 

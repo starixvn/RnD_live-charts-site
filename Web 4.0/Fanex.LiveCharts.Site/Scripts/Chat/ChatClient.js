@@ -28,14 +28,18 @@ function ChatClient(chatUser, chatRoom) {
         if (chatMessage) {
             me.isNextMessageFromSameUser = me.lastMessageBelongToChatUserId === chatMessage.ChatUser.ChatUserId;
             var messageTime = moment(chatMessage.CreateTime).zone(me.formatTimer.timeZone).format(me.formatTimer.format);
+            //// Emoticonize text
+            var tempDiv = $('<div>' + chatMessage.Content + '</div>');
+            var chatMessageContent = tempDiv.emoticons(DEFAULT_OBJECT.emoticonsFolder);
             me.$mainChatRoom.append('<li class="chat-message">'
                                     + (me.isNextMessageFromSameUser ? '' : '<div class="message-chat-name">' + chatMessage.ChatUser.ChatName + ':</div>')
                                     + '<div class="message-content">'
-                                        + '<div class="message-content-main">' + chatMessage.Content + '</div>'
+                                        + '<div class="message-content-main">' + chatMessageContent.html() + '</div>'
                                         + '<div class="message-content-time">' + messageTime + '</div>'
                                     + '</div>'
                                 + '</li>');
             me.lastMessageBelongToChatUserId = chatMessage.ChatUser.ChatUserId;
+            chatMessageContent = null;
         }
 
     };
@@ -98,7 +102,7 @@ function ChatClient(chatUser, chatRoom) {
         var classMessage = isJoin ? 'joined-message' : 'left-message';
 
         me.$mainChatRoom.append('<li class="chat-message">'
-                    + '<div class="message-content">'
+                    + '<div class="message-content notification-content">'
                         + '<div class="message-content-main ' + classMessage + '">'
                                 + message
                         + '</div>'
