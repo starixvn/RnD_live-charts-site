@@ -119,10 +119,15 @@ namespace Fanex.LiveCharts.Controllers
                         SessionManager.CurrentSession = new CurrentSession();
                     }
 
-                    SessionManager.CurrentSession.MemberId = memberId;
                     SessionManager.CurrentSession.Token = token;
                     SessionManager.CurrentSession.MatchId = matchId;
-                    FormsAuthentication.SetAuthCookie(memberId.ToString(), false);
+                    if (SessionManager.CurrentSession.MemberId != memberId
+                        || !HttpContext.User.Identity.IsAuthenticated)
+                    {
+                        SessionManager.CurrentSession.MemberId = memberId;
+                        FormsAuthentication.SetAuthCookie(memberId.ToString(), false);
+                    }
+
                     SetLanguage(language);
                     return RedirectToAction(
                         "MainPage",
@@ -238,21 +243,27 @@ namespace Fanex.LiveCharts.Controllers
                 case (int)LanguageType.ChineseTraditional:  // Traditional
                     SessionManager.CurrentSession.Language = "zh-TW";
                     break;
+
                 case (int)LanguageType.ChineseSimplified:  // Simplified
                     SessionManager.CurrentSession.Language = "zh-CN";
                     break;
+
                 case (int)LanguageType.Japanese:
                     SessionManager.CurrentSession.Language = "ja-JP";
                     break;
+
                 case (int)LanguageType.Thai: // Thai
                     SessionManager.CurrentSession.Language = "th-TH";
                     break;
+
                 case (int)LanguageType.Korean:  // Korean
                     SessionManager.CurrentSession.Language = "ko-KR";
                     break;
+
                 case (int)LanguageType.Vietnamese:  // Vietnamese
                     SessionManager.CurrentSession.Language = "vi-VN";
                     break;
+
                 case (int)LanguageType.English:
                 default:
                     SessionManager.CurrentSession.Language = "en-US";

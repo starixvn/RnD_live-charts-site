@@ -105,12 +105,12 @@ namespace Fanex.LiveCharts.Controllers
         {
             if (SessionManager.IsValid())
             {
-                if (SessionManager.CurrentSession.AdminId == 0
-                    && SessionManager.CurrentSession.MemberId > 0
-                    && SessionManager.CurrentSession.MatchId != matchId)
-                {
-                    return RedirectToAction("ShowOnlyOneMatch", "User");
-                }
+                ////if (SessionManager.CurrentSession.AdminId == 0
+                ////    && SessionManager.CurrentSession.MemberId > 0
+                ////    && SessionManager.CurrentSession.MatchId != matchId)
+                ////{
+                ////    return RedirectToAction("ShowOnlyOneMatch", "User");
+                ////}
 
                 var chartContentViewModel = GetChartContentViewModel(
                     matchId,

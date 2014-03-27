@@ -21,8 +21,6 @@ namespace Fanex.LiveCharts.Chat.Criteria
 
         public string ChatName { get; set; }
 
-        public string SignalRClientId { get; set; }
-
         public bool IsBanned { get; set; }
 
         public int ChatUserId { get; set; }

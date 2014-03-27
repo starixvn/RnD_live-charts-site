@@ -160,6 +160,24 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chat Name.
+        /// </summary>
+        public static string ChatName {
+            get {
+                return ResourceManager.GetString("ChatName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chat name cannot be empty!.
+        /// </summary>
+        public static string ChatNameCannotEmpty {
+            get {
+                return ResourceManager.GetString("ChatNameCannotEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chat Room.
         /// </summary>
         public static string ChatRoom {
@@ -363,6 +381,24 @@ namespace Fanex.LiveCharts.Resources {
         public static string InvalidInput {
             get {
                 return ResourceManager.GetString("InvalidInput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Join.
+        /// </summary>
+        public static string Join {
+            get {
+                return ResourceManager.GetString("Join", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Join Chat Room.
+        /// </summary>
+        public static string JoinChatRoom {
+            get {
+                return ResourceManager.GetString("JoinChatRoom", resourceCulture);
             }
         }
         
@@ -646,6 +682,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter your chat anme in order to join chat room..
+        /// </summary>
+        public static string PleaseEnterChatName {
+            get {
+                return ResourceManager.GetString("PleaseEnterChatName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Price.
         /// </summary>
         public static string Price {
@@ -687,6 +732,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string Refresh {
             get {
                 return ResourceManager.GetString("Refresh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Room Name.
+        /// </summary>
+        public static string RoomName {
+            get {
+                return ResourceManager.GetString("RoomName", resourceCulture);
             }
         }
         
@@ -849,6 +903,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string VsLabel {
             get {
                 return ResourceManager.GetString("VsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your chat name.
+        /// </summary>
+        public static string YourChatName {
+            get {
+                return ResourceManager.GetString("YourChatName", resourceCulture);
             }
         }
         

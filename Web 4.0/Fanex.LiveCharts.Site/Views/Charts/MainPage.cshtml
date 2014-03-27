@@ -3,10 +3,12 @@
 @{
     ViewBag.Title = "Main Page";
 }
+
 @section Styles
 {
     <link rel="stylesheet" href="~/Content/MovementCharts/MainPage.less" type="text/css" />
 }
+
 <div class="main-page">
     <div class="chart-page">
          <iframe id="frmChartPage" width="100%" height="100%" src="~/Charts/ChartContent?matchId=@(Model.MatchId.ToString())" frameborder="0"></iframe>
@@ -18,3 +20,16 @@
         <iframe id="frmChatPage" width="100%" height="100%" src="~/Chat/Index?matchId=@(Model.MatchId.ToString())" frameborder="0"></iframe>
     </div>
 </div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(function () {
+            try { $.blockUI(); } catch (e) { }
+            $('#frmChartPage, #frmScorePredictionPage, #frmChatPage').load(function () {
+                try { $.unblockUI(); } catch (e) { }
+            });
+            
+        });
+    </script>
+}

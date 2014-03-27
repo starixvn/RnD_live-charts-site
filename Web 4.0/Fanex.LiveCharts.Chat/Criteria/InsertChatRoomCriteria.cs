@@ -37,7 +37,7 @@ namespace Fanex.LiveCharts.Chat.Criteria
 
         public override bool IsValid()
         {
-            throw new NotImplementedException();
+            return MatchId > 0 && !string.IsNullOrEmpty(ChatRoomName);
         }
     }
 }

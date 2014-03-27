@@ -14,7 +14,9 @@
         ChatSignalRAdapter,
         ChatServer,
         CURRENT_TIME_FORMAT,
-        moment*/
+        moment,
+        DEFAULT_OBJECT,
+        LANGUAGE*/
 function ChatWindow() {
     'use strict';
     var me = this;
@@ -35,7 +37,6 @@ function ChatWindow() {
 
     //// Innitial all information
     me.init = function () {
-        try { $.blockUI(); } catch (e) { }
         me.cacheDOMElements();
         me.chatClient.init();
         me.chatServer.init();
@@ -43,7 +44,7 @@ function ChatWindow() {
         me.startTimer();
     };
 
-    //// cacheDomElements
+
     me.cacheDOMElements = function () {
         me.$soundContainer = $('#soundContainer');
         me.$mainChatRoom = $('#mainChatRoom');
@@ -53,11 +54,15 @@ function ChatWindow() {
         me.$btnEmotiocons = $('#emobitonButton');
         me.$gmt8Timer = $('#gmt8Timer');
         me.$btnEmoticon = $('#btnEmoticon');
+        me.$btnJoinRoom = $('#btnJoinRoom');
+        me.$popupJoinRoom = $('#popupJoinRoom');
+        me.$txtChatName = $('#txtChatName');
     };
-    //// Events
+
     me.registerEvents = function () {
         me.$btnSubmitMessage.unbind('click').click(me.chatServer.sendMessage);
         me.$memberOnline.unbind('click').click(me.chatClient.showDetailUserList);
+       
         me.registerEmoticon();
         //// Send Spam Notify: implement later
         //// Auto Enter
@@ -65,8 +70,10 @@ function ChatWindow() {
 
     me.checkValidUser = function () {
         if (me.chatUser.chatName === '') {
-            var chatName = prompt('Enter your name:', '');
-            me.insertChatUser(chatName);
+            me.$popupJoinRoom.modal({
+                backdrop: 'static'
+            });
+            me.$btnJoinRoom.unbind('click').click(me.insertChatUser);
         }
         else {
             me.connectServer();
@@ -75,9 +82,9 @@ function ChatWindow() {
 
     me.registerEmoticon = function () {
         var tooltip = $("<div class='emoticon-icons'>" +
-                            ":) :-( ;) :D <br/>" +
-                            ":O (6) (A) :'( <br/>" +
-                            ":| :o) 8-) :-* (M)<br/>" +
+                            ":) :-( ;) :D :O <br/>" +
+                            "(6) (A) :'( :| :o) <br/>" +
+                            "8-) :-* (M)<br/>" +
                         "</div>");
         tooltip.emoticons(DEFAULT_OBJECT.emoticonsFolder);
         tooltip.find('.emoticon-img').on('click', function () {
@@ -86,7 +93,7 @@ function ChatWindow() {
         });
         me.$btnEmoticon.data('powertipjq', tooltip);
         me.$btnEmoticon.powerTip({
-            placement: 'n',
+            placement: 'nw',
             mouseOnToPopup: true
         });
     };
@@ -99,10 +106,10 @@ function ChatWindow() {
         }, 1000);
     };
 
-
     //// Connect and Ajax
 
-    me.insertChatUser = function (chatName) {
+    me.insertChatUser = function () {
+        var chatName = me.$txtChatName.val();
         if (chatName != null && chatName !== '') {
             LIVECHARTS.callAjax({
                 url: me.url.insertChatUserUrl,
@@ -117,43 +124,31 @@ function ChatWindow() {
                         me.chatUser.chatUserId = result.InsertedId;
                         me.chatUser.chatName = chatName;
                         me.connectServer();
+                        me.$popupJoinRoom.modal('hide');
                     }
                     else {
-                        alert(result.Message);
+                        LIVECHARTS.alertMessage(LIVECHARTS.messageType.error, result.CommandResult.Message);
                     }
                 }
             });
         }
-        else
-        {
-            try { $.unblockUI(); } catch (e) { }
-            alert('Username cannot be null!');
+        else {
+            LIVECHARTS.alertMessage(LIVECHARTS.messageType.error, LANGUAGE.chatNameCannotEmpty);
+            me.$txtChatName.focus();
         }
     };
 
     me.connectServer = function () {
         me.chatAdapter.init(me, me.connectToServerDone);
     };
+
     me.connectToServerDone = function () {
         try { $.unblockUI(); } catch (e) { }
         me.registerEvents();
         me.chatServer.joinRoom();
+
+    };
         
-    };
-
-
-    //// Utilities
-    me.playSound = function () {
-//        if (!me.$soundContainer.length) {
-//            me.$soundContainer = $("<div>").attr("id", "soundContainer").appendTo($("body"));
-//        }
-//        $soundContainer.html('<audio autoplay="autoplay"><source src="'
-//            + filename + '.mp3" type="audio/mpeg" /><source src="'
-//            + filename + '.ogg" type="audio/ogg" /><embed hidden="true" autostart="true" loop="false" src="'
-//            + filename + '.mp3" /></audio>');
-    };
-
-    
 }
 
 

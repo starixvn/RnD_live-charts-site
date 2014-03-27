@@ -1,4 +1,5 @@
-﻿@import "../Bootstrap/bootstrap.less";
+﻿@import "../Bootstrap/bootstrap-common.less";
+@import "../Bootstrap/modals.less";
 @import "../../Scripts/Libs/PowerTip/jquery.powertip.less";
 
 @backGroundColor: #f2f2f2;
@@ -27,7 +28,8 @@
 
 		#mainChatRoom
         {
-        	margin-left: 0px;
+        	padding-left: 0px;
+			margin-top: 3px;
         }
 
     	.main-room
@@ -205,10 +207,27 @@
     }
 }
 
-.emoticon-img
+.emoticon-icons
 {
-	&:hover
+	.emoticon-img
+	{
+		&:hover
+		{
+    		cursor: pointer;
+		}
+	}
+}
+
+
+.form-horizontal 
+{
+	.control-label
     {
-    	cursor: pointer;
+    	width: 95px;
     }
+}
+
+ #messageNotification
+ {
+	top: 30px;	 
 }

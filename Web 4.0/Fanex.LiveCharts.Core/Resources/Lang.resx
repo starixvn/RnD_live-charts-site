@@ -384,4 +384,25 @@
   <data name="GMTPlus8" xml:space="preserve">
     <value>GMT+8</value>
   </data>
+  <data name="PleaseEnterChatName" xml:space="preserve">
+    <value>Please enter your chat anme in order to join chat room.</value>
+  </data>
+  <data name="YourChatName" xml:space="preserve">
+    <value>Your chat name</value>
+  </data>
+  <data name="JoinChatRoom" xml:space="preserve">
+    <value>Join Chat Room</value>
+  </data>
+  <data name="Join" xml:space="preserve">
+    <value>Join</value>
+  </data>
+  <data name="RoomName" xml:space="preserve">
+    <value>Room Name</value>
+  </data>
+  <data name="ChatName" xml:space="preserve">
+    <value>Chat Name</value>
+  </data>
+  <data name="ChatNameCannotEmpty" xml:space="preserve">
+    <value>Chat name cannot be empty!</value>
+  </data>
 </root>

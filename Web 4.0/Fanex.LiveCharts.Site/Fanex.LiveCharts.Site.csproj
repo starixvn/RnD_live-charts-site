@@ -177,6 +177,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="Content\Bootstrap\bootstrap-common.less" />
     <Content Include="Content\Images\chart-spite.png" />
     <Content Include="Content\MovementCharts\MainPage.less" />
     <Content Include="Content\MovementCharts\Chat.less" />
@@ -184,6 +185,7 @@
     <Content Include="Scripts\Chat\ChatServer.js" />
     <Content Include="Scripts\Chat\ChatSignalRAdapter.js" />
     <Content Include="Scripts\Chat\ChatWindow.js" />
+    <Content Include="Scripts\Libs\Bootstrap\bootstrap-modal.js" />
     <Content Include="Scripts\Libs\Emoticon\Images\face-angel.png" />
     <Content Include="Scripts\Libs\Emoticon\Images\face-crying.png" />
     <Content Include="Scripts\Libs\Emoticon\Images\face-devilish.png" />

@@ -1,6 +1,6 @@
 ﻿/* File Created: March 20, 2014 */
 /// <reference path="ChatSignalRAdapter.js" />
-/*global moment, CURRENT_TIME_FORMAT*/
+/*global moment, CURRENT_TIME_FORMAT, DEFAULT_OBJECT*/
 /*exported ChatClient*/
 function ChatClient(chatUser, chatRoom) {
     'use strict';
@@ -15,7 +15,9 @@ function ChatClient(chatUser, chatRoom) {
     me.isNextMessageFromSameUser = false;
 
     me.cachedDomElement = function () {
+
         me.$mainChatRoom = $('#mainChatRoom');
+        me.$parentMainChatRoom = me.$mainChatRoom.parent();
         me.$txtMessageInput = $('#messageInput');
         me.$btnSubmitMessage = $('#submitMessage');
         me.$memberOnline = $('#memberOnline');
@@ -24,14 +26,20 @@ function ChatClient(chatUser, chatRoom) {
         me.cachedDomElement();
     };
 
-    me.addMessage = function (chatMessage) {
+    me.addMessage = function (chatMessage, stopScrollTop) {
         if (chatMessage) {
             me.isNextMessageFromSameUser = me.lastMessageBelongToChatUserId === chatMessage.ChatUser.ChatUserId;
             var messageTime = moment(chatMessage.CreateTime).zone(me.formatTimer.timeZone).format(me.formatTimer.format);
+            //// Replace new line
+            chatMessage.Content = chatMessage.Content.replace(/\r\n/g, "<br />").replace(/\n/g, "<br />");
+            //result.replace(/\r\n\r\n/g, "</p><p>").replace(/\n\n/g, "</p><p>");
             //// Emoticonize text
             var tempDiv = $('<div>' + chatMessage.Content + '</div>');
             var chatMessageContent = tempDiv.emoticons(DEFAULT_OBJECT.emoticonsFolder);
-            me.$mainChatRoom.append('<li class="chat-message">'
+
+            me.$mainChatRoom.append('<li class="chat-message"'
+                                    + ' data-message-id="' + chatMessage.ChatMessageId + '"'
+                                    + ' data-chat-user-id="' + chatMessage.ChatUser.ChatUserId + '">'
                                     + (me.isNextMessageFromSameUser ? '' : '<div class="message-chat-name">' + chatMessage.ChatUser.ChatName + ':</div>')
                                     + '<div class="message-content">'
                                         + '<div class="message-content-main">' + chatMessageContent.html() + '</div>'
@@ -40,6 +48,10 @@ function ChatClient(chatUser, chatRoom) {
                                 + '</li>');
             me.lastMessageBelongToChatUserId = chatMessage.ChatUser.ChatUserId;
             chatMessageContent = null;
+
+            if (!stopScrollTop) {
+                me.scrollTop();
+            }
         }
 
     };
@@ -47,8 +59,10 @@ function ChatClient(chatUser, chatRoom) {
     me.updateChatMessageHistory = function (chatMessages) {
         for (var index in chatMessages) {
             var currentMesage = chatMessages[index];
-            me.addMessage(currentMesage);
+            me.addMessage(currentMesage, true);
         }
+
+        me.scrollTop();
     };
 
     me.showTypingSignal = function () { };
@@ -56,7 +70,9 @@ function ChatClient(chatUser, chatRoom) {
         if (me.$memberOnline && userList) {
             me.$memberOnline.html(userList.length);
             me.currentUserList = userList;
+            me.scrollTop();
         }
+
     };
     me.showDetailUserList = function () {
         if(me.currentUserList && me.currentUserList.length > 0)
@@ -79,18 +95,14 @@ function ChatClient(chatUser, chatRoom) {
     };
     me.removeMessage = function () { };
     me.notifyUserLeftRoom = function (chatUserInRoom, currentChatUserList) {
-        //if (chatUser != null && chatUser.ChatName) {
-        //    me.$mainChatRoom.append('<li>' + chatUser.ChatName + ' has left.</li>');
-        //}
-
-        //me.renderUserNotification(chatUser, ' joined room.');
-        //me.$mainChatRoom.append('<li>' + chatUserInRoom.ChatUserId + ' has left.</li>');
-        me.renderUserNotification(chatUserInRoom, ' has left.', false);
+        if (chatUserInRoom.ChatUserId !== me.chatUser.chatUserId) {
+            me.renderUserNotification(chatUserInRoom, ' has left.', false);
+        }
         me.updateUserList(currentChatUserList);
     };
 
     me.notifyUserJoinedRoom = function (chatUser, currentChatUserList) {
-        if (chatUser && chatUser.ChatName) {
+        if (chatUser && chatUser.ChatName && chatUser.ChatUserId !== me.chatUser.chatUserId) {
             me.renderUserNotification(chatUser, ' joined room.', true);
         }
         me.updateUserList(currentChatUserList);
@@ -116,4 +128,10 @@ function ChatClient(chatUser, chatRoom) {
         me.lastMessageBelongToChatUserId = 0;
         me.isNextMessageFromSameUser = false;
     };
+
+    me.scrollTop = function () {
+        me.$parentMainChatRoom.animate({ scrollTop: me.$mainChatRoom.height() });
+    };
+
+
 }
