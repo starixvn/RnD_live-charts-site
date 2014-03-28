@@ -165,7 +165,38 @@
     	.text-input
         {
 			padding-right: 70px;
-			padding-left: 5px;
+			padding-left: 27px;
+
+			.multiline-icon-container
+            {
+				position: absolute;
+				display: inline-block;
+				left: 7px;
+				top: 1px;
+				height: 26px;
+				width: 19px;
+				border: 1px solid @borderColor;
+
+				.multiline-icon
+				{
+					background-image: url("../Images/chart-spite.png");
+					background-repeat: no-repeat;
+					height: 16px;
+					width: 17px;
+					background-position: 0px -122px;
+					position: absolute;
+					top: 5px;
+					left: 4px;
+					z-index: 10;
+					cursor: pointer;
+
+					&.enable-multiline
+					{
+						background-position: 0px -138px;
+					
+					}
+				}
+			}
 
 			#messageInput
             {

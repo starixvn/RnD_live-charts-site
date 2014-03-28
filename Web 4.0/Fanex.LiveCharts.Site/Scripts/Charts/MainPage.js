@@ -14,10 +14,20 @@ function MainPage() {
 
     me.init = function () {
         me.cachedDomElements();
+        var clearBlockUI = false;
         try { $.blockUI(); } catch (e) { }
         me.$allFrame.load(function () {
+            clearBlockUI = true;
             try { $.unblockUI(); } catch (e) { }
         });
+
+        var blockUITimeOut = setTimeout(function () {
+            if (!clearBlockUI) {
+                try { $.unblockUI(); } catch (e) { }
+            }
+
+            clearTimeout(blockUITimeOut);
+        }, 10000);
 
 
         me.$btnCollapseExpand.unbind('click').click(me.collapseExpand);

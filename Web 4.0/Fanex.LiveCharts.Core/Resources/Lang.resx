@@ -411,4 +411,10 @@
   <data name="CollapseExpandScorePrediction" xml:space="preserve">
     <value>Collapse/Expand Score Prediction</value>
   </data>
+  <data name="MultilineOff" xml:space="preserve">
+    <value>Multi-Line OFF</value>
+  </data>
+  <data name="MultilineOn" xml:space="preserve">
+    <value>Multi-Line ON</value>
+  </data>
 </root>

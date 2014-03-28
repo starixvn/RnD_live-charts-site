@@ -29,6 +29,7 @@ function ChatWindow() {
     me.chatClient = new ChatClient(me.chatUser, me.chatRoom);
     me.chatServer = new ChatServer(me.chatAdapter, me.chatClient, me.chatUser, me.chatRoom, me.chatUserInRoom);
     me.formatTimer = CURRENT_TIME_FORMAT;
+    me.isMultiline = false;
     me.url = {
         getGetChatMessageByTimeUrl: LIVECHARTS.resolveUrl('Chat/GetGetChatMessageByTime'),
         getChatMessageByUserUrl: LIVECHARTS.resolveUrl('Chat/GetChatMessageByUser'),
@@ -57,12 +58,18 @@ function ChatWindow() {
         me.$btnJoinRoom = $('#btnJoinRoom');
         me.$popupJoinRoom = $('#popupJoinRoom');
         me.$txtChatName = $('#txtChatName');
+        me.$btnMultiline = $('#btnMultiline');
     };
 
     me.registerEvents = function () {
         me.$btnSubmitMessage.unbind('click').click(me.chatServer.sendMessage);
         me.$memberOnline.unbind('click').click(me.chatClient.showDetailUserList);
-       
+        me.$btnMultiline.unbind('click').click(me.multilineHandle);
+        me.$btnMultiline.powerTip({
+            placement: 'ne',
+            smartPlacement: true
+        });
+        me.$txtMessageInput.unbind('keypress').keypress(me.onKeyPress);
         me.registerEmoticon();
         //// Send Spam Notify: implement later
         //// Auto Enter
@@ -80,6 +87,13 @@ function ChatWindow() {
         }
     };
 
+    me.onKeyPress = function (event) {
+        if (event.which === 13) {
+            event.preventDefault();
+            me.$btnSubmitMessage.trigger('click');
+        }
+    };
+
     me.registerEmoticon = function () {
         var tooltip = $("<div class='emoticon-icons'>" +
                             ":) :-( ;) :D :O <br/>" +
@@ -89,13 +103,35 @@ function ChatWindow() {
         tooltip.emoticons(DEFAULT_OBJECT.emoticonsFolder);
         tooltip.find('.emoticon-img').on('click', function () {
             var $this = $(this);
-            me.$txtMessageInput.val(me.$txtMessageInput.val() + ' ' + $this.attr('alt'));
+            me.$txtMessageInput.focus().val(me.$txtMessageInput.val() + ' ' + $this.attr('alt'));
         });
         me.$btnEmoticon.data('powertipjq', tooltip);
         me.$btnEmoticon.powerTip({
             placement: 'nw',
             mouseOnToPopup: true
         });
+    };
+
+    me.multilineHandle = function () {
+        var $this = $(this),
+            currentStatus = $this.attr('data-multiline-status'),
+            currentTitle = '';
+
+        if (currentStatus === 'off') {
+            me.isMultiline = true;
+            $this.addClass('enable-multiline')
+                .attr('data-multiline-status', 'on');
+            currentTitle = $this.attr('data-multiline-on');
+            me.$txtMessageInput.unbind('keypress');
+        }
+        else {
+            me.isMultiline = false;
+            $this.removeClass('enable-multiline')
+                .attr('data-multiline-status', 'off');
+            currentTitle = $this.attr('data-multiline-off');
+            me.$txtMessageInput.unbind('keypress').keypress(me.onKeyPress);
+        }
+        $this.data('powertip', currentTitle);
     };
 
     me.bindEventKeys = function () { };

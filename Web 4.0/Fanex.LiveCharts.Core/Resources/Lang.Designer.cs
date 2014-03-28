@@ -556,6 +556,24 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Multi-Line OFF.
+        /// </summary>
+        public static string MultilineOff {
+            get {
+                return ResourceManager.GetString("MultilineOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Multi-Line ON.
+        /// </summary>
+        public static string MultilineOn {
+            get {
+                return ResourceManager.GetString("MultilineOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No Data is available.
         /// </summary>
         public static string NoDataAvailble {

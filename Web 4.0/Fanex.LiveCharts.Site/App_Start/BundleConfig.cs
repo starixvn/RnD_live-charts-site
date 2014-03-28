@@ -65,6 +65,8 @@ namespace Fanex.LiveCharts.Site
                 .Include("~/Scripts/Libs/Bootstrap/bootstrap-modal.js")
                 .Include("~/Scripts/Libs/PowerTip/jquery.powertip.js")
                 .Include("~/Scripts/Libs/Emoticon/jquery.emoticons.js")
+                .Include("~/Scripts/Libs/ProfanityFilter/swearWords.js")
+                .Include("~/Scripts/Libs/ProfanityFilter/jquery.profanityfilter.js")
                 .Include("~/Scripts/Chat/ChatSignalRAdapter.js")
                 .Include("~/Scripts/Chat/ChatServer.js")
                 .Include("~/Scripts/Chat/ChatClient.js")

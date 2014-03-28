@@ -244,7 +244,7 @@
 		 * @param {jQuery|Element} element The element with the powerTip instance.
 		 */
 		destroy: function apiDestroy(element) {
-			$(element).off('.powertip').each(function destroy() {
+		    $(element).off('.powertip').each(function destroy() {
 				var $this = $(this),
 					dataAttributes = [
 						DATA_ORIGINALTITLE,

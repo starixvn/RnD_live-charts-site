@@ -1,6 +1,6 @@
 ﻿/* File Created: March 20, 2014 */
 /// <reference path="ChatSignalRAdapter.js" />
-/*global moment, CURRENT_TIME_FORMAT, DEFAULT_OBJECT*/
+/*global moment, CURRENT_TIME_FORMAT, DEFAULT_OBJECT, swearWords*/
 /*exported ChatClient*/
 function ChatClient(chatUser, chatRoom) {
     'use strict';
@@ -27,33 +27,40 @@ function ChatClient(chatUser, chatRoom) {
     };
 
     me.addMessage = function (chatMessage, stopScrollTop) {
-        if (chatMessage) {
+        if (typeof chatMessage === 'object') {
             me.isNextMessageFromSameUser = me.lastMessageBelongToChatUserId === chatMessage.ChatUser.ChatUserId;
-            var messageTime = moment(chatMessage.CreateTime).zone(me.formatTimer.timeZone).format(me.formatTimer.format);
-            //// Replace new line
-            chatMessage.Content = chatMessage.Content.replace(/\r\n/g, "<br />").replace(/\n/g, "<br />");
-            //result.replace(/\r\n\r\n/g, "</p><p>").replace(/\n\n/g, "</p><p>");
-            //// Emoticonize text
-            var tempDiv = $('<div>' + chatMessage.Content + '</div>');
-            var chatMessageContent = tempDiv.emoticons(DEFAULT_OBJECT.emoticonsFolder);
-
+            chatMessage = me.preProcessMessageContent(chatMessage);
             me.$mainChatRoom.append('<li class="chat-message"'
                                     + ' data-message-id="' + chatMessage.ChatMessageId + '"'
                                     + ' data-chat-user-id="' + chatMessage.ChatUser.ChatUserId + '">'
                                     + (me.isNextMessageFromSameUser ? '' : '<div class="message-chat-name">' + chatMessage.ChatUser.ChatName + ':</div>')
                                     + '<div class="message-content">'
-                                        + '<div class="message-content-main">' + chatMessageContent.html() + '</div>'
-                                        + '<div class="message-content-time">' + messageTime + '</div>'
+                                        + '<div class="message-content-main">' + chatMessage.Content + '</div>'
+                                        + '<div class="message-content-time">' + chatMessage.MessageTime + '</div>'
                                     + '</div>'
                                 + '</li>');
             me.lastMessageBelongToChatUserId = chatMessage.ChatUser.ChatUserId;
-            chatMessageContent = null;
 
             if (!stopScrollTop) {
                 me.scrollTop();
             }
         }
 
+    };
+
+    me.preProcessMessageContent = function (chatMessage) {
+        chatMessage.MessageTime = moment(chatMessage.CreateTime).zone(me.formatTimer.timeZone).format(me.formatTimer.format);
+        chatMessage.Content = chatMessage.Content.replace(/\r\n/g, "<br />").replace(/\n/g, "<br />");
+        //result.replace(/\r\n\r\n/g, "</p><p>").replace(/\n\n/g, "</p><p>");
+        //// Emoticonize text and check bad word
+        var tempDiv = $('<div>' + chatMessage.Content + '</div>');
+        var chatMessageContent = tempDiv.emoticons(DEFAULT_OBJECT.emoticonsFolder).profanityFilter({
+            customSwears: swearWords
+        });
+        chatMessage.Content = chatMessageContent.html();
+        chatMessageContent = null;
+
+        return chatMessage;
     };
 
     me.updateChatMessageHistory = function (chatMessages) {

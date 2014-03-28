@@ -202,10 +202,13 @@
     <Content Include="Scripts\Libs\Emoticon\Images\face-wink.png" />
     <Content Include="Scripts\Libs\Emoticon\jquery.emoticons.js" />
     <Content Include="Scripts\Libs\Moment\moment.js" />
-    <None Include="Scripts\Libs\PowerTip\jquery.powertip.less" />
+    <Content Include="Scripts\Libs\PowerTip\jquery.powertip.less" />
     <Content Include="Scripts\Libs\PowerTip\jquery.powertip.js" />
     <Content Include="Scripts\Libs\PowerTip\jquery.powertip.min.js" />
+    <Content Include="Scripts\Libs\ProfanityFilter\jquery.profanityfilter.js" />
+    <Content Include="Scripts\Libs\ProfanityFilter\jquery.profanityfilter.min.js" />
     <Content Include="Views\Chat\Index.cshtml" />
+    <Content Include="Scripts\Libs\ProfanityFilter\swearWords.js" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
