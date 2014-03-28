@@ -405,4 +405,10 @@
   <data name="ChatNameCannotEmpty" xml:space="preserve">
     <value>Chat name cannot be empty!</value>
   </data>
+  <data name="MessageCannotEmpty" xml:space="preserve">
+    <value>Message cannot be empty!</value>
+  </data>
+  <data name="CollapseExpandScorePrediction" xml:space="preserve">
+    <value>Collapse/Expand Score Prediction</value>
+  </data>
 </root>

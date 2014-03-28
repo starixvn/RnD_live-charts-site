@@ -1,4 +1,5 @@
-﻿/*exported ChatServer*/
+﻿/*global LIVECHARTS, LANGUAGE*/
+/*exported ChatServer*/
 
 function ChatServer(chatAdapter, chatClient, chatUser, chatRoom, chatUserInRoom )
 {
@@ -24,13 +25,19 @@ function ChatServer(chatAdapter, chatClient, chatUser, chatRoom, chatUserInRoom 
     };
 
     me.sendMessage = function () {
-        me.chatAdapter.server.sendMessage({
-            Content: me.$txtMessageInput.val(),
-            ChatUser: me.chatUser,
-            ChatRoom: me.chatRoom
-        });
+        var currentMessage = me.$txtMessageInput.val();
+        if (currentMessage !== '') {
+            me.chatAdapter.server.sendMessage({
+                Content: currentMessage,
+                ChatUser: me.chatUser,
+                ChatRoom: me.chatRoom
+            });
 
-        me.$txtMessageInput.val('');
+            me.$txtMessageInput.val('');
+        }
+        else {
+            LIVECHARTS.alertMessage(LIVECHARTS.messageType.error, LANGUAGE.messageCannotEmpty);
+        }
     };
 
     me.joinRoom = function () {

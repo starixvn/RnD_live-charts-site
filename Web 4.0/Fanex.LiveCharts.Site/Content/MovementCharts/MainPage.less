@@ -21,7 +21,7 @@ body {
     {
 		float: left;
 		width: 577px;
-		height: 685px;
+		height: 680px;
 		border-right: 1px solid #758e9f;
 		background-color: inherit;
     }
@@ -32,14 +32,77 @@ body {
 		width: 420px;
 		height: 305px;
 		background-color: inherit;
+		position: relative;
 		border-bottom: 1px solid #758e9f;
+
+		&.collapse
+        {
+			height: 24px;
+        }
     }
 
 	.chat-page
     {
 		float: left;
-		height: 380px;
+		height: 374px;
 		width: 420px;
 		background-color: inherit;
+
+		&.expand
+        {
+        	height: 655px;
+        }
     }
+
+	
+	.collapse-expand-icon
+	{
+		width: 21px;
+		height: 21px;
+		background: url(../Images/chart-spite.png) no-repeat;
+		background-position: 4px -88px;
+		display: block;
+		position: absolute;
+		right: 3px;
+		top: 1px;
+		cursor: pointer;
+
+		&.expand
+		{
+			background-position: 4px -104px;
+		}
+	}
+
+	.btn
+    {
+		display: inline-block;
+		margin-bottom: 0;
+		font-size: 11px;
+		line-height: 18px;
+		text-align: center;
+		vertical-align: middle;
+		cursor: pointer;
+		color: #333333;
+		text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+		border-color: #e6e6e6 #e6e6e6 silver;
+		border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+		border: 1px solid #cccccc;
+		border-bottom-color: #b3b3b3;
+		-webkit-border-radius: 4px;
+		-moz-border-radius: 4px;
+		border-radius: 4px;
+		-webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+		-moz-box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+		box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+		
+		&:hover
+        {
+        	color: #333333;
+			text-decoration: none;
+			background-color: #e6e6e6;
+			cursor: pointer;
+        }
+	}
+
+
 }

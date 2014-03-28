@@ -223,6 +223,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Collapse/Expand Score Prediction.
+        /// </summary>
+        public static string CollapseExpandScorePrediction {
+            get {
+                return ResourceManager.GetString("CollapseExpandScorePrediction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Correct Score.
         /// </summary>
         public static string CorrectScore {
@@ -516,6 +525,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string Members {
             get {
                 return ResourceManager.GetString("Members", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Message cannot be empty!.
+        /// </summary>
+        public static string MessageCannotEmpty {
+            get {
+                return ResourceManager.GetString("MessageCannotEmpty", resourceCulture);
             }
         }
         
