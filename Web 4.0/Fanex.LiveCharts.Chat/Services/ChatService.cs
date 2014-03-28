@@ -76,10 +76,6 @@ namespace Fanex.LiveCharts.Chat.Services
         public InsertResult InsertChatMessage(InsertChatMessageCriteria insertChatMessageCriteria)
         {
             insertChatMessageCriteria.CreateTime = DateTime.Now;
-            if (!string.IsNullOrEmpty(insertChatMessageCriteria.Content))
-            {
-                insertChatMessageCriteria.Content = HttpUtility.HtmlEncode(insertChatMessageCriteria.Content);
-            }
 
             var insertResult = _chatRepository.ModifyData(insertChatMessageCriteria, "ChatMessageId");
 

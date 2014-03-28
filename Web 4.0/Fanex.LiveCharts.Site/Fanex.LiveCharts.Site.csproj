@@ -177,7 +177,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <None Include="Content\Bootstrap\bootstrap-common.less" />
+    <Content Include="Content\Bootstrap\bootstrap-common.less" />
     <Content Include="Content\Images\chart-spite.png" />
     <Content Include="Content\MovementCharts\MainPage.less" />
     <Content Include="Content\MovementCharts\Chat.less" />

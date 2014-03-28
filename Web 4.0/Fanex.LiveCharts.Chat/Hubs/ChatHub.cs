@@ -16,6 +16,7 @@ namespace Fanex.LiveCharts.Chat.Hubs
     using Fanex.LiveCharts.Chat.Models;
     using Fanex.LiveCharts.Chat.Services;
     using Microsoft.AspNet.SignalR;
+    using System.Web;
 
     /// <summary>
     /// TODO: Update summary.
@@ -40,6 +41,8 @@ namespace Fanex.LiveCharts.Chat.Hubs
         /// <param name="chatMessage">Current message need be sent.</param>
         public void SendMessage(ChatMessage chatMessage)
         {
+            chatMessage.Content = HttpUtility.HtmlEncode(chatMessage.Content);
+
             var commandResult = _chatService.InsertChatMessage(new InsertChatMessageCriteria
             {
                 ChatRoomId = chatMessage.ChatRoom.ChatRoomId,

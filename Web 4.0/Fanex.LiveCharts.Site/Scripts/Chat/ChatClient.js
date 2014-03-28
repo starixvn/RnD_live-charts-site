@@ -13,6 +13,7 @@ function ChatClient(chatUser, chatRoom) {
     me.formatTimer = CURRENT_TIME_FORMAT;
     me.lastMessageBelongToChatUserId = 0;
     me.isNextMessageFromSameUser = false;
+    me.userList = {};
 
     me.cachedDomElement = function () {
 
@@ -30,10 +31,14 @@ function ChatClient(chatUser, chatRoom) {
         if (typeof chatMessage === 'object') {
             me.isNextMessageFromSameUser = me.lastMessageBelongToChatUserId === chatMessage.ChatUser.ChatUserId;
             chatMessage = me.preProcessMessageContent(chatMessage);
+            if (typeof me.userList[chatMessage.ChatUser.ChatUserId] === 'undefined') {
+                me.userList[chatMessage.ChatUser.ChatUserId] = me.randomColor();
+            }
+
             me.$mainChatRoom.append('<li class="chat-message"'
                                     + ' data-message-id="' + chatMessage.ChatMessageId + '"'
                                     + ' data-chat-user-id="' + chatMessage.ChatUser.ChatUserId + '">'
-                                    + (me.isNextMessageFromSameUser ? '' : '<div class="message-chat-name">' + chatMessage.ChatUser.ChatName + ':</div>')
+                                    + (me.isNextMessageFromSameUser ? '' : '<div class="message-chat-name" style="color:' + me.userList[chatMessage.ChatUser.ChatUserId] + ';">' + chatMessage.ChatUser.ChatName + ':</div>')
                                     + '<div class="message-content">'
                                         + '<div class="message-content-main">' + chatMessage.Content + '</div>'
                                         + '<div class="message-content-time">' + chatMessage.MessageTime + '</div>'
@@ -137,8 +142,12 @@ function ChatClient(chatUser, chatRoom) {
     };
 
     me.scrollTop = function () {
-        me.$parentMainChatRoom.animate({ scrollTop: me.$mainChatRoom.height() });
+        me.$parentMainChatRoom.animate({ scrollTop: me.$mainChatRoom.height() + 2000 });
     };
 
+    me.randomColor = function () {
+        var randomColor = '#' + Math.random().toString(16).substr(2, 6);
 
+        return randomColor;
+    };
 }
