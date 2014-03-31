@@ -6,17 +6,17 @@
 /// <reference path="ChatServer.js" />
 
 /*global LIVECHARTS, 
-        CURRENT_CHAT_USER, 
-        ChatClient, 
-        CURRENT_CHAT_ROOM, 
-        CURRENT_CHAT_USER_IN_ROOM, 
-        ChatClient,
-        ChatSignalRAdapter,
-        ChatServer,
-        CURRENT_TIME_FORMAT,
-        moment,
-        DEFAULT_OBJECT,
-        LANGUAGE*/
+CURRENT_CHAT_USER, 
+ChatClient, 
+CURRENT_CHAT_ROOM, 
+CURRENT_CHAT_USER_IN_ROOM, 
+ChatClient,
+ChatSignalRAdapter,
+ChatServer,
+CURRENT_TIME_FORMAT,
+moment,
+DEFAULT_OBJECT,
+LANGUAGE*/
 function ChatWindow() {
     'use strict';
     var me = this;
@@ -30,6 +30,7 @@ function ChatWindow() {
     me.chatServer = new ChatServer(me.chatAdapter, me.chatClient, me.chatUser, me.chatRoom, me.chatUserInRoom);
     me.formatTimer = CURRENT_TIME_FORMAT;
     me.isMultiline = false;
+    me.maxRowsInput = 12;
     me.url = {
         getGetChatMessageByTimeUrl: LIVECHARTS.resolveUrl('Chat/GetGetChatMessageByTime'),
         getChatMessageByUserUrl: LIVECHARTS.resolveUrl('Chat/GetChatMessageByUser'),
@@ -69,7 +70,7 @@ function ChatWindow() {
             placement: 'ne',
             smartPlacement: true
         });
-        me.$txtMessageInput.unbind('keypress').keypress(me.onKeyPress);
+        me.$txtMessageInput.unbind('keypress').keypress(me.onKeyPressForSingleLine);
         me.registerEmoticon();
         //// Send Spam Notify: implement later
         //// Auto Enter
@@ -81,16 +82,46 @@ function ChatWindow() {
                 backdrop: 'static'
             });
             me.$btnJoinRoom.unbind('click').click(me.insertChatUser);
+            me.$txtChatName.unbind('keypress').keypress(me.onKeyPressForInsertingChatUser);
         }
         else {
             me.connectServer();
         }
     };
 
-    me.onKeyPress = function (event) {
+    me.onKeyPressForSingleLine = function (event) {
+        if ((event.ctrlKey && (event.which == 13)) || (event.which == 10)) {
+            event.preventDefault();
+            $(this).val($(this).val() + "\n");
+            return;
+        }
+
+        if (event.which === 13) {
+
+                event.preventDefault();
+                me.$btnSubmitMessage.trigger('click');
+
+        }
+
+
+    };
+
+    me.onKeyPressForMultipleLine = function (event) {
+        if (event.which === 13) {
+            var $this = $(this);
+            var currentContent = $this.val();
+            var lines = currentContent.split('\n');
+            if (lines.length >= me.maxRowsInput)
+            {
+                event.preventDefault();
+            }
+        }
+    };
+
+    me.onKeyPressForInsertingChatUser = function (event) {
         if (event.which === 13) {
             event.preventDefault();
-            me.$btnSubmitMessage.trigger('click');
+            me.insertChatUser();
         }
     };
 
@@ -122,14 +153,14 @@ function ChatWindow() {
             $this.addClass('enable-multiline')
                 .attr('data-multiline-status', 'on');
             currentTitle = $this.attr('data-multiline-on');
-            me.$txtMessageInput.unbind('keypress');
+            me.$txtMessageInput.unbind('keypress').keypress(me.onKeyPressForMultipleLine);
         }
         else {
             me.isMultiline = false;
             $this.removeClass('enable-multiline')
                 .attr('data-multiline-status', 'off');
             currentTitle = $this.attr('data-multiline-off');
-            me.$txtMessageInput.unbind('keypress').keypress(me.onKeyPress);
+            me.$txtMessageInput.unbind('keypress').keypress(me.onKeyPressForSingleLine);
         }
         $this.data('powertip', currentTitle);
     };
@@ -184,7 +215,6 @@ function ChatWindow() {
         me.chatServer.joinRoom();
 
     };
-        
 }
 
 

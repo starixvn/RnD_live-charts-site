@@ -30,12 +30,25 @@
         {
         	padding-left: 0px;
 			margin-top: 3px;
+			clear: both;
         }
 
     	.main-room
         {
 			height: 277px;
 			overflow: auto;
+
+			.show-message-history
+            {
+            	float: right;
+				margin: 1px 5px;
+				color: blue;
+
+				&:hover
+                {
+                	cursor: pointer;
+                }
+            }
 
 			.chat-message
             {
@@ -61,7 +74,7 @@
 						float: left;
 						margin-right: 95px;
 						padding: 0px 5px;
-
+						width: 90%;
 						word-wrap: break-word;
 
 						&.joined-message

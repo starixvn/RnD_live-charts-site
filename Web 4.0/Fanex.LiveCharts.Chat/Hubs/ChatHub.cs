@@ -149,13 +149,12 @@ namespace Fanex.LiveCharts.Chat.Hubs
         /// <param name="chatRoomId">Current chat room.</param>
         /// <param name="pastMinutes">How many minutes for getting data.</param>
         /// <returns>History messages.</returns>
-        public IEnumerable<ChatMessage> GetChatMessageHistory(int chatRoomId, int pastMinutes)
+        public IEnumerable<ChatMessage> GetChatMessageHistory(int chatRoomId, DateTime? lastestTime)
         {
             GetChatMessageByTimeCriteria getChatMessageByTimeCriteria = new GetChatMessageByTimeCriteria
             {
                 ChatRoomId = chatRoomId,
-                ToTime = DateTime.Now,
-                FromTime = DateTime.Now.Subtract(new TimeSpan(0, pastMinutes, 0))
+                LatestTime = lastestTime ?? DateTime.Now
             };
 
             var chatMessageList = _chatService.GetChatMessagesByTime(getChatMessageByTimeCriteria);

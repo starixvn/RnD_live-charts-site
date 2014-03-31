@@ -13,6 +13,7 @@
     </div>
     <div class="room-container">
         <div class="main-room" id="chatConversation">
+            <div id="showMessageHistory" class="show-message-history" style="display: none;">@Lang.ShowHistoryMessages</div>
             <ul id="mainChatRoom">
             </ul>
         </div>
@@ -32,7 +33,7 @@
             <div class="multiline-icon-container">
                 <span class="multiline-icon" id="btnMultiline" title="@Lang.MultilineOff" data-multiline-on="@Lang.MultilineOn" data-multiline-off="@Lang.MultilineOff" data-multiline-status="off"></span>
             </div>
-            <textarea rows="1"  id="messageInput" placeholder="@Lang.Text"></textarea>
+            <textarea id="messageInput" placeholder="@Lang.Text" maxlength="1000"></textarea>
             <div class="emoticon-container" id="btnEmoticon">
             </div>
         </div>

@@ -417,4 +417,7 @@
   <data name="MultilineOn" xml:space="preserve">
     <value>Multi-Line ON</value>
   </data>
+  <data name="ShowHistoryMessages" xml:space="preserve">
+    <value>Show History Messages</value>
+  </data>
 </root>

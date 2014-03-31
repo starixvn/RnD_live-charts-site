@@ -44,6 +44,8 @@ jQuery.fn.emoticons = function (icon_folder) {
             for (var i = 0; i < emotes[emoticon].length; i++) {
                 /* css class of images is emoticonimg for styling them*/
                 var currentEmoticon = emotes[emoticon][i];
+                //var re = new RegExp('\\b' + currentEmoticon + '\\b', 'gi');
+                //html = html.replace(re, '<img src="' + icon_folder + '/face-' + emoticon + '.png" title="' + emoticon + ' ' + currentEmoticon + '" class="emoticon-img" alt="' + currentEmoticon + '"/>');
                 html = html.split(currentEmoticon).join('<img src="' + icon_folder + '/face-' + emoticon + '.png" title="' + emoticon + ' ' + currentEmoticon + '" class="emoticon-img" alt="' + currentEmoticon + '"/>');
             }
         }

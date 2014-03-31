@@ -22,9 +22,7 @@ namespace Fanex.LiveCharts.Chat.Criteria
     {
         public int ChatRoomId { get; set; }
 
-        public DateTime FromTime { get; set; }
-
-        public DateTime ToTime { get; set; }
+        public DateTime LatestTime { get; set; }
 
         public override string GetSettingKey()
         {
@@ -33,7 +31,7 @@ namespace Fanex.LiveCharts.Chat.Criteria
 
         public override bool IsValid()
         {
-            throw new NotImplementedException();
+            return ChatRoomId > 0;
         }
     }
 }

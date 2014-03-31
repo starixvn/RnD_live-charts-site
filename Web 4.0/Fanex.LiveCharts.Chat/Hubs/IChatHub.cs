@@ -9,6 +9,7 @@
 
 namespace Fanex.LiveCharts.Chat.Hubs
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Fanex.LiveCharts.Chat.Models;
@@ -28,7 +29,7 @@ namespace Fanex.LiveCharts.Chat.Hubs
 
         IEnumerable<ChatUser> GetUserList(ChatRoom chatRoom);
 
-        IEnumerable<ChatMessage> GetChatMessageHistory(int chatRoomId, int pastMinutes);
+        IEnumerable<ChatMessage> GetChatMessageHistory(int chatRoomId, DateTime? lastedTime);
 
         Task JoinRoom(ChatUser chatUser, ChatRoom chatRoom, ChatUserInRoom chatUserInRoom);
 

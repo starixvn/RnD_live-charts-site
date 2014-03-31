@@ -12,7 +12,11 @@ function ChatClient(chatUser, chatRoom) {
     me.currentMessageHistory = null;
     me.formatTimer = CURRENT_TIME_FORMAT;
     me.lastMessageBelongToChatUserId = 0;
+    me.firstMessageBelongToChatUserId = 0;
     me.isNextMessageFromSameUser = false;
+    me.numberOfHistoryMessagesShowing = 12;
+    me.numberOfHistoryMessagesPaging = 100;
+    me.historyMessages = [];
     me.userList = {};
 
     me.cachedDomElement = function () {
@@ -22,6 +26,7 @@ function ChatClient(chatUser, chatRoom) {
         me.$txtMessageInput = $('#messageInput');
         me.$btnSubmitMessage = $('#submitMessage');
         me.$memberOnline = $('#memberOnline');
+        me.$btnShowHistoryMessage = $('#showMessageHistory');
     };
     me.init = function () {
         me.cachedDomElement();
@@ -30,34 +35,53 @@ function ChatClient(chatUser, chatRoom) {
     me.addMessage = function (chatMessage, stopScrollTop) {
         if (typeof chatMessage === 'object') {
             me.isNextMessageFromSameUser = me.lastMessageBelongToChatUserId === chatMessage.ChatUser.ChatUserId;
-            chatMessage = me.preProcessMessageContent(chatMessage);
+            chatMessage = me.preProcessMessage(chatMessage);
             if (typeof me.userList[chatMessage.ChatUser.ChatUserId] === 'undefined') {
                 me.userList[chatMessage.ChatUser.ChatUserId] = me.randomColor();
             }
 
-            me.$mainChatRoom.append('<li class="chat-message"'
-                                    + ' data-message-id="' + chatMessage.ChatMessageId + '"'
-                                    + ' data-chat-user-id="' + chatMessage.ChatUser.ChatUserId + '">'
-                                    + (me.isNextMessageFromSameUser ? '' : '<div class="message-chat-name" style="color:' + me.userList[chatMessage.ChatUser.ChatUserId] + ';">' + chatMessage.ChatUser.ChatName + ':</div>')
-                                    + '<div class="message-content">'
-                                        + '<div class="message-content-main">' + chatMessage.Content + '</div>'
-                                        + '<div class="message-content-time">' + chatMessage.MessageTime + '</div>'
-                                    + '</div>'
-                                + '</li>');
+            var messageText = me.buildMessage(chatMessage, me.isNextMessageFromSameUser);
             me.lastMessageBelongToChatUserId = chatMessage.ChatUser.ChatUserId;
 
+            me.$mainChatRoom.append(messageText);
             if (!stopScrollTop) {
                 me.scrollTop();
             }
-        }
 
+        }
     };
 
-    me.preProcessMessageContent = function (chatMessage) {
+    me.prependHistoryMessage = function (chatMessage, chatPreviousUserId) {
+        if (typeof chatMessage === 'object') {
+            me.isPreviousMessageFromSameUser = chatPreviousUserId === chatMessage.ChatUser.ChatUserId;
+            chatMessage = me.preProcessMessage(chatMessage);
+            if (typeof me.userList[chatMessage.ChatUser.ChatUserId] === 'undefined') {
+                me.userList[chatMessage.ChatUser.ChatUserId] = me.randomColor();
+            }
+            var messageText = me.buildMessage(chatMessage, me.isPreviousMessageFromSameUser);
+            me.$mainChatRoom.prepend(messageText);
+        }
+    };
+
+    me.buildMessage = function (chatMessage, isNextMessageFromSameUser) {
+        return '<li class="chat-message"'
+                    + ' data-message-id="' + chatMessage.ChatMessageId + '"'
+                    + ' data-chat-user-id="' + chatMessage.ChatUser.ChatUserId + '">'
+                    + (isNextMessageFromSameUser ?
+                        '' :
+                        '<div class="message-chat-name" style="color:' + me.userList[chatMessage.ChatUser.ChatUserId] + ';">'
+                            + chatMessage.ChatUser.ChatName
+                        + ':</div>')
+                    + '<div class="message-content">'
+                        + '<div class="message-content-main">' + chatMessage.Content + '</div>'
+                        + '<div class="message-content-time">' + chatMessage.MessageTime + '</div>'
+                    + '</div>'
+                + '</li>';
+    }
+
+    me.preProcessMessage = function (chatMessage) {
         chatMessage.MessageTime = moment(chatMessage.CreateTime).zone(me.formatTimer.timeZone).format(me.formatTimer.format);
         chatMessage.Content = chatMessage.Content.replace(/\r\n/g, "<br />").replace(/\n/g, "<br />");
-        //result.replace(/\r\n\r\n/g, "</p><p>").replace(/\n\n/g, "</p><p>");
-        //// Emoticonize text and check bad word
         var tempDiv = $('<div>' + chatMessage.Content + '</div>');
         var chatMessageContent = tempDiv.emoticons(DEFAULT_OBJECT.emoticonsFolder).profanityFilter({
             customSwears: swearWords
@@ -69,15 +93,29 @@ function ChatClient(chatUser, chatRoom) {
     };
 
     me.updateChatMessageHistory = function (chatMessages) {
-        for (var index in chatMessages) {
-            var currentMesage = chatMessages[index];
+        me.historyMessages = chatMessages;
+        var messageLength = me.historyMessages.length;
+        var lastMessageArray = [];
+
+        if (me.numberOfHistoryMessagesShowing > messageLength) {
+            lastMessageArray = me.historyMessages;
+        }
+        else {
+            lastMessageArray = me.historyMessages.slice(messageLength - me.numberOfHistoryMessagesShowing, messageLength);
+            me.$btnShowHistoryMessage.unbind('click').click(me.showPreviousMessages).show();
+        }
+
+        for (var index in lastMessageArray) {
+            var currentMesage = lastMessageArray[index];
+            if (parseInt(index) === 0) {
+                me.firstMessageBelongToChatUserId = currentMesage.ChatUser.ChatUserId;
+            }
             me.addMessage(currentMesage, true);
         }
 
         me.scrollTop();
     };
 
-    me.showTypingSignal = function () { };
     me.updateUserList = function (userList) {
         if (me.$memberOnline && userList) {
             me.$memberOnline.html(userList.length);
@@ -86,6 +124,31 @@ function ChatClient(chatUser, chatRoom) {
         }
 
     };
+
+    me.showPreviousMessages = function () {
+        var currentShowingMessageIndex = me.numberOfHistoryMessagesShowing,
+            currentMessageLength = me.historyMessages.length,
+            fromIndex = 0,
+            toIndex = currentMessageLength - currentShowingMessageIndex - 1;
+        if (currentShowingMessageIndex + me.numberOfHistoryMessagesPaging < currentMessageLength) {
+            fromIndex = me.numberOfHistoryMessagesPaging - me.numberOfHistoryMessagesPaging;
+        }
+
+        for (var i = toIndex; i >= fromIndex; i--) {
+            var previousUserId = 0;
+            if (i > 0) {
+                previousUserId = me.historyMessages[i - 1].ChatUser.ChatUserId;
+            }
+            me.prependHistoryMessage(me.historyMessages[i], previousUserId);
+        }
+
+        if (fromIndex === 0) {
+            me.$btnShowHistoryMessage.hide();
+        }
+
+        me.numberOfHistoryMessagesShowing += me.numberOfHistoryMessagesPaging;
+    };
+
     me.showDetailUserList = function () {
         if(me.currentUserList && me.currentUserList.length > 0)
         {
@@ -98,14 +161,15 @@ function ChatClient(chatUser, chatRoom) {
             alert(userChatNameList.join(',\n'));
         }
     };
-    me.showAnnounceMessage = function () { };
+
     me.kickOutUserChat = function (chatUser) {
         if(chatUser && chatUser.chatUserId === me.chatUser.chatUserId)
         {
-            alert('User is kicked out!');
+            //alert('User is kicked out!');
+            // User kickout handler
         }
     };
-    me.removeMessage = function () { };
+
     me.notifyUserLeftRoom = function (chatUserInRoom, currentChatUserList) {
         if (chatUserInRoom.ChatUserId !== me.chatUser.chatUserId) {
             me.renderUserNotification(chatUserInRoom, ' has left.', false);
@@ -142,7 +206,10 @@ function ChatClient(chatUser, chatRoom) {
     };
 
     me.scrollTop = function () {
-        me.$parentMainChatRoom.animate({ scrollTop: me.$mainChatRoom.height() + 2000 });
+        ///var scrollTopTimeOutId = setTimeout(function () {
+            me.$parentMainChatRoom.animate({ scrollTop: me.$mainChatRoom.height() + 2000 });
+        //    clearTimeout(scrollTopTimeOutId);
+        //}, 10);
     };
 
     me.randomColor = function () {

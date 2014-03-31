@@ -808,6 +808,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show History Messages.
+        /// </summary>
+        public static string ShowHistoryMessages {
+            get {
+                return ResourceManager.GetString("ShowHistoryMessages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Soccer.
         /// </summary>
         public static string Soccer {
