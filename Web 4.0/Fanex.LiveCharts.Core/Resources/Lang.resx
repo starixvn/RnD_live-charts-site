@@ -420,4 +420,7 @@
   <data name="ShowHistoryMessages" xml:space="preserve">
     <value>Show History Messages</value>
   </data>
+  <data name="YouAreDisconnect" xml:space="preserve">
+    <value>You are disconnect bescause another session join this room.</value>
+  </data>
 </root>

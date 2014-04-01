@@ -90,7 +90,7 @@ function ChatWindow() {
     };
 
     me.onKeyPressForSingleLine = function (event) {
-        if ((event.ctrlKey && (event.which == 13)) || (event.which == 10)) {
+        if ((event.ctrlKey && (event.which === 13)) || (event.which === 10)) {
             event.preventDefault();
             $(this).val($(this).val() + "\n");
             return;

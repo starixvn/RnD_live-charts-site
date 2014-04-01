@@ -16,6 +16,7 @@ function ChatSignalRAdapter() {
         me.hub.client.removeMessage = chatWindow.chatClient.removeMessage;
         me.hub.client.notifyUserLeftRoom = chatWindow.chatClient.notifyUserLeftRoom;
         me.hub.client.notifyUserJoinedRoom = chatWindow.chatClient.notifyUserJoinedRoom;
+        me.hub.client.kickoutBecauseChatSameRoom = chatWindow.chatClient.kickoutBecauseChatSameRoom;
 
         if (!window.hubReady) {
             window.hubReady = $.connection.hub.start();

@@ -952,6 +952,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You are disconnect bescause another session join this room..
+        /// </summary>
+        public static string YouAreDisconnect {
+            get {
+                return ResourceManager.GetString("YouAreDisconnect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Your chat name.
         /// </summary>
         public static string YourChatName {

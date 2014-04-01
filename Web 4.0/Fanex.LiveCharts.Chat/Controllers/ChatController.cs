@@ -71,6 +71,11 @@ namespace Fanex.LiveCharts.Chat.Controllers
                 });
         }
 
+        public ActionResult YouAreDisconnect()
+        { 
+            return View();
+        }
+
         [HttpPost]
         public JsonResult GetChatMessageByTime(GetChatMessageByTimeCriteria getChatMessageByTimeCriteria)
         {

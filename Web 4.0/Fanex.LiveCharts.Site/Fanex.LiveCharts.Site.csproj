@@ -567,6 +567,7 @@
     <Content Include="Views\ScorePrediction\Index.cshtml" />
     <Content Include="Scripts\Libs\Spinner\jquery.stepper.less" />
     <Content Include="Views\Charts\MainPage.cshtml" />
+    <Content Include="Views\Chat\YouAreDisconnect.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

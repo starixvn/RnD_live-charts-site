@@ -77,7 +77,7 @@ function ChatClient(chatUser, chatRoom) {
                         + '<div class="message-content-time">' + chatMessage.MessageTime + '</div>'
                     + '</div>'
                 + '</li>';
-    }
+    };
 
     me.preProcessMessage = function (chatMessage) {
         chatMessage.MessageTime = moment(chatMessage.CreateTime).zone(me.formatTimer.timeZone).format(me.formatTimer.format);
@@ -165,7 +165,7 @@ function ChatClient(chatUser, chatRoom) {
     me.kickOutUserChat = function (chatUser) {
         if(chatUser && chatUser.chatUserId === me.chatUser.chatUserId)
         {
-            //alert('User is kicked out!');
+            alert('User is kicked out!');
             // User kickout handler
         }
     };
@@ -182,6 +182,14 @@ function ChatClient(chatUser, chatRoom) {
             me.renderUserNotification(chatUser, ' joined room.', true);
         }
         me.updateUserList(currentChatUserList);
+    };
+
+    me.kickoutBecauseChatSameRoom = function (chatUser) {
+        LIVECHARTS.alertMessage(LIVECHARTS.messageType.error, LANGUAGE.youAreDisconnect);
+        var disconnectTimeOutId = setTimeout(function () {
+            location.href = DEFAULT_OBJECT.disconnectPage;
+            clearTimeout(disconnectTimeOutId);
+        }, 5000);
     };
 
     me.renderUserNotification = function (chatUser, messageText, isJoin) {

@@ -77,6 +77,17 @@ namespace Fanex.LiveCharts.Chat.Hubs
         /// <returns>Notify other user in room.</returns>
         public Task JoinRoom(ChatUser chatUser, ChatRoom chatRoom, ChatUserInRoom chatUserInRoom)
         {
+            var currentChatUserInRoom = _chatService.GetChatUserInRoom(new GetChatUserInRoomCriteria
+            {
+                ChatUserId = chatUser.ChatUserId,
+                ChatRoomId = chatRoom.ChatRoomId
+            });
+
+            if (!currentChatUserInRoom.IsLeft)
+            {
+                Clients.Client(currentChatUserInRoom.ConnectionId).kickoutBecauseChatSameRoom(chatUser);
+            }
+
             _chatService.InsertChatUserInRoom(new InsertChatUserInRoomCriteria
                 {
                     ChatRoomId = chatRoom.ChatRoomId,
