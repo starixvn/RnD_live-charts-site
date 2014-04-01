@@ -1,6 +1,6 @@
 ﻿/* File Created: March 20, 2014 */
 /// <reference path="ChatSignalRAdapter.js" />
-/*global moment, CURRENT_TIME_FORMAT, DEFAULT_OBJECT, swearWords*/
+/*global moment, CURRENT_TIME_FORMAT, DEFAULT_OBJECT, swearWords, LIVECHARTS, LANGUAGE*/
 /*exported ChatClient*/
 function ChatClient(chatUser, chatRoom) {
     'use strict';
@@ -185,6 +185,7 @@ function ChatClient(chatUser, chatRoom) {
     };
 
     me.kickoutBecauseChatSameRoom = function (chatUser) {
+        /*jshint unused:false*/
         LIVECHARTS.alertMessage(LIVECHARTS.messageType.error, LANGUAGE.youAreDisconnect);
         var disconnectTimeOutId = setTimeout(function () {
             location.href = DEFAULT_OBJECT.disconnectPage;
@@ -221,7 +222,7 @@ function ChatClient(chatUser, chatRoom) {
     };
 
     me.randomColor = function () {
-        var randomColor = '#' + Math.random().toString(16).substr(2, 6);
+        var randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
 
         return randomColor;
     };

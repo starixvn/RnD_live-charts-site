@@ -14,6 +14,7 @@ function ScorePredictionView(defaultValue) {
     me.isShowedResult = false;
     me.isStopPrediction = defaultValue.isStopScorePrediction || false;
     me.reUpdateSuccessCode = 1000;
+    me.isFreezeSubmit = false;
     me.resultChart = null;
 
     me.url = {
@@ -57,7 +58,7 @@ function ScorePredictionView(defaultValue) {
             },
             useBlockUI: false,
             done: function (result) {
-                if (result.MemberId) {
+                if (result.MemberId || me.isStopPrediction) {
                     me.getCorrectScoreResult({
                         matchId: me.matchId
                     });
@@ -71,14 +72,25 @@ function ScorePredictionView(defaultValue) {
 
     me.registerEvents = function () {
         me.$btnSubmitPrediction.unbind('click').click(function () {
-            var homeScore = me.$txtHomeScore.val();
-            var awayScore = me.$txtAwayScore.val();
-            me.insertOrUpdateScorePrediction({
-                memberId: me.memberId,
-                matchId: defaultValue.matchId,
-                homeScore: homeScore,
-                awayScore: awayScore
-            });
+            if (!me.isFreezeSubmit) {
+                me.isFreezeSubmit = true;
+                me.$btnSubmitPrediction.addClass('disabled');
+                var freezeSubmitTimeOutId = setTimeout(function () {
+                    me.isFreezeSubmit = false;
+                    me.$btnSubmitPrediction.removeClass('disabled');
+                    clearTimeout(freezeSubmitTimeOutId);
+                }, 5000);
+
+                //// Get Data and submit prediction.
+                var homeScore = me.$txtHomeScore.val();
+                var awayScore = me.$txtAwayScore.val();
+                me.insertOrUpdateScorePrediction({
+                    memberId: me.memberId,
+                    matchId: defaultValue.matchId,
+                    homeScore: homeScore,
+                    awayScore: awayScore
+                });
+            }
         });
 
         me.$fullResultLink.unbind('click').click(function () {

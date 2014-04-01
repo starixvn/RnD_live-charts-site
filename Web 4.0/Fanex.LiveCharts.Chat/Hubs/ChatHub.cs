@@ -12,11 +12,12 @@ namespace Fanex.LiveCharts.Chat.Hubs
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using System.Web;
     using Fanex.LiveCharts.Chat.Criteria;
     using Fanex.LiveCharts.Chat.Models;
     using Fanex.LiveCharts.Chat.Services;
+    using Fanex.LiveCharts.Services.Impl;
     using Microsoft.AspNet.SignalR;
-    using System.Web;
 
     /// <summary>
     /// TODO: Update summary.
@@ -83,9 +84,16 @@ namespace Fanex.LiveCharts.Chat.Hubs
                 ChatRoomId = chatRoom.ChatRoomId
             });
 
-            if (!currentChatUserInRoom.IsLeft)
+            if (!currentChatUserInRoom.IsLeft && !string.IsNullOrEmpty(currentChatUserInRoom.ConnectionId))
             {
-                Clients.Client(currentChatUserInRoom.ConnectionId).kickoutBecauseChatSameRoom(chatUser);
+                try
+                {
+                    Clients.Client(currentChatUserInRoom.ConnectionId).kickoutBecauseChatSameRoom(chatUser);
+                }
+                catch (Exception ex)
+                {
+                    ServiceBase.ExceptionHandler(ex);
+                }
             }
 
             _chatService.InsertChatUserInRoom(new InsertChatUserInRoomCriteria
@@ -110,17 +118,38 @@ namespace Fanex.LiveCharts.Chat.Hubs
 
         public void NotifyUserLeftRoom(ChatUser chatUser, ChatRoom chatRoom)
         {
-            Clients.Group(chatRoom.ChatRoomName).notifyUserLeftRoom(chatUser, GetCurrentUserList(chatRoom.ChatRoomId));
+            try
+            {
+                Clients.Group(chatRoom.ChatRoomName).notifyUserLeftRoom(chatUser, GetCurrentUserList(chatRoom.ChatRoomId));
+            }
+            catch (Exception ex)
+            {
+                ServiceBase.ExceptionHandler(ex);
+            }
         }
 
         public void NotifyUserJoinedRoom(ChatUser chatUser, ChatRoom chatRoom)
         {
-            Clients.Group(chatRoom.ChatRoomName).notifyUserJoinedRoom(chatUser, GetCurrentUserList(chatRoom.ChatRoomId));
+            try
+            {
+                Clients.Group(chatRoom.ChatRoomName).notifyUserJoinedRoom(chatUser, GetCurrentUserList(chatRoom.ChatRoomId));
+            }
+            catch (Exception ex)
+            {
+                ServiceBase.ExceptionHandler(ex);
+            }
         }
 
         public void AnnounceGeneralMessage(ChatMessage chatMessage, ChatRoom chatRoom)
         {
-            Clients.Group(chatRoom.ChatRoomName).addAnnounceGeneralMessage(chatMessage);
+            try
+            {
+                Clients.Group(chatRoom.ChatRoomName).addAnnounceGeneralMessage(chatMessage);
+            }
+            catch (Exception ex)
+            {
+                ServiceBase.ExceptionHandler(ex);
+            }
         }
 
         /// <summary>
@@ -129,59 +158,90 @@ namespace Fanex.LiveCharts.Chat.Hubs
         /// <returns>Announce other user in room.</returns>
         public override Task OnDisconnected()
         {
-            var currentChatUserInRoom = _chatService.GetChatUserInRoomByConnectionId(
-                new GetChatUserInRoomByConnectionIdCriteria
-                {
-                    ConnectionId = Context.ConnectionId
-                });
-
-            if (currentChatUserInRoom != null)
+            try
             {
-                var updateResult = _chatService.UpdateChatUserInRoom(new UpdateChatUserInRoomCriteria
-                {
-                    ChatUserInRoomId = currentChatUserInRoom.ChatUserInRoomId,
-                    ConnectionId = Context.ConnectionId,
-                    IsLeft = true
-                });
+                var currentChatUserInRoom = _chatService.GetChatUserInRoomByConnectionId(
+                    new GetChatUserInRoomByConnectionIdCriteria
+                    {
+                        ConnectionId = Context.ConnectionId
+                    });
 
-                if (updateResult.IsSuccessful)
+                if (currentChatUserInRoom != null)
                 {
-                    Clients.Group(currentChatUserInRoom.ChatRoomName).notifyUserLeftRoom(currentChatUserInRoom, GetCurrentUserList(currentChatUserInRoom.ChatRoomId));
+                    var updateResult = _chatService.UpdateChatUserInRoom(new UpdateChatUserInRoomCriteria
+                    {
+                        ChatUserInRoomId = currentChatUserInRoom.ChatUserInRoomId,
+                        ConnectionId = Context.ConnectionId,
+                        IsLeft = true
+                    });
+
+                    if (updateResult.IsSuccessful)
+                    {
+                        Clients.Group(currentChatUserInRoom.ChatRoomName).notifyUserLeftRoom(currentChatUserInRoom, GetCurrentUserList(currentChatUserInRoom.ChatRoomId));
+                    }
+                    //// Clients.All.notifyUserLeftRoom();
                 }
-                //// Clients.All.notifyUserLeftRoom();
+            }
+            catch (Exception ex)
+            {
+                ServiceBase.ExceptionHandler(ex);
             }
 
             return base.OnDisconnected();
         }
-        
+
         /// <summary>
         /// Get chat message history when user chat just join in room.
         /// </summary>
         /// <param name="chatRoomId">Current chat room.</param>
-        /// <param name="pastMinutes">How many minutes for getting data.</param>
+        /// <param name="latestTime">Latest time for getting data.</param>
         /// <returns>History messages.</returns>
-        public IEnumerable<ChatMessage> GetChatMessageHistory(int chatRoomId, DateTime? lastestTime)
+        public IEnumerable<ChatMessage> GetChatMessageHistory(int chatRoomId, DateTime? latestTime)
         {
-            GetChatMessageByTimeCriteria getChatMessageByTimeCriteria = new GetChatMessageByTimeCriteria
+            try
             {
-                ChatRoomId = chatRoomId,
-                LatestTime = lastestTime ?? DateTime.Now
-            };
+                GetChatMessageByTimeCriteria getChatMessageByTimeCriteria = new GetChatMessageByTimeCriteria
+                {
+                    ChatRoomId = chatRoomId,
+                    LatestTime = latestTime ?? DateTime.Now
+                };
 
-            var chatMessageList = _chatService.GetChatMessagesByTime(getChatMessageByTimeCriteria);
+                var chatMessageList = _chatService.GetChatMessagesByTime(getChatMessageByTimeCriteria);
 
-            return chatMessageList;
+                return chatMessageList;
+            }
+            catch (Exception ex)
+            {
+                ServiceBase.ExceptionHandler(ex);
+            }
+
+            return new List<ChatMessage>();
         }
 
+        /// <summary>
+        /// Get Current user list.
+        /// </summary>
+        /// <param name="chatRoomId">Chat room for get user list.</param>
+        /// <param name="isLeft">Get user left or not.</param>
+        /// <returns>User list.</returns>
         private IEnumerable<ChatUser> GetCurrentUserList(int chatRoomId, bool isLeft = false)
         {
-            var currentUserList = _chatService.GetChatRoomUsers(new GetChatRoomUsersCriteria
+            try
             {
-                ChatRoomId = chatRoomId,
-                IsLeft = isLeft
-            });
+                var currentUserList = _chatService.GetChatRoomUsers(new GetChatRoomUsersCriteria
+                {
+                    ChatRoomId = chatRoomId,
+                    IsLeft = isLeft
+                });
 
-            return currentUserList;
+                return currentUserList;
+            }
+            catch (Exception ex)
+            {
+                ServiceBase.ExceptionHandler(ex);
+            }
+
+            return new List<ChatUser>();
         }
     }
 }

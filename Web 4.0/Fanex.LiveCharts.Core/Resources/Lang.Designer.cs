@@ -952,7 +952,7 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You are disconnect bescause another session join this room..
+        ///   Looks up a localized string similar to You are forced disconnect because another session joins this room..
         /// </summary>
         public static string YouAreDisconnect {
             get {

@@ -22,7 +22,7 @@ namespace Fanex.LiveCharts.Services.Impl
         /// Log exception for service.
         /// </summary>
         /// <param name="ex">Exception object.</param>
-        protected void ExceptionHandler(Exception ex)
+        public static void ExceptionHandler(Exception ex)
         {
             if (HttpContext.Current != null && HttpContext.Current.Request != null)
             {
@@ -42,7 +42,7 @@ namespace Fanex.LiveCharts.Services.Impl
             }
         }
 
-        protected void LogInformation(string message)
+        public static void LogInformation(string message)
         {
             Logger.Log.Info(message);
         }
