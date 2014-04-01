@@ -535,6 +535,7 @@
     <Content Include="Areas\Admin\Views\ScorePrediction\ScorePredictionMonitor.cshtml" />
     <Content Include="Areas\Admin\Views\Setting\ScorePrediction.cshtml" />
     <Content Include="Areas\Admin\Views\ScorePrediction\ScorePredictionLogTablePartial.cshtml" />
+    <Content Include="Areas\Admin\Views\Chat\ChatMonitor.cshtml" />
     <None Include="Areas\UserLogin\themes\fonts\Abel.woff" />
     <None Include="Areas\UserLogin\themes\select-site.less" />
     <Content Include="Areas\UserLogin\Views\Common\Offline.cshtml" />
