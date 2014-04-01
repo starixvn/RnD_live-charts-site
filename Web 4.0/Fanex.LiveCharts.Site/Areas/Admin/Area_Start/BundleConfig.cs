@@ -43,6 +43,12 @@ namespace Fanex.LiveCharts.Site.Areas.Admin.Area_Start
                 "~/Scripts/Libs/Spinner/jquery.stepper.js",
                 "~/Areas/Admin/Scripts/ScorePrediction/score-prediction-config.js",
                 "~/Areas/Admin/Scripts/ScorePrediction/score-prediction-config-view.js"));
+
+            bundles.Add(new ScriptBundle("~/areas/admin/chatmonitorjs").Include(
+                "~/Scripts/Libs/Moment/moment.js",
+                "~/Scripts/Libs/Fanex.Grid/Fanex.Pagination.js",
+                "~/Scripts/Libs/Fanex.Grid/Fanex.Grid.js",
+                "~/Areas/Admin/Scripts/Chat/chat-monitor.js"));
         }
     }
 }

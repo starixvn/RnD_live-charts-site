@@ -1,0 +1,56 @@
+﻿/* File Created: April 1, 2014 */
+
+@import "../../../Scripts/Libs/Fanex.Grid/Fanex.Pagination.less";
+@import "../../../Scripts/Libs/Fanex.Grid/Fanex.Grid.less";
+@import "Fanex.Grid.Override.less";
+
+.chart-monitor
+{
+	.grid-title
+    {
+    	.reload-button
+        {
+        	width: 17px;
+			height: 17px;
+			background: url(../../../Content/Images/chart-spite.png) no-repeat;
+			background-color:#EDECEB;
+			background-position: 1px 1px;
+		}
+    }
+
+	#messageGrid
+    {
+		.user-name-content
+        {
+			position: relative;
+			padding-left: 18px;
+			
+			
+		}
+
+		.remove-action
+			{
+				background-image: url("../../../Content/Images/delete.png");
+				background-repeat: no-repeat;
+				height: 16px;
+				width: 16px;
+				position: absolute;
+				cursor: pointer;
+				left: 1px;
+				vertical-align: middle;
+			}
+
+		.message-container
+        {
+			position: relative;
+			padding-left: 18px;
+			height: 100%;
+
+			.message-content
+            {
+            	word-wrap: break-word;
+				max-width: 465px;
+            }
+        }
+    }
+}

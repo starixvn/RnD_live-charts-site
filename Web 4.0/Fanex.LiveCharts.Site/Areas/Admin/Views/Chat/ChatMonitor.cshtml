@@ -1,11 +1,24 @@
-﻿@using Fanex.LiveCharts.ViewModel.ScorePrediction;
-@using Fanex.LiveCharts.Models.ScorePrediction;
+﻿@using Fanex.LiveCharts.Chat.Models;
+@model ChatRoom
 @{
     ViewBag.Title = "Chat Monitor Page";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 @section Head {
-   
+   <link type="text/css" rel="Stylesheet" href="~/Areas/Admin/Content/Chat.less" />
 }
 
+<div class="chart-monitor">
+    <div id="messageGrid" class="freegrid"></div>
+</div>
+@section Foot {
+    <script type="text/javascript">
+        var CHAT_MONITOR_DEFAULT = {
+            matchId: @(Model.MatchId),
+            chatRoomId: @(Model.ChatRoomId),
+            getChatMessagesUrl: "@(Url.Action("GetChatMessages", "ChatAdmin"))"
+        };
+    </script>
+    @Scripts.Render("~/areas/admin/chatmonitorjs")
+}
 

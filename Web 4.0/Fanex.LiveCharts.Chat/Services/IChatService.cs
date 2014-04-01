@@ -24,7 +24,11 @@ namespace Fanex.LiveCharts.Chat.Services
 
         IEnumerable<ChatMessage> GetChatMessagesByUser(GetChatMessageByUserIdCriteria getChatMessageCriteria);
 
+        IEnumerable<ChatMessage> GetChatMessageByRoom(GetChatMessageByRoomCriteria getChatMessageByRoomCriteria);
+
         ChatRoom GetChatRoomByName(GetChatRoomByNameCriteria getChatRoomByName);
+
+        IEnumerable<ChatRoom> GetChatRoomByMatchId(GetChatRoomByMatchIdCriteria getChatRoomByMatchIdCriteria);
 
         IEnumerable<ChatUser> GetChatRoomUsers(GetChatRoomUsersCriteria getChatRoomUsersCriteria);
 

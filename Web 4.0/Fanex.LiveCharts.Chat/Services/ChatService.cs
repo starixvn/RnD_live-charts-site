@@ -37,7 +37,7 @@ namespace Fanex.LiveCharts.Chat.Services
 
         public IEnumerable<ChatMessage> GetChatMessagesByTime(GetChatMessageByTimeCriteria getChatMessageCriteria)
         {
-            var chatMessage = _chatRepository.GetChatMessagesByTime(getChatMessageCriteria);
+            var chatMessage = _chatRepository.GetChatMessages(getChatMessageCriteria);
 
             return chatMessage;
         }
@@ -191,6 +191,20 @@ namespace Fanex.LiveCharts.Chat.Services
             var chatUserInRoom = _chatRepository.Get<ChatUserInRoom>(getChatUserInRoomByConnectionIdCriteria);
 
             return chatUserInRoom;
+        }
+
+        public IEnumerable<ChatMessage> GetChatMessageByRoom(GetChatMessageByRoomCriteria getChatMessageByRoomCriteria)
+        {
+            var chatMessages = _chatRepository.GetChatMessages(getChatMessageByRoomCriteria);
+
+            return chatMessages;
+        }
+
+        public IEnumerable<ChatRoom> GetChatRoomByMatchId(GetChatRoomByMatchIdCriteria getChatRoomByMatchIdCriteria)
+        {
+            var chatRooms = _chatRepository.Fetch<ChatRoom>(getChatRoomByMatchIdCriteria);
+
+            return chatRooms;
         }
     }
 }

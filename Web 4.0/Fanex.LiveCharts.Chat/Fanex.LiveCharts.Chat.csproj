@@ -66,8 +66,10 @@
   <ItemGroup>
     <Compile Include="Controllers\ChatAdminController.cs" />
     <Compile Include="Controllers\ChatController.cs" />
+    <Compile Include="Criteria\GetChatMessageByRoomCriteria.cs" />
     <Compile Include="Criteria\GetChatMessageByTimeCriteria.cs" />
     <Compile Include="Criteria\GetChatMessageByUserIdCriteria.cs" />
+    <Compile Include="Criteria\GetChatRoomByMatchIdCriteria.cs" />
     <Compile Include="Criteria\GetChatRoomByNameCriteria.cs" />
     <Compile Include="Criteria\GetChatRoomUsersCriteria.cs" />
     <Compile Include="Criteria\GetChatUserCriteria.cs" />

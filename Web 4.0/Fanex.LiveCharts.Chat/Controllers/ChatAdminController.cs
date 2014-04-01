@@ -9,20 +9,59 @@
 
 namespace Fanex.LiveCharts.Chat.Controllers
 {
-    using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
     using System.Web.Mvc;
+    using Fanex.LiveCharts.Chat.Criteria;
+    using Fanex.LiveCharts.Chat.Models;
+    using Fanex.LiveCharts.Chat.Services;
+    using Fanex.NAP.Core.Web.Attribute;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
+    [NapSuperAuth]
     public class ChatAdminController : Controller
     {
+        private IChatService _chatService;
+
+        public ChatAdminController()
+            : this(null)
+        {
+        }
+
+        public ChatAdminController(IChatService chatService)
+        {
+            _chatService = chatService ?? new ChatService();
+        }
+
+        /// <summary>
+        /// Chat Admin monitor page.
+        /// </summary>
+        /// <param name="matchId">Current match id for viewing chat.</param>
+        /// <returns>Chat monitor page.</returns>
         public ActionResult ChatMonitor(int matchId)
         {
-            return View("~/Areas/Admin/Views/Chat/ChatMonitor.cshtml");
+            var chatRooms = _chatService.GetChatRoomByMatchId(new GetChatRoomByMatchIdCriteria
+            {
+                MatchId = matchId
+            });
+
+            var defaultChatRoom = new ChatRoom();
+            if (chatRooms.Any())
+            {
+                defaultChatRoom = chatRooms.ElementAt(0);
+            }
+
+            return View("~/Areas/Admin/Views/Chat/ChatMonitor.cshtml", defaultChatRoom);
+        }
+
+        [HttpPost]
+        public JsonResult GetChatMessages(int chatRoomId)
+        {
+            return Json(_chatService.GetChatMessageByRoom(new GetChatMessageByRoomCriteria
+            {
+                ChatRoomId = chatRoomId
+            }));
         }
     }
 }

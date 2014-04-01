@@ -14,6 +14,7 @@ namespace Fanex.LiveCharts.Chat.Repositories
     using Fanex.LiveCharts.Chat.Criteria;
     using Fanex.LiveCharts.Chat.Models;
     using Fanex.LiveCharts.Repositories.Impl;
+    using Fanex.NAP.Framework.Data;
 
     /// <summary>
     /// TODO: Update summary.
@@ -23,15 +24,15 @@ namespace Fanex.LiveCharts.Chat.Repositories
         /// <summary>
         /// Get history message.
         /// </summary>
-        /// <param name="getChatMessageCriteria">Criteria for get data.</param>
+        /// <param name="criteria">Criteria for get data.</param>
         /// <returns>List message.</returns>
-        public IEnumerable<ChatMessage> GetChatMessagesByTime(GetChatMessageByTimeCriteria getChatMessageCriteria)
+        public IEnumerable<ChatMessage> GetChatMessages(ICriteria criteria)
         {
             var chatMessages = new List<ChatMessage>();
 
-            using (var db = new ObjectDb(getChatMessageCriteria.GetSettingKey()))
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                var param = getChatMessageCriteria.GetSpParams();
+                var param = criteria.GetSpParams();
 
                 var list = db.Query<ChatMessage, ChatUser, ChatMessage>(
                     (cm, cu) =>
