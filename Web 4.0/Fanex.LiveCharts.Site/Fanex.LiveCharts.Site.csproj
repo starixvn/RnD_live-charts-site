@@ -186,6 +186,8 @@
     <Content Include="Content\Images\delete.png" />
     <Content Include="Content\MovementCharts\MainPage.less" />
     <Content Include="Content\MovementCharts\Chat.less" />
+    <Content Include="Content\Sounds\chat.mp3" />
+    <Content Include="Content\Sounds\chat.wav" />
     <Content Include="Scripts\Charts\MainPage.js" />
     <Content Include="Scripts\Chat\ChatClient.js" />
     <Content Include="Scripts\Chat\ChatServer.js" />
@@ -206,6 +208,7 @@
     <Content Include="Scripts\Libs\Emoticon\Images\face-surprise.png" />
     <Content Include="Scripts\Libs\Emoticon\Images\face-wink.png" />
     <Content Include="Scripts\Libs\Emoticon\jquery.emoticons.js" />
+    <None Include="Content\Sounds\chat.ogg" />
     <None Include="Scripts\Libs\Fanex.Grid\Fanex.Grid.less" />
     <Content Include="Scripts\Libs\Fanex.Grid\Fanex.Grid.js" />
     <None Include="Scripts\Libs\Fanex.Grid\Fanex.Pagination.less" />

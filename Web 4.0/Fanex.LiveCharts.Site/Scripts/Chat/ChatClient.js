@@ -16,6 +16,7 @@ function ChatClient(chatUser, chatRoom) {
     me.isNextMessageFromSameUser = false;
     me.numberOfHistoryMessagesShowing = 12;
     me.numberOfHistoryMessagesPaging = 100;
+    me.isBrowserHidden = false;
     me.historyMessages = [];
     me.userList = {};
 
@@ -48,6 +49,9 @@ function ChatClient(chatUser, chatRoom) {
                 me.scrollTop();
             }
 
+            if (me.isBrowserHidden) {
+                me.playSound(DEFAULT_OBJECT.notificationSound);
+            }
         }
     };
 
@@ -225,5 +229,16 @@ function ChatClient(chatUser, chatRoom) {
         var randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
 
         return randomColor;
+    };
+
+    me.playSound = function (filename) {
+        /// <summary>Plays a notification sound</summary>
+        /// <param FullName="fileFullName" type="String">The file path without extension</param>
+        var $soundContainer = $("#soundContainer");
+        if (!$soundContainer.length) {
+            $soundContainer = $("<div>").attr("id", "soundContainer").appendTo($("body"));
+        }
+
+        $soundContainer.html('<audio autoplay="autoplay"><source src="' + filename + '.mp3" type="audio/mpeg" /><source src="' + filename + '.ogg" type="audio/ogg" /><embed hidden="true" autostart="true" loop="false" src="' + filename + '.mp3" /></audio>');
     };
 }
