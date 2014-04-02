@@ -11,6 +11,13 @@ function ChatMonitor() {
 
     me.cacheDomElements = function () {
         me.$messageGrid = $('#messageGrid');
+       
+
+    };
+
+    me.registerGridEvents = function () {
+        me.$btnReload = $('#btnReload');
+        me.$btnReload.unbind('click').click(me.initMessageGrid);
     };
 
     me.initMessageGrid = function () {
@@ -24,27 +31,41 @@ function ChatMonitor() {
             done: function (chatMessages) {
                 me.gridOptions.bodyRows = me.buildGridBody(chatMessages);
                 me.$messageGrid.fanexGrid(me.gridOptions);
+                me.registerGridEvents();
             }
         });
-        
+    };
+
+    me.exportExcel = function () {
+        LiveChartsAdmin.downloadFile(me.chatMonitorDefault.exportExcelUrl, {
+            matchId: me.chatMonitorDefault.matchId
+        });
     };
 
     me.gridOptions = {
         columns: [
-                   { HeaderText: 'Time (GMT+8)', Width: 150, Name: 'Time', CellAlign: 'center', FormatDateTime: 'D MM, YYYY hh:mm A' },
+                   { HeaderText: 'Time (GMT+8)', Width: 150, Name: 'Time', CellAlign: 'center', FormatDateTime: 'DD MMM, YYYY hh:mm A' },
                    { HeaderText: 'Username', Width: 150, Name: 'UserName', CellAlign: 'center', CustomCellRender: function (cell) {
-                       return '<div class="user-name-content"><span class="remove-action remove-chat-user" data-member-id="' + cell.Value.MemberId + '"></span>' + cell.Value.MemberId + '</div>';
+                       return '<div class="user-name-content">' +
+                                    '<span class="remove-action remove-chat-user" data-member-id="' + cell.Value.MemberId + '"></span>'
+                                    + cell.Value.MemberId
+                            + '</div>';
                    }
                    },
                    { HeaderText: 'Chat Name', Width: 150, Name: 'ChatName', CellAlign: 'center' },
                    { HeaderText: 'Chat Message', Width: 490, Name: 'ChatMessage', CustomCellRender: function (cell) {
-                       return '<div class="message-container"><span class="remove-action remove-chat-message" data-chat-message-id="'
-                                + cell.Value.chatMessageId + '"></span><div class="message-content">'
-                                + cell.Value.content + '</div></div>'
+                       return '<div class="message-container">'
+                                    + '<span class="remove-action remove-chat-message" data-chat-message-id="'
+                                        + cell.Value.chatMessageId
+                                    + '"></span>'
+                                    + '<div class="message-content">'
+                                        + cell.Value.content.replace(/\r\n/g, "<br />").replace(/\n/g, "<br />")
+                                    + '</div>'
+                            + '</div>';
                    }
                    }
                ],
-        gridExpandHeight: 150,
+        gridExpandHeight: 125,
         showPager: true,
         pagerOption: {
             itemsPerPage: 50,
@@ -55,15 +76,13 @@ function ChatMonitor() {
         showTitle: true,
         titleInfo:
             {
-                text: "Monitor Chat Conversation",
+                text: me.chatMonitorDefault.gridTitle,
                 showExcelButton: true,
-                exportExcelFunction: function () {
-                    alert("Export Excel Button Clicked");
-                },
+                exportExcelFunction: me.exportExcel,
                 customButtons: '<input type="button" id="btnReload" class="reload-button">',
                 showButtonsWhenNoData: true
             },
-        timeZone: '08:00'
+        timeZone: '+08:00'
     };
 
     me.buildGridBody = function (chatMessages) {
@@ -98,6 +117,7 @@ function ChatMonitor() {
     me.init = function () {
         me.cacheDomElements();
         me.initMessageGrid();
+        //me.registerEvents();
     };
 }
 

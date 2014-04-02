@@ -47,11 +47,17 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_Dependencies\Fanex.NAP.Framework.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\_Dependencies\dotnet4\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core">
       <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.1.2.1\lib\net40\Microsoft.AspNet.SignalR.Core.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.SystemWeb">
       <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.1.2.1\lib\net40\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI">
+      <HintPath>..\_Dependencies\dotnet4\NPOI.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -64,7 +70,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\ChatAdminController.cs" />
+    <Compile Include="Controllers\ChatAdminController.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Criteria\GetChatMessageByRoomCriteria.cs" />
     <Compile Include="Criteria\GetChatMessageByTimeCriteria.cs" />
@@ -96,6 +104,7 @@
     <Compile Include="Repositories\IChatRepository.cs" />
     <Compile Include="Services\ChatService.cs" />
     <Compile Include="Services\IChatService.cs" />
+    <Compile Include="ViewModels\ChatMonitorViewModel.cs" />
     <Compile Include="ViewModels\ChatViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

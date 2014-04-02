@@ -1,22 +1,30 @@
-﻿@using Fanex.LiveCharts.Chat.Models;
-@model ChatRoom
+﻿@using Fanex.LiveCharts.Chat.ViewModels;
+@model ChatMonitorViewModel
 @{
-    ViewBag.Title = "Chat Monitor Page";
+    ViewBag.Title = AdminSiteLang.MonitorChatConversation;
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var gridTitle = string.Format("{0} -vs- {1}, {2}(GMT+8): {3}", 
+        Model.Match.HomeName, 
+        Model.Match.AwayName, 
+        AdminSiteLang.KickOffTime,
+        Model.Match.KickOffTimeGMT8);
 }
 @section Head {
    <link type="text/css" rel="Stylesheet" href="~/Areas/Admin/Content/Chat.less" />
 }
 
 <div class="chart-monitor">
+    <div class="container-title">@AdminSiteLang.MonitorChatConversation</div>
     <div id="messageGrid" class="freegrid"></div>
 </div>
 @section Foot {
     <script type="text/javascript">
         var CHAT_MONITOR_DEFAULT = {
-            matchId: @(Model.MatchId),
-            chatRoomId: @(Model.ChatRoomId),
-            getChatMessagesUrl: "@(Url.Action("GetChatMessages", "ChatAdmin"))"
+            matchId: @(Model.ChatRoom.MatchId),
+            chatRoomId: @(Model.ChatRoom.ChatRoomId),
+            getChatMessagesUrl: "@(Url.Action("GetChatMessages", "ChatAdmin"))",
+            exportExcelUrl: "@(Url.Action("ExportExcel", "ChatAdmin"))",
+            gridTitle: "@(gridTitle)"
         };
     </script>
     @Scripts.Render("~/areas/admin/chatmonitorjs")

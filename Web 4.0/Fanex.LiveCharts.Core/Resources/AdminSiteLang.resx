@@ -303,4 +303,7 @@
   <data name="AvailableTimeUpdateSuccess" xml:space="preserve">
     <value>Available Time is updated successfully</value>
   </data>
+  <data name="MonitorChatConversation" xml:space="preserve">
+    <value>Monitor Chat Conversation</value>
+  </data>
 </root>

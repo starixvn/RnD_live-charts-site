@@ -165,6 +165,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Area_Start\BundleConfig.cs" />
     <Compile Include="Areas\Admin\Area_Start\RouteConfig.cs" />
+    <None Include="App_Data\ExcelTemplate\MonitorChatConversationExportExcel.xls" />
     <None Include="Areas\Admin\Content\Chat.less" />
     <None Include="Areas\Admin\Content\Fanex.Grid.Override.less" />
     <Content Include="Areas\Admin\Content\ScorePrediction.less" />
@@ -182,6 +183,7 @@
     <Content Include="Areas\Admin\Scripts\Chat\chat-monitor.js" />
     <Content Include="Content\Bootstrap\bootstrap-common.less" />
     <Content Include="Content\Images\chart-spite.png" />
+    <Content Include="Content\Images\delete.png" />
     <Content Include="Content\MovementCharts\MainPage.less" />
     <Content Include="Content\MovementCharts\Chat.less" />
     <Content Include="Scripts\Charts\MainPage.js" />

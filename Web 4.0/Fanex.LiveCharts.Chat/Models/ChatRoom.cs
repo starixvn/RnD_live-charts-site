@@ -15,6 +15,7 @@ namespace Fanex.LiveCharts.Chat.Models
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
+    [Serializable]
     public class ChatRoom
     {
         public ChatRoom()

@@ -439,6 +439,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Monitor Chat Conversation.
+        /// </summary>
+        public static string MonitorChatConversation {
+            get {
+                return ResourceManager.GetString("MonitorChatConversation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No Information Available.
         /// </summary>
         public static string NoInfoAvailable {

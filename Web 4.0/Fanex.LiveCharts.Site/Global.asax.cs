@@ -50,12 +50,6 @@ namespace Fanex.LiveCharts.Site
             DbSettingProviderManager.Current.Start();
         }
 
-        ////protected void Application_BeginRequest(object sender, EventArgs e)
-        ////{
-        ////    // Source: http://www.quickstepit.net/internet-explorer-iframe-cookies-mvc3/
-        ////    HttpContext.Current.Response.AddHeader("p3p", "CP=\"IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT\"");
-        ////}
-
         protected void Application_Error(object sender, EventArgs e)
         {
             try
@@ -71,11 +65,14 @@ namespace Fanex.LiveCharts.Site
                         string message = ex.Message +
                             "\r\nSource: " + ex.Source +
                             "\r\nDomain: " + Request.Headers["Host"] +
+                            "\r\nREFERRER: " + Request.UrlReferrer +
+                            "\r\nIP: " + Request.UserHostAddress +
+                            "\r\nUSERAGENT: " + Request.UserAgent +
                             "\r\nForm: " + Request.Form +
                             "\r\nPath: " + Request.Url.AbsoluteUri +
+                            "\r\nQueryString: " + Request.QueryString.ToString() +
                             "\r\nTargetSite: " + ex.TargetSite +
                             "\r\nStackTrace: " + ex.ToString();
-
                         Logger.Log.Error(message);
                     }
 
@@ -92,7 +89,6 @@ namespace Fanex.LiveCharts.Site
                     if (!Request.IsLocal)
                     {
                         Server.ClearError();
-
                         if (!Response.IsRequestBeingRedirected)
                         {
                             Response.Redirect(string.Format("~/user/error?err={0}", errorCode));

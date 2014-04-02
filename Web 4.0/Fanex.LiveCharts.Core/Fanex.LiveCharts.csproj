@@ -58,6 +58,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_Dependencies\Fanex.NAP.Framework.dll</HintPath>
     </Reference>
+    <Reference Include="NPOI">
+      <HintPath>..\_Dependencies\dotnet4\NPOI.dll</HintPath>
+    </Reference>
     <Reference Include="RemotingRef">
       <HintPath>..\_Dependencies\RemotingRef.dll</HintPath>
     </Reference>
@@ -202,6 +205,8 @@
     <Compile Include="ViewModel\ScorePrediction\ScorePredictionResultViewModel.cs" />
     <Compile Include="ViewModel\ScorePrediction\ScorePredictionViewModel.cs" />
     <Compile Include="Web\CurrentSession.cs" />
+    <Compile Include="Web\CustomActionResult\ExcelResult.cs" />
+    <Compile Include="Web\CustomActionResult\SpreadSheetResult.cs" />
     <Compile Include="Web\Filters\P3PAttribute.cs" />
     <Compile Include="Web\Filters\ReCheckInAttribute.cs" />
     <Compile Include="Web\SessionManager.cs" />

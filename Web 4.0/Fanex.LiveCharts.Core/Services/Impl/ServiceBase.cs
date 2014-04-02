@@ -29,6 +29,9 @@ namespace Fanex.LiveCharts.Services.Impl
                 string message = ex.Message +
                             "\r\nSource: " + ex.Source +
                             "\r\nDomain: " + HttpContext.Current.Request.Headers["Host"] +
+                            "\r\nREFERRER: " + HttpContext.Current.Request.UrlReferrer +
+                            "\r\nIP: " + HttpContext.Current.Request.UserHostAddress +
+                            "\r\nUSERAGENT: " + HttpContext.Current.Request.UserAgent +
                             "\r\nForm: " + HttpContext.Current.Request.Form.ToString() +
                             "\r\nQueryString: " + HttpContext.Current.Request.QueryString.ToString() +
                             "\r\nTargetSite: " + ex.TargetSite +

@@ -15,6 +15,15 @@ namespace Fanex.LiveCharts.Chat.Controllers
     using Fanex.LiveCharts.Chat.Models;
     using Fanex.LiveCharts.Chat.Services;
     using Fanex.NAP.Core.Web.Attribute;
+    using Fanex.LiveCharts.Services.Interface;
+    using Fanex.LiveCharts.Services.Impl;
+    using Fanex.LiveCharts.Criterias;
+    using Fanex.LiveCharts.Chat.ViewModels;
+    using Fanex.LiveCharts.Web.CustomActionResult;
+    using Fanex.LiveCharts.Resources;
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
 
     /// <summary>
     /// TODO: Update summary.
@@ -23,15 +32,18 @@ namespace Fanex.LiveCharts.Chat.Controllers
     public class ChatAdminController : Controller
     {
         private IChatService _chatService;
+        private IChartService _chartService;
+        private const string ChatMonitorSessionKey = "Chat.Controllers.ChatAdminController.ChatMonitorSessionKey_{0}";
 
         public ChatAdminController()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public ChatAdminController(IChatService chatService)
+        public ChatAdminController(IChatService chatService, IChartService chartService)
         {
             _chatService = chatService ?? new ChatService();
+            _chartService = chartService ?? new ChartService();
         }
 
         /// <summary>
@@ -41,27 +53,61 @@ namespace Fanex.LiveCharts.Chat.Controllers
         /// <returns>Chat monitor page.</returns>
         public ActionResult ChatMonitor(int matchId)
         {
+            var chatMonitorViewModel = GetChatMonitorViewMode(matchId);
+
+            return View("~/Areas/Admin/Views/Chat/ChatMonitor.cshtml", chatMonitorViewModel);
+        }
+
+        [HttpPost]
+        public JsonResult GetChatMessages(int chatRoomId)
+        {
+            var chatMessages = _chatService.GetChatMessageByRoom(new GetChatMessageByRoomCriteria
+            {
+                ChatRoomId = chatRoomId
+            });
+            var sessionKey = string.Format(ChatMonitorSessionKey, chatRoomId);
+            HttpContext.Session[sessionKey] = chatMessages;
+            return Json(chatMessages);
+        }
+
+        [HttpGet]
+        public ExcelResult ExportExcel(int matchId) {
+            var templeteFilePath = Server.MapPath(@"~/App_Data/ExcelTemplate/MonitorChatConversationExportExcel.xls");  
+            var chatMonitorViewModel = GetChatMonitorViewMode(matchId);
+            var sessionKey = string.Format(ChatMonitorSessionKey, chatMonitorViewModel.ChatRoom.ChatRoomId);
+            var chatMessages = HttpContext.Session[sessionKey] as IEnumerable<ChatMessage>;
+            var hssfWorkBook = _chatService.ExportChatConversation(chatMessages, chatMonitorViewModel.Match, chatMonitorViewModel.ChatRoom, templeteFilePath);
+            var exportFileName = string.Format("{0}_{1}_vs_{2}_{3}",
+                "Chat_Conversation",
+                chatMonitorViewModel.Match.HomeName,
+                chatMonitorViewModel.Match.AwayName,
+                DateTime.Now.ToShortDateString());
+
+            return new ExcelResult(hssfWorkBook, exportFileName);
+        }
+
+
+        private ChatMonitorViewModel GetChatMonitorViewMode(int matchId) { 
             var chatRooms = _chatService.GetChatRoomByMatchId(new GetChatRoomByMatchIdCriteria
             {
                 MatchId = matchId
             });
 
+            //// If there are many rooms, then get first room.
             var defaultChatRoom = new ChatRoom();
             if (chatRooms.Any())
             {
                 defaultChatRoom = chatRooms.ElementAt(0);
             }
 
-            return View("~/Areas/Admin/Views/Chat/ChatMonitor.cshtml", defaultChatRoom);
-        }
+            var match = _chartService.GetMatchDetail(new GetMatchDetailCriteria { 
+                MatchId = matchId
+            });
 
-        [HttpPost]
-        public JsonResult GetChatMessages(int chatRoomId)
-        {
-            return Json(_chatService.GetChatMessageByRoom(new GetChatMessageByRoomCriteria
-            {
-                ChatRoomId = chatRoomId
-            }));
+            return new ChatMonitorViewModel { 
+                Match = match,
+                ChatRoom = defaultChatRoom
+            };
         }
     }
 }

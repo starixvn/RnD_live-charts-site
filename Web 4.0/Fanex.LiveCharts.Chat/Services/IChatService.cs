@@ -14,6 +14,7 @@ namespace Fanex.LiveCharts.Chat.Services
     using Fanex.LiveCharts.Chat.Models;
     using Fanex.LiveCharts.Models;
     using Fanex.NAP.Framework.Data;
+    using NPOI.HSSF.UserModel;
 
     /// <summary>
     /// TODO: Update summary.
@@ -53,5 +54,7 @@ namespace Fanex.LiveCharts.Chat.Services
         ICommandResult UpdateChatUser(UpdateChatUserCriteria updateChatUserCriteria);
 
         ICommandResult UpdateChatUserInRoom(UpdateChatUserInRoomCriteria updateChatUserInRoomCriteria);
+
+        HSSFWorkbook ExportChatConversation(IEnumerable<ChatMessage> chatMessages, Match match, ChatRoom chatRoom, string templeteFilePath);
     }
 }

@@ -11,12 +11,19 @@ namespace Fanex.LiveCharts.Chat.Services
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
     using System.Web;
     using Fanex.LiveCharts.Chat.Criteria;
     using Fanex.LiveCharts.Chat.Models;
     using Fanex.LiveCharts.Chat.Repositories;
+    using Fanex.LiveCharts.Core;
     using Fanex.LiveCharts.Models;
+    using Fanex.LiveCharts.Resources;
     using Fanex.NAP.Framework.Data;
+    using NPOI.HSSF.UserModel;
+    using NPOI.SS.UserModel;
+    using NPOI.SS.Util;
 
     /// <summary>
     /// TODO: Update summary.
@@ -206,5 +213,102 @@ namespace Fanex.LiveCharts.Chat.Services
 
             return chatRooms;
         }
+
+        #region Export Excel
+
+        /// <summary>
+        /// Export chat conversation.
+        /// </summary>
+        /// <param name="chatMessages">Message list for export excel file.</param>
+        /// <param name="match">Current match information for export excel.</param>
+        /// <param name="chatRoom">Chat room information.</param>
+        /// <param name="templeteFilePath">Template file path for reading style.</param>
+        /// <returns>Workbook details.</returns>
+        public HSSFWorkbook ExportChatConversation(
+            IEnumerable<ChatMessage> chatMessages,
+            Match match,
+            ChatRoom chatRoom,
+            string templeteFilePath)
+        {
+            if (chatMessages == null)
+            {
+                chatMessages = _chatRepository.GetChatMessages(new GetChatMessageByRoomCriteria
+                {
+                    ChatRoomId = chatRoom.ChatRoomId
+                });
+            }
+
+            FileStream file = new FileStream(templeteFilePath, FileMode.Open, FileAccess.Read);
+
+            var hssfWorkBook = new HSSFWorkbook(file);
+            ISheet templeteSheet = hssfWorkBook.GetSheet("Chat Conversation Sheet");
+            ExportChatConversationHeader(templeteSheet, match);
+            ExportChatConversationBody(templeteSheet, chatMessages);
+
+            return hssfWorkBook;
+        }
+
+        /// <summary>
+        /// Export conversation body data.
+        /// </summary>
+        /// <param name="chatConversationSheet">Sheet for export excel.</param>
+        /// <param name="chatMessages">List chat message for exporting excel.</param>
+        private void ExportChatConversationBody(
+            ISheet chatConversationSheet,
+            IEnumerable<ChatMessage> chatMessages)
+        {
+            var fromIndex = 3;
+            IRow templateRow = chatConversationSheet.GetRow(fromIndex);
+            if (chatMessages.Any())
+            {
+                var timeCellStyle = templateRow.GetCell(0).CellStyle;
+                timeCellStyle.Alignment = HorizontalAlignment.Center;
+                var contentCellStyle = templateRow.GetCell(3).CellStyle;
+
+                foreach (var chatMessage in chatMessages)
+                {
+                    var messageRow = chatConversationSheet.CreateRow(fromIndex++);
+                    var timeCell = messageRow.CreateCell(0);
+                    timeCell.SetCellValue(chatMessage.CreateTime.ToGMT8());
+                    timeCell.CellStyle = timeCellStyle;
+                    var usernameCell = messageRow.CreateCell(1);
+                    usernameCell.SetCellValue(chatMessage.ChatUser.ChatUserId);
+                    usernameCell.CellStyle = timeCellStyle;
+                    var chatNameCell = messageRow.CreateCell(2);
+                    chatNameCell.SetCellValue(chatMessage.ChatUser.ChatName);
+                    chatNameCell.CellStyle = timeCellStyle;
+                    var contentCell = messageRow.CreateCell(3);
+                    contentCell.SetCellValue(chatMessage.Content);
+                    chatNameCell.CellStyle = contentCellStyle;
+                }
+            }
+            else
+            {
+                templateRow.GetCell(0).SetCellValue(AdminSiteLang.NoInfoAvailable);
+                templateRow.GetCell(0).CellStyle.Alignment = HorizontalAlignment.Center;
+                chatConversationSheet.AddMergedRegion(new CellRangeAddress(fromIndex, fromIndex, 0, 3));
+            }
+        }
+
+        /// <summary>
+        /// Export header data of Chat Conversation.
+        /// </summary>
+        /// <param name="chatConversationSheet">Chat conversation sheet contains data.</param>
+        /// <param name="match">Current match information.</param>
+        private void ExportChatConversationHeader(ISheet chatConversationSheet, Match match)
+        {
+            var headerRow = chatConversationSheet.GetRow(0);
+            var chatRoomInformation = string.Format(
+                "{0} -vs- {1}, {2}(GMT+8): {3}",
+                match.HomeName,
+                match.AwayName,
+                AdminSiteLang.KickOffTime,
+                match.KickOffTimeGMT8);
+            headerRow.GetCell(0).SetCellValue(chatRoomInformation);
+            var exportTimeRow = chatConversationSheet.GetRow(1);
+            exportTimeRow.GetCell(0).SetCellValue(DateTime.Now.ToGMT8());
+        }
+
+        #endregion Export Excel
     }
 }

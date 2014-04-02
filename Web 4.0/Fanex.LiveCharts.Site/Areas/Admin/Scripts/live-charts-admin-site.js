@@ -41,7 +41,7 @@ if (typeof jQuery !== 'undefined') {
                         timeOut = 5000;
                         break;
                 }
-                
+
                 $message.empty().html(messageText).show();
                 $message.css({
                     left: ($body.width() / 2) - ($message.width() / 2) + 'px'
@@ -73,7 +73,7 @@ if (typeof jQuery !== 'undefined') {
                 warn: function (msg) { LiveChartsAdmin.console.write(msg, console.warn); },
                 error: function (msg) { LiveChartsAdmin.console.write(msg, console.error); }
             },
-            
+
             parseJSON: function (value) {
                 return $.parseJSON(value.replaceAll("'", "\""));
             },
@@ -172,6 +172,21 @@ if (typeof jQuery !== 'undefined') {
                         ajaxOption.always();
                     }
                 });
+            },
+            downloadFile: function (url, data) {
+                //url and data options required
+                if (url && data) {
+                    //data can be string of parameters or array/object
+                    data = typeof data === 'string' ? data : $.param(data);
+                    var downloadUrl = url + "?" + data;
+                    var iframe = $('body #iframeExportExcelFile');
+                    if (iframe.length === 0) {
+                        iframe = $('<iframe id="iframeExportExcelFile" width="0" height="0" class="display-none"></iframe>');
+                        iframe.appendTo('body');
+                    }
+
+                    iframe.attr('src', downloadUrl);
+                }
             }
         };
     })(jQuery);

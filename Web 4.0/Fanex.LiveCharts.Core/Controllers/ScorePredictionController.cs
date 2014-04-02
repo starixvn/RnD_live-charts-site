@@ -155,6 +155,33 @@ namespace Fanex.LiveCharts.Controllers
                 });
         }
 
+        /// <summary>
+        /// Score Prediction monitor page.
+        /// </summary>
+        /// <param name="matchId">Current match id for monitoring.</param>
+        /// <param name="homeName">Home name.</param>
+        /// <param name="awayName">Away name.</param>
+        /// <returns>Score prediction view.</returns>
+        [NapSuperAuth]
+        public ActionResult ScorePredictionMonitor(int matchId, string homeName, string awayName)
+        {
+            ViewBag.ScorePredictionOptions = _scorePredictionService.GetTotalScorePrediction(new GetAllScorePredictionCriteria
+            {
+                IsAdminSite = true,
+                MatchId = matchId
+            });
+
+            return View(
+                "~/Areas/Admin/Views/ScorePrediction/ScorePredictionMonitor.cshtml",
+                new ScorePredictionResultViewModel
+                {
+                    MatchId = matchId,
+                    HomeName = homeName,
+                    AwayName = awayName,
+                    IsAdminSite = true
+                });
+        }
+
         [NapSuperAuth, HttpPost]
         public JsonResult UpdateDummyPrediction(ChartAdminInsertUpdateDummyPredictionCriteria updateCriteria)
         {
