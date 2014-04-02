@@ -236,9 +236,11 @@ function ChatClient(chatUser, chatRoom) {
         /// <param FullName="fileFullName" type="String">The file path without extension</param>
         var $soundContainer = $("#soundContainer");
         if (!$soundContainer.length) {
-            $soundContainer = $("<div>").attr("id", "soundContainer").appendTo($("body"));
+            $soundContainer = $('<div id="soundContainer" style="display:none;" />').appendTo($("body"));
         }
 
-        $soundContainer.html('<audio autoplay="autoplay"><source src="' + filename + '.mp3" type="audio/mpeg" /><source src="' + filename + '.ogg" type="audio/ogg" /><embed hidden="true" autostart="true" loop="false" src="' + filename + '.mp3" /></audio>');
+        $soundContainer.html('<audio autoplay="autoplay"><source src="' + filename + '.mp3" type="audio/mpeg" />'
+                            + '<source src="' + filename + '.ogg" type="audio/ogg" />'
+                            +'<embed hidden="true" autostart="true" loop="false" src="' + filename + '.mp3" /></audio>');
     };
 }

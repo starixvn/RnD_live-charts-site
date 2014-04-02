@@ -80,7 +80,7 @@ function ChatMonitor() {
                 showExcelButton: true,
                 exportExcelFunction: me.exportExcel,
                 customButtons: '<input type="button" id="btnReload" class="reload-button">',
-                showButtonsWhenNoData: true
+                showButtonsWhenNoData: false
             },
         timeZone: '+08:00'
     };

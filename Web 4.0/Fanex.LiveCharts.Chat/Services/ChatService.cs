@@ -262,7 +262,6 @@ namespace Fanex.LiveCharts.Chat.Services
             if (chatMessages.Any())
             {
                 var timeCellStyle = templateRow.GetCell(0).CellStyle;
-                timeCellStyle.Alignment = HorizontalAlignment.Center;
                 var contentCellStyle = templateRow.GetCell(3).CellStyle;
 
                 foreach (var chatMessage in chatMessages)
@@ -277,9 +276,10 @@ namespace Fanex.LiveCharts.Chat.Services
                     var chatNameCell = messageRow.CreateCell(2);
                     chatNameCell.SetCellValue(chatMessage.ChatUser.ChatName);
                     chatNameCell.CellStyle = timeCellStyle;
+
                     var contentCell = messageRow.CreateCell(3);
                     contentCell.SetCellValue(chatMessage.Content);
-                    chatNameCell.CellStyle = contentCellStyle;
+                    contentCell.CellStyle = contentCellStyle;
                 }
             }
             else
