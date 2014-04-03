@@ -34,45 +34,13 @@ namespace Fanex.LiveCharts.Chat.Controllers
             _chatService = chatService ?? new ChatService();
         }
 
-        /// <summary>
-        /// Return index page of chat portal.
-        /// </summary>
-        /// <param name="matchId">Current match id.</param>
-        /// <returns>View of index page.</returns>
         public ActionResult Index(int matchId)
         {
-            var chatUser = _chatService.GetChatUser(new GetChatUserCriteria
-                {
-                    MemberId = SessionManager.CurrentSession.MemberId
-                });
-
-            var chatRoom = _chatService.GetChatRoomByName(new GetChatRoomByNameCriteria
-            {
-                ChatRoomName = string.Format("{0}_{1}", matchId, SessionManager.CurrentSession.Language.Replace('-', '_').Trim()),
-                MatchId = matchId
-            });
-
-            var chatUserInRoom = new ChatUserInRoom();
-            if (chatUser.ChatUserId > 0)
-            {
-                chatUserInRoom = _chatService.GetChatUserInRoom(new GetChatUserInRoomCriteria
-                    {
-                        ChatUserId = chatUser.ChatUserId,
-                        ChatRoomId = chatRoom.ChatRoomId
-                    });
-            }
-
-            return View(
-                new ChatViewModel
-                {
-                    ChatRoom = chatRoom,
-                    ChatUser = chatUser,
-                    ChatUserInRoom = chatUserInRoom
-                });
+            return View(GetChatViewModel(matchId));
         }
 
         public ActionResult YouAreDisconnect()
-        { 
+        {
             return View();
         }
 
@@ -100,9 +68,8 @@ namespace Fanex.LiveCharts.Chat.Controllers
             return Json(commandResult);
         }
 
-
         #region Actions for Admin Site access
-        
+
         [HttpPost]
         public JsonResult KickOutChatUser(int chatUserId, string connectionId, string tokenName, string tokenKey)
         {
@@ -115,6 +82,46 @@ namespace Fanex.LiveCharts.Chat.Controllers
             return Json(_chatService.DeleteChatMessageOnMemberSite(chatMessageId, chatRoomName, tokenName, tokenKey));
         }
 
-        #endregion
+        #endregion Actions for Admin Site access
+
+        #region Private Actions
+
+        /// <summary>
+        /// Get chat view model from match id.
+        /// </summary>
+        /// <param name="matchId">Current match id.</param>
+        /// <returns>Chat view model.</returns>
+        private ChatViewModel GetChatViewModel(int matchId)
+        {
+            ChatUser chatUser = _chatService.GetChatUser(new GetChatUserCriteria
+            {
+                MemberId = SessionManager.CurrentSession.MemberId
+            });
+
+            ChatRoom chatRoom = _chatService.GetChatRoomByName(new GetChatRoomByNameCriteria
+            {
+                ChatRoomName = string.Format("{0}_{1}", matchId, SessionManager.CurrentSession.Language.Replace('-', '_').Trim()),
+                MatchId = matchId
+            });
+
+            var chatUserInRoom = new ChatUserInRoom();
+            if (chatUser.ChatUserId > 0)
+            {
+                chatUserInRoom = _chatService.GetChatUserInRoom(new GetChatUserInRoomCriteria
+                {
+                    ChatUserId = chatUser.ChatUserId,
+                    ChatRoomId = chatRoom.ChatRoomId
+                });
+            }
+
+            return new ChatViewModel
+                {
+                    ChatRoom = chatRoom,
+                    ChatUser = chatUser,
+                    ChatUserInRoom = chatUserInRoom
+                };
+        }
+
+        #endregion Private Actions
     }
 }

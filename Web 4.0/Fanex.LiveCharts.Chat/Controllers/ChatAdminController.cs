@@ -62,13 +62,25 @@ namespace Fanex.LiveCharts.Chat.Controllers
         [HttpPost]
         public JsonResult GetChatMessages(int chatRoomId)
         {
-            var chatMessages = _chatService.GetChatMessageByRoom(new GetChatMessageByRoomCriteria
+            IEnumerable<ChatMessage> chatMessages = _chatService.GetChatMessageByRoom(new GetChatMessageByRoomCriteria
             {
-                ChatRoomId = chatRoomId
+                ChatRoomId = chatRoomId,
+                IsDeleted = true
             });
+
+            //IEnumerable<ChatUser> chatUsers = _chatService.GetChatRoomUsers(new GetChatRoomUsersCriteria
+            //{
+            //    ChatRoomId = chatRoomId,
+            //    IsLeft = 
+            //});
+
             var sessionKey = string.Format(ChatMonitorSessionKey, chatRoomId);
             HttpContext.Session[sessionKey] = chatMessages;
-            return Json(chatMessages);
+            return Json(new
+            {
+                ChatMessages = chatMessages
+                
+            });
         }
 
         [HttpGet]

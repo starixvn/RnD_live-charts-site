@@ -18,11 +18,6 @@ namespace Fanex.LiveCharts.Chat.Models
     [Serializable]
     public class ChatRoom
     {
-        public ChatRoom()
-        {
-            ChatUsers = new List<ChatUser>();
-        }
-
         public int ChatRoomId { get; set; }
 
         public string ChatRoomName { get; set; }
@@ -32,7 +27,5 @@ namespace Fanex.LiveCharts.Chat.Models
         public DateTime CreateTime { get; set; }
 
         public string WelcomeMessage { get; set; }
-
-        public IList<ChatUser> ChatUsers { get; set; }
     }
 }

@@ -30,6 +30,7 @@ namespace Fanex.LiveCharts.Core
                 LocalTest = Converter.ToInt(GetValue("LocalTest")) > 0;
                 IsAdminSite = Converter.ToInt(GetValue("IsAdminSite")) > 0;
                 RedirectURLToAdminSite = GetValue("RedirectURLToAdminSite");
+                CachingTimeOutMinute = Converter.ToInt(GetValue("CachingTimeOutMinute"));
                 EnableLogAuthentication = Converter.ToInt(GetValue("EnableLogAuthentication")) > 0;
                 ScorePredictionCacheTimeOutSeconds = Converter.ToInt(GetValue("ScorePredictionCacheTimeOutSeconds"), 0);
                 MemberChartSiteUrl = GetValue("MemberChartSiteUrl").TrimEnd('/');
@@ -59,6 +60,8 @@ namespace Fanex.LiveCharts.Core
         public static int ScorePredictionCacheTimeOutSeconds { get; set; }
 
         public static string MemberChartSiteUrl { get; set; }
+
+        public static int CachingTimeOutMinute { get; set; }
 
         /// <summary>
         /// Get value from key string.

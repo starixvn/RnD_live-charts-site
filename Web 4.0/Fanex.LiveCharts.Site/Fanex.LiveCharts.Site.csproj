@@ -185,6 +185,7 @@
     <Content Include="Content\Images\chart-spite.png" />
     <Content Include="Content\Images\chat_monitor.png" />
     <Content Include="Content\Images\delete.png" />
+    <Content Include="Content\Images\recover.png" />
     <Content Include="Content\Images\score_prediction.png" />
     <Content Include="Content\MovementCharts\MainPage.less" />
     <Content Include="Content\MovementCharts\Chat.less" />

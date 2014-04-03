@@ -7,9 +7,10 @@
 //   <change who="Ricky.Nguyen" date="2014.4.3">Created</change>
 // </history>
 
-using Fanex.NAP.Framework.Data;
 namespace Fanex.LiveCharts.Chat.ViewModels
 {
+    using Fanex.NAP.Framework.Data;
+
     /// <summary>
     /// TODO: Update summary.
     /// </summary>

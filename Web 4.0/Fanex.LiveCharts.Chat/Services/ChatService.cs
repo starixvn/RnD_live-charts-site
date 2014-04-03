@@ -15,28 +15,28 @@ namespace Fanex.LiveCharts.Chat.Services
     using System.Linq;
     using System.Web;
     using Fanex.LiveCharts.Chat.Criteria;
+    using Fanex.LiveCharts.Chat.Hubs;
     using Fanex.LiveCharts.Chat.Models;
     using Fanex.LiveCharts.Chat.Repositories;
+    using Fanex.LiveCharts.Chat.ViewModels;
     using Fanex.LiveCharts.Core;
     using Fanex.LiveCharts.Models;
     using Fanex.LiveCharts.Resources;
+    using Fanex.LiveCharts.Services.Impl;
     using Fanex.NAP.Framework.Data;
+    using Microsoft.AspNet.SignalR;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
-    using Microsoft.AspNet.SignalR;
-    using Fanex.LiveCharts.Chat.Hubs;
-    using Fanex.LiveCharts.Services.Impl;
-    using Fanex.LiveCharts.Chat.ViewModels;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
     public class ChatService : IChatService
     {
-        private readonly IChatRepository _chatRepository;
         private const string KickOutCommandCacheKey = "Chat.Services.ChatService.KickOutCommandCacheKey";
         private const string DeleteMessageCommandCacheKey = "Chat.Services.ChatService.DeleteMessageCommandCacheKey";
+        private readonly IChatRepository _chatRepository;
 
         public ChatService()
             : this(null)
@@ -220,14 +220,22 @@ namespace Fanex.LiveCharts.Chat.Services
             return chatRooms;
         }
 
+        /// <summary>
+        /// Kick out chat user online on member site.
+        /// </summary>
+        /// <param name="chatUserId">Current chat user need be kicked out.</param>
+        /// <param name="connectionId">Call to connection id for kick out.</param>
+        /// <param name="tokenName">Token name for authentication.</param>
+        /// <param name="tokenKey">Token key for authentication.</param>
+        /// <returns>Status of kick out command.</returns>
         public ICommandResult KickOutChatUserOnMemberSite(int chatUserId, string connectionId, string tokenName, string tokenKey)
         {
             try
             {
-                var inValidTokenResult = CheckChatCommandTokenInValid(KickOutCommandCacheKey + "_" + tokenName, tokenKey);
-                if (inValidTokenResult != null)
+                ICommandResult invalidTokenResult = CheckChatCommandTokenInValid(KickOutCommandCacheKey + "_" + tokenName, tokenKey);
+                if (invalidTokenResult != null)
                 {
-                    return inValidTokenResult;
+                    return invalidTokenResult;
                 }
 
                 IHubContext chatHub = GlobalHost.ConnectionManager.GetHubContext<ChatHub>();
@@ -236,41 +244,6 @@ namespace Fanex.LiveCharts.Chat.Services
                 {
                     chatHub.Clients.Client(connectionId).kickOutChatUser(chatUserId);
                 }
-
-            }
-            catch (Exception ex)
-            {
-                ServiceBase.ExceptionHandler(ex);
-                return new CommandResult
-                {
-                    Code = 11,
-                    Message = ex.Message
-                };
-            }
-
-            return new CommandResult { 
-                Code= 0,
-                Message = string.Empty
-            };
-        }
-
-        public ICommandResult DeleteChatMessageOnMemberSite(int chatMessageId, string chatRoomName, string tokenName, string tokenKey)
-        {
-            try
-            {
-                var inValidTokenResult = CheckChatCommandTokenInValid(DeleteMessageCommandCacheKey + "_" + tokenName, tokenKey);
-                if (inValidTokenResult != null)
-                {
-                    return inValidTokenResult;
-                }
-
-                IHubContext chatHub = GlobalHost.ConnectionManager.GetHubContext<ChatHub>();
-
-                if (chatHub != null)
-                {
-                    chatHub.Clients.Group(chatRoomName).deleteChatMessage(chatMessageId);
-                }
-
             }
             catch (Exception ex)
             {
@@ -289,9 +262,56 @@ namespace Fanex.LiveCharts.Chat.Services
             };
         }
 
+        /// <summary>
+        /// Delete chat message on member site.
+        /// </summary>
+        /// <param name="chatMessageId">Chat message id for delete.</param>
+        /// <param name="chatRoomName">Chat room name for broadcast message.</param>
+        /// <param name="tokenName">Token name for authentication.</param>
+        /// <param name="tokenKey">Token key for authentication.</param>
+        /// <returns>Delete chat message result.</returns>
+        public ICommandResult DeleteChatMessageOnMemberSite(int chatMessageId, string chatRoomName, string tokenName, string tokenKey)
+        {
+            try
+            {
+                ICommandResult invalidTokenResult = CheckChatCommandTokenInValid(DeleteMessageCommandCacheKey + "_" + tokenName, tokenKey);
+                if (invalidTokenResult != null)
+                {
+                    return invalidTokenResult;
+                }
+
+                IHubContext chatHub = GlobalHost.ConnectionManager.GetHubContext<ChatHub>();
+
+                if (chatHub != null)
+                {
+                    chatHub.Clients.Group(chatRoomName).deleteChatMessage(chatMessageId);
+                }
+            }
+            catch (Exception ex)
+            {
+                ServiceBase.ExceptionHandler(ex);
+                return new CommandResult
+                {
+                    Code = 11,
+                    Message = ex.Message
+                };
+            }
+
+            return new CommandResult
+            {
+                Code = 0,
+                Message = string.Empty
+            };
+        }
+
+        /// <summary>
+        /// Kick out chat user on admin site, just update database and then call member site.
+        /// </summary>
+        /// <param name="chatUserId">Chat user id for kicking out.</param>
+        /// <param name="chatRoomId">Chat room id for get connection id.</param>
+        /// <returns>Kick out information.</returns>
         public KickOutChatUserViewModel KickOutChatUserOnAdminSite(int chatUserId, int chatRoomId)
         {
-            
             ICommandResult kickOutResult = _chatRepository.ModifyData(new KickOutChatUserCriteria
             {
                 ChatUserId = chatUserId,
@@ -299,13 +319,15 @@ namespace Fanex.LiveCharts.Chat.Services
                 IsKickOut = true
             });
 
-            var kickOutChatUserStatus = new KickOutChatUserViewModel { 
+            var kickOutChatUserStatus = new KickOutChatUserViewModel
+            {
                 CommandResult = kickOutResult
             };
 
-            if(kickOutResult.IsSuccessful)
+            if (kickOutResult.IsSuccessful)
             {
-                var chatUserInRoom = _chatRepository.Get<ChatUserInRoom>(new GetChatUserInRoomCriteria { 
+                var chatUserInRoom = _chatRepository.Get<ChatUserInRoom>(new GetChatUserInRoomCriteria
+                {
                     ChatRoomId = chatRoomId,
                     ChatUserId = chatUserId
                 });
@@ -319,6 +341,13 @@ namespace Fanex.LiveCharts.Chat.Services
             return kickOutChatUserStatus;
         }
 
+        /// <summary>
+        /// Delete chat message on admin site, just update database and then call member site.
+        /// </summary>
+        /// <param name="chatMessageId">Chat message id for update.</param>
+        /// <param name="chatRoomName">Chat room name for broadcast delete command.</param>
+        /// <param name="deleteBy">Delete by admin id.</param>
+        /// <returns>Delete chat message information.</returns>
         public DeleteChatMessageViewModel DeleteChatMessageOnAdminSite(int chatMessageId, string chatRoomName, int deleteBy)
         {
             ICommandResult deleteMessageResult = _chatRepository.ModifyData(new UpdateChatMessageCriteria
@@ -441,6 +470,13 @@ namespace Fanex.LiveCharts.Chat.Services
         #endregion Export Excel
 
         #region Private Functions
+
+        /// <summary>
+        /// Check chat command is valid or not.
+        /// </summary>
+        /// <param name="tokenName">Token name for authentication.</param>
+        /// <param name="tokenKey">Token key for authentication.</param>
+        /// <returns>Command valid or not.</returns>
         private ICommandResult CheckChatCommandTokenInValid(string tokenName, string tokenKey)
         {
             var cachedToken = CacheManager.Instance.Get<string>(tokenName);
@@ -462,7 +498,10 @@ namespace Fanex.LiveCharts.Chat.Services
             kickOutViewModel.TokenName = string.Format("{0}_{1}", chatUserId, chatRoomId);
             kickOutViewModel.TokenKey = Guid.NewGuid().ToString();
 
-            CacheManager.Instance.Set<string>(KickOutCommandCacheKey + "_" + kickOutViewModel.TokenName, kickOutViewModel.TokenKey, new TimeSpan(0, 5, 0));
+            CacheManager.Instance.Set<string>(
+                KickOutCommandCacheKey + "_" + kickOutViewModel.TokenName,
+                kickOutViewModel.TokenKey,
+                new TimeSpan(0, AppSettings.CachingTimeOutMinute, 0));
         }
 
         private void SetDeleleMessageToken(DeleteChatMessageViewModel deleteMessageViewModel, int chatMessageId, string chatRoomName)
@@ -470,9 +509,12 @@ namespace Fanex.LiveCharts.Chat.Services
             deleteMessageViewModel.TokenName = string.Format("{0}_{1}", chatMessageId, chatRoomName);
             deleteMessageViewModel.TokenKey = Guid.NewGuid().ToString();
 
-            CacheManager.Instance.Set<string>(DeleteMessageCommandCacheKey + "_" + deleteMessageViewModel.TokenName, deleteMessageViewModel.TokenKey, new TimeSpan(0, 5, 0));
+            CacheManager.Instance.Set<string>(
+                DeleteMessageCommandCacheKey + "_" + deleteMessageViewModel.TokenName,
+                deleteMessageViewModel.TokenKey,
+                new TimeSpan(0, AppSettings.CachingTimeOutMinute, 0));
         }
 
-        #endregion
+        #endregion Private Functions
     }
 }

@@ -53,6 +53,15 @@ namespace Fanex.LiveCharts.Controllers
             return View(mainPageViewModel);
         }
 
+        [NapSuperAuth]
+        public ActionResult Index()
+        {
+            return RedirectToRoute(new { 
+                Area = "Admin",
+                Controller = "Match",
+                Action = "GetEnableCharts"
+            });
+        }
         /// <summary>
         /// Index Page, load chart Page.
         /// </summary>

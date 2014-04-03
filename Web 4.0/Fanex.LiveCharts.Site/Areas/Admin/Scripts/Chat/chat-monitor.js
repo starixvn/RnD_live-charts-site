@@ -142,8 +142,9 @@ function ChatMonitor() {
                    },
                    { HeaderText: 'Chat Name', Width: 150, Name: 'ChatName', CellAlign: 'center' },
                    { HeaderText: 'Chat Message', Width: 490, Name: 'ChatMessage', CustomCellRender: function (cell) {
+                       var messageClass = cell.Value.isDeleted ? 'recover-action recover-chat-message' : 'remove-action remove-chat-message'
                        return '<div class="message-container">'
-                                    + '<span class="remove-action remove-chat-message" data-chat-message-id="'
+                                    + '<span class="' + messageClass + '" data-chat-message-id="'
                                         + cell.Value.chatMessageId
                                     + '"></span>'
                                     + '<div class="message-content">'
@@ -192,7 +193,8 @@ function ChatMonitor() {
                        Value:
                        {
                            content: currentMessage.Content,
-                           chatMessageId: currentMessage.ChatMessageId
+                           chatMessageId: currentMessage.ChatMessageId,
+                           isDeleted: currentMessage.IsDeleted
                        }
                    }
                 ],

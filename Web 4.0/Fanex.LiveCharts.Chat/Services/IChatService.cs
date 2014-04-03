@@ -12,10 +12,10 @@ namespace Fanex.LiveCharts.Chat.Services
     using System.Collections.Generic;
     using Fanex.LiveCharts.Chat.Criteria;
     using Fanex.LiveCharts.Chat.Models;
+    using Fanex.LiveCharts.Chat.ViewModels;
     using Fanex.LiveCharts.Models;
     using Fanex.NAP.Framework.Data;
     using NPOI.HSSF.UserModel;
-    using Fanex.LiveCharts.Chat.ViewModels;
 
     /// <summary>
     /// TODO: Update summary.
