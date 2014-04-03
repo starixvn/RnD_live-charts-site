@@ -41,7 +41,7 @@ function ChatServer(chatAdapter, chatClient, chatUser, chatRoom, chatUserInRoom 
     };
 
     me.joinRoom = function () {
-        me.chatAdapter.server.joinRoom(me.chatUser, me.chatRoom, me.chatUserInRoom);
+        me.chatAdapter.server.joinRoom(me.chatUser, me.chatRoom, me.chatUserInRoom.chatUserInRoomId);
         me.getChatMessageHistory();
     };
 

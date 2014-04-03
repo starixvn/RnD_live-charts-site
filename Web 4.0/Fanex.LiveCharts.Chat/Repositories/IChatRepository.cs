@@ -21,5 +21,7 @@ namespace Fanex.LiveCharts.Chat.Repositories
     public interface IChatRepository : IBaseRepository
     {
         IEnumerable<ChatMessage> GetChatMessages(ICriteria criteria);
+
+        IEnumerable<ChatUserInRoom> GetUsersInRoom(ICriteria criteria);
     }
 }

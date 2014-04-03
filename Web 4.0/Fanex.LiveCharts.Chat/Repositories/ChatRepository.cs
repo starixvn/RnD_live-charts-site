@@ -28,8 +28,6 @@ namespace Fanex.LiveCharts.Chat.Repositories
         /// <returns>List message.</returns>
         public IEnumerable<ChatMessage> GetChatMessages(ICriteria criteria)
         {
-            var chatMessages = new List<ChatMessage>();
-
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 var param = criteria.GetSpParams();
@@ -41,6 +39,31 @@ namespace Fanex.LiveCharts.Chat.Repositories
                         return cm;
                     },
                     "ChatUserId",
+                    param);
+
+                return list;
+            }
+        }
+
+        /// <summary>
+        /// Get users in room.
+        /// </summary>
+        /// <param name="criteria">Criteria for get data.</param>
+        /// <returns>List user in chat room.</returns>
+        public IEnumerable<ChatUserInRoom> GetUsersInRoom(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                var param = criteria.GetSpParams();
+
+                var list = db.Query<ChatUserInRoom, ChatUser, ChatRoom, ChatUserInRoom>(
+                    (cuir, cu, cr) =>
+                    {
+                        cuir.ChatUser = cu;
+                        cuir.ChatRoom = cr;
+                        return cuir;
+                    },
+                    "ChatUserId,ChatRoomId",
                     param);
 
                 return list;

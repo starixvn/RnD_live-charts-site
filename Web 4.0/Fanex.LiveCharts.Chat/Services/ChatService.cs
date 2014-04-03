@@ -185,14 +185,20 @@ namespace Fanex.LiveCharts.Chat.Services
         /// <returns>Current information of chat user in room.</returns>
         public ChatUserInRoom GetChatUserInRoom(GetChatUserInRoomCriteria getChatUserInRoomCriteria)
         {
-            var chatUserInRoom = _chatRepository.Get<ChatUserInRoom>(getChatUserInRoomCriteria);
+            var chatUserInRoom = _chatRepository.GetUsersInRoom(getChatUserInRoomCriteria).FirstOrDefault();
 
             if (chatUserInRoom == null)
             {
                 chatUserInRoom = new ChatUserInRoom
                 {
-                    ChatRoomId = getChatUserInRoomCriteria.ChatRoomId,
-                    ChatUserId = getChatUserInRoomCriteria.ChatUserId
+                    ChatRoom = new ChatRoom
+                    {
+                        ChatRoomId = getChatUserInRoomCriteria.ChatRoomId
+                    },
+                    ChatUser = new ChatUser
+                    {
+                        ChatUserId = getChatUserInRoomCriteria.ChatUserId
+                    }
                 };
             }
 
@@ -201,7 +207,7 @@ namespace Fanex.LiveCharts.Chat.Services
 
         public ChatUserInRoom GetChatUserInRoomByConnectionId(GetChatUserInRoomByConnectionIdCriteria getChatUserInRoomByConnectionIdCriteria)
         {
-            var chatUserInRoom = _chatRepository.Get<ChatUserInRoom>(getChatUserInRoomByConnectionIdCriteria);
+            var chatUserInRoom = _chatRepository.GetUsersInRoom(getChatUserInRoomByConnectionIdCriteria).FirstOrDefault();
 
             return chatUserInRoom;
         }
@@ -326,16 +332,19 @@ namespace Fanex.LiveCharts.Chat.Services
 
             if (kickOutResult.IsSuccessful)
             {
-                var chatUserInRoom = _chatRepository.Get<ChatUserInRoom>(new GetChatUserInRoomCriteria
+                ChatUserInRoom chatUserInRoom = _chatRepository.GetUsersInRoom(new GetChatUserInRoomCriteria
                 {
                     ChatRoomId = chatRoomId,
                     ChatUserId = chatUserId
-                });
+                }).FirstOrDefault();
 
-                kickOutChatUserStatus.NeedToSendRequestKickOut = !chatUserInRoom.IsLeft;
-                kickOutChatUserStatus.ChatUserId = chatUserId;
-                kickOutChatUserStatus.ConnectionId = chatUserInRoom.ConnectionId;
-                SetKickOutToken(kickOutChatUserStatus, chatUserId, chatRoomId);
+                if (chatUserInRoom != null)
+                {
+                    kickOutChatUserStatus.NeedToSendRequestKickOut = !chatUserInRoom.IsLeft;
+                    kickOutChatUserStatus.ChatUserId = chatUserId;
+                    kickOutChatUserStatus.ConnectionId = chatUserInRoom.ConnectionId;
+                    SetKickOutToken(kickOutChatUserStatus, chatUserId, chatRoomId);
+                }
             }
 
             return kickOutChatUserStatus;

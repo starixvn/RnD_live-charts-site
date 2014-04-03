@@ -18,10 +18,6 @@ namespace Fanex.LiveCharts.Chat.Models
     {
         public int ChatUserInRoomId { get; set; }
 
-        public int ChatUserId { get; set; }
-
-        public int ChatRoomId { get; set; }
-
         public DateTime LastOnlineTime { get; set; }
 
         public bool IsLeft { get; set; }
@@ -30,8 +26,8 @@ namespace Fanex.LiveCharts.Chat.Models
 
         public bool KickedOut { get; set; }
 
-        public string ChatRoomName { get; set; }
+        public ChatUser ChatUser { get; set; }
 
-        public string ChatName { get; set; }
+        public ChatRoom ChatRoom { get; set; }
     }
 }

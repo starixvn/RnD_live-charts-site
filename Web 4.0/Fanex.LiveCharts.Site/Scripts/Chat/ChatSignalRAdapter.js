@@ -59,8 +59,8 @@ function ChatSignalRAdapter() {
                 me.server.callBackDone(done, result);
             });
         },
-        joinRoom: function (chatUser, chatRoom, chatUserInRoom, done) {
-            me.hub.server.joinRoom(chatUser, chatRoom, chatUserInRoom).done(function (result) {
+        joinRoom: function (chatUser, chatRoom, chatUserInRoomId, done) {
+            me.hub.server.joinRoom(chatUser, chatRoom, chatUserInRoomId).done(function (result) {
                 me.server.callBackDone(done, result);
             });
         },

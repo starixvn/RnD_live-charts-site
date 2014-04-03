@@ -31,7 +31,7 @@ namespace Fanex.LiveCharts.Chat.Hubs
 
         IEnumerable<ChatMessage> GetChatMessageHistory(int chatRoomId, DateTime? lastedTime);
 
-        Task JoinRoom(ChatUser chatUser, ChatRoom chatRoom, ChatUserInRoom chatUserInRoom);
+        Task JoinRoom(ChatUser chatUser, ChatRoom chatRoom, int chatUserInRoomId);
 
         Task LeaveRoom(ChatUser chatUser, ChatRoom chatRoom);
 
