@@ -1,4 +1,5 @@
 ﻿@using Fanex.LiveCharts.Chat.ViewModels;
+@using Fanex.LiveCharts.Core;
 @model ChatMonitorViewModel
 @{
     ViewBag.Title = AdminSiteLang.MonitorChatConversation;
@@ -22,11 +23,16 @@
         var CHAT_MONITOR_DEFAULT = {
             matchId: @(Model.ChatRoom.MatchId),
             chatRoomId: @(Model.ChatRoom.ChatRoomId),
+            chatRoomName: "@(Model.ChatRoom.ChatRoomName)",
             getChatMessagesUrl: "@(Url.Action("GetChatMessages", "ChatAdmin"))",
+            kickOutChatUserUrl: "@(Url.Action("KickOutChatUser", "ChatAdmin"))",
+            deleteChatMessageUrl: "@(Url.Action("DeleteChatMessage", "ChatAdmin"))",
             exportExcelUrl: "@(Url.Action("ExportExcel", "ChatAdmin"))",
-            gridTitle: "@(gridTitle)"
+            gridTitle: "@(gridTitle)",
+            memberChartSiteUrl: "@(AppSettings.MemberChartSiteUrl)"
         };
     </script>
+    
     @Scripts.Render("~/areas/admin/chatmonitorjs")
 }
 

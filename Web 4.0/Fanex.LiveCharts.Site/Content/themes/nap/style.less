@@ -1538,3 +1538,39 @@ footer {
 {
 	background: url(img/red-triangle.png) no-repeat scroll right top transparent;	
 }
+
+#messageNotification{
+		
+		padding: 10px 30px;
+		line-height: 1.6em;
+		color: #333333;
+		border-radius: 3px;
+		-moz-border-radius: 3px;
+		-webkit-border-radius: 3px;
+		box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+		-moz-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+		-webkit-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+		margin: 0 0 10px;
+		list-style-type: circle;
+		transition: all 0.2s ease-in-out;
+		-moz-transition: all 0.2s ease-in-out;
+		-webkit-transition: all 0.2s ease-in-out;
+		-o-transition: all 0.2s ease-in-out;
+		display: none;
+		text-align: center;
+		position: absolute;
+		max-width: 80%;
+		top: 100px;
+		font-weight: bold;
+		z-index: 2000;
+	}
+
+	#messageNotification.valid-message{
+		background-color: #aaffaa;
+		border: solid 1px #00aa00;
+	}
+
+	#messageNotification.error-message{
+		background-color: #ffaaaa;
+		border: solid 1px #aa0000;
+	}

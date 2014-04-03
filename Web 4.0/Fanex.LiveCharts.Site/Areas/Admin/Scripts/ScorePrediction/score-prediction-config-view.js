@@ -66,7 +66,7 @@ function ScorePredictionConfigView() {
                         LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.success, commandResult.Message);
                     }
                     else {
-                        LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.success, commandResult.Message);
+                        LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.error, commandResult.Message);
                     }
                 }
             });

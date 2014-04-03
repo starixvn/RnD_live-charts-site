@@ -183,7 +183,9 @@
     <Content Include="Areas\Admin\Scripts\Chat\chat-monitor.js" />
     <Content Include="Content\Bootstrap\bootstrap-common.less" />
     <Content Include="Content\Images\chart-spite.png" />
+    <Content Include="Content\Images\chat_monitor.png" />
     <Content Include="Content\Images\delete.png" />
+    <Content Include="Content\Images\score_prediction.png" />
     <Content Include="Content\MovementCharts\MainPage.less" />
     <Content Include="Content\MovementCharts\Chat.less" />
     <Content Include="Content\Sounds\chat.mp3" />
@@ -258,6 +260,8 @@
     <Content Include="Scripts\Libs\ProfanityFilter\jquery.profanityfilter.min.js" />
     <Content Include="Views\Chat\Index.cshtml" />
     <Content Include="Scripts\Libs\ProfanityFilter\swearWords.js" />
+    <Content Include="Views\Shared\_AnnouncementLayout.cshtml" />
+    <Content Include="Views\Chat\KickedOut.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />

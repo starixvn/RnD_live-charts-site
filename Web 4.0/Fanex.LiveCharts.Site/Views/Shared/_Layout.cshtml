@@ -35,56 +35,11 @@
     </script>
 </head>
 <body>
-        @RenderBody()
+    @RenderBody()
     
     @Html.Hidden("LiveChartRoot", Url.Content("~/"))
     
     @Scripts.Render("~/bundles/jquery")
-    
-    <script type="text/javascript">
-        var DEFAULT_OBJECT = {
-            datePickerImage: '@(Url.Content("~/Content/Images/calendar.gif"))',
-            lblOddsValue: '@(Lang.OddsValue)',
-            lblBetcountValue: '@(Lang.BetCountVolumn)',
-            lblOpenTime: '@(Lang.OpenTime)',
-            lblHdpHome: '@(Lang.HdpHome)',
-            lblOddsDEC: '@(Lang.OddsDEC)',
-            lblPriceMovement: '@(Lang.PriceMovement)',
-            lblMarketMovement: '@(Lang.MarketMovement)',
-            lblTime: '@(Lang.Time)',
-            lblNumOfTicket: '@(Lang.BetCountVolumn)',
-            lblPriceAndMarket: '@(Lang.PriceAndMarketMovement)',
-            liveStartTime: @(Constants.LIVE_START_MINUTE),
-            deadballStartTime: @(Constants.DEAD_BALL_START_MINUTE),
-            liveStopTime: @(Constants.LIVE_STOP_MINUTE),
-            deadballStopTime: @(Constants.DEAD_BALL_STOP_MINUTE),
-            chooseALeague: '@(Lang.ChooseALeague)',
-            chooseAMatch: '@(Lang.ChooseAMatch)',
-            chooseABettype: '@(Lang.ChooseABettype)',
-            chooseABettingOdd: '@(Lang.ChooseABettingOdd)',
-            imageFolderUrl: '@(Url.Content("~/Content/Images/"))',
-            redCardImage: '@(Url.Content("~/Content/Images/Red_card.png"))',
-            ballImage: '@(Url.Content("~/Content/Images/Soccer_ball.png"))',
-            yellowCard: '@(Url.Content("~/Content/Images/Yellow_card.png"))'
-        };
-        
-        var LANGUAGE = 
-        {
-            live: '@(Lang.Live)',
-            nonlive: '@(Lang.NonLive)',
-            selectLeague: '@(string.Format(Lang.SelectA, Lang.League))',
-            selectMatch: '@(string.Format(Lang.SelectA, Lang.Match))',
-            selectBettingOdds: '@(string.Format(Lang.SelectA, Lang.BettingOdds))',
-            home: '@(Lang.Home)',
-            away: '@(Lang.Away)',
-            draw: '@(Lang.Draw)',
-            over: '@(Lang.Over)',
-            under: '@(Lang.Under)',
-            handicap: '@(Lang.Handicap)',
-            overUnder: '@Lang.OverUnder',
-            chartUnavai: '@Lang.ChartUnavailable'
-        };
-    </script>
     @RenderSection("Scripts", false)
     @RenderSection("Foot", false)
     

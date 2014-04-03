@@ -15,6 +15,7 @@ namespace Fanex.LiveCharts.Chat.Services
     using Fanex.LiveCharts.Models;
     using Fanex.NAP.Framework.Data;
     using NPOI.HSSF.UserModel;
+    using Fanex.LiveCharts.Chat.ViewModels;
 
     /// <summary>
     /// TODO: Update summary.
@@ -56,5 +57,13 @@ namespace Fanex.LiveCharts.Chat.Services
         ICommandResult UpdateChatUserInRoom(UpdateChatUserInRoomCriteria updateChatUserInRoomCriteria);
 
         HSSFWorkbook ExportChatConversation(IEnumerable<ChatMessage> chatMessages, Match match, ChatRoom chatRoom, string templeteFilePath);
+
+        ICommandResult KickOutChatUserOnMemberSite(int chatUserId, string connectionId, string tokenName, string tokenKey);
+
+        ICommandResult DeleteChatMessageOnMemberSite(int chatMessageId, string chatRoomName, string tokenName, string tokenKey);
+
+        KickOutChatUserViewModel KickOutChatUserOnAdminSite(int chatUserId, int chatRoomId);
+
+        DeleteChatMessageViewModel DeleteChatMessageOnAdminSite(int chatMessageId, string chatRoomName, int deleteBy);
     }
 }

@@ -24,6 +24,10 @@ namespace Fanex.LiveCharts.Chat.Services
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
+    using Microsoft.AspNet.SignalR;
+    using Fanex.LiveCharts.Chat.Hubs;
+    using Fanex.LiveCharts.Services.Impl;
+    using Fanex.LiveCharts.Chat.ViewModels;
 
     /// <summary>
     /// TODO: Update summary.
@@ -31,6 +35,8 @@ namespace Fanex.LiveCharts.Chat.Services
     public class ChatService : IChatService
     {
         private readonly IChatRepository _chatRepository;
+        private const string KickOutCommandCacheKey = "Chat.Services.ChatService.KickOutCommandCacheKey";
+        private const string DeleteMessageCommandCacheKey = "Chat.Services.ChatService.DeleteMessageCommandCacheKey";
 
         public ChatService()
             : this(null)
@@ -214,6 +220,129 @@ namespace Fanex.LiveCharts.Chat.Services
             return chatRooms;
         }
 
+        public ICommandResult KickOutChatUserOnMemberSite(int chatUserId, string connectionId, string tokenName, string tokenKey)
+        {
+            try
+            {
+                var inValidTokenResult = CheckChatCommandTokenInValid(KickOutCommandCacheKey + "_" + tokenName, tokenKey);
+                if (inValidTokenResult != null)
+                {
+                    return inValidTokenResult;
+                }
+
+                IHubContext chatHub = GlobalHost.ConnectionManager.GetHubContext<ChatHub>();
+
+                if (chatHub != null)
+                {
+                    chatHub.Clients.Client(connectionId).kickOutChatUser(chatUserId);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ServiceBase.ExceptionHandler(ex);
+                return new CommandResult
+                {
+                    Code = 11,
+                    Message = ex.Message
+                };
+            }
+
+            return new CommandResult { 
+                Code= 0,
+                Message = string.Empty
+            };
+        }
+
+        public ICommandResult DeleteChatMessageOnMemberSite(int chatMessageId, string chatRoomName, string tokenName, string tokenKey)
+        {
+            try
+            {
+                var inValidTokenResult = CheckChatCommandTokenInValid(DeleteMessageCommandCacheKey + "_" + tokenName, tokenKey);
+                if (inValidTokenResult != null)
+                {
+                    return inValidTokenResult;
+                }
+
+                IHubContext chatHub = GlobalHost.ConnectionManager.GetHubContext<ChatHub>();
+
+                if (chatHub != null)
+                {
+                    chatHub.Clients.Group(chatRoomName).deleteChatMessage(chatMessageId);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ServiceBase.ExceptionHandler(ex);
+                return new CommandResult
+                {
+                    Code = 11,
+                    Message = ex.Message
+                };
+            }
+
+            return new CommandResult
+            {
+                Code = 0,
+                Message = string.Empty
+            };
+        }
+
+        public KickOutChatUserViewModel KickOutChatUserOnAdminSite(int chatUserId, int chatRoomId)
+        {
+            
+            ICommandResult kickOutResult = _chatRepository.ModifyData(new KickOutChatUserCriteria
+            {
+                ChatUserId = chatUserId,
+                ChatRoomId = chatRoomId,
+                IsKickOut = true
+            });
+
+            var kickOutChatUserStatus = new KickOutChatUserViewModel { 
+                CommandResult = kickOutResult
+            };
+
+            if(kickOutResult.IsSuccessful)
+            {
+                var chatUserInRoom = _chatRepository.Get<ChatUserInRoom>(new GetChatUserInRoomCriteria { 
+                    ChatRoomId = chatRoomId,
+                    ChatUserId = chatUserId
+                });
+
+                kickOutChatUserStatus.NeedToSendRequestKickOut = !chatUserInRoom.IsLeft;
+                kickOutChatUserStatus.ChatUserId = chatUserId;
+                kickOutChatUserStatus.ConnectionId = chatUserInRoom.ConnectionId;
+                SetKickOutToken(kickOutChatUserStatus, chatUserId, chatRoomId);
+            }
+
+            return kickOutChatUserStatus;
+        }
+
+        public DeleteChatMessageViewModel DeleteChatMessageOnAdminSite(int chatMessageId, string chatRoomName, int deleteBy)
+        {
+            ICommandResult deleteMessageResult = _chatRepository.ModifyData(new UpdateChatMessageCriteria
+            {
+                ChatMessageId = chatMessageId,
+                IsDelete = true,
+                DeletedBy = deleteBy
+            });
+
+            var deleteMessageViewModel = new DeleteChatMessageViewModel
+            {
+                CommandResult = deleteMessageResult
+            };
+
+            if (deleteMessageResult.IsSuccessful)
+            {
+                deleteMessageViewModel.ChatMessageId = chatMessageId;
+                deleteMessageViewModel.ChatRoomName = chatRoomName;
+                SetDeleleMessageToken(deleteMessageViewModel, chatMessageId, chatRoomName);
+            }
+
+            return deleteMessageViewModel;
+        }
+
         #region Export Excel
 
         /// <summary>
@@ -241,7 +370,7 @@ namespace Fanex.LiveCharts.Chat.Services
             FileStream file = new FileStream(templeteFilePath, FileMode.Open, FileAccess.Read);
 
             var hssfWorkBook = new HSSFWorkbook(file);
-            ISheet templeteSheet = hssfWorkBook.GetSheet("Chat Conversation Sheet");
+            ISheet templeteSheet = hssfWorkBook.GetSheetAt(0);
             ExportChatConversationHeader(templeteSheet, match);
             ExportChatConversationBody(templeteSheet, chatMessages);
 
@@ -310,5 +439,40 @@ namespace Fanex.LiveCharts.Chat.Services
         }
 
         #endregion Export Excel
+
+        #region Private Functions
+        private ICommandResult CheckChatCommandTokenInValid(string tokenName, string tokenKey)
+        {
+            var cachedToken = CacheManager.Instance.Get<string>(tokenName);
+
+            if (string.IsNullOrEmpty(cachedToken) || cachedToken != tokenKey)
+            {
+                return new CommandResult
+                {
+                    Code = 10,
+                    Message = AdminSiteLang.InvalidToken
+                };
+            }
+
+            return null;
+        }
+
+        private void SetKickOutToken(KickOutChatUserViewModel kickOutViewModel, int chatUserId, int chatRoomId)
+        {
+            kickOutViewModel.TokenName = string.Format("{0}_{1}", chatUserId, chatRoomId);
+            kickOutViewModel.TokenKey = Guid.NewGuid().ToString();
+
+            CacheManager.Instance.Set<string>(KickOutCommandCacheKey + "_" + kickOutViewModel.TokenName, kickOutViewModel.TokenKey, new TimeSpan(0, 5, 0));
+        }
+
+        private void SetDeleleMessageToken(DeleteChatMessageViewModel deleteMessageViewModel, int chatMessageId, string chatRoomName)
+        {
+            deleteMessageViewModel.TokenName = string.Format("{0}_{1}", chatMessageId, chatRoomName);
+            deleteMessageViewModel.TokenKey = Guid.NewGuid().ToString();
+
+            CacheManager.Instance.Set<string>(DeleteMessageCommandCacheKey + "_" + deleteMessageViewModel.TokenName, deleteMessageViewModel.TokenKey, new TimeSpan(0, 5, 0));
+        }
+
+        #endregion
     }
 }

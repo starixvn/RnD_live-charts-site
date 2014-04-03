@@ -306,4 +306,13 @@
   <data name="MonitorChatConversation" xml:space="preserve">
     <value>Monitor Chat Conversation</value>
   </data>
+  <data name="MonitorChat" xml:space="preserve">
+    <value>Monitor Chat</value>
+  </data>
+  <data name="MonitorScorePrediction" xml:space="preserve">
+    <value>Monitor Score Prediction</value>
+  </data>
+  <data name="InvalidToken" xml:space="preserve">
+    <value>InvalidToken</value>
+  </data>
 </root>

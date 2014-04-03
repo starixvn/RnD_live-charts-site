@@ -23,8 +23,6 @@ namespace Fanex.LiveCharts.Chat.Criteria
 
         public bool IsLeft { get; set; }
 
-        public bool KickedOut { get; set; }
-
         public DateTime LastOnlineTime { get; set; }
 
         public override string GetSettingKey()

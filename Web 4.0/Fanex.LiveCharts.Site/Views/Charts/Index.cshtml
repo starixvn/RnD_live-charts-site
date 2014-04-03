@@ -4,15 +4,17 @@
 @{
     ViewBag.Title = "Live Chart System";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var leagues = (IEnumerable<League>)ViewBag.Leagues;
-    var matches = (IEnumerable<Match>)ViewBag.Matches;
-    var odds = (IEnumerable<Odds>)ViewBag.Odds;
-    var matchDate = (DateTime)ViewBag.MatchDate;
+    //var leagues = (IEnumerable<League>)ViewBag.Leagues;
+    //var matches = (IEnumerable<Match>)ViewBag.Matches;
+    //var odds = (IEnumerable<Odds>)ViewBag.Odds;
+    //var matchDate = (DateTime)ViewBag.MatchDate;
 }
 
+
+@*
 @section Styles
 {
-    <link rel="stylesheet" href="~/Content/MovementCharts/MovementCharts.less" type="text/css" />   
+    <link rel="stylesheet" href="~/Content/MovementCharts/MovementCharts.less" type="text/css" />
 }
 
 <div id="body">
@@ -29,7 +31,7 @@
                     @*<div>
                         @Lang.BetType: <span class="bet-type-name">@Lang.NoDataAvailble</span>.
                     @Lang.BettingOdds: <span class="odds-name">@Lang.NoDataAvailble</span>
-                    </div>*@
+                    </div>
                 </div>
                 <div class="btn-collapse">
                 </div>
@@ -89,20 +91,6 @@
                         <input type="button" class="btn" value="Submit" id="btnLoadChart" />
                     </div>
                 </div>
-               @* <div class="control-group">
-                    <div class="span12">
-                        <label class="control-label" for="ddlBetType">@(Lang.BetType):</label>
-                        <select id="ddlBetType" class="span7">
-                            @{
-                                foreach (var bettype in Constants.BetTypes)
-                                {
-                                <option value="@bettype.Id" @(bettype.Id == (int)BetTypeEnum.Handicap ? "selected='selected'" : string.Empty)>@bettype.Name</option>
-                                }
-                            }
-                        </select>
-                    </div>
-                   
-                </div>*@
             </div>
         </div>
     </div>
@@ -114,4 +102,4 @@
 @section Scripts
 {
     @Scripts.Render("~/bundles/chart")
-}
+}*@

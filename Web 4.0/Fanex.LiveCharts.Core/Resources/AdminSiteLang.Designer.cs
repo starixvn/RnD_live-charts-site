@@ -313,6 +313,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to InvalidToken.
+        /// </summary>
+        public static string InvalidToken {
+            get {
+                return ResourceManager.GetString("InvalidToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Keyword.
         /// </summary>
         public static string Keyword {
@@ -439,11 +448,29 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Monitor Chat.
+        /// </summary>
+        public static string MonitorChat {
+            get {
+                return ResourceManager.GetString("MonitorChat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Monitor Chat Conversation.
         /// </summary>
         public static string MonitorChatConversation {
             get {
                 return ResourceManager.GetString("MonitorChatConversation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Monitor Score Prediction.
+        /// </summary>
+        public static string MonitorScorePrediction {
+            get {
+                return ResourceManager.GetString("MonitorScorePrediction", resourceCulture);
             }
         }
         

@@ -88,6 +88,7 @@
     <Compile Include="Criteria\InsertChatUserCriteria.cs" />
     <Compile Include="Criteria\InsertChatUserInRoomCriteria.cs" />
     <Compile Include="Criteria\InsertUpdateChatMessageSpamCriteria.cs" />
+    <Compile Include="Criteria\KickOutChatUserCriteria.cs" />
     <Compile Include="Criteria\UpdateChatMessageCriteria.cs" />
     <Compile Include="Criteria\UpdateChatRoomCriteria.cs" />
     <Compile Include="Criteria\UpdateChatUserCriteria.cs" />
@@ -106,6 +107,8 @@
     <Compile Include="Services\IChatService.cs" />
     <Compile Include="ViewModels\ChatMonitorViewModel.cs" />
     <Compile Include="ViewModels\ChatViewModel.cs" />
+    <Compile Include="ViewModels\DeleteChatMessageViewModel.cs" />
+    <Compile Include="ViewModels\KickOutChatUserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fanex.LiveCharts.Core\Fanex.LiveCharts.csproj">

@@ -57,38 +57,38 @@ namespace Fanex.LiveCharts.Controllers
         /// Index Page, load chart Page.
         /// </summary>
         /// <returns>Index page.</returns>
-        [NapSuperAuth]
-        public ActionResult Index()
-        {
-            var currentDate = DateTime.Now;
-            var leagues = _chartService.GetLeagues(new GetLeaguesCriteria
-                {
-                    MatchDate = currentDate
-                });
-            ViewBag.MatchDate = currentDate;
-            ViewBag.Leagues = leagues;
+        ////[NapSuperAuth]
+        ////public ActionResult Index()
+        ////{
+        ////    var currentDate = DateTime.Now;
+        ////    var leagues = _chartService.GetLeagues(new GetLeaguesCriteria
+        ////        {
+        ////            MatchDate = currentDate
+        ////        });
+        ////    ViewBag.MatchDate = currentDate;
+        ////    ViewBag.Leagues = leagues;
 
-            if (leagues != null && leagues.Any())
-            {
-                var matches = _chartService.GetMatches(new GetMatchesCriteria
-                {
-                    LeagueId = leagues.ElementAt(0).Id,
-                    MatchDate = ViewBag.MatchDate
-                });
-                ViewBag.Matches = matches;
-                if (matches != null && matches.Any())
-                {
-                    var odds = _chartService.GetOdds(new GetOddsCriteria
-                    {
-                        MatchId = matches.ElementAt(0).Id,
-                        BetTypeId = (int)BetTypeEnum.Handicap
-                    });
-                    ViewBag.Odds = odds;
-                }
-            }
+        ////    if (leagues != null && leagues.Any())
+        ////    {
+        ////        var matches = _chartService.GetMatches(new GetMatchesCriteria
+        ////        {
+        ////            LeagueId = leagues.ElementAt(0).Id,
+        ////            MatchDate = ViewBag.MatchDate
+        ////        });
+        ////        ViewBag.Matches = matches;
+        ////        if (matches != null && matches.Any())
+        ////        {
+        ////            var odds = _chartService.GetOdds(new GetOddsCriteria
+        ////            {
+        ////                MatchId = matches.ElementAt(0).Id,
+        ////                BetTypeId = (int)BetTypeEnum.Handicap
+        ////            });
+        ////            ViewBag.Odds = odds;
+        ////        }
+        ////    }
 
-            return View();
-        }
+        ////    return View();
+        ////}
 
         /// <summary>
         /// Chart Content page, plug-in member site, will remove check box live.

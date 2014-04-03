@@ -166,11 +166,20 @@ function ChatClient(chatUser, chatRoom) {
         }
     };
 
-    me.kickOutUserChat = function (chatUser) {
-        if(chatUser && chatUser.chatUserId === me.chatUser.chatUserId)
-        {
+    me.kickOutChatUser = function (chatUserId) {
+        if (chatUserId === me.chatUser.chatUserId) {
             alert('User is kicked out!');
             // User kickout handler
+        }
+        else {
+            alert(chatUserId);
+        }
+    };
+
+    me.deleteChatMessage = function (chatMessageId) {
+        var deleteMessageElement = me.$mainChatRoom.find('.chat-message[data-message-id=' + chatMessageId + ']');
+        if (deleteMessageElement.length > 0) {
+            deleteMessageElement.hide();
         }
     };
 

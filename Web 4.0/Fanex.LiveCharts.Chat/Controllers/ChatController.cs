@@ -48,7 +48,7 @@ namespace Fanex.LiveCharts.Chat.Controllers
 
             var chatRoom = _chatService.GetChatRoomByName(new GetChatRoomByNameCriteria
             {
-                ChatRoomName = string.Format("{0}_{1}", matchId, SessionManager.CurrentSession.Language.Replace('-', '_')),
+                ChatRoomName = string.Format("{0}_{1}", matchId, SessionManager.CurrentSession.Language.Replace('-', '_').Trim()),
                 MatchId = matchId
             });
 
@@ -99,5 +99,22 @@ namespace Fanex.LiveCharts.Chat.Controllers
 
             return Json(commandResult);
         }
+
+
+        #region Actions for Admin Site access
+        
+        [HttpPost]
+        public JsonResult KickOutChatUser(int chatUserId, string connectionId, string tokenName, string tokenKey)
+        {
+            return Json(_chatService.KickOutChatUserOnMemberSite(chatUserId, connectionId, tokenName, tokenKey));
+        }
+
+        [HttpPost]
+        public JsonResult DeleteChatMessage(int chatMessageId, string chatRoomName, string tokenName, string tokenKey)
+        {
+            return Json(_chatService.DeleteChatMessageOnMemberSite(chatMessageId, chatRoomName, tokenName, tokenKey));
+        }
+
+        #endregion
     }
 }

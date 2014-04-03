@@ -29,7 +29,7 @@ if (typeof jQuery !== 'undefined') {
                 var $message = $('#messageNotification');
                 var $body = $('body');
                 if ($message.length === 0) {
-                    $message = $('<div id="messageNotification"></div>').appendTo($body);
+                    $message = $('<div id="messageNotification"  style="display:none;"></div>').appendTo($body);
                 }
                 timeOut = timeOut || 3000;
                 switch (messageType) {
@@ -44,7 +44,7 @@ if (typeof jQuery !== 'undefined') {
 
                 $message.empty().html(messageText).show();
                 $message.css({
-                    left: ($body.width() / 2) - ($message.width() / 2) + 'px'
+                    left: ($body.width() / 2) - ($message.width() / 2 + 30) + 'px'
                 });
 
 

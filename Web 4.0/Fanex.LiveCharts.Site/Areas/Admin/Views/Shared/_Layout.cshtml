@@ -13,8 +13,15 @@
     <link href="~/Content/themes/reset.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/jQueryUI/jquery-ui-1.10.3.custom.min.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/themes/nap/style.less" rel="stylesheet" type="text/css" />
-    <link href="~/Areas/Admin/Content/AdminSite.less" rel="stylesheet" type="text/css" />
-    @RenderSection("Head", false)      
+    
+    @if (IsSectionDefined("Head"))
+    {
+        @RenderSection("Head")
+    }
+    else
+    {
+        <link href="~/Areas/Admin/Content/AdminSite.less" rel="stylesheet" type="text/css" />
+    }
 </head>
 <body>
     <header>

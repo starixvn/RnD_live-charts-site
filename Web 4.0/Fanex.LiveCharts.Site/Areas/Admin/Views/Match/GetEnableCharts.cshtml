@@ -117,8 +117,9 @@
                     }
                 </td>
                 <td class="align-center">
-                    <a href="~/ScorePrediction/AdminPage?matchId=@(item.Id)&homeName=@(HttpUtility.UrlEncode(item.HomeName))&awayName=@(HttpUtility.UrlEncode(item.AwayName))">Score Prediction</a>
-                    | <a href="~/ChatAdmin/ChatMonitor?matchId=@(item.Id)">Chat</a>
+                    <a href="~/ScorePrediction/AdminPage?matchId=@(item.Id)&homeName=@(HttpUtility.UrlEncode(item.HomeName))&awayName=@(HttpUtility.UrlEncode(item.AwayName))" 
+                    class="score-prediction-link" title="@(AdminSiteLang.MonitorScorePrediction)"></a>
+                    <a href="~/ChatAdmin/ChatMonitor?matchId=@(item.Id)" class="chat-monitor-link" title="@(AdminSiteLang.MonitorChatConversation)"></a>
                 </td>
             </tr>
                     i++;

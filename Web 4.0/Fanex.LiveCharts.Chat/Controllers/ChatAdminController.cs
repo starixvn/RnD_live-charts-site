@@ -24,6 +24,7 @@ namespace Fanex.LiveCharts.Chat.Controllers
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using Fanex.LiveCharts.Web;
 
     /// <summary>
     /// TODO: Update summary.
@@ -86,7 +87,19 @@ namespace Fanex.LiveCharts.Chat.Controllers
             return new ExcelResult(hssfWorkBook, exportFileName);
         }
 
+        [HttpPost]
+        public JsonResult KickOutChatUser(int chatUserId, int chatRoomId)
+        {
+            return Json(_chatService.KickOutChatUserOnAdminSite(chatUserId, chatRoomId));
+        }
 
+        [HttpPost]
+        public JsonResult DeleteChatMessage(int chatMessageId, string chatRoomName)
+        {
+            return Json(_chatService.DeleteChatMessageOnAdminSite(chatMessageId, chatRoomName, SessionManager.CurrentSession.AdminId));
+        }
+
+        #region Private actions
         private ChatMonitorViewModel GetChatMonitorViewMode(int matchId) { 
             var chatRooms = _chatService.GetChatRoomByMatchId(new GetChatRoomByMatchIdCriteria
             {
@@ -109,5 +122,8 @@ namespace Fanex.LiveCharts.Chat.Controllers
                 ChatRoom = defaultChatRoom
             };
         }
+
+        #endregion
+
     }
 }

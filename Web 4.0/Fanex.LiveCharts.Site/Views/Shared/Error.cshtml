@@ -1,29 +1,4 @@
 ﻿@{
-	Layout = null;
-    string title = Lang.HttpError_Default;
+    Layout = "~/Views/Shared/_AnnouncementLayout.cshtml";
+    ViewBag.Title = Lang.HttpError_Default;
 }
-<!DOCTYPE html>
-<html>
-<head>
-	<title>@title</title>
-	<style type="text/css">
-		body {
-		    background: #fff;
-		    margin: 0;
-		    padding: 0;
-		    font-family: 'Segoe UI Light', 'Segoe UI', Arial, Sans-Serif;
-		}
-		h1 {
-		    border: 1px dashed #333;
-		    font-weight: normal;
-		    text-align: center;
-		    font-size: 1.5em;
-		    margin: 50px auto;
-		    padding-bottom: 10px;
-		}
-	</style>
-</head>
-<body>
-	<h1>@title</h1>
-</body>
-</html>

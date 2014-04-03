@@ -56,21 +56,22 @@ var LIVECHARTS = {
     alertMessage: function (messageType, messageText, timeOut) {
         'use strict';
         var $message = $('#messageNotification');
+        var $body = $('body');
         if ($message.length === 0) {
-            $message = $('<div id="messageNotification"></div>');
+            $message = $('<div id="messageNotification" style="display:none;"></div>').appendTo($body);
         }
         timeOut = timeOut || 3000;
         switch (messageType) {
             case LIVECHARTS.messageType.success:
-                $message.addClass('valid-message');
+                $message.addClass('valid-message').removeClass('error-message');
                 break;
             case LIVECHARTS.messageType.error:
-                $message.addClass('error-message');
+                $message.addClass('error-message').removeClass('valid-message');
                 timeOut = 5000;
                 break;
         }
-        var $body = $('body');
-        $message.empty().html(messageText).show().appendTo($body);
+       
+        $message.empty().html(messageText).show();
         $message.css({
             left: ($body.width() / 2) - ($message.width() / 2 + 30) + 'px'
         });
