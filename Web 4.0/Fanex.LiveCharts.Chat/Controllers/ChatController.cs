@@ -36,10 +36,21 @@ namespace Fanex.LiveCharts.Chat.Controllers
 
         public ActionResult Index(int matchId)
         {
+            var chatViewModel = GetChatViewModel(matchId);
+            if (chatViewModel.ChatUserInRoom.KickedOut)
+            {
+                return RedirectToAction("KickedOut");
+            }
+
             return View(GetChatViewModel(matchId));
         }
 
         public ActionResult YouAreDisconnect()
+        {
+            return View();
+        }
+
+        public ActionResult KickedOut()
         {
             return View();
         }

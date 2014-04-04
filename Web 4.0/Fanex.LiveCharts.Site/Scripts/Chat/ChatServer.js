@@ -52,4 +52,8 @@ function ChatServer(chatAdapter, chatClient, chatUser, chatRoom, chatUserInRoom 
     me.getChatMessageHistory = function () {
         me.chatAdapter.server.getChatMessageHistory(me.chatRoom.chatRoomId, null, me.chatClient.updateChatMessageHistory);
     };
+
+    me.leftRoom = function () { 
+        
+    };
 }

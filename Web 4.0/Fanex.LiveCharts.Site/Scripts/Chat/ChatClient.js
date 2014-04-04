@@ -167,11 +167,10 @@ function ChatClient(chatUser, chatRoom) {
 
     me.kickOutChatUser = function (chatUserId) {
         if (chatUserId === me.chatUser.chatUserId) {
-            alert('User is kicked out!');
-            // User kickout handler
+            location.href = DEFAULT_OBJECT.kickedOutPage;
         }
         else {
-            alert(chatUserId);
+            //alert(chatUserId);
         }
     };
 
@@ -184,7 +183,7 @@ function ChatClient(chatUser, chatRoom) {
 
     me.notifyUserLeftRoom = function (chatUserInRoom, currentChatUserList) {
         if (chatUserInRoom.ChatUser.ChatUserId !== me.chatUser.chatUserId) {
-            me.renderUserNotification(chatUserInRoom, ' has left.', false);
+            me.renderUserNotification(chatUserInRoom.ChatUser, ' has left.', false);
         }
         me.updateUserList(currentChatUserList);
     };

@@ -214,7 +214,7 @@ namespace Fanex.LiveCharts.Chat.Services
 
         public ChatUserInRoom GetChatUserInRoomByConnectionId(GetChatUserInRoomByConnectionIdCriteria getChatUserInRoomByConnectionIdCriteria)
         {
-            var chatUserInRoom = _chatRepository.Get<ChatUserInRoom>(getChatUserInRoomByConnectionIdCriteria);
+            var chatUserInRoom = _chatRepository.GetUsersInRoom(getChatUserInRoomByConnectionIdCriteria).FirstOrDefault();
 
             return chatUserInRoom;
         }

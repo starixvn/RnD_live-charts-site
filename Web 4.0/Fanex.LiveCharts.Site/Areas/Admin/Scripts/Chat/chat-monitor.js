@@ -40,8 +40,9 @@ function ChatMonitor() {
                 if (kickOutViewModel.CommandResult.IsSuccessful) {
                     if (kickOutViewModel.NeedToSendRequestKickOut) {
                         me.kickOutChatUserOnMemberSite(kickOutViewModel);
-                        me.initMessageGrid();
+
                     }
+                    me.initMessageGrid();
                 }
             }
         });
