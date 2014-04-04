@@ -15,10 +15,12 @@ namespace Fanex.LiveCharts.Controllers.Admin
     using Fanex.LiveCharts.Models;
     using Fanex.LiveCharts.Services.Impl;
     using Fanex.LiveCharts.Services.Interface;
+    using Fanex.NAP.Core.Web.Attribute;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
+    [NapSuperAuth]
     public class SettingController : Controller
     {
         private readonly ISettingService _settingService;
@@ -48,6 +50,13 @@ namespace Fanex.LiveCharts.Controllers.Admin
                     ClosePredictionMinute = Converter.ToInt(settingItem.SettingValue)
                 });
             return View(settingItem);
+        }
+
+
+        [HttpGet]
+        public ActionResult Chat()
+        {
+            return View();
         }
     }
 }

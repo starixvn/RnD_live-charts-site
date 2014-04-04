@@ -160,6 +160,33 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chat Message.
+        /// </summary>
+        public static string ChatMessage {
+            get {
+                return ResourceManager.GetString("ChatMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chat Name.
+        /// </summary>
+        public static string ChatName {
+            get {
+                return ResourceManager.GetString("ChatName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chat Setting.
+        /// </summary>
+        public static string ChatSetting {
+            get {
+                return ResourceManager.GetString("ChatSetting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Completed.
         /// </summary>
         public static string Completed {
@@ -174,6 +201,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string Delete {
             get {
                 return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete message successfully!.
+        /// </summary>
+        public static string DeleteMessageSuccess {
+            get {
+                return ResourceManager.GetString("DeleteMessageSuccess", resourceCulture);
             }
         }
         
@@ -327,6 +363,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string Keyword {
             get {
                 return ResourceManager.GetString("Keyword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kicked out chat user successfully!.
+        /// </summary>
+        public static string KickedOutChatUserSuccess {
+            get {
+                return ResourceManager.GetString("KickedOutChatUserSuccess", resourceCulture);
             }
         }
         
@@ -520,6 +565,24 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Recover chat message successfully!.
+        /// </summary>
+        public static string RecoverChatSuccess {
+            get {
+                return ResourceManager.GetString("RecoverChatSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recover chat user successfully!.
+        /// </summary>
+        public static string RecoverChatUser {
+            get {
+                return ResourceManager.GetString("RecoverChatUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to  event must be added to the list before this event.
         /// </summary>
         public static string RequiredEventType {
@@ -552,6 +615,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string ScorePredictionResult {
             get {
                 return ResourceManager.GetString("ScorePredictionResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Score Prediction Setting.
+        /// </summary>
+        public static string ScorePredictionSetting {
+            get {
+                return ResourceManager.GetString("ScorePredictionSetting", resourceCulture);
             }
         }
         
@@ -610,11 +682,29 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Term Condition.
+        /// </summary>
+        public static string TermCondition {
+            get {
+                return ResourceManager.GetString("TermCondition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to mm:ss.
         /// </summary>
         public static string TimeFormat {
             get {
                 return ResourceManager.GetString("TimeFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time (GMT+8).
+        /// </summary>
+        public static string TimeGMT8 {
+            get {
+                return ResourceManager.GetString("TimeGMT8", resourceCulture);
             }
         }
         
@@ -642,6 +732,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string UpdateSuccessfully {
             get {
                 return ResourceManager.GetString("UpdateSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username.
+        /// </summary>
+        public static string Username {
+            get {
+                return ResourceManager.GetString("Username", resourceCulture);
             }
         }
         

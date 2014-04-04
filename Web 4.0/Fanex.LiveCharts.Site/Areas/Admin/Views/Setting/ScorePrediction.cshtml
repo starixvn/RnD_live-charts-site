@@ -1,11 +1,15 @@
 ﻿@using Fanex.NAP.Framework.Data
 @model Fanex.LiveCharts.Models.SettingItem
 @{
-    ViewBag.Title = "Score Prediction Setting";
+    ViewBag.Title = AdminSiteLang.ScorePredictionSetting;
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
     var updateResult = ViewBag.updateResult as ICommandResult;
     var firstTime = updateResult == null;
     var success = updateResult != null && updateResult.IsSuccessful;
+}
+@section Headline {
+    <h1>
+        <span class="title">@ViewBag.Title</span></h1>
 }
 <div class="setting-container">
     <form method="post" action="@(Url.Action("ScorePrediction", "Setting", new { Area = "Admin" }))">

@@ -1,7 +1,7 @@
 USE [bodb_LCC]
 GO
 
-/****** Object:  Table [dbo].[ScorePredictionItem]    Script Date: 3/3/2014 9:49:45 AM ******/
+/****** Object:  Table [dbo].[ScorePredictionItem]    Script Date: 4/4/2014 1:53:54 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -23,5 +23,3 @@ CREATE TABLE [dbo].[ScorePredictionItem](
 ) ON [PRIMARY]
 
 GO
-
-

@@ -169,9 +169,6 @@ function ChatClient(chatUser, chatRoom) {
         if (chatUserId === me.chatUser.chatUserId) {
             location.href = DEFAULT_OBJECT.kickedOutPage;
         }
-        else {
-            //alert(chatUserId);
-        }
     };
 
     me.deleteChatMessage = function (chatMessageId) {

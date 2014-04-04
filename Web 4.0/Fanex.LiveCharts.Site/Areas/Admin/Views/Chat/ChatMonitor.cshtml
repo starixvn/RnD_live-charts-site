@@ -33,8 +33,19 @@
             gridTitle: "@(gridTitle)",
             memberChartSiteUrl: "@(AppSettings.MemberChartSiteUrl)"
         };
+
+        var LANGUAGE = {
+            timeGTM8: '@(AdminSiteLang.TimeGMT8)',
+            username: '@(AdminSiteLang.Username)',
+            chatName: '@(AdminSiteLang.ChatName)',
+            chatMessage: '@(AdminSiteLang.ChatMessage)',
+            recoverChatSuccess: '@(AdminSiteLang.RecoverChatSuccess)',
+            recoverChatUser: '@(AdminSiteLang.RecoverChatUser)',
+            deleteMessageSuccess: '@(AdminSiteLang.DeleteMessageSuccess)',
+            kickedOutChatUserSuccess: '@(AdminSiteLang.KickedOutChatUserSuccess)'
+        };
     </script>
-    
+
     @Scripts.Render("~/areas/admin/chatmonitorjs")
 }
 

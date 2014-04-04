@@ -315,4 +315,37 @@
   <data name="InvalidToken" xml:space="preserve">
     <value>InvalidToken</value>
   </data>
+  <data name="ChatMessage" xml:space="preserve">
+    <value>Chat Message</value>
+  </data>
+  <data name="ChatName" xml:space="preserve">
+    <value>Chat Name</value>
+  </data>
+  <data name="ChatSetting" xml:space="preserve">
+    <value>Chat Setting</value>
+  </data>
+  <data name="DeleteMessageSuccess" xml:space="preserve">
+    <value>Delete message successfully!</value>
+  </data>
+  <data name="KickedOutChatUserSuccess" xml:space="preserve">
+    <value>Kicked out chat user successfully!</value>
+  </data>
+  <data name="RecoverChatSuccess" xml:space="preserve">
+    <value>Recover chat message successfully!</value>
+  </data>
+  <data name="RecoverChatUser" xml:space="preserve">
+    <value>Recover chat user successfully!</value>
+  </data>
+  <data name="ScorePredictionSetting" xml:space="preserve">
+    <value>Score Prediction Setting</value>
+  </data>
+  <data name="TermCondition" xml:space="preserve">
+    <value>Term Condition</value>
+  </data>
+  <data name="TimeGMT8" xml:space="preserve">
+    <value>Time (GMT+8)</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Username</value>
+  </data>
 </root>

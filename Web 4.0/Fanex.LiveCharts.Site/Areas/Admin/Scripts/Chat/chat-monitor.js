@@ -1,5 +1,5 @@
 ﻿/* File Created: April 1, 2014 */
-/*global CHAT_MONITOR_DEFAULT, LiveChartsAdmin*/
+/*global CHAT_MONITOR_DEFAULT, LiveChartsAdmin, LANGUAGE*/
 function ChatMonitor() {
     'use strict';
     var me = this;
@@ -61,7 +61,7 @@ function ChatMonitor() {
             },
             done: function (result) {
                 if (result.IsSuccessful) {
-                    LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.success, 'Kicked out successfully!');
+                    LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.success, LANGUAGE.kickedOutChatUserSuccess);
                 }
                 else {
                     LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.error, result.Message);
@@ -101,7 +101,7 @@ function ChatMonitor() {
             },
             done: function (result) {
                 if (result.IsSuccessful) {
-                    LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.success, 'Delete message successfully!');
+                    LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.success, LANGUAGE.deleteMessageSuccess);
                 }
                 else {
                     LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.error, result.Message);
@@ -122,7 +122,7 @@ function ChatMonitor() {
             },
             done: function (result) {
                 if (result.IsSuccessful) {
-                    LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.success, 'Recover chat user successfully!');
+                    LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.success, LANGUAGE.recoverChatUser);
                     me.initMessageGrid();
                 }
                 else {
@@ -144,7 +144,7 @@ function ChatMonitor() {
             },
             done: function (result) {
                 if (result.IsSuccessful) {
-                    LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.success, 'Recover chat message successfully!');
+                    LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.success, LANGUAGE.recoverChatSuccess);
                     me.initMessageGrid();
                 }
                 else {
@@ -178,7 +178,7 @@ function ChatMonitor() {
             var currentUser = usersInRoom[i];
             me.usersStatus[currentUser.ChatUser.MemberId] = currentUser;
         }
-    }
+    };
 
     me.exportExcel = function () {
         LiveChartsAdmin.downloadFile(me.chatMonitorDefault.exportExcelUrl, {
@@ -188,9 +188,11 @@ function ChatMonitor() {
 
     me.gridOptions = {
         columns: [
-                   { HeaderText: 'Time (GMT+8)', Width: 150, Name: 'Time', CellAlign: 'center', FormatDateTime: 'DD MMM, YYYY hh:mm A' },
-                   { HeaderText: 'Username', Width: 150, Name: 'UserName', CellAlign: 'center', CustomCellRender: function (cell) {
-                       var userStatusClass = me.usersStatus[cell.Value.MemberId].KickedOut ? 'recover-action recover-chat-user' : 'remove-action remove-chat-user';
+                   { HeaderText: LANGUAGE.timeGTM8, Width: 150, Name: 'Time', CellAlign: 'center', FormatDateTime: 'DD MMM, YYYY hh:mm A' },
+                   { HeaderText: LANGUAGE.username, Width: 150, Name: 'UserName', CellAlign: 'center', CustomCellRender: function (cell) {
+                       var userStatusClass = me.usersStatus[cell.Value.MemberId].KickedOut
+                                            ? 'recover-action recover-chat-user' 
+                                            : 'remove-action remove-chat-user';
                        return '<div class="user-name-content">' +
                                     '<span class="' + userStatusClass + '" '
                                             + 'data-member-id="' + cell.Value.MemberId + '"'
@@ -200,8 +202,8 @@ function ChatMonitor() {
                             + '</div>';
                    }
                    },
-                   { HeaderText: 'Chat Name', Width: 150, Name: 'ChatName', CellAlign: 'center' },
-                   { HeaderText: 'Chat Message', Width: 490, Name: 'ChatMessage', CustomCellRender: function (cell) {
+                   { HeaderText: LANGUAGE.chatName, Width: 150, Name: 'ChatName', CellAlign: 'center' },
+                   { HeaderText: LANGUAGE.chatMessage, Width: 490, Name: 'ChatMessage', CustomCellRender: function (cell) {
                        var messageClass = cell.Value.isDeleted ? 'recover-action recover-chat-message' : 'remove-action remove-chat-message';
                        return '<div class="message-container">'
                                     + '<span class="' + messageClass + '" data-chat-message-id="'
