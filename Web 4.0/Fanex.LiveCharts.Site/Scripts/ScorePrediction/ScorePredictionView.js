@@ -72,24 +72,29 @@ function ScorePredictionView(defaultValue) {
 
     me.registerEvents = function () {
         me.$btnSubmitPrediction.unbind('click').click(function () {
-            if (!me.isFreezeSubmit) {
-                me.isFreezeSubmit = true;
-                me.$btnSubmitPrediction.addClass('disabled');
-                var freezeSubmitTimeOutId = setTimeout(function () {
-                    me.isFreezeSubmit = false;
-                    me.$btnSubmitPrediction.removeClass('disabled');
-                    clearTimeout(freezeSubmitTimeOutId);
-                }, 5000);
+            if (me.isStopPrediction) {
+                LIVECHARTS.alertMessage(LIVECHARTS.messageType.error, LANGUAGE.scorePredictionStopMessage);
+            }
+            else {
+                if (!me.isFreezeSubmit) {
+                    me.isFreezeSubmit = true;
+                    me.$btnSubmitPrediction.addClass('disabled');
+                    var freezeSubmitTimeOutId = setTimeout(function () {
+                        me.isFreezeSubmit = false;
+                        me.$btnSubmitPrediction.removeClass('disabled');
+                        clearTimeout(freezeSubmitTimeOutId);
+                    }, 5000);
 
-                //// Get Data and submit prediction.
-                var homeScore = me.$txtHomeScore.val();
-                var awayScore = me.$txtAwayScore.val();
-                me.insertOrUpdateScorePrediction({
-                    memberId: me.memberId,
-                    matchId: defaultValue.matchId,
-                    homeScore: homeScore,
-                    awayScore: awayScore
-                });
+                    //// Get Data and submit prediction.
+                    var homeScore = me.$txtHomeScore.val();
+                    var awayScore = me.$txtAwayScore.val();
+                    me.insertOrUpdateScorePrediction({
+                        memberId: me.memberId,
+                        matchId: defaultValue.matchId,
+                        homeScore: homeScore,
+                        awayScore: awayScore
+                    });
+                }
             }
         });
 
@@ -114,7 +119,7 @@ function ScorePredictionView(defaultValue) {
                                 me.getCorrectScoreResult({
                                     matchId: me.matchId
                                 });
-                                me.checkMatchStatus();
+                                //me.checkMatchStatus();
 
                                 setTimeout(function () {
                                     countDownStart(countDownObject);
@@ -150,30 +155,22 @@ function ScorePredictionView(defaultValue) {
     };
 
     me.checkMatchStatus = function () {
-        LIVECHARTS.callAjax({
-            url: me.url.checkStopScorePrediction,
-            type: 'POST',
-            data: {
-                matchId: defaultValue.matchId
-            },
-            done: function (result) {
-                if (result) {
-                    me.isStopPrediction = result.IsStopScorePrediction;
-                    me.stopPrediction();
+        if (!me.isStopPrediction) {
+            LIVECHARTS.callAjax({
+                url: me.url.checkStopScorePrediction,
+                type: 'POST',
+                data: {
+                    matchId: defaultValue.matchId
+                },
+                done: function (result) {
+                    if (result) {
+                        me.isStopPrediction = result.IsStopScorePrediction;
+                        if (me.isStopPrediction) {
+                            me.$resultRefreshCountDown.parent().hide();
+                        }
+                    }
                 }
-            }
-        });
-    };
-
-    me.stopPrediction = function () {
-        if (me.isStopPrediction) {
-            me.$predictionContainer.hide();
-            me.$resultRefreshCountDown.parent().hide();
-            me.$smallContainerResult.addClass('stop-prediction');
-            if (me.$smallContainerResult) {
-                var currentChart = me.$smallContainerResult.highcharts();
-                currentChart.reflow();
-            }
+            });
         }
     };
 
@@ -188,6 +185,9 @@ function ScorePredictionView(defaultValue) {
                     me.getCorrectScoreResult(params);
                 }
                 else {
+                    if (result.Code == 1) {
+                        me.isStopPrediction = true;
+                    }
                     LIVECHARTS.alertMessage(LIVECHARTS.messageType.error, result.Message);
                 }
             }

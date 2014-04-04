@@ -149,8 +149,13 @@ function ScorePrediction (
                             }
                             return textFormat;
                         }
+                    },
+                    
+                },
+                series: {
+                        pointWidth: 12
                     }
-                }
+
             },
             legend:
                 {

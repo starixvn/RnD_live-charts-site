@@ -423,4 +423,7 @@
   <data name="YouAreDisconnect" xml:space="preserve">
     <value>You are forced disconnect because another session joins this room.</value>
   </data>
+  <data name="ScorePredictionStopMessage" xml:space="preserve">
+    <value>Sorry, score prediction is unavailable in this time!</value>
+  </data>
 </root>

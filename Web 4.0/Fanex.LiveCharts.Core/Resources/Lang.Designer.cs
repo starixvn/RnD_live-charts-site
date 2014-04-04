@@ -790,6 +790,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sorry, score prediction is unavailable in this time!.
+        /// </summary>
+        public static string ScorePredictionStopMessage {
+            get {
+                return ResourceManager.GetString("ScorePredictionStopMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to --- Select a {0} ---.
         /// </summary>
         public static string SelectA {

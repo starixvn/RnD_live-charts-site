@@ -20,6 +20,8 @@ namespace Fanex.LiveCharts.Controllers
     using Fanex.LiveCharts.ViewModel.ScorePrediction;
     using Fanex.LiveCharts.Web;
     using Fanex.NAP.Core.Web.Attribute;
+    using Fanex.NAP.Framework.Data;
+    using Fanex.LiveCharts.Resources;
 
     /// <summary>
     /// TODO: Update summary.
@@ -90,10 +92,20 @@ namespace Fanex.LiveCharts.Controllers
         [HttpPost]
         public JsonResult InsertOrUpdateScorePrediction(InsertOrUpdateScorePredictionItemCriteria criteria)
         {
-            criteria.MemberId = GetUserIdFromCookie(criteria.MemberId, criteria.MatchId);
+            if (!_scorePredictionService.IsStopScorePrediction(criteria.MatchId))
+            {
+                criteria.MemberId = GetUserIdFromCookie(criteria.MemberId, criteria.MatchId);
 
-            var result = _scorePredictionService.InsertOrUpdateScorePredictionItem(criteria);
-            return Json(result);
+                var result = _scorePredictionService.InsertOrUpdateScorePredictionItem(criteria);
+                return Json(result);
+            }
+            else
+            {
+                return Json(new CommandResult { 
+                    Code = 1,
+                    Message = Lang.ScorePredictionStopMessage
+                });
+            }
         }
 
         /// <summary>
