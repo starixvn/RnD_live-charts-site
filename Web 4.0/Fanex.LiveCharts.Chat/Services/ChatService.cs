@@ -155,9 +155,9 @@ namespace Fanex.LiveCharts.Chat.Services
             return chatRoom;
         }
 
-        public IEnumerable<ChatUser> GetChatRoomUsers(GetChatRoomUsersCriteria getChatRoomUsersCriteria)
+        public IEnumerable<ChatUserInRoom> GetChatRoomUsers(GetChatRoomUsersCriteria getChatRoomUsersCriteria)
         {
-            var chatUsers = _chatRepository.Fetch<ChatUser>(getChatRoomUsersCriteria);
+            var chatUsers = _chatRepository.GetUsersInRoom(getChatRoomUsersCriteria);
 
             return chatUsers;
         }
@@ -178,6 +178,13 @@ namespace Fanex.LiveCharts.Chat.Services
             return updateResult;
         }
 
+        public ICommandResult UpdateKickOutChatUser(UpdateKickOutChatUserCriteria updateKickOutChatUserCriteria)
+        {
+            var updateResult = _chatRepository.ModifyData(updateKickOutChatUserCriteria);
+
+            return updateResult;
+        }
+
         /// <summary>
         /// Get chat user in room from chat user id and chat room.
         /// </summary>
@@ -185,7 +192,7 @@ namespace Fanex.LiveCharts.Chat.Services
         /// <returns>Current information of chat user in room.</returns>
         public ChatUserInRoom GetChatUserInRoom(GetChatUserInRoomCriteria getChatUserInRoomCriteria)
         {
-            var chatUserInRoom = _chatRepository.GetUsersInRoom(getChatUserInRoomCriteria).FirstOrDefault();
+            var chatUserInRoom = _chatRepository.Get<ChatUserInRoom>(getChatUserInRoomCriteria);
 
             if (chatUserInRoom == null)
             {
@@ -207,7 +214,7 @@ namespace Fanex.LiveCharts.Chat.Services
 
         public ChatUserInRoom GetChatUserInRoomByConnectionId(GetChatUserInRoomByConnectionIdCriteria getChatUserInRoomByConnectionIdCriteria)
         {
-            var chatUserInRoom = _chatRepository.GetUsersInRoom(getChatUserInRoomByConnectionIdCriteria).FirstOrDefault();
+            var chatUserInRoom = _chatRepository.Get<ChatUserInRoom>(getChatUserInRoomByConnectionIdCriteria);
 
             return chatUserInRoom;
         }
@@ -318,7 +325,7 @@ namespace Fanex.LiveCharts.Chat.Services
         /// <returns>Kick out information.</returns>
         public KickOutChatUserViewModel KickOutChatUserOnAdminSite(int chatUserId, int chatRoomId)
         {
-            ICommandResult kickOutResult = _chatRepository.ModifyData(new KickOutChatUserCriteria
+            ICommandResult kickOutResult = UpdateKickOutChatUser(new UpdateKickOutChatUserCriteria
             {
                 ChatUserId = chatUserId,
                 ChatRoomId = chatRoomId,
@@ -332,11 +339,11 @@ namespace Fanex.LiveCharts.Chat.Services
 
             if (kickOutResult.IsSuccessful)
             {
-                ChatUserInRoom chatUserInRoom = _chatRepository.GetUsersInRoom(new GetChatUserInRoomCriteria
+                ChatUserInRoom chatUserInRoom = _chatRepository.Get<ChatUserInRoom>(new GetChatUserInRoomCriteria
                 {
                     ChatRoomId = chatRoomId,
                     ChatUserId = chatUserId
-                }).FirstOrDefault();
+                });
 
                 if (chatUserInRoom != null)
                 {
@@ -359,7 +366,7 @@ namespace Fanex.LiveCharts.Chat.Services
         /// <returns>Delete chat message information.</returns>
         public DeleteChatMessageViewModel DeleteChatMessageOnAdminSite(int chatMessageId, string chatRoomName, int deleteBy)
         {
-            ICommandResult deleteMessageResult = _chatRepository.ModifyData(new UpdateChatMessageCriteria
+            ICommandResult deleteMessageResult = UpdateChatMessage(new UpdateChatMessageCriteria
             {
                 ChatMessageId = chatMessageId,
                 IsDelete = true,

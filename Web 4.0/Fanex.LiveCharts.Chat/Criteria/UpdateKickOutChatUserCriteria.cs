@@ -15,7 +15,7 @@ namespace Fanex.LiveCharts.Chat.Criteria
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class KickOutChatUserCriteria : CriteriaBase
+    public class UpdateKickOutChatUserCriteria : CriteriaBase
     {
         public int ChatUserId { get; set; }
 
@@ -25,7 +25,7 @@ namespace Fanex.LiveCharts.Chat.Criteria
 
         public override string GetSettingKey()
         {
-            return "Chart_Chat_Kick_Out_Chat_User";
+            return "Chart_Chat_Update_Kick_Out_Chat_User";
         }
 
         public override bool IsValid()

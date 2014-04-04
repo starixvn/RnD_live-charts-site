@@ -59,7 +59,7 @@ namespace Fanex.LiveCharts.Chat.Hubs
             Clients.Group(chatMessage.ChatRoom.ChatRoomName).addMessage(chatMessage);
         }
 
-        public IEnumerable<ChatUser> GetUserList(ChatRoom chatRoom)
+        public IEnumerable<ChatUserInRoom> GetUserList(ChatRoom chatRoom)
         {
             var chatUsers = _chatService.GetChatRoomUsers(new GetChatRoomUsersCriteria
             {
@@ -166,7 +166,8 @@ namespace Fanex.LiveCharts.Chat.Hubs
                         ConnectionId = Context.ConnectionId
                     });
 
-                if (currentChatUserInRoom != null)
+                if (currentChatUserInRoom != null 
+                    && currentChatUserInRoom.ChatRoom != null)
                 {
                     var updateResult = _chatService.UpdateChatUserInRoom(new UpdateChatUserInRoomCriteria
                     {
@@ -177,7 +178,7 @@ namespace Fanex.LiveCharts.Chat.Hubs
 
                     if (updateResult.IsSuccessful)
                     {
-                        Clients.Group(currentChatUserInRoom.ChatRoom.ChatRoomName).notifyUserLeftRoom(currentChatUserInRoom, GetCurrentUserList(currentChatUserInRoom.ChatRoom.ChatRoomId));
+                        Clients.Group(currentChatUserInRoom.ChatRoom.ChatRoomName, Context.ConnectionId).notifyUserLeftRoom(currentChatUserInRoom, GetCurrentUserList(currentChatUserInRoom.ChatRoom.ChatRoomId));
                     }
                     //// Clients.All.notifyUserLeftRoom();
                 }
@@ -224,14 +225,14 @@ namespace Fanex.LiveCharts.Chat.Hubs
         /// <param name="chatRoomId">Chat room for get user list.</param>
         /// <param name="isLeft">Get user left or not.</param>
         /// <returns>User list.</returns>
-        private IEnumerable<ChatUser> GetCurrentUserList(int chatRoomId, bool isLeft = false)
+        private IEnumerable<ChatUserInRoom> GetCurrentUserList(int chatRoomId, bool isLeft = false)
         {
             try
             {
                 var currentUserList = _chatService.GetChatRoomUsers(new GetChatRoomUsersCriteria
                 {
                     ChatRoomId = chatRoomId,
-                    IsLeft = isLeft
+                    IncludingLeft = isLeft
                 });
 
                 return currentUserList;
@@ -241,7 +242,7 @@ namespace Fanex.LiveCharts.Chat.Hubs
                 ServiceBase.ExceptionHandler(ex);
             }
 
-            return new List<ChatUser>();
+            return new List<ChatUserInRoom>();
         }
     }
 }

@@ -68,17 +68,19 @@ namespace Fanex.LiveCharts.Chat.Controllers
                 IsDeleted = true
             });
 
-            //IEnumerable<ChatUser> chatUsers = _chatService.GetChatRoomUsers(new GetChatRoomUsersCriteria
-            //{
-            //    ChatRoomId = chatRoomId,
-            //    IsLeft = 
-            //});
+            IEnumerable<ChatUserInRoom> chatUsers = _chatService.GetChatRoomUsers(new GetChatRoomUsersCriteria { 
+                ChatRoomId = chatRoomId,
+                IncludingBanned = true,
+                IncludingLeft = true,
+                IncludingKickedOut = true
+            });
 
             var sessionKey = string.Format(ChatMonitorSessionKey, chatRoomId);
             HttpContext.Session[sessionKey] = chatMessages;
             return Json(new
             {
-                ChatMessages = chatMessages
+                ChatMessages = chatMessages,
+                ChatUsers = chatUsers
                 
             });
         }
@@ -109,6 +111,30 @@ namespace Fanex.LiveCharts.Chat.Controllers
         public JsonResult DeleteChatMessage(int chatMessageId, string chatRoomName)
         {
             return Json(_chatService.DeleteChatMessageOnAdminSite(chatMessageId, chatRoomName, SessionManager.CurrentSession.AdminId));
+        }
+
+        [HttpPost]
+        public JsonResult RecoverChatUser(int chatUserId, int chatRoomId)
+        {
+            var updateResult = _chatService.UpdateKickOutChatUser(new UpdateKickOutChatUserCriteria
+            {
+                ChatRoomId = chatRoomId,
+                ChatUserId = chatUserId,
+                IsKickOut = false
+            });
+            return Json(updateResult);
+        }
+
+        [HttpPost]
+        public JsonResult RecoverChatMessage(int chatMessageId)
+        {
+            var updateResult = _chatService.UpdateChatMessage(new UpdateChatMessageCriteria
+            {
+                ChatMessageId = chatMessageId,
+                IsDelete = false,
+                DeletedBy = SessionManager.CurrentSession.AdminId
+            });
+            return Json(updateResult);
         }
 
         #region Private actions

@@ -4,10 +4,8 @@ function ChatMonitor() {
     'use strict';
     var me = this;
     me.chatMonitorDefault = CHAT_MONITOR_DEFAULT;
-    me.pager = {
-        pageSize: 50,
-        pageIndex: 0
-    };
+    me.usersStatus = {};
+
 
     me.cacheDomElements = function () {
         me.$messageGrid = $('#messageGrid');
@@ -19,9 +17,13 @@ function ChatMonitor() {
         me.$btnReload = $('#btnReload');
         me.$allRemoveChatUser = $('.remove-chat-user');
         me.$allRemoveChatMessage = $('.remove-chat-message');
+        me.$allRecoverChatUser = $('.recover-chat-user');
+        me.$allRecoverChatMessage = $('.recover-chat-message');
         me.$btnReload.unbind('click').click(me.initMessageGrid);
         me.$allRemoveChatUser.unbind('click').click(me.kickOutChatUser);
         me.$allRemoveChatMessage.unbind('click').click(me.removeChatMessage);
+        me.$allRecoverChatUser.unbind('click').click(me.recoverChatUser);
+        me.$allRecoverChatMessage.unbind('click').click(me.recoverChatMessage);
     };
 
     me.kickOutChatUser = function () {
@@ -38,6 +40,7 @@ function ChatMonitor() {
                 if (kickOutViewModel.CommandResult.IsSuccessful) {
                     if (kickOutViewModel.NeedToSendRequestKickOut) {
                         me.kickOutChatUserOnMemberSite(kickOutViewModel);
+                        me.initMessageGrid();
                     }
                 }
             }
@@ -79,6 +82,7 @@ function ChatMonitor() {
             done: function (deleteMessageViewModel) {
                 if (deleteMessageViewModel.CommandResult.IsSuccessful) {
                     me.removeChatMessageOnMemberSite(deleteMessageViewModel);
+                    me.initMessageGrid();
                 }
             }
         });
@@ -105,6 +109,50 @@ function ChatMonitor() {
         });
     };
 
+    me.recoverChatUser = function () {
+        var $this = $(this);
+        var currentChatUserId = $this.attr('data-chat-user-id');
+        LiveChartsAdmin.callAjax({
+            url: me.chatMonitorDefault.recoverChatUserUrl,
+            type: 'POST',
+            data: {
+                chatRoomId: me.chatMonitorDefault.chatRoomId,
+                chatUserId: currentChatUserId
+            },
+            done: function (result) {
+                if (result.IsSuccessful) {
+                    LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.success, 'Recover chat user successfully!');
+                    me.initMessageGrid();
+                }
+                else {
+                    LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.error, result.Message);
+                }
+            }
+        });
+    };
+
+    me.recoverChatMessage = function () {
+        var $this = $(this);
+        var currentChatMessageId = $this.attr('data-chat-message-id');
+        LiveChartsAdmin.callAjax({
+            url: me.chatMonitorDefault.recoverChatMessageUrl,
+            type: 'POST',
+            data: {
+                //chatRoomName: me.chatMonitorDefault.chatRoomName,
+                chatMessageId: currentChatMessageId
+            },
+            done: function (result) {
+                if (result.IsSuccessful) {
+                    LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.success, 'Recover chat message successfully!');
+                    me.initMessageGrid();
+                }
+                else {
+                    LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.error, result.Message);
+                }
+            }
+        });
+    };
+
     me.initMessageGrid = function () {
         me.bodyRows = [];
         LiveChartsAdmin.callAjax({
@@ -113,13 +161,23 @@ function ChatMonitor() {
             data: {
                 chatRoomId: me.chatMonitorDefault.chatRoomId
             },
-            done: function (chatMessages) {
-                me.gridOptions.bodyRows = me.buildGridBody(chatMessages);
+            done: function (result) {
+                me.updateUsersStatus(result.ChatUsers);
+                me.gridOptions.bodyRows = me.buildGridBody(result.ChatMessages);
                 me.$messageGrid.fanexGrid(me.gridOptions);
                 me.registerGridEvents();
             }
         });
     };
+
+    me.updateUsersStatus = function (usersInRoom) {
+        me.usersStatus = {};
+        var userLength = usersInRoom.length;
+        for (var i = 0; i < userLength; i++) {
+            var currentUser = usersInRoom[i];
+            me.usersStatus[currentUser.ChatUser.MemberId] = currentUser;
+        }
+    }
 
     me.exportExcel = function () {
         LiveChartsAdmin.downloadFile(me.chatMonitorDefault.exportExcelUrl, {
@@ -131,8 +189,9 @@ function ChatMonitor() {
         columns: [
                    { HeaderText: 'Time (GMT+8)', Width: 150, Name: 'Time', CellAlign: 'center', FormatDateTime: 'DD MMM, YYYY hh:mm A' },
                    { HeaderText: 'Username', Width: 150, Name: 'UserName', CellAlign: 'center', CustomCellRender: function (cell) {
+                       var userStatusClass = me.usersStatus[cell.Value.MemberId].KickedOut ? 'recover-action recover-chat-user' : 'remove-action remove-chat-user';
                        return '<div class="user-name-content">' +
-                                    '<span class="remove-action remove-chat-user" '
+                                    '<span class="' + userStatusClass + '" '
                                             + 'data-member-id="' + cell.Value.MemberId + '"'
                                             + ' data-chat-user-id="' + cell.Value.ChatUserId + '"'
                                         + '></span>'
@@ -142,7 +201,7 @@ function ChatMonitor() {
                    },
                    { HeaderText: 'Chat Name', Width: 150, Name: 'ChatName', CellAlign: 'center' },
                    { HeaderText: 'Chat Message', Width: 490, Name: 'ChatMessage', CustomCellRender: function (cell) {
-                       var messageClass = cell.Value.isDeleted ? 'recover-action recover-chat-message' : 'remove-action remove-chat-message'
+                       var messageClass = cell.Value.isDeleted ? 'recover-action recover-chat-message' : 'remove-action remove-chat-message';
                        return '<div class="message-container">'
                                     + '<span class="' + messageClass + '" data-chat-message-id="'
                                         + cell.Value.chatMessageId

@@ -20,9 +20,9 @@ namespace Fanex.LiveCharts.Chat.Criteria
 
         public bool IncludingBanned { get; set; }
 
-        public bool KickedOut { get; set; }
+        public bool IncludingKickedOut { get; set; }
 
-        public bool IsLeft { get; set; }
+        public bool IncludingLeft { get; set; }
 
         public override string GetSettingKey()
         {

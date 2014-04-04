@@ -8,7 +8,7 @@ function ChatClient(chatUser, chatRoom) {
 
     me.chatUser = chatUser;
     me.chatRoom = chatRoom;
-    me.currentUserList = null;
+    me.currentUserInRoomList = null;
     me.currentMessageHistory = null;
     me.formatTimer = CURRENT_TIME_FORMAT;
     me.lastMessageBelongToChatUserId = 0;
@@ -34,7 +34,6 @@ function ChatClient(chatUser, chatRoom) {
     };
 
     me.addMessage = function (chatMessage, stopScrollTop) {
-        if (typeof chatMessage === 'object') {
             me.isNextMessageFromSameUser = me.lastMessageBelongToChatUserId === chatMessage.ChatUser.ChatUserId;
             chatMessage = me.preProcessMessage(chatMessage);
             if (typeof me.userList[chatMessage.ChatUser.ChatUserId] === 'undefined') {
@@ -52,11 +51,9 @@ function ChatClient(chatUser, chatRoom) {
             if (me.isBrowserHidden) {
                 me.playSound(DEFAULT_OBJECT.notificationSound);
             }
-        }
     };
 
     me.prependHistoryMessage = function (chatMessage, chatPreviousUserId) {
-        if (typeof chatMessage === 'object') {
             me.isPreviousMessageFromSameUser = chatPreviousUserId === chatMessage.ChatUser.ChatUserId;
             chatMessage = me.preProcessMessage(chatMessage);
             if (typeof me.userList[chatMessage.ChatUser.ChatUserId] === 'undefined') {
@@ -64,7 +61,6 @@ function ChatClient(chatUser, chatRoom) {
             }
             var messageText = me.buildMessage(chatMessage, me.isPreviousMessageFromSameUser);
             me.$mainChatRoom.prepend(messageText);
-        }
     };
 
     me.buildMessage = function (chatMessage, isNextMessageFromSameUser) {
@@ -109,9 +105,10 @@ function ChatClient(chatUser, chatRoom) {
             me.$btnShowHistoryMessage.unbind('click').click(me.showPreviousMessages).show();
         }
 
-        for (var index in lastMessageArray) {
-            var currentMesage = lastMessageArray[index];
-            if (parseInt(index) === 0) {
+        var lastMessageLength = lastMessageArray.length;
+        for (var i = 0; i < lastMessageLength; i++) {
+            var currentMesage = lastMessageArray[i];
+            if (i === 0) {
                 me.firstMessageBelongToChatUserId = currentMesage.ChatUser.ChatUserId;
             }
             me.addMessage(currentMesage, true);
@@ -120,10 +117,10 @@ function ChatClient(chatUser, chatRoom) {
         me.scrollTop();
     };
 
-    me.updateUserList = function (userList) {
-        if (me.$memberOnline && userList) {
-            me.$memberOnline.html(userList.length);
-            me.currentUserList = userList;
+    me.updateUserList = function (userInRoomList) {
+        if (me.$memberOnline && userInRoomList) {
+            me.$memberOnline.html(userInRoomList.length);
+            me.currentUserInRoomList = userInRoomList;
             me.scrollTop();
         }
 
@@ -154,15 +151,17 @@ function ChatClient(chatUser, chatRoom) {
     };
 
     me.showDetailUserList = function () {
-        if(me.currentUserList && me.currentUserList.length > 0)
+        
+        if (me.currentUserInRoomList && me.currentUserInRoomList.length > 0)
         {
+            var userRoomLength = me.currentUserInRoomList.length;
             var userChatNameList = [];
-            for (var index in me.currentUserList) {
-                var chatUser = me.currentUserList[index];
-                userChatNameList.push(chatUser.ChatName);
+            for (var i = 0; i < userRoomLength; i++) {
+                var chatUserInRoom = me.currentUserInRoomList[i];
+                userChatNameList.push(chatUserInRoom.ChatUser.ChatName);
             }
 
-            alert(userChatNameList.join(',\n'));
+            alert(userChatNameList.join('\n'));
         }
     };
 
@@ -184,7 +183,7 @@ function ChatClient(chatUser, chatRoom) {
     };
 
     me.notifyUserLeftRoom = function (chatUserInRoom, currentChatUserList) {
-        if (chatUserInRoom.ChatUserId !== me.chatUser.chatUserId) {
+        if (chatUserInRoom.ChatUser.ChatUserId !== me.chatUser.chatUserId) {
             me.renderUserNotification(chatUserInRoom, ' has left.', false);
         }
         me.updateUserList(currentChatUserList);

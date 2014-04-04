@@ -32,7 +32,7 @@ namespace Fanex.LiveCharts.Chat.Services
 
         IEnumerable<ChatRoom> GetChatRoomByMatchId(GetChatRoomByMatchIdCriteria getChatRoomByMatchIdCriteria);
 
-        IEnumerable<ChatUser> GetChatRoomUsers(GetChatRoomUsersCriteria getChatRoomUsersCriteria);
+        IEnumerable<ChatUserInRoom> GetChatRoomUsers(GetChatRoomUsersCriteria getChatRoomUsersCriteria);
 
         ChatUser GetChatUser(GetChatUserCriteria getChatUserCriteria);
 
@@ -55,6 +55,8 @@ namespace Fanex.LiveCharts.Chat.Services
         ICommandResult UpdateChatUser(UpdateChatUserCriteria updateChatUserCriteria);
 
         ICommandResult UpdateChatUserInRoom(UpdateChatUserInRoomCriteria updateChatUserInRoomCriteria);
+
+        ICommandResult UpdateKickOutChatUser(UpdateKickOutChatUserCriteria updateKickOutChatUserCriteria);
 
         HSSFWorkbook ExportChatConversation(IEnumerable<ChatMessage> chatMessages, Match match, ChatRoom chatRoom, string templeteFilePath);
 

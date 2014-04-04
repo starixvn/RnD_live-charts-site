@@ -27,7 +27,7 @@ namespace Fanex.LiveCharts.Chat.Hubs
 
         void AnnounceGeneralMessage(ChatMessage chatMessage, ChatRoom chatRoom);
 
-        IEnumerable<ChatUser> GetUserList(ChatRoom chatRoom);
+        IEnumerable<ChatUserInRoom> GetUserList(ChatRoom chatRoom);
 
         IEnumerable<ChatMessage> GetChatMessageHistory(int chatRoomId, DateTime? lastedTime);
 
