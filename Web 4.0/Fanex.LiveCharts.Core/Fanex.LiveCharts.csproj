@@ -135,6 +135,7 @@
     <Compile Include="Criterias\ScorePrediction\GetAllScorePredictionCriteria.cs" />
     <Compile Include="Criterias\ScorePrediction\GetUserPredictionCriteria.cs" />
     <Compile Include="Criterias\ScorePrediction\InsertOrUpdateScorePredictionItemCriteria.cs" />
+    <Compile Include="Criterias\IsMatchCompleteCaptureCriteria.cs" />
     <Compile Include="Criterias\SearchMatchesCriteria.cs" />
     <Compile Include="Criterias\UpdateEventCriteria.cs" />
     <Compile Include="Criterias\UpdateMatchStatusCriteria.cs" />

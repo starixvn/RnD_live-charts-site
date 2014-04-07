@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../Views/Charts/NewChartContent.cshtml" />
 /// <reference path="../LIVECHARTS.js" />
 /// <reference path="ScorePrediction.js" />
-/*global LIVECHARTS, ScorePrediction, SCORE_PREDICTION*/
+/*global LIVECHARTS, ScorePrediction, SCORE_PREDICTION, LANGUAGE*/
 'use strict';
 
 function ScorePredictionView(defaultValue) {
@@ -185,7 +185,7 @@ function ScorePredictionView(defaultValue) {
                     me.getCorrectScoreResult(params);
                 }
                 else {
-                    if (result.Code == 1) {
+                    if (result.Code === 1) {
                         me.isStopPrediction = true;
                     }
                     LIVECHARTS.alertMessage(LIVECHARTS.messageType.error, result.Message);

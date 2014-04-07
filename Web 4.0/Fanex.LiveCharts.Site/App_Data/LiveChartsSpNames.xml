@@ -121,6 +121,9 @@
     </Setting>
     <Setting Key="Chart_Admin_Insert_Update_Dummy_Prediction" SpName="Chart_Admin_Insert_Update_Dummy_Prediction" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0">
     </Setting>
+    <Setting Key="Chart_Is_Match_Complete_Capture" SpName="Chart_Is_Match_Complete_Capture" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0">
+    </Setting>
+    
   </Function>
 
   <Function Name="Chat">

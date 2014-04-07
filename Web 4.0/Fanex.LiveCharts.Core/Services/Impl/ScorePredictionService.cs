@@ -133,11 +133,18 @@ namespace Fanex.LiveCharts.Services.Impl
                     MatchId = getUserPredictionCriteria.MatchId
                 });
 
-                return new ScorePredictionItem
+                if (currentMatchStatus != null)
                 {
-                    AwayScore = currentMatchStatus.AwayScore,
-                    HomeScore = currentMatchStatus.HomeScore
-                };
+                    return new ScorePredictionItem
+                    {
+                        AwayScore = currentMatchStatus.AwayScore,
+                        HomeScore = currentMatchStatus.HomeScore
+                    };
+                }
+                else
+                {
+                    currentUserPrediction = new ScorePredictionItem();
+                }
             }
 
             return currentUserPrediction;
@@ -161,6 +168,16 @@ namespace Fanex.LiveCharts.Services.Impl
             bool isStopScorePrediction = false;
             try
             {
+                var isMatchComplete = _chartService.IsMatchCompletedCapture(new IsMatchCompleteCaptureCriteria
+                {
+                    MatchId = matchId
+                });
+                
+                if(isMatchComplete)
+                {
+                    return isMatchComplete;
+                }
+
                 ISettingService settingService = new SettingService();
                 var currentMatchTime = _chartService.GetCurrentMatchTime(new GetCurrentMatchTimeCriteria
                 {

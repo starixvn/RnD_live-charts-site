@@ -426,4 +426,7 @@
   <data name="ScorePredictionStopMessage" xml:space="preserve">
     <value>Sorry, score prediction is unavailable in this time!</value>
   </data>
+  <data name="More" xml:space="preserve">
+    <value>More</value>
+  </data>
 </root>

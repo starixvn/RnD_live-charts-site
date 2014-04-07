@@ -273,6 +273,11 @@ namespace Fanex.LiveCharts.Services.Impl
             return GetPoints(chartFilter);
         }
 
+        public bool IsMatchCompletedCapture(IsMatchCompleteCaptureCriteria criteria)
+        {
+            return _chartRepository.Count(criteria) > 0;
+        }
+
         /// <summary>
         /// Check current match id live or not.
         /// </summary>

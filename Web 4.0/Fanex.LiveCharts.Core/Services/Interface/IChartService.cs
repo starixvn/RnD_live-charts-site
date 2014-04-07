@@ -46,5 +46,7 @@ namespace Fanex.LiveCharts.Services.Interface
         bool CurrentMatchIsLive(int matchId, DateTime kickOffTime, ref float openSoonCountdown);
 
         CurrentMatchTime GetCurrentMatchTime(GetCurrentMatchTimeCriteria criteria);
+
+        bool IsMatchCompletedCapture(IsMatchCompleteCaptureCriteria criteria);
     }
 }
