@@ -38,14 +38,14 @@ namespace Fanex.LiveCharts.Controllers.Admin
         [HttpGet]
         public ActionResult ScorePrediction()
         {
-            var settingItem = _settingService.GetClosePredictionMinuteSetting(new ChartAdminGetMinuteForClosingPredictionCriteria());
+            var settingItem = _settingService.GetSetting(new ChartAdminGetMinuteForClosingPredictionCriteria());
             return View(settingItem);
         }
 
         [HttpPost]
         public ActionResult ScorePrediction(SettingItem settingItem)
         {
-            ViewBag.updateResult = _settingService.UpdateClosePredictionMinuteSetting(new ChartAdminUpdateMinuteForClosingPredictionCriteria
+            ViewBag.updateResult = _settingService.UpdateSetting(new ChartAdminUpdateMinuteForClosingPredictionCriteria
                 {
                     ClosePredictionMinute = Converter.ToInt(settingItem.SettingValue)
                 });

@@ -432,4 +432,10 @@
   <data name="PleaseLoginToViewMoreDetail" xml:space="preserve">
     <value>Please login to view more details!</value>
   </data>
+  <data name="CreateChatName" xml:space="preserve">
+    <value>Create Chat Name</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
 </root>

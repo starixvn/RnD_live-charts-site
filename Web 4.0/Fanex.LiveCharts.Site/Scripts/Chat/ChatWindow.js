@@ -57,10 +57,12 @@ function ChatWindow() {
         me.$btnEmotiocons = $('#emobitonButton');
         me.$gmt8Timer = $('#gmt8Timer');
         me.$btnEmoticon = $('#btnEmoticon');
-        me.$btnJoinRoom = $('#btnJoinRoom');
-        me.$popupJoinRoom = $('#popupJoinRoom');
+        me.$btnCreateChatName = $('#btnCreateChatName');
+        me.$popupCreateChatName = $('#popupCreateChatName');
         me.$txtChatName = $('#txtChatName');
         me.$btnMultiline = $('#btnMultiline');
+        me.$btnJoinRoom = $('#btnJoinRopm');
+        me.$popupJoinRoom = $('#popupJoinRoom');
     };
 
     me.registerEvents = function () {
@@ -79,10 +81,10 @@ function ChatWindow() {
 
     me.checkValidUser = function () {
         if (me.chatUser.chatName === '') {
-            me.$popupJoinRoom.modal({
+            me.$popupCreateChatName.modal({
                 backdrop: 'static'
             });
-            me.$btnJoinRoom.unbind('click').click(me.insertChatUser);
+            me.$btnCreateChatName.unbind('click').click(me.insertChatUser);
             me.$txtChatName.unbind('keypress').keypress(me.onKeyPressForInsertingChatUser);
         }
         else {
@@ -192,7 +194,7 @@ function ChatWindow() {
                         me.chatUser.chatUserId = result.InsertedId;
                         me.chatUser.chatName = chatName;
                         me.connectServer();
-                        me.$popupJoinRoom.modal('hide');
+                        me.$popupCreateChatName.modal('hide');
                     }
                     else {
                         LIVECHARTS.alertMessage(LIVECHARTS.messageType.error, result.CommandResult.Message);

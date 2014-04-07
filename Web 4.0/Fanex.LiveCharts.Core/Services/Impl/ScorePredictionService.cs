@@ -183,7 +183,7 @@ namespace Fanex.LiveCharts.Services.Impl
                 {
                     MatchId = matchId
                 });
-                var currentStopPredictionMinute = settingService.GetClosePredictionMinuteSetting(new ChartAdminGetMinuteForClosingPredictionCriteria());
+                var currentStopPredictionMinute = settingService.GetSetting(new ChartAdminGetMinuteForClosingPredictionCriteria());
 
                 isStopScorePrediction = Converter.ToInt(currentStopPredictionMinute.SettingValue) < currentMatchTime.CurrentMinute;
             }

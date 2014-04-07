@@ -241,6 +241,24 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create.
+        /// </summary>
+        public static string Create {
+            get {
+                return ResourceManager.GetString("Create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Chat Name.
+        /// </summary>
+        public static string CreateChatName {
+            get {
+                return ResourceManager.GetString("CreateChatName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Current Odds.
         /// </summary>
         public static string CurrentOdds {

@@ -18,8 +18,8 @@ namespace Fanex.LiveCharts.Services.Interface
     /// </summary>
     public interface ISettingService
     {
-        SettingItem GetClosePredictionMinuteSetting(ChartAdminGetMinuteForClosingPredictionCriteria getClosingMinuteCriteria);
+        SettingItem GetSetting(ICriteria criteria);
 
-        ICommandResult UpdateClosePredictionMinuteSetting(ChartAdminUpdateMinuteForClosingPredictionCriteria updateClosingMinuteCriteria);
+        ICommandResult UpdateSetting(ICriteria criteria);
     }
 }

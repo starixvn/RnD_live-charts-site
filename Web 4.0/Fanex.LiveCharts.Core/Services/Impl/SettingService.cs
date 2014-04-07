@@ -32,16 +32,16 @@ namespace Fanex.LiveCharts.Services.Impl
             _settingRepository = settingRepository ?? new SettingRepository();
         }
 
-        public SettingItem GetClosePredictionMinuteSetting(ChartAdminGetMinuteForClosingPredictionCriteria getClosingMinuteCriteria)
+        public SettingItem GetSetting(ICriteria criteria)
         {
-            var closePredictionMinuteSetting = _settingRepository.Get<SettingItem>(getClosingMinuteCriteria);
+            var closePredictionMinuteSetting = _settingRepository.Get<SettingItem>(criteria);
 
             return closePredictionMinuteSetting;
         }
 
-        public ICommandResult UpdateClosePredictionMinuteSetting(ChartAdminUpdateMinuteForClosingPredictionCriteria updateClosingMinuteCriteria)
+        public ICommandResult UpdateSetting(ICriteria criteria)
         {
-            var result = _settingRepository.ModifyData(updateClosingMinuteCriteria);
+            var result = _settingRepository.ModifyData(criteria);
 
             return result;
         }

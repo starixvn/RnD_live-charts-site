@@ -43,15 +43,15 @@
     </div>
 </div>
 <!-- Modal -->
-<div id="popupJoinRoom" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<div id="popupCreateChatName" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
     aria-hidden="true">
     <div class="modal-header">
-        <h3 id="myModalLabel">@Lang.JoinChatRoom</h3>
+        <h3>@Lang.CreateChatName</h3>
     </div>
     <div class="modal-body">
         <form class="bs-docs-example form-horizontal">
         <div class="control-group">
-            <label class="control-label" for="txtChatName">@Lang.JoinChatRoom:</label>
+            <label class="control-label" for="txtChatName">@Lang.ChatName:</label>
             <div class="controls">
                 <input type="text" id="txtChatName" placeholder="@Lang.ChatName"/>
             </div>
@@ -59,9 +59,28 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button class="btn" id="btnJoinRoom">@Lang.Join</button>
+        <button class="btn" id="btnCreateChatName">@Lang.Create</button>
     </div>
 </div>
+
+<div id="popupJoinRoom" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-header">
+        <h3>@Lang.JoinChatRoom</h3>
+    </div>
+    <div class="modal-body">
+        <form class="bs-docs-example form-horizontal">
+        <div class="control-group">
+            
+        </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" id="btnJoinRopm">@Lang.Join</button>
+    </div>
+</div>
+
+
 @section Scripts
 {
     <script src="~/Scripts/Libs/jquery.signalR-1.2.1.min.js"></script>

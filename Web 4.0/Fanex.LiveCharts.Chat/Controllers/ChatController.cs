@@ -16,6 +16,9 @@ namespace Fanex.LiveCharts.Chat.Controllers
     using Fanex.LiveCharts.Chat.ViewModels;
     using Fanex.LiveCharts.Controllers;
     using Fanex.LiveCharts.Web;
+    using Fanex.LiveCharts.Resources;
+    using Fanex.LiveCharts.Services.Interface;
+    using Fanex.LiveCharts.Services.Impl;
 
     /// <summary>
     /// TODO: Update summary.
@@ -23,15 +26,17 @@ namespace Fanex.LiveCharts.Chat.Controllers
     public class ChatController : BaseController
     {
         private readonly IChatService _chatService;
+        private readonly ISettingService _settingService;
 
         public ChatController()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public ChatController(IChatService chatService)
+        public ChatController(IChatService chatService, ISettingService settingService)
         {
             _chatService = chatService ?? new ChatService();
+            _settingService = settingService ?? new SettingService();
         }
 
         public ActionResult Index(int matchId)
@@ -125,11 +130,14 @@ namespace Fanex.LiveCharts.Chat.Controllers
                 });
             }
 
+            //string annoucementMessage = _settingService.GetClosePredictionMinuteSetting
+
             return new ChatViewModel
                 {
                     ChatRoom = chatRoom,
                     ChatUser = chatUser,
-                    ChatUserInRoom = chatUserInRoom
+                    ChatUserInRoom = chatUserInRoom,
+                    //AnnoucementMessage = 
                 };
         }
 
