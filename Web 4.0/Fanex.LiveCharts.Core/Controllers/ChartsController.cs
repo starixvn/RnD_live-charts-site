@@ -47,10 +47,17 @@ namespace Fanex.LiveCharts.Controllers
         {
             var mainPageViewModel = new MainPageViewModel
             {
-                MatchId = matchId
+                MatchId = matchId,
+                AnonymousLogin = SessionManager.CurrentSession.AdminId == 0 
+                                && SessionManager.CurrentSession.MemberId <= 0
             };
 
             return View(mainPageViewModel);
+        }
+
+        public ActionResult AnonymousPage()
+        {
+            return View();
         }
 
         [NapSuperAuth]

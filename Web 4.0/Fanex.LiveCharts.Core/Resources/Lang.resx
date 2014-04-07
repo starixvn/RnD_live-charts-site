@@ -429,4 +429,7 @@
   <data name="More" xml:space="preserve">
     <value>More</value>
   </data>
+  <data name="PleaseLoginToViewMoreDetail" xml:space="preserve">
+    <value>Please login to view more details!</value>
+  </data>
 </root>

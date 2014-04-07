@@ -736,6 +736,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please login to view more details!.
+        /// </summary>
+        public static string PleaseLoginToViewMoreDetail {
+            get {
+                return ResourceManager.GetString("PleaseLoginToViewMoreDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Price.
         /// </summary>
         public static string Price {

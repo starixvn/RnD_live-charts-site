@@ -14,13 +14,23 @@
     <div class="chart-page">
          <iframe id="frmChartPage" width="100%" height="100%" src="~/Charts/ChartContent?matchId=@(Model.MatchId.ToString())" frameborder="0"></iframe>
     </div>
-    <div class="score-prediction-page">
-        <iframe id="frmScorePredictionPage" width="100%" height="100%" src="~/ScorePrediction/Index?matchId=@(Model.MatchId.ToString())" frameborder="0"></iframe>
-        <input type="button" id="submitPreditionValue" class="btn collapse-expand-icon" data-expand="true" title="@(Lang.CollapseExpandScorePrediction)">
-    </div>
-    <div class="chat-page">
-        <iframe id="frmChatPage" width="100%" height="100%" src="~/Chat/Index?matchId=@(Model.MatchId.ToString())" frameborder="0"></iframe>
-    </div>
+
+    @if (Model.AnonymousLogin)
+    {
+        <div class="anonymous-welcome-page">
+            <iframe id="frmPleaseLogin" width="100%" height="100%" src="~/Charts/AnonymousPage" frameborder="0"></iframe>
+        </div>
+    }
+    else
+    {
+        <div class="score-prediction-page">
+            <iframe id="frmScorePredictionPage" width="100%" height="100%" src="~/ScorePrediction/Index?matchId=@(Model.MatchId.ToString())" frameborder="0"></iframe>
+            <input type="button" id="submitPreditionValue" class="btn collapse-expand-icon" data-expand="true" title="@(Lang.CollapseExpandScorePrediction)">
+        </div>
+        <div class="chat-page">
+            <iframe id="frmChatPage" width="100%" height="100%" src="~/Chat/Index?matchId=@(Model.MatchId.ToString())" frameborder="0"></iframe>
+        </div>
+    }
 </div>
 
 @section Scripts
