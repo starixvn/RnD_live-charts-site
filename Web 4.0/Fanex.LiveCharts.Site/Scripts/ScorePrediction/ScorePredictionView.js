@@ -119,7 +119,7 @@ function ScorePredictionView(defaultValue) {
                                 me.getCorrectScoreResult({
                                     matchId: me.matchId
                                 });
-                                //me.checkMatchStatus();
+                                me.checkMatchStatus();
 
                                 setTimeout(function () {
                                     countDownStart(countDownObject);
@@ -154,6 +154,13 @@ function ScorePredictionView(defaultValue) {
         });
     };
 
+    me.stopCountDownAndRemoveReload = function () {
+        if (me.isStopPrediction) {
+            me.$resultRefreshCountDown.refreshCountDown('stopCountDown');
+            me.$resultRefreshCountDown.parent().hide();
+        }
+    };
+
     me.checkMatchStatus = function () {
         if (!me.isStopPrediction) {
             LIVECHARTS.callAjax({
@@ -165,9 +172,7 @@ function ScorePredictionView(defaultValue) {
                 done: function (result) {
                     if (result) {
                         me.isStopPrediction = result.IsStopScorePrediction;
-                        if (me.isStopPrediction) {
-                            me.$resultRefreshCountDown.parent().hide();
-                        }
+                        me.stopCountDownAndRemoveReload();
                     }
                 }
             });
@@ -187,6 +192,7 @@ function ScorePredictionView(defaultValue) {
                 else {
                     if (result.Code === 1) {
                         me.isStopPrediction = true;
+                        me.stopCountDownAndRemoveReload();
                     }
                     LIVECHARTS.alertMessage(LIVECHARTS.messageType.error, result.Message);
                 }

@@ -120,7 +120,10 @@ function ScorePrediction (
                 text: null
             },
             xAxis: {
-                categories: sortedCategories
+                categories: sortedCategories,
+                labels: {
+                    rotation: -20
+                }
             },
             yAxis: {
                 min: 0,

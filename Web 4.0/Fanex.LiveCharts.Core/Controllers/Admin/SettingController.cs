@@ -16,6 +16,7 @@ namespace Fanex.LiveCharts.Controllers.Admin
     using Fanex.LiveCharts.Services.Impl;
     using Fanex.LiveCharts.Services.Interface;
     using Fanex.NAP.Core.Web.Attribute;
+    using Fanex.LiveCharts.Criterias.Chat;
 
     /// <summary>
     /// TODO: Update summary.
@@ -38,8 +39,8 @@ namespace Fanex.LiveCharts.Controllers.Admin
         [HttpGet]
         public ActionResult ScorePrediction()
         {
-            var settingItem = _settingService.GetSetting(new ChartAdminGetMinuteForClosingPredictionCriteria());
-            return View(settingItem);
+            var scorePredictionSetting = _settingService.GetSetting(new ChartAdminGetMinuteForClosingPredictionCriteria());
+            return View(scorePredictionSetting);
         }
 
         [HttpPost]
@@ -56,7 +57,8 @@ namespace Fanex.LiveCharts.Controllers.Admin
         [HttpGet]
         public ActionResult Chat()
         {
-            return View();
+            var annoucementMessageSetting = _settingService.GetSetting(new GetAnnouncementMessageCriteria());
+            return View(annoucementMessageSetting);
         }
     }
 }

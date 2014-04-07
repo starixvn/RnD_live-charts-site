@@ -15,11 +15,11 @@ namespace Fanex.LiveCharts.Chat.Controllers
     using Fanex.LiveCharts.Chat.Services;
     using Fanex.LiveCharts.Chat.ViewModels;
     using Fanex.LiveCharts.Controllers;
-    using Fanex.LiveCharts.Web;
-    using Fanex.LiveCharts.Resources;
-    using Fanex.LiveCharts.Services.Interface;
-    using Fanex.LiveCharts.Services.Impl;
+    using Fanex.LiveCharts.Criterias.Chat;
     using Fanex.LiveCharts.Models;
+    using Fanex.LiveCharts.Services.Impl;
+    using Fanex.LiveCharts.Services.Interface;
+    using Fanex.LiveCharts.Web;
 
     /// <summary>
     /// TODO: Update summary.

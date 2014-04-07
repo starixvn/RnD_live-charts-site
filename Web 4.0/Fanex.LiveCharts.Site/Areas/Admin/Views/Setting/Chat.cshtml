@@ -1,21 +1,23 @@
-﻿@{
+﻿@using Fanex.LiveCharts.Models;
+@{
     ViewBag.Title = AdminSiteLang.ChatSetting;
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
+@model SettingItem
 @section Headline {
     <h1>
         <span class="title">@ViewBag.Title</span></h1>
 }
 
 <div class="setting-container">
-    <form method="post" action="@(Url.Action("ScorePrediction", "Setting", new { Area = "Admin" }))">
+    <form method="post" action="@(Url.Action("Chat", "Setting", new { Area = "Admin" }))">
     <div class="form dummy-prediction-container ">
         <div class="form-row">
             <div class="lbl-field">@AdminSiteLang.TermCondition:</div>
             <div class="edit-field">
                 <input type="hidden" name="SettingId" id="SettingId" value="" />
                 <input type="hidden" name="SettingName" id="SettingName" value="" />
-                <textarea name="SettingValue" id="SettingValue"></textarea>
+                <textarea name="SettingValue" id="SettingValue" class="term-condition-setting" >@(Model.SettingValue)</textarea>
                 <input id="updateDummy" type="submit" value="@Lang.Submit" />
             </div>
         </div>

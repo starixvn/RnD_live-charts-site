@@ -108,6 +108,8 @@
     <Compile Include="Core\TeamChoosingType.cs" />
     <Compile Include="Core\Extensions.cs" />
     <Compile Include="Core\LockProvider.cs" />
+    <Compile Include="Criterias\Chat\GetAnnouncementMessageCriteria.cs" />
+    <Compile Include="Criterias\Chat\UpdateAnnouncementMessageCriteria.cs" />
     <Compile Include="Criterias\CheckUserTokenCriteria.cs" />
     <Compile Include="Criterias\GetCurrentMatchTimeCriteria.cs" />
     <Compile Include="Criterias\GetEnableChartsCriteria.cs" />
