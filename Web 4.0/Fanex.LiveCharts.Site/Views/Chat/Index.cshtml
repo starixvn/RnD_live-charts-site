@@ -19,7 +19,7 @@
         </div>
         <div class="footer-room">
             <div class="members-info-container">
-                <span class="member-text">@(Lang.Members):</span> <span class="member-online" id="memberOnline">
+                <span class="member-text">@(Lang.Members):</span> <span class="member-online btn-link" id="memberOnline">
                     0</span>
             </div>
             <div class="timer-container">
@@ -34,7 +34,9 @@
                 <span class="multiline-icon" id="btnMultiline" title="@Lang.MultilineOff" data-multiline-on="@Lang.MultilineOn" data-multiline-off="@Lang.MultilineOff" data-multiline-status="off"></span>
             </div>
             <textarea id="messageInput" placeholder="@Lang.Text" maxlength="1000"></textarea>
-            <div class="emoticon-container" id="btnEmoticon">
+            <div class="emoticon-container">
+                <div class="emoticon-icon" id="btnEmoticon">
+                </div>
             </div>
         </div>
         <div class="text-submit">
@@ -71,12 +73,28 @@
     <div class="modal-body">
         <form class="bs-docs-example form-horizontal">
         <div class="control-group">
-            
+            @Model.AnnoucementMessage
         </div>
         </form>
     </div>
     <div class="modal-footer">
         <button class="btn" id="btnJoinRopm">@Lang.Join</button>
+    </div>
+</div>
+
+
+<div id="popupChatUserList" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-header">
+         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>@Lang.UserList</h3>
+    </div>
+    <div class="modal-body">
+        <form class="bs-docs-example form-horizontal">
+            <div id="userListContainer" class="user-list-container">
+            
+            </div>
+        </form>
     </div>
 </div>
 

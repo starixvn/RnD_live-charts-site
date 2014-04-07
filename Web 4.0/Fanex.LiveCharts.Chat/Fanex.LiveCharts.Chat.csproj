@@ -74,6 +74,7 @@
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="Controllers\ChatController.cs" />
+    <Compile Include="Criteria\GetAnnouncementMessageCriteria.cs" />
     <Compile Include="Criteria\GetChatMessageByRoomCriteria.cs" />
     <Compile Include="Criteria\GetChatMessageByTimeCriteria.cs" />
     <Compile Include="Criteria\GetChatMessageByUserIdCriteria.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Criteria\InsertChatUserCriteria.cs" />
     <Compile Include="Criteria\InsertChatUserInRoomCriteria.cs" />
     <Compile Include="Criteria\InsertUpdateChatMessageSpamCriteria.cs" />
+    <Compile Include="Criteria\UpdateAnnouncementMessageCriteria.cs" />
     <Compile Include="Criteria\UpdateKickOutChatUserCriteria.cs" />
     <Compile Include="Criteria\UpdateChatMessageCriteria.cs" />
     <Compile Include="Criteria\UpdateChatRoomCriteria.cs" />

@@ -19,6 +19,7 @@ namespace Fanex.LiveCharts.Chat.Controllers
     using Fanex.LiveCharts.Resources;
     using Fanex.LiveCharts.Services.Interface;
     using Fanex.LiveCharts.Services.Impl;
+    using Fanex.LiveCharts.Models;
 
     /// <summary>
     /// TODO: Update summary.
@@ -130,14 +131,14 @@ namespace Fanex.LiveCharts.Chat.Controllers
                 });
             }
 
-            //string annoucementMessage = _settingService.GetClosePredictionMinuteSetting
+            SettingItem annoucementMessage = _settingService.GetSetting(new GetAnnouncementMessageCriteria());
 
             return new ChatViewModel
                 {
                     ChatRoom = chatRoom,
                     ChatUser = chatUser,
                     ChatUserInRoom = chatUserInRoom,
-                    //AnnoucementMessage = 
+                    AnnoucementMessage = annoucementMessage.SettingValue
                 };
         }
 

@@ -150,20 +150,36 @@ function ChatClient(chatUser, chatRoom) {
         me.numberOfHistoryMessagesShowing += me.numberOfHistoryMessagesPaging;
     };
 
-    me.showDetailUserList = function () {
-        
-        if (me.currentUserInRoomList && me.currentUserInRoomList.length > 0)
-        {
+    me.getCurrentUserList = function () {
+        var userChatNameList = [];
+        if (me.currentUserInRoomList && me.currentUserInRoomList.length > 0) {
             var userRoomLength = me.currentUserInRoomList.length;
-            var userChatNameList = [];
+            
             for (var i = 0; i < userRoomLength; i++) {
                 var chatUserInRoom = me.currentUserInRoomList[i];
-                userChatNameList.push(chatUserInRoom.ChatUser.ChatName);
+                userChatNameList.push('<span style="color:' + me.userList[chatUserInRoom.ChatUser.ChatUserId] + ';">'
+                                            + chatUserInRoom.ChatUser.ChatName
+                                       + '</span>');
             }
-
-            alert(userChatNameList.join('\n'));
         }
+
+        return userChatNameList.join(', ');
     };
+
+//    me.showDetailUserList = function () {
+//        
+//        if (me.currentUserInRoomList && me.currentUserInRoomList.length > 0)
+//        {
+//            var userRoomLength = me.currentUserInRoomList.length;
+//            var userChatNameList = [];
+//            for (var i = 0; i < userRoomLength; i++) {
+//                var chatUserInRoom = me.currentUserInRoomList[i];
+//                userChatNameList.push(chatUserInRoom.ChatUser.ChatName);
+//            }
+
+//            alert(userChatNameList.join('\n'));
+//        }
+//    };
 
     me.kickOutChatUser = function (chatUserId) {
         if (chatUserId === me.chatUser.chatUserId) {

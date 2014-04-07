@@ -42,11 +42,14 @@ function ChatWindow() {
         me.cacheDOMElements();
         me.chatClient.init();
         me.chatServer.init();
+        me.chatAdapter.init(me, me.signalRConnectDone);
+    };
+
+    me.signalRConnectDone = function () {
         me.checkValidUser();
         me.startTimer();
         me.handleBrowserStatus();
     };
-
 
     me.cacheDOMElements = function () {
         me.$soundContainer = $('#soundContainer');
@@ -63,15 +66,20 @@ function ChatWindow() {
         me.$btnMultiline = $('#btnMultiline');
         me.$btnJoinRoom = $('#btnJoinRopm');
         me.$popupJoinRoom = $('#popupJoinRoom');
+        me.$popupChatUserList = $('#popupChatUserList');
+        me.$userListContainer = $('#userListContainer');
     };
 
     me.registerEvents = function () {
         me.$btnSubmitMessage.unbind('click').click(me.chatServer.sendMessage);
-        me.$memberOnline.unbind('click').click(me.chatClient.showDetailUserList);
+        me.$memberOnline.unbind('click').click(me.showDetailUserList);
         me.$btnMultiline.unbind('click').click(me.multilineHandle);
         me.$btnMultiline.powerTip({
             placement: 'ne',
             smartPlacement: true
+        });
+        me.$popupChatUserList.modal({
+            show: false
         });
         me.$txtMessageInput.unbind('keypress').keypress(me.onKeyPressForSingleLine);
         me.registerEmoticon();
@@ -88,8 +96,21 @@ function ChatWindow() {
             me.$txtChatName.unbind('keypress').keypress(me.onKeyPressForInsertingChatUser);
         }
         else {
-            me.connectServer();
+            me.askJoinRoom();
         }
+    };
+
+    me.showDetailUserList = function () {
+        me.$userListContainer.html(me.chatClient.getCurrentUserList());
+        me.$popupChatUserList.modal('show');
+    };
+
+    me.askJoinRoom = function () {
+        me.$popupCreateChatName.modal('hide');
+        me.$popupJoinRoom.modal({
+            backdrop: 'static'
+        });
+        me.$btnJoinRoom.unbind('click').click(me.joinRoom);
     };
 
     me.onKeyPressForSingleLine = function (event) {
@@ -100,13 +121,9 @@ function ChatWindow() {
         }
 
         if (event.which === 13) {
-
-                event.preventDefault();
-                me.$btnSubmitMessage.trigger('click');
-
+            event.preventDefault();
+            me.$btnSubmitMessage.trigger('click');
         }
-
-
     };
 
     me.onKeyPressForMultipleLine = function (event) {
@@ -168,8 +185,6 @@ function ChatWindow() {
         $this.data('powertip', currentTitle);
     };
 
-    me.bindEventKeys = function () { };
-
     me.startTimer = function () {
         setInterval(function () {
             me.$gmt8Timer.html(moment().zone(me.formatTimer.timeZone).format(me.formatTimer.format));
@@ -193,8 +208,8 @@ function ChatWindow() {
                     if (result && result.CommandResult.IsSuccessful) {
                         me.chatUser.chatUserId = result.InsertedId;
                         me.chatUser.chatName = chatName;
-                        me.connectServer();
-                        me.$popupCreateChatName.modal('hide');
+                        me.askJoinRoom();
+                        
                     }
                     else {
                         LIVECHARTS.alertMessage(LIVECHARTS.messageType.error, result.CommandResult.Message);
@@ -208,15 +223,10 @@ function ChatWindow() {
         }
     };
 
-    me.connectServer = function () {
-        me.chatAdapter.init(me, me.connectToServerDone);
-    };
-
-    me.connectToServerDone = function () {
-        try { $.unblockUI(); } catch (e) { }
+    me.joinRoom = function () {
+        me.$popupJoinRoom.modal('hide');
         me.registerEvents();
         me.chatServer.joinRoom();
-
     };
 
     me.handleBrowserStatus = function () {

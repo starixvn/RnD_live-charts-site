@@ -182,7 +182,7 @@ body
 
     	.text-input
         {
-			padding-right: 70px;
+			padding-right: 93px;
 			padding-left: 27px;
 
 			.multiline-icon-container
@@ -228,22 +228,32 @@ body
             }
 
 			.emoticon-container
-			{
-				background-image: url("../Images/chart-spite.png");
-				background-repeat: no-repeat;
-				height: 16px;
-				width: 17px;
-				background-position: 0px -49px;
+            {
+				padding-left: 2px;
 				position: absolute;
-				right: 67px;
-				top: 7px;
+				top: 1px;
+				right: 63px;
 				z-index: 10;
+				border: 1px solid @borderColor;
+				width: 19px;
+				height: 26px;
 
-				&:hover
-                {
-					background-position: 0px -69px;
-					cursor: pointer;
-                }
+				.emoticon-icon
+				{
+					background-image: url("../Images/chart-spite.png");
+					background-repeat: no-repeat;
+					height: 16px;
+					width: 17px;
+					background-position: 0px -49px;
+					margin-left: 1px;
+					margin-top: 4px;
+
+					&:hover
+					{
+						background-position: 0px -69px;
+						cursor: pointer;
+					}
+				}
 			}
         }
 
