@@ -9,7 +9,8 @@ function ChatMonitor() {
 
     me.cacheDomElements = function () {
         me.$messageGrid = $('#messageGrid');
-
+        me.$menuEditChatUser = $('#menuEditChatUser');
+        me.$menuEditChatMessage = $('#menuEditChatMessage');
 
     };
 
@@ -19,16 +20,29 @@ function ChatMonitor() {
         me.$allRemoveChatMessage = $('.remove-chat-message');
         me.$allRecoverChatUser = $('.recover-chat-user');
         me.$allRecoverChatMessage = $('.recover-chat-message');
+        me.$allMenuActions = $('#messageGrid .menu-action');
         me.$btnReload.unbind('click').click(me.initMessageGrid);
-        me.$allRemoveChatUser.unbind('click').click(me.kickOutChatUser);
+        me.$allRemoveChatUser.unbind('click').click(me.showMenuEditUser);
         me.$allRemoveChatMessage.unbind('click').click(me.removeChatMessage);
         me.$allRecoverChatUser.unbind('click').click(me.recoverChatUser);
         me.$allRecoverChatMessage.unbind('click').click(me.recoverChatMessage);
+       
+    };
+
+    me.showMenuEditUser = function () {
+        var $this = $(this);
+        var menuAction = $this.next();
+        menuAction.show();
+        menuAction.css(
+            {
+                marginLeft: '-' + menuAction.find('.actions').width() + 'px'
+            });
     };
 
     me.kickOutChatUser = function () {
         var $this = $(this);
         var currentChatUserId = $this.attr('data-chat-user-id');
+
         LiveChartsAdmin.callAjax({
             url: me.chatMonitorDefault.kickOutChatUserUrl,
             type: 'POST',
@@ -189,30 +203,31 @@ function ChatMonitor() {
     me.gridOptions = {
         columns: [
                    { HeaderText: LANGUAGE.timeGTM8, Width: 150, Name: 'Time', CellAlign: 'center', FormatDateTime: 'DD MMM, YYYY hh:mm A' },
-                   { HeaderText: LANGUAGE.username, Width: 150, Name: 'UserName', CellAlign: 'center', CustomCellRender: function (cell) {
+                   { HeaderText: LANGUAGE.username, Width: 150, Name: 'UserName', CellAlign: 'center', CellCssClass: 'user-name-content', MergeHeaderColNumber: 2 },
+                   { HeaderText: '', Width: 40, Name: 'ChatNameAction', CellAlign: 'center', CustomCellRender: function (cell) {
                        var userStatusClass = me.usersStatus[cell.Value.MemberId].KickedOut
-                                            ? 'recover-action recover-chat-user' 
-                                            : 'remove-action remove-chat-user';
-                       return '<div class="user-name-content">' +
-                                    '<span class="' + userStatusClass + '" '
+                                            ? 'recover-action recover-chat-user'
+                                            : 'edit-action remove-chat-user';
+                       var menuHtml = '<div style="display: none;" class="menu-action"> \
+                                            <ul class="actions"> \
+                                                <li>Kick Out <span class="action-user"></span></li> \
+                                                <li>Ban <span class="action-user"></span></li> \
+                                            </ul> \
+                                        </div>';
+                       return '<span class="' + userStatusClass + '" '
                                             + 'data-member-id="' + cell.Value.MemberId + '"'
                                             + ' data-chat-user-id="' + cell.Value.ChatUserId + '"'
-                                        + '></span>'
-                                    + cell.Value.MemberId
-                            + '</div>';
+                                        + '></span>' + menuHtml;
                    }
                    },
                    { HeaderText: LANGUAGE.chatName, Width: 150, Name: 'ChatName', CellAlign: 'center' },
-                   { HeaderText: LANGUAGE.chatMessage, Width: 490, Name: 'ChatMessage', CustomCellRender: function (cell) {
-                       var messageClass = cell.Value.isDeleted ? 'recover-action recover-chat-message' : 'remove-action remove-chat-message';
-                       return '<div class="message-container">'
-                                    + '<span class="' + messageClass + '" data-chat-message-id="'
-                                        + cell.Value.chatMessageId
-                                    + '"></span>'
-                                    + '<div class="message-content">'
-                                        + cell.Value.content.replace(/\r\n/g, "<br />").replace(/\n/g, "<br />")
-                                    + '</div>'
-                            + '</div>';
+                   { HeaderText: LANGUAGE.chatMessage, Width: 490, Name: 'ChatMessage', MergeHeaderColNumber: 2, CellCssClass: 'message-content' },
+                   { HeaderText: '', Width: 40, Name: 'ChatMessageAction', CellAlign: 'center', CustomCellRender: function (cell) {
+
+                       var messageClass = cell.Value.isDeleted ? 'recover-action recover-chat-message' : 'edit-action remove-chat-message';
+                       return '<span class="' + messageClass + '" data-chat-message-id="'
+                                                               + cell.Value.chatMessageId
+                                                           + '"></span>';
                    }
                    }
                ],
@@ -247,17 +262,18 @@ function ChatMonitor() {
                    { Name: "Time", Value: currentMessage.CreateTime },
                    {
                        Name: "UserName",
-                       Value: currentMessage.ChatUser
+                       Value: currentMessage.ChatUser.MemberId
                    },
+                   { Name: "ChatNameAction", Value: currentMessage.ChatUser },
                    { Name: "ChatName", Value: currentMessage.ChatUser.ChatName },
                    {
                        Name: "ChatMessage",
-                       Value:
-                       {
-                           content: currentMessage.Content,
-                           chatMessageId: currentMessage.ChatMessageId,
-                           isDeleted: currentMessage.IsDeleted
-                       }
+                       Value: currentMessage.Content.replace(/\r\n/g, "<br />").replace(/\n/g, "<br />")
+                   },
+                   { Name: 'ChatMessageAction', Value: {
+                       chatMessageId: currentMessage.ChatMessageId,
+                       isDeleted: currentMessage.IsDeleted
+                   }
                    }
                 ],
                 CustomAttr: 'data-chat-message-id="' + currentMessage.ChatMessageId + '"'
@@ -270,6 +286,12 @@ function ChatMonitor() {
     me.init = function () {
         me.cacheDomElements();
         me.initMessageGrid();
+        $(document).delegate('html', 'click', function (e, isInsideCall) {
+            var $target = $(e.target);
+            if (!$target.hasClass('edit-action')) {
+                me.$allMenuActions.hide();
+            }
+        });
         //me.registerEvents();
     };
 }

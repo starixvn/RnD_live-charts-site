@@ -4,19 +4,31 @@
 @{
     ViewBag.Title = AdminSiteLang.MonitorChatConversation;
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
-    var gridTitle = string.Format("{0} -vs- {1}, {2}(GMT+8): {3}", 
-        Model.Match.HomeName, 
-        Model.Match.AwayName, 
+    var gridTitle = string.Format("{0} -vs- {1}, {2}(GMT+8): {3}",
+        Model.Match.HomeName,
+        Model.Match.AwayName,
         AdminSiteLang.KickOffTime,
         Model.Match.KickOffTimeGMT8);
 }
 @section Head {
-   <link type="text/css" rel="Stylesheet" href="~/Areas/Admin/Content/Chat.less" />
+    <link type="text/css" rel="Stylesheet" href="~/Areas/Admin/Content/Chat.less" />
 }
-
 <div class="chart-monitor">
     <div class="container-title">@AdminSiteLang.MonitorChatConversation</div>
-    <div id="messageGrid" class="freegrid"></div>
+    <div id="messageGrid" class="freegrid">
+    </div>
+</div>
+<div id="menuEditChatUser" style="display: none;" class="menu-action">
+    <ul class="actions">
+        <li>Kick Out <span class="action-user"></span></li>
+        <li>Ban <span class="action-user"></span></li>
+    </ul>
+</div>
+<div id="menuEditChatMessage" style="display: none;" class="menu-action">
+    <ul class="actions">
+        <li>Delete this message</li>
+        <li>Delete all messages from <span class="action-user"></span></li>
+    </ul>
 </div>
 @section Foot {
     <script type="text/javascript">
@@ -45,7 +57,5 @@
             kickedOutChatUserSuccess: '@(AdminSiteLang.KickedOutChatUserSuccess)'
         };
     </script>
-
     @Scripts.Render("~/areas/admin/chatmonitorjs")
 }
-

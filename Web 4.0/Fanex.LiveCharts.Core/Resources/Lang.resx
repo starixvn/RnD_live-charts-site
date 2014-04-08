@@ -424,13 +424,13 @@
     <value>You are forced disconnect because another session joins this room.</value>
   </data>
   <data name="ScorePredictionStopMessage" xml:space="preserve">
-    <value>Sorry, score prediction is unavailable in this time!</value>
+    <value>Score Prediction is not longer available for this match.</value>
   </data>
   <data name="More" xml:space="preserve">
     <value>More</value>
   </data>
   <data name="PleaseLoginToViewMoreDetail" xml:space="preserve">
-    <value>Please login to view more details!</value>
+    <value>Please log in to experience new features, Score Prediction and Live Chat!</value>
   </data>
   <data name="CreateChatName" xml:space="preserve">
     <value>Create Chat Name</value>

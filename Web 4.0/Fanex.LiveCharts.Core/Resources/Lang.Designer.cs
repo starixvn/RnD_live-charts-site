@@ -781,7 +781,7 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please login to view more details!.
+        ///   Looks up a localized string similar to Please log in to experience new features, Score Prediction and Live Chat!.
         /// </summary>
         public static string PleaseLoginToViewMoreDetail {
             get {
@@ -853,7 +853,7 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sorry, score prediction is unavailable in this time!.
+        ///   Looks up a localized string similar to Score Prediction is not longer available for this match..
         /// </summary>
         public static string ScorePredictionStopMessage {
             get {
