@@ -50,6 +50,14 @@ function ScorePredictionConfigView() {
 
     me.updateDummyPrediction = function () {
         if (me.isValidInput()) {
+            var dummyValue = me.$txtPredictionValue.val();
+            if (dummyValue === '' || dummyValue === '0') {
+                var cf = confirm(SCORE_PREDICTION_CONFIG.deleteMessage);
+                if (cf === false) {
+                    return;
+                }
+            }
+
             LiveChartsAdmin.callAjax({
                 url: SCORE_PREDICTION_CONFIG.updateDummyUrl,
                 type: 'POST',
@@ -57,7 +65,7 @@ function ScorePredictionConfigView() {
                     HomeScore: me.$txtHomeScore.val(),
                     AwayScore: me.$txtAwayScore.val(),
                     MatchId: SCORE_PREDICTION_CONFIG.matchId,
-                    DummyCount: me.$txtPredictionValue.val()
+                    DummyCount: dummyValue
                 },
                 done: function (commandResult) {
                     if (commandResult.IsSuccessful) {

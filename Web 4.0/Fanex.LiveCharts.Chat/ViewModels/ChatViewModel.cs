@@ -23,5 +23,7 @@ namespace Fanex.LiveCharts.Chat.ViewModels
         public ChatUserInRoom ChatUserInRoom { get; set; }
 
         public string AnnoucementMessage { get; set; }
+
+        public string WelcomeMessage { get; set; }
     }
 }

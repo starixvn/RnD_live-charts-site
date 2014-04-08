@@ -9,7 +9,6 @@
 
 namespace Fanex.LiveCharts.Site.Areas.Admin.Area_Start
 {
-    using System.Diagnostics.CodeAnalysis;
     using System.Web.Optimization;
 
     /// <summary>
@@ -30,8 +29,8 @@ namespace Fanex.LiveCharts.Site.Areas.Admin.Area_Start
                 "~/Areas/Admin/scripts/live-charts-admin-site.js",
                 "~/Areas/UserLogin/scripts/ReCheckIn.js"));
 
-             bundles.Add(new ScriptBundle("~/areas/admin/getenablechartjs").Include(
-                "~/Areas/Admin/Scripts/live-charts-enable-charts.js"));
+            bundles.Add(new ScriptBundle("~/areas/admin/getenablechartjs").Include(
+               "~/Areas/Admin/Scripts/live-charts-enable-charts.js"));
 
             bundles.Add(new ScriptBundle("~/areas/admin/getmatchdetailjs").Include(
                 "~/Areas/Admin/Scripts/live-charts-match-detail.js"));
@@ -49,6 +48,9 @@ namespace Fanex.LiveCharts.Site.Areas.Admin.Area_Start
                 "~/Scripts/Libs/Fanex.Grid/Fanex.Pagination.js",
                 "~/Scripts/Libs/Fanex.Grid/Fanex.Grid.js",
                 "~/Areas/Admin/Scripts/Chat/chat-monitor.js"));
+
+            bundles.Add(new ScriptBundle("~/areas/admin/chatsettingconfigjs").Include(
+                "~/Areas/Admin/Scripts/Setting/chat-setting.js"));
         }
     }
 }

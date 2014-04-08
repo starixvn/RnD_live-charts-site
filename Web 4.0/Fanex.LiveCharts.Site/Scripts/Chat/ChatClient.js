@@ -80,7 +80,7 @@ function ChatClient(chatUser, chatRoom) {
     };
 
     me.preProcessMessage = function (chatMessage) {
-        chatMessage.MessageTime = moment(chatMessage.CreateTime).zone(me.formatTimer.timeZone).format(me.formatTimer.format);
+        chatMessage.MessageTime =  me.formatTime(moment(chatMessage.CreateTime));
         chatMessage.Content = chatMessage.Content.replace(/\r\n/g, "<br />").replace(/\n/g, "<br />");
         var tempDiv = $('<div>' + chatMessage.Content + '</div>');
         var chatMessageContent = tempDiv.emoticons(DEFAULT_OBJECT.emoticonsFolder).profanityFilter({
@@ -115,6 +115,7 @@ function ChatClient(chatUser, chatRoom) {
         }
 
         me.scrollTop();
+        me.appendUserNotification(DEFAULT_OBJECT.welcomeMessage, 'welcome-message');
     };
 
     me.updateUserList = function (userInRoomList) {
@@ -187,6 +188,10 @@ function ChatClient(chatUser, chatRoom) {
         }
     };
 
+    me.leftRoom = function () {
+        window.location.href = window.location.href;
+    };
+
     me.deleteChatMessage = function (chatMessageId) {
         var deleteMessageElement = me.$mainChatRoom.find('.chat-message[data-message-id=' + chatMessageId + ']');
         if (deleteMessageElement.length > 0) {
@@ -196,14 +201,14 @@ function ChatClient(chatUser, chatRoom) {
 
     me.notifyUserLeftRoom = function (chatUserInRoom, currentChatUserList) {
         if (chatUserInRoom.ChatUser.ChatUserId !== me.chatUser.chatUserId) {
-            me.renderUserNotification(chatUserInRoom.ChatUser, ' has left.', false);
+            me.renderUserNotification(chatUserInRoom.ChatUser, LANGUAGE.hasLeft, false);
         }
         me.updateUserList(currentChatUserList);
     };
 
     me.notifyUserJoinedRoom = function (chatUser, currentChatUserList) {
         if (chatUser && chatUser.ChatName && chatUser.ChatUserId !== me.chatUser.chatUserId) {
-            me.renderUserNotification(chatUser, ' joined room.', true);
+            me.renderUserNotification(chatUser, LANGUAGE.joinedRoom, true);
         }
         me.updateUserList(currentChatUserList);
     };
@@ -219,18 +224,22 @@ function ChatClient(chatUser, chatRoom) {
 
     me.renderUserNotification = function (chatUser, messageText, isJoin) {
         var message = '<span class="notification-name">' + chatUser.ChatName + '</span>'
-                    + '<span class="notification-message">' + messageText + '</span>';
+                    + '<span class="notification-message"> ' + messageText + '</span>';
         var classMessage = isJoin ? 'joined-message' : 'left-message';
 
+        me.appendUserNotification(message, classMessage);
+        me.resetContinueMessage();
+    };
+
+    me.appendUserNotification = function (htmlMessage, messageClass) {
         me.$mainChatRoom.append('<li class="chat-message">'
                     + '<div class="message-content notification-content">'
-                        + '<div class="message-content-main ' + classMessage + '">'
-                                + message
+                        + '<div class="message-content-main ' + messageClass + '">'
+                                + htmlMessage
                         + '</div>'
-                        + '<div class="message-content-time">' + moment().zone(me.formatTimer.timeZone).format(me.formatTimer.format) + '</div>'
+                        + '<div class="message-content-time">' + me.formatTime(moment()) + '</div>'
                     + '</div>'
                + '</li>');
-        me.resetContinueMessage();
     };
 
     me.resetContinueMessage = function () {
@@ -262,5 +271,9 @@ function ChatClient(chatUser, chatRoom) {
         $soundContainer.html('<audio autoplay="autoplay"><source src="' + filename + '.mp3" type="audio/mpeg" />'
                             + '<source src="' + filename + '.ogg" type="audio/ogg" />'
                             +'<embed hidden="true" autostart="true" loop="false" src="' + filename + '.mp3" /></audio>');
+    };
+
+    me.formatTime = function (momentTime) {
+        return momentTime.zone(me.formatTimer.timeZone).format(me.formatTimer.format);
     };
 }

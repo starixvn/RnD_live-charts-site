@@ -11,12 +11,14 @@ namespace Fanex.LiveCharts.Controllers.Admin
 {
     using System.Web.Mvc;
     using Fanex.Common;
+    using Fanex.LiveCharts.Criterias.Chat;
     using Fanex.LiveCharts.Criterias.ScorePrediction;
     using Fanex.LiveCharts.Models;
     using Fanex.LiveCharts.Services.Impl;
     using Fanex.LiveCharts.Services.Interface;
+    using Fanex.LiveCharts.ViewModel.Chat;
     using Fanex.NAP.Core.Web.Attribute;
-    using Fanex.LiveCharts.Criterias.Chat;
+    using Fanex.NAP.Framework.Data;
 
     /// <summary>
     /// TODO: Update summary.
@@ -53,12 +55,38 @@ namespace Fanex.LiveCharts.Controllers.Admin
             return View(settingItem);
         }
 
-
         [HttpGet]
         public ActionResult Chat()
         {
-            var annoucementMessageSetting = _settingService.GetSetting(new GetAnnouncementMessageCriteria());
-            return View(annoucementMessageSetting);
+            ChatSettingViewModel chatSetting = new ChatSettingViewModel
+            {
+                TermCondition = _settingService.GetSetting(new GetTermConditionCriteria()),
+                WelcomeMessage = _settingService.GetSetting(new GetWelcomeMessageCriteria())
+            };
+
+            return View(chatSetting);
+        }
+
+        [HttpPost]
+        public JsonResult UpdateTermCondition(string termCondition)
+        {
+            ICommandResult updateResult = _settingService.UpdateSetting(new UpdateTermConditionCriteria
+            {
+                TermCondition = termCondition
+            });
+
+            return Json(updateResult);
+        }
+
+        [HttpPost]
+        public JsonResult UpdateWelcomeMessage(string welcomeMessage)
+        {
+            ICommandResult updateResult = _settingService.UpdateSetting(new UpdateWelcomeMessage
+            {
+                WelcomeMessage = welcomeMessage
+            });
+
+            return Json(updateResult);
         }
     }
 }

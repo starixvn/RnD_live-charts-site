@@ -15,13 +15,13 @@ namespace Fanex.LiveCharts.Controllers
     using Fanex.Common;
     using Fanex.LiveCharts.Criterias;
     using Fanex.LiveCharts.Criterias.ScorePrediction;
+    using Fanex.LiveCharts.Resources;
     using Fanex.LiveCharts.Services.Impl;
     using Fanex.LiveCharts.Services.Interface;
     using Fanex.LiveCharts.ViewModel.ScorePrediction;
     using Fanex.LiveCharts.Web;
     using Fanex.NAP.Core.Web.Attribute;
     using Fanex.NAP.Framework.Data;
-    using Fanex.LiveCharts.Resources;
 
     /// <summary>
     /// TODO: Update summary.
@@ -101,7 +101,8 @@ namespace Fanex.LiveCharts.Controllers
             }
             else
             {
-                return Json(new CommandResult { 
+                return Json(new CommandResult
+                {
                     Code = 1,
                     Message = Lang.ScorePredictionStopMessage
                 });

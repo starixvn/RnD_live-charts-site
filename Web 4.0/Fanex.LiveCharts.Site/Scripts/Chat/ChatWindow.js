@@ -68,23 +68,18 @@ function ChatWindow() {
         me.$popupJoinRoom = $('#popupJoinRoom');
         me.$popupChatUserList = $('#popupChatUserList');
         me.$userListContainer = $('#userListContainer');
+        me.$btnLeftRoom = $('#btnLeftRoom');
     };
 
     me.registerEvents = function () {
         me.$btnSubmitMessage.unbind('click').click(me.chatServer.sendMessage);
         me.$memberOnline.unbind('click').click(me.showDetailUserList);
         me.$btnMultiline.unbind('click').click(me.multilineHandle);
-        me.$btnMultiline.powerTip({
-            placement: 'ne',
-            smartPlacement: true
-        });
-        me.$popupChatUserList.modal({
-            show: false
-        });
+        me.$btnMultiline.powerTip({ placement: 'ne', smartPlacement: true });
+        me.$popupChatUserList.modal({ show: false });
         me.$txtMessageInput.unbind('keypress').keypress(me.onKeyPressForSingleLine);
+        me.$btnLeftRoom.unbind('click').click(me.chatClient.leftRoom).parent().show();
         me.registerEmoticon();
-        //// Send Spam Notify: implement later
-        //// Auto Enter
     };
 
     me.checkValidUser = function () {

@@ -74,7 +74,7 @@ namespace Fanex.LiveCharts.Chat.Hubs
         /// </summary>
         /// <param name="chatUser">Current user need join room.</param>
         /// <param name="chatRoom">Current room.</param>
-        /// <param name="chatUserInRoom">If current user already have information in this room, then just change connection id.</param>
+        /// <param name="chatUserInRoomId">If current user already have information in this room, then just change connection id.</param>
         /// <returns>Notify other user in room.</returns>
         public Task JoinRoom(ChatUser chatUser, ChatRoom chatRoom, int chatUserInRoomId)
         {
@@ -178,7 +178,8 @@ namespace Fanex.LiveCharts.Chat.Hubs
 
                     if (updateResult.IsSuccessful)
                     {
-                        Clients.Group(currentChatUserInRoom.ChatRoom.ChatRoomName, Context.ConnectionId).notifyUserLeftRoom(currentChatUserInRoom, GetCurrentUserList(currentChatUserInRoom.ChatRoom.ChatRoomId));
+                        Clients.Group(currentChatUserInRoom.ChatRoom.ChatRoomName, Context.ConnectionId)
+                                .notifyUserLeftRoom(currentChatUserInRoom, GetCurrentUserList(currentChatUserInRoom.ChatRoom.ChatRoomId));
                     }
                     //// Clients.All.notifyUserLeftRoom();
                 }

@@ -205,6 +205,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you want to delete this dummy data?.
+        /// </summary>
+        public static string DeleteDummyDataMessage {
+            get {
+                return ResourceManager.GetString("DeleteDummyDataMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete message successfully!.
         /// </summary>
         public static string DeleteMessageSuccess {
@@ -750,6 +759,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string VotingNumber {
             get {
                 return ResourceManager.GetString("VotingNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome Message.
+        /// </summary>
+        public static string WelcomeMessage {
+            get {
+                return ResourceManager.GetString("WelcomeMessage", resourceCulture);
             }
         }
     }

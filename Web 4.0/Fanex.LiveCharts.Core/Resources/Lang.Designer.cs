@@ -331,6 +331,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to has left..
+        /// </summary>
+        public static string HasLeft {
+            get {
+                return ResourceManager.GetString("HasLeft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hdp:.
         /// </summary>
         public static string HdpHome {
@@ -435,6 +444,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string JoinedMessage {
             get {
                 return ResourceManager.GetString("JoinedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to joined room..
+        /// </summary>
+        public static string JoinedRoom {
+            get {
+                return ResourceManager.GetString("JoinedRoom", resourceCulture);
             }
         }
         
@@ -714,6 +732,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string Others {
             get {
                 return ResourceManager.GetString("Others", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Out.
+        /// </summary>
+        public static string Out {
+            get {
+                return ResourceManager.GetString("Out", resourceCulture);
             }
         }
         

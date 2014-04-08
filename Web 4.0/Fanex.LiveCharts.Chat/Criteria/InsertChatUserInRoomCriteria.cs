@@ -25,7 +25,7 @@ namespace Fanex.LiveCharts.Chat.Criteria
 
         public int ChatUserInRoomId { get; set; }
 
-        public DateTime LastOnlineTime { get; set; }
+        ////public DateTime LastOnlineTime { get; set; }
 
         public override string GetSettingKey()
         {

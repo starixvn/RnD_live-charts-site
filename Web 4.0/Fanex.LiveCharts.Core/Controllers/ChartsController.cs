@@ -48,7 +48,7 @@ namespace Fanex.LiveCharts.Controllers
             var mainPageViewModel = new MainPageViewModel
             {
                 MatchId = matchId,
-                AnonymousLogin = SessionManager.CurrentSession.AdminId == 0 
+                AnonymousLogin = SessionManager.CurrentSession.AdminId == 0
                                 && SessionManager.CurrentSession.MemberId <= 0
             };
 
@@ -63,12 +63,14 @@ namespace Fanex.LiveCharts.Controllers
         [NapSuperAuth]
         public ActionResult Index()
         {
-            return RedirectToRoute(new { 
+            return RedirectToRoute(new
+            {
                 Area = "Admin",
                 Controller = "Match",
                 Action = "GetEnableCharts"
             });
         }
+
         /// <summary>
         /// Index Page, load chart Page.
         /// </summary>

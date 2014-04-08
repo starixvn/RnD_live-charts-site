@@ -10,6 +10,9 @@
 <div class="chat-room-container">
     <div class="chat-room-title">
         @Lang.ChatRoom
+        <div class="in-out-container" style="display:none;">
+            <input type="submit" id="btnLeftRoom" value="@Lang.Out" class="btn left-room">
+        </div>
     </div>
     <div class="room-container">
         <div class="main-room" id="chatConversation">
@@ -138,14 +141,17 @@
             emoticonsFolder: '@Url.Content("~/Scripts/Libs/Emoticon/Images")',
             notificationSound: '@Url.Content("~/Content/Sounds/chat")',
             disconnectPage: '@Url.Action("YouAreDisconnect", "Chat")',
-            kickedOutPage: '@Url.Action("KickedOut", "Chat")'
+            kickedOutPage: '@Url.Action("KickedOut", "Chat")',
+            welcomeMessage: '@(Model.WelcomeMessage)'
         }
 
         var LANGUAGE = 
         {
             chatNameCannotEmpty: '@Lang.ChatNameCannotEmpty',
             messageCannotEmpty: '@Lang.MessageCannotEmpty',
-            youAreDisconnect: '@Lang.YouAreDisconnect'
+            youAreDisconnect: '@Lang.YouAreDisconnect',
+            hasLeft: '@Lang.HasLeft',
+            joinedRoom: '@Lang.JoinedRoom'
         }
 
     </script>

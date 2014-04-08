@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="GetAnnouncementMessageCriteria.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="UpdateTermConditionCriteria.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -14,16 +14,18 @@ namespace Fanex.LiveCharts.Criterias.Chat
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class GetAnnouncementMessageCriteria : CriteriaBase
+    public class UpdateTermConditionCriteria : CriteriaBase
     {
+        public string TermCondition { get; set; }
+
         public override string GetSettingKey()
         {
-            return "Chart_Chat_Get_Announcement_Message";
+            return "Chart_Chat_Update_Term_Condition";
         }
 
         public override bool IsValid()
         {
-            return true;
+            return !string.IsNullOrEmpty(TermCondition);
         }
     }
 }

@@ -441,4 +441,13 @@
   <data name="UserList" xml:space="preserve">
     <value>User List</value>
   </data>
+  <data name="HasLeft" xml:space="preserve">
+    <value>has left.</value>
+  </data>
+  <data name="JoinedRoom" xml:space="preserve">
+    <value>joined room.</value>
+  </data>
+  <data name="Out" xml:space="preserve">
+    <value>Out</value>
+  </data>
 </root>

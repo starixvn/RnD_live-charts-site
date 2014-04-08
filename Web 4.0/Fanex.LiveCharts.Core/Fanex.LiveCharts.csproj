@@ -108,8 +108,10 @@
     <Compile Include="Core\TeamChoosingType.cs" />
     <Compile Include="Core\Extensions.cs" />
     <Compile Include="Core\LockProvider.cs" />
-    <Compile Include="Criterias\Chat\GetAnnouncementMessageCriteria.cs" />
-    <Compile Include="Criterias\Chat\UpdateAnnouncementMessageCriteria.cs" />
+    <Compile Include="Criterias\Chat\GetTermConditionCriteria.cs" />
+    <Compile Include="Criterias\Chat\GetWelcomeMessageCriteria.cs" />
+    <Compile Include="Criterias\Chat\UpdateTermConditionCriteria.cs" />
+    <Compile Include="Criterias\Chat\UpdateWelcomeMessage.cs" />
     <Compile Include="Criterias\CheckUserTokenCriteria.cs" />
     <Compile Include="Criterias\GetCurrentMatchTimeCriteria.cs" />
     <Compile Include="Criterias\GetEnableChartsCriteria.cs" />
@@ -204,6 +206,7 @@
     <Compile Include="Services\Interface\ISettingService.cs" />
     <Compile Include="Services\Interface\IUserService.cs" />
     <Compile Include="ViewModel\ChartContentViewModel.cs" />
+    <Compile Include="ViewModel\Chat\ChatSettingViewModel.cs" />
     <Compile Include="ViewModel\MainPageViewModel.cs" />
     <Compile Include="ViewModel\ScorePrediction\ScorePredictionResultViewModel.cs" />
     <Compile Include="ViewModel\ScorePrediction\ScorePredictionViewModel.cs" />

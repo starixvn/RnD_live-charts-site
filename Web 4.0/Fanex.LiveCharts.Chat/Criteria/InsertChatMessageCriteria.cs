@@ -25,7 +25,7 @@ namespace Fanex.LiveCharts.Chat.Criteria
 
         public int ChatMessageId { get; set; }
 
-        public DateTime CreateTime { get; set; }
+        ////public DateTime CreateTime { get; set; }
 
         public override string GetSettingKey()
         {

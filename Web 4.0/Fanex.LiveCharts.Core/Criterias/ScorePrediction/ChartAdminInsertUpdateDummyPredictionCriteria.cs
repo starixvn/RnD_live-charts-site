@@ -9,7 +9,6 @@
 
 namespace Fanex.LiveCharts.Criterias.ScorePrediction
 {
-    using System;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
@@ -30,8 +29,6 @@ namespace Fanex.LiveCharts.Criterias.ScorePrediction
         public string AdminName { get; set; }
 
         public int ScorePredictionOptionId { get; set; }
-
-        public DateTime UpdateDummyTime { get; set; }
 
         public override string GetSettingKey()
         {

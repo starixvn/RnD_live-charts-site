@@ -49,7 +49,7 @@
                 </div>
             </div>
         </div>
-        <div class="new-line"></div>
+        @*<div class="new-line" id="treatForScreen"></div>*@
         <div class="dummy-prediction-log">
             <div class="container-title-new-line">@AdminSiteLang.DummyPredictions</div>
             <table class="grid">
@@ -85,7 +85,8 @@
             updateDummyUrl: '@(Url.Action("UpdateDummyPrediction", "ScorePrediction"))',
             updateScorePredictionLogTableUrl: '@(Url.Action("GetScorePredictionLogTable", "ScorePrediction"))',
             matchId: @(Model.MatchId),
-            errorMessage: '@(AdminSiteLang.InvalidInput)'
+            errorMessage: '@(AdminSiteLang.InvalidInput)',
+            deleteMessage: '@(AdminSiteLang.DeleteDummyDataMessage)'
         } 
     </script>
     

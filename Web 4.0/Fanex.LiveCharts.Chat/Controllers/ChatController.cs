@@ -131,14 +131,19 @@ namespace Fanex.LiveCharts.Chat.Controllers
                 });
             }
 
-            SettingItem annoucementMessage = _settingService.GetSetting(new GetAnnouncementMessageCriteria());
-
+            SettingItem annoucementMessage = _settingService.GetSetting(new GetTermConditionCriteria());
+            SettingItem welcomeMessage = _settingService.GetSetting(new GetWelcomeMessageCriteria());
+            if (welcomeMessage.SettingValue.Contains("{0}"))
+            {
+                welcomeMessage.SettingValue = string.Format(welcomeMessage.SettingValue, chatUser.ChatName);
+            }
             return new ChatViewModel
                 {
                     ChatRoom = chatRoom,
                     ChatUser = chatUser,
                     ChatUserInRoom = chatUserInRoom,
-                    AnnoucementMessage = annoucementMessage.SettingValue
+                    AnnoucementMessage = annoucementMessage.SettingValue,
+                    WelcomeMessage = welcomeMessage.SettingValue
                 };
         }
 

@@ -348,4 +348,10 @@
   <data name="Username" xml:space="preserve">
     <value>Username</value>
   </data>
+  <data name="DeleteDummyDataMessage" xml:space="preserve">
+    <value>Do you want to delete this dummy data?</value>
+  </data>
+  <data name="WelcomeMessage" xml:space="preserve">
+    <value>Welcome Message</value>
+  </data>
 </root>

@@ -122,7 +122,7 @@ function ScorePrediction (
             xAxis: {
                 categories: sortedCategories,
                 labels: {
-                    rotation: -20
+                    step: 1
                 }
             },
             yAxis: {

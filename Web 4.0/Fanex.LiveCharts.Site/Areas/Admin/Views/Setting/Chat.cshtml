@@ -1,26 +1,48 @@
-﻿@using Fanex.LiveCharts.Models;
+﻿@using Fanex.LiveCharts.ViewModel.Chat;
 @{
     ViewBag.Title = AdminSiteLang.ChatSetting;
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-@model SettingItem
+@model ChatSettingViewModel
 @section Headline {
     <h1>
         <span class="title">@ViewBag.Title</span></h1>
 }
 
 <div class="setting-container">
-    <form method="post" action="@(Url.Action("Chat", "Setting", new { Area = "Admin" }))">
     <div class="form dummy-prediction-container ">
         <div class="form-row">
             <div class="lbl-field">@AdminSiteLang.TermCondition:</div>
             <div class="edit-field">
-                <input type="hidden" name="SettingId" id="SettingId" value="" />
-                <input type="hidden" name="SettingName" id="SettingName" value="" />
-                <textarea name="SettingValue" id="SettingValue" class="term-condition-setting" >@(Model.SettingValue)</textarea>
-                <input id="updateDummy" type="submit" value="@Lang.Submit" />
+                <textarea name="SettingValue" id="txtTermCondition" class="term-condition-setting" >@(Model.TermCondition.SettingValue)</textarea>
+                <input id="btnUpdateTermCondition" type="submit" value="@Lang.Submit" />
             </div>
         </div>
     </div>
-    </form>
 </div>
+
+
+<div class="setting-container">
+    <div class="form dummy-prediction-container ">
+        <div class="form-row">
+            <div class="lbl-field">@AdminSiteLang.WelcomeMessage:</div>
+            <div class="edit-field">
+                <textarea name="SettingValue" id="txtWelcomeMessage" class="term-condition-setting" >@(Model.WelcomeMessage.SettingValue)</textarea>
+                <input id="btnUpdateWelcomeMessage" type="submit" value="@Lang.Submit" />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Foot {
+    <script type="text/javascript"> 
+        var CHAT_SETTING = {
+            updateTermConditionUrl: '@(Url.Action("UpdateTermCondition", "Setting"))',
+            updateWelcomeMessageUrl: '@(Url.Action("UpdateWelcomeMessage", "Setting"))',
+            invalidInput: '@AdminSiteLang.InvalidInput'
+        } 
+    </script>
+    
+    @Scripts.Render("~/areas/admin/chatsettingconfigjs")
+}
