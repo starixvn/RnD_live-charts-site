@@ -108,6 +108,12 @@ namespace Fanex.LiveCharts.Chat.Controllers
         }
 
         [HttpPost]
+        public JsonResult UpdateChatUserStatus(UpdateChatUserCriteria criteria)
+        {
+            return Json(_chatService.UpdateChatUser(criteria));
+        }
+
+        [HttpPost]
         public JsonResult DeleteChatMessage(int chatMessageId, string chatRoomName)
         {
             return Json(_chatService.DeleteChatMessageOnAdminSite(chatMessageId, chatRoomName, SessionManager.CurrentSession.AdminId));

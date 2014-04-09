@@ -36,6 +36,8 @@ namespace Fanex.LiveCharts.Chat.Services
     {
         private const string KickOutCommandCacheKey = "Chat.Services.ChatService.KickOutCommandCacheKey";
         private const string DeleteMessageCommandCacheKey = "Chat.Services.ChatService.DeleteMessageCommandCacheKey";
+        private const string BanChatUserCacheKey = "Chat.Services.ChatService.BanChatUserCacheKey";
+        private const string DeleteMessageByUserCommandCacheKey = "Chat.Services.ChatService.DeleteMessageByUserCommandCacheKey";
         private readonly IChatRepository _chatRepository;
 
         public ChatService()
@@ -241,11 +243,11 @@ namespace Fanex.LiveCharts.Chat.Services
         /// <param name="tokenName">Token name for authentication.</param>
         /// <param name="tokenKey">Token key for authentication.</param>
         /// <returns>Status of kick out command.</returns>
-        public ICommandResult KickOutChatUserOnMemberSite(int chatUserId, string connectionId, string tokenName, string tokenKey)
+        public ICommandResult KickOutChatUserOnMemberSite(KickOutChatUserViewModel kickOutChatUser)
         {
             try
             {
-                ICommandResult invalidTokenResult = CheckChatCommandTokenInValid(KickOutCommandCacheKey + "_" + tokenName, tokenKey);
+                ICommandResult invalidTokenResult = CheckChatCommandTokenInValid(KickOutCommandCacheKey + "_" + kickOutChatUser.TokenName, kickOutChatUser.TokenKey);
                 if (invalidTokenResult != null)
                 {
                     return invalidTokenResult;
@@ -255,7 +257,7 @@ namespace Fanex.LiveCharts.Chat.Services
 
                 if (chatHub != null)
                 {
-                    chatHub.Clients.Client(connectionId).kickOutChatUser(chatUserId);
+                    chatHub.Clients.Client(kickOutChatUser.ConnectionId).kickOutChatUser(kickOutChatUser.ChatUserId);
                 }
             }
             catch (Exception ex)
@@ -283,11 +285,11 @@ namespace Fanex.LiveCharts.Chat.Services
         /// <param name="tokenName">Token name for authentication.</param>
         /// <param name="tokenKey">Token key for authentication.</param>
         /// <returns>Delete chat message result.</returns>
-        public ICommandResult DeleteChatMessageOnMemberSite(int chatMessageId, string chatRoomName, string tokenName, string tokenKey)
+        public ICommandResult DeleteChatMessageOnMemberSite(DeleteChatMessageViewModel deleteChatMessage)
         {
             try
             {
-                ICommandResult invalidTokenResult = CheckChatCommandTokenInValid(DeleteMessageCommandCacheKey + "_" + tokenName, tokenKey);
+                ICommandResult invalidTokenResult = CheckChatCommandTokenInValid(DeleteMessageCommandCacheKey + "_" + deleteChatMessage.TokenName, deleteChatMessage.TokenKey);
                 if (invalidTokenResult != null)
                 {
                     return invalidTokenResult;
@@ -297,7 +299,41 @@ namespace Fanex.LiveCharts.Chat.Services
 
                 if (chatHub != null)
                 {
-                    chatHub.Clients.Group(chatRoomName).deleteChatMessage(chatMessageId);
+                    chatHub.Clients.Group(deleteChatMessage.ChatRoomName).deleteChatMessage(deleteChatMessage.ChatMessageId);
+                }
+            }
+            catch (Exception ex)
+            {
+                ServiceBase.ExceptionHandler(ex);
+                return new CommandResult
+                {
+                    Code = 11,
+                    Message = ex.Message
+                };
+            }
+
+            return new CommandResult
+            {
+                Code = 0,
+                Message = string.Empty
+            };
+        }
+
+        public ICommandResult DeleteChatMessageByChatUserIdOnMemberSite(DeleteChatMessageByChatUserViewModel deleteMessageByChatUser)
+        {
+            try
+            {
+                ICommandResult invalidTokenResult = CheckChatCommandTokenInValid(DeleteMessageByUserCommandCacheKey + "_" + deleteMessageByChatUser.TokenName, deleteMessageByChatUser.TokenKey);
+                if (invalidTokenResult != null)
+                {
+                    return invalidTokenResult;
+                }
+
+                IHubContext chatHub = GlobalHost.ConnectionManager.GetHubContext<ChatHub>();
+
+                if (chatHub != null)
+                {
+                    chatHub.Clients.Group(deleteMessageByChatUser.ChatRoomName).deleteChatMessageByChatUser(deleteMessageByChatUser.ChatUserId);
                 }
             }
             catch (Exception ex)
@@ -350,7 +386,7 @@ namespace Fanex.LiveCharts.Chat.Services
                     kickOutChatUserStatus.NeedToSendRequestKickOut = !chatUserInRoom.IsLeft;
                     kickOutChatUserStatus.ChatUserId = chatUserId;
                     kickOutChatUserStatus.ConnectionId = chatUserInRoom.ConnectionId;
-                    SetKickOutToken(kickOutChatUserStatus, chatUserId, chatRoomId);
+                    SetKickOutToken(kickOutChatUserStatus, chatRoomId);
                 }
             }
 
@@ -382,10 +418,89 @@ namespace Fanex.LiveCharts.Chat.Services
             {
                 deleteMessageViewModel.ChatMessageId = chatMessageId;
                 deleteMessageViewModel.ChatRoomName = chatRoomName;
-                SetDeleleMessageToken(deleteMessageViewModel, chatMessageId, chatRoomName);
+                SetDeleleMessageToken(deleteMessageViewModel);
             }
 
             return deleteMessageViewModel;
+        }
+
+        public DeleteChatMessageByChatUserViewModel DeleteChatMessageByChatUserOnAdminSite(int chatUserId, string chatRoomName, int deleteBy)
+        {
+            ICommandResult deleteMessageResult = UpdateChatMessage(new UpdateChatMessageCriteria
+            {
+                ChatMessageId = chatUserId,
+                IsDelete = true,
+                DeletedBy = deleteBy
+            });
+
+            var deleteMessageViewModel = new DeleteChatMessageByChatUserViewModel
+            {
+                CommandResult = deleteMessageResult
+            };
+
+            if (deleteMessageResult.IsSuccessful)
+            {
+                deleteMessageViewModel.ChatUserId = chatUserId;
+                deleteMessageViewModel.ChatRoomName = chatRoomName;
+                SetDeleleMessageByChatUserToken(deleteMessageViewModel);
+            }
+
+            return deleteMessageViewModel;
+        }
+
+        public BanChatUserViewModel BanChatUserOnAdminSite(int chatUserId)
+        {
+            ICommandResult updateChatUserStatus = UpdateChatUser(new UpdateChatUserCriteria { 
+                ChatUserId = chatUserId,
+                IsBanned = true
+            });
+
+            var banChatUserViewModel = new BanChatUserViewModel
+            {
+                CommandResult = updateChatUserStatus,
+                ChatUserId = chatUserId
+            };
+
+            if(updateChatUserStatus.IsSuccessful)
+            {
+                SetBanChatUserToken(banChatUserViewModel);
+            }
+
+            return banChatUserViewModel;
+        }
+
+        public ICommandResult BanChatUserOnMemberSite(BanChatUserViewModel banChatUser)
+        {
+            try
+            {
+                ICommandResult invalidTokenResult = CheckChatCommandTokenInValid(BanChatUserCacheKey + "_" + banChatUser.TokenName, banChatUser.TokenKey);
+                if (invalidTokenResult != null)
+                {
+                    return invalidTokenResult;
+                }
+
+                IHubContext chatHub = GlobalHost.ConnectionManager.GetHubContext<ChatHub>();
+
+                if (chatHub != null)
+                {
+                    chatHub.Clients.All.banChatUser(banChatUser.ChatUserId);
+                }
+            }
+            catch (Exception ex)
+            {
+                ServiceBase.ExceptionHandler(ex);
+                return new CommandResult
+                {
+                    Code = 11,
+                    Message = ex.Message
+                };
+            }
+
+            return new CommandResult
+            {
+                Code = 0,
+                Message = string.Empty
+            };
         }
 
         #region Export Excel
@@ -509,9 +624,9 @@ namespace Fanex.LiveCharts.Chat.Services
             return null;
         }
 
-        private void SetKickOutToken(KickOutChatUserViewModel kickOutViewModel, int chatUserId, int chatRoomId)
+        private void SetKickOutToken(KickOutChatUserViewModel kickOutViewModel, int chatRoomId)
         {
-            kickOutViewModel.TokenName = string.Format("{0}_{1}", chatUserId, chatRoomId);
+            kickOutViewModel.TokenName = string.Format("{0}_{1}", kickOutViewModel.ChatUserId, chatRoomId);
             kickOutViewModel.TokenKey = Guid.NewGuid().ToString();
 
             CacheManager.Instance.Set<string>(
@@ -520,9 +635,9 @@ namespace Fanex.LiveCharts.Chat.Services
                 new TimeSpan(0, AppSettings.CachingTimeOutMinute, 0));
         }
 
-        private void SetDeleleMessageToken(DeleteChatMessageViewModel deleteMessageViewModel, int chatMessageId, string chatRoomName)
+        private void SetDeleleMessageToken(DeleteChatMessageViewModel deleteMessageViewModel)
         {
-            deleteMessageViewModel.TokenName = string.Format("{0}_{1}", chatMessageId, chatRoomName);
+            deleteMessageViewModel.TokenName = string.Format("{0}_{1}", deleteMessageViewModel.ChatMessageId, deleteMessageViewModel.ChatRoomName);
             deleteMessageViewModel.TokenKey = Guid.NewGuid().ToString();
 
             CacheManager.Instance.Set<string>(
@@ -531,6 +646,27 @@ namespace Fanex.LiveCharts.Chat.Services
                 new TimeSpan(0, AppSettings.CachingTimeOutMinute, 0));
         }
 
+        private void SetDeleleMessageByChatUserToken(DeleteChatMessageByChatUserViewModel deleteMessageViewModel)
+        {
+            deleteMessageViewModel.TokenName = string.Format("{0}_{1}", deleteMessageViewModel.ChatUserId, deleteMessageViewModel.ChatRoomName);
+            deleteMessageViewModel.TokenKey = Guid.NewGuid().ToString();
+
+            CacheManager.Instance.Set<string>(
+                DeleteMessageByUserCommandCacheKey + "_" + deleteMessageViewModel.TokenName,
+                deleteMessageViewModel.TokenKey,
+                new TimeSpan(0, AppSettings.CachingTimeOutMinute, 0));
+        }
+
+        private void SetBanChatUserToken(BanChatUserViewModel banChatUserViewModel)
+        {
+            banChatUserViewModel.TokenName = string.Format("{0}", banChatUserViewModel.ChatUserId);
+            banChatUserViewModel.TokenKey = Guid.NewGuid().ToString();
+
+            CacheManager.Instance.Set<string>(
+                BanChatUserCacheKey + "_" + banChatUserViewModel.TokenName,
+                banChatUserViewModel.TokenKey,
+                new TimeSpan(0, AppSettings.CachingTimeOutMinute, 0));
+        }
         #endregion Private Functions
     }
 }

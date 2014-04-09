@@ -105,8 +105,10 @@
     <Compile Include="Repositories\IChatRepository.cs" />
     <Compile Include="Services\ChatService.cs" />
     <Compile Include="Services\IChatService.cs" />
+    <Compile Include="ViewModels\BanChatUserViewModel.cs" />
     <Compile Include="ViewModels\ChatMonitorViewModel.cs" />
     <Compile Include="ViewModels\ChatViewModel.cs" />
+    <Compile Include="ViewModels\DeleteChatMessageByChatUserViewModel.cs" />
     <Compile Include="ViewModels\DeleteChatMessageViewModel.cs" />
     <Compile Include="ViewModels\KickOutChatUserViewModel.cs" />
   </ItemGroup>

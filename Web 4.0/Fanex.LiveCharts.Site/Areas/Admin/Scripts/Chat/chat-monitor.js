@@ -16,20 +16,31 @@ function ChatMonitor() {
 
     me.registerGridEvents = function () {
         me.$btnReload = $('#btnReload');
-        me.$allRemoveChatUser = $('.remove-chat-user');
-        me.$allRemoveChatMessage = $('.remove-chat-message');
-        me.$allRecoverChatUser = $('.recover-chat-user');
-        me.$allRecoverChatMessage = $('.recover-chat-message');
+        me.$allOpenMenuRemoveUser = $('#messageGrid .open-menu-remove-user');
+        me.$allKickOutChatUser = $('#messageGrid .kickout-chat-user');
+        me.$allBanChatUser = $('#messageGrid .ban-chat-user');
+        me.$allRemoveOneMessage = $('#messageGrid .remove-one-message');
+        me.$allRemoveAllMessages = $('#messageGrid .remove-all-messages');
+        me.$allOpenMenuRemoveMessage = $('#messageGrid .open-menu-remove-message');
+        me.$allRecoverChatUser = $('#messageGrid .recover-chat-user');
+        me.$allRecoverChatMessage = $('#messageGrid .recover-chat-message');
         me.$allMenuActions = $('#messageGrid .menu-action');
         me.$btnReload.unbind('click').click(me.initMessageGrid);
-        me.$allRemoveChatUser.unbind('click').click(me.showMenuEditUser);
-        me.$allRemoveChatMessage.unbind('click').click(me.removeChatMessage);
+        //// Open Menu
+        me.$allOpenMenuRemoveUser.unbind('click').click(me.showMenuEdit);
+        me.$allOpenMenuRemoveMessage.unbind('click').click(me.showMenuEdit);
+        //// User actionss
         me.$allRecoverChatUser.unbind('click').click(me.recoverChatUser);
+        me.$allKickOutChatUser.unbind('click').click(me.kickOutChatUser);
+        me.$allBanChatUser.unbind('click').click(me.banChatUser);
+
+        //// Chat Message actions
         me.$allRecoverChatMessage.unbind('click').click(me.recoverChatMessage);
-       
+        me.$allRemoveOneMessage.unbind('click').click(me.removeChatMessage);
+        me.$allRemoveAllMessages.unbind('click').click(me.removeAllChatMessage);
     };
 
-    me.showMenuEditUser = function () {
+    me.showMenuEdit = function () {
         var $this = $(this);
         var menuAction = $this.next();
         menuAction.show();
@@ -39,9 +50,13 @@ function ChatMonitor() {
             });
     };
 
+    ///// Chat User Action
+    me.banChatUser = function () {
+
+    };
     me.kickOutChatUser = function () {
-        var $this = $(this);
-        var currentChatUserId = $this.attr('data-chat-user-id');
+        var $spanData = $(this).parent().parent().prev();
+        var currentChatUserId = $spanData.attr('data-chat-user-id');
 
         LiveChartsAdmin.callAjax({
             url: me.chatMonitorDefault.kickOutChatUserUrl,
@@ -61,7 +76,6 @@ function ChatMonitor() {
             }
         });
     };
-
     me.kickOutChatUserOnMemberSite = function (kickOutViewModel) {
 
         LiveChartsAdmin.callAjax({
@@ -83,47 +97,6 @@ function ChatMonitor() {
             }
         });
     };
-
-    me.removeChatMessage = function () {
-        var $this = $(this);
-        var currentChatMessageId = $this.attr('data-chat-message-id');
-        LiveChartsAdmin.callAjax({
-            url: me.chatMonitorDefault.deleteChatMessageUrl,
-            type: 'POST',
-            data: {
-                chatRoomName: me.chatMonitorDefault.chatRoomName,
-                chatMessageId: currentChatMessageId
-            },
-            done: function (deleteMessageViewModel) {
-                if (deleteMessageViewModel.CommandResult.IsSuccessful) {
-                    me.removeChatMessageOnMemberSite(deleteMessageViewModel);
-                    me.initMessageGrid();
-                }
-            }
-        });
-    };
-
-    me.removeChatMessageOnMemberSite = function (deleteMessageViewModel) {
-        LiveChartsAdmin.callAjax({
-            url: me.chatMonitorDefault.memberChartSiteUrl + '/Chat/DeleteChatMessage',
-            type: 'POST',
-            data: {
-                chatMessageId: deleteMessageViewModel.ChatMessageId,
-                chatRoomName: deleteMessageViewModel.ChatRoomName,
-                tokenName: deleteMessageViewModel.TokenName,
-                tokenKey: deleteMessageViewModel.TokenKey
-            },
-            done: function (result) {
-                if (result.IsSuccessful) {
-                    LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.success, LANGUAGE.deleteMessageSuccess);
-                }
-                else {
-                    LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.error, result.Message);
-                }
-            }
-        });
-    };
-
     me.recoverChatUser = function () {
         var $this = $(this);
         var currentChatUserId = $this.attr('data-chat-user-id');
@@ -146,6 +119,46 @@ function ChatMonitor() {
         });
     };
 
+    ///// Chat Message Action
+    me.removeChatMessage = function () {
+        var $spanData = $(this).parent().parent().prev();
+        var currentChatMessageId = $spanData.attr('data-chat-message-id');
+        LiveChartsAdmin.callAjax({
+            url: me.chatMonitorDefault.deleteChatMessageUrl,
+            type: 'POST',
+            data: {
+                chatRoomName: me.chatMonitorDefault.chatRoomName,
+                chatMessageId: currentChatMessageId
+            },
+            done: function (deleteMessageViewModel) {
+                if (deleteMessageViewModel.CommandResult.IsSuccessful) {
+                    me.removeChatMessageOnMemberSite(deleteMessageViewModel);
+                    me.initMessageGrid();
+                }
+            }
+        });
+    };
+    me.removeAllChatMessage = function () { };
+    me.removeChatMessageOnMemberSite = function (deleteMessageViewModel) {
+        LiveChartsAdmin.callAjax({
+            url: me.chatMonitorDefault.memberChartSiteUrl + '/Chat/DeleteChatMessage',
+            type: 'POST',
+            data: {
+                chatMessageId: deleteMessageViewModel.ChatMessageId,
+                chatRoomName: deleteMessageViewModel.ChatRoomName,
+                tokenName: deleteMessageViewModel.TokenName,
+                tokenKey: deleteMessageViewModel.TokenKey
+            },
+            done: function (result) {
+                if (result.IsSuccessful) {
+                    LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.success, LANGUAGE.deleteMessageSuccess);
+                }
+                else {
+                    LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.error, result.Message);
+                }
+            }
+        });
+    };
     me.recoverChatMessage = function () {
         var $this = $(this);
         var currentChatMessageId = $this.attr('data-chat-message-id');
@@ -184,53 +197,51 @@ function ChatMonitor() {
             }
         });
     };
-
-    me.updateUsersStatus = function (usersInRoom) {
-        me.usersStatus = {};
-        var userLength = usersInRoom.length;
-        for (var i = 0; i < userLength; i++) {
-            var currentUser = usersInRoom[i];
-            me.usersStatus[currentUser.ChatUser.MemberId] = currentUser;
-        }
-    };
-
-    me.exportExcel = function () {
-        LiveChartsAdmin.downloadFile(me.chatMonitorDefault.exportExcelUrl, {
-            matchId: me.chatMonitorDefault.matchId
-        });
-    };
-
     me.gridOptions = {
         columns: [
                    { HeaderText: LANGUAGE.timeGTM8, Width: 150, Name: 'Time', CellAlign: 'center', FormatDateTime: 'DD MMM, YYYY hh:mm A' },
                    { HeaderText: LANGUAGE.username, Width: 150, Name: 'UserName', CellAlign: 'center', CellCssClass: 'user-name-content', MergeHeaderColNumber: 2 },
-                   { HeaderText: '', Width: 40, Name: 'ChatNameAction', CellAlign: 'center', CustomCellRender: function (cell) {
-                       var userStatusClass = me.usersStatus[cell.Value.MemberId].KickedOut
-                                            ? 'recover-action recover-chat-user'
-                                            : 'edit-action remove-chat-user';
-                       var menuHtml = '<div style="display: none;" class="menu-action"> \
-                                            <ul class="actions"> \
-                                                <li>Kick Out <span class="action-user"></span></li> \
-                                                <li>Ban <span class="action-user"></span></li> \
-                                            </ul> \
-                                        </div>';
-                       return '<span class="' + userStatusClass + '" '
-                                            + 'data-member-id="' + cell.Value.MemberId + '"'
+                   {
+                       HeaderText: '', Width: 40, Name: 'ChatNameAction', CellAlign: 'center', CustomCellRender: function (cell) {
+                           var kickedOut = me.usersStatus[cell.Value.MemberId].KickedOut;
+                           var userStatusClass = kickedOut ? 'recover-action recover-chat-user' : 'edit-action open-menu-remove-user';
+                           var iconHtml = '<span class="' + userStatusClass + '"'
+                                            + ' data-member-id="' + cell.Value.MemberId + '"'
                                             + ' data-chat-user-id="' + cell.Value.ChatUserId + '"'
-                                        + '></span>' + menuHtml;
-                   }
+                                            + '></span>';
+                           if (!kickedOut) {
+                               iconHtml += '<div style="display: none;" class="menu-action"> <ul class="actions" '
+                                                        + '> '
+                                                        + '<li class="kickout-chat-user">Kick Out <span class="action-user">' + cell.Value.MemberId + '</span></li> '
+                                                        + '<li class="ban-chat-user">Ban <span class="action-user">' + cell.Value.MemberId + '</span></li> '
+                                                        + '</ul> '
+                                                + '</div>';
+                           }
+                           return iconHtml;
+                       }
                    },
                    { HeaderText: LANGUAGE.chatName, Width: 150, Name: 'ChatName', CellAlign: 'center' },
                    { HeaderText: LANGUAGE.chatMessage, Width: 490, Name: 'ChatMessage', MergeHeaderColNumber: 2, CellCssClass: 'message-content' },
-                   { HeaderText: '', Width: 40, Name: 'ChatMessageAction', CellAlign: 'center', CustomCellRender: function (cell) {
+                   {
+                       HeaderText: '', Width: 40, Name: 'ChatMessageAction', CellAlign: 'center', CustomCellRender: function (cell) {
 
-                       var messageClass = cell.Value.isDeleted ? 'recover-action recover-chat-message' : 'edit-action remove-chat-message';
-                       return '<span class="' + messageClass + '" data-chat-message-id="'
-                                                               + cell.Value.chatMessageId
-                                                           + '"></span>';
+                           var messageClass = cell.Value.isDeleted ? 'recover-action recover-chat-message' : 'edit-action open-menu-remove-message';
+                           var iconHtml = '<span class="' + messageClass + '"'
+                                                        + ' data-chat-message-id="' + cell.Value.chatMessageId + '"'
+                                                        + ' data-member-id="' + cell.Value.memberId + '"'
+                                            + '></span>';
+                           if (!cell.Value.isDeleted) {
+                               iconHtml += '<div style="display: none;" class="menu-action"> \
+                                            <ul class="actions"> '
+                                                        + '<li class="remove-one-message">Delete this message</li> '
+                                                        + '<li class="remove-all-messages">Delete all message from <span class="action-user">' + cell.Value.memberName + '</span></li> '
+                                                        + '</ul> '
+                                                + '</div>';
+                           }
+                           return iconHtml;
+                       }
                    }
-                   }
-               ],
+        ],
         gridExpandHeight: 125,
         showPager: true,
         pagerOption: {
@@ -251,7 +262,6 @@ function ChatMonitor() {
             },
         timeZone: '+08:00'
     };
-
     me.buildGridBody = function (chatMessages) {
         var messagesLength = chatMessages.length;
         var bodyRows = [];
@@ -270,10 +280,13 @@ function ChatMonitor() {
                        Name: "ChatMessage",
                        Value: currentMessage.Content.replace(/\r\n/g, "<br />").replace(/\n/g, "<br />")
                    },
-                   { Name: 'ChatMessageAction', Value: {
-                       chatMessageId: currentMessage.ChatMessageId,
-                       isDeleted: currentMessage.IsDeleted
-                   }
+                   {
+                       Name: 'ChatMessageAction', Value: {
+                           chatMessageId: currentMessage.ChatMessageId,
+                           isDeleted: currentMessage.IsDeleted,
+                           memberId: currentMessage.ChatUser.MemberId,
+                           memberName: currentMessage.ChatUser.ChatName
+                       }
                    }
                 ],
                 CustomAttr: 'data-chat-message-id="' + currentMessage.ChatMessageId + '"'
@@ -282,7 +295,20 @@ function ChatMonitor() {
 
         return bodyRows;
     };
+    me.updateUsersStatus = function (usersInRoom) {
+        me.usersStatus = {};
+        var userLength = usersInRoom.length;
+        for (var i = 0; i < userLength; i++) {
+            var currentUser = usersInRoom[i];
+            me.usersStatus[currentUser.ChatUser.MemberId] = currentUser;
+        }
+    };
 
+    me.exportExcel = function () {
+        LiveChartsAdmin.downloadFile(me.chatMonitorDefault.exportExcelUrl, {
+            matchId: me.chatMonitorDefault.matchId
+        });
+    };
     me.init = function () {
         me.cacheDomElements();
         me.initMessageGrid();

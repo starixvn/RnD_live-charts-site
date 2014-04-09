@@ -60,12 +60,21 @@ namespace Fanex.LiveCharts.Chat.Services
 
         HSSFWorkbook ExportChatConversation(IEnumerable<ChatMessage> chatMessages, Match match, ChatRoom chatRoom, string templeteFilePath);
 
-        ICommandResult KickOutChatUserOnMemberSite(int chatUserId, string connectionId, string tokenName, string tokenKey);
+        ICommandResult KickOutChatUserOnMemberSite(KickOutChatUserViewModel kickOutChatUserViewModel);
 
-        ICommandResult DeleteChatMessageOnMemberSite(int chatMessageId, string chatRoomName, string tokenName, string tokenKey);
+        ICommandResult DeleteChatMessageOnMemberSite(DeleteChatMessageViewModel deleteChatMessageViewModel);
+
+        ICommandResult BanChatUserOnMemberSite(BanChatUserViewModel banChatUser);
+
+        ICommandResult DeleteChatMessageByChatUserIdOnMemberSite(DeleteChatMessageByChatUserViewModel deleteMessageByChatUser);
 
         KickOutChatUserViewModel KickOutChatUserOnAdminSite(int chatUserId, int chatRoomId);
 
         DeleteChatMessageViewModel DeleteChatMessageOnAdminSite(int chatMessageId, string chatRoomName, int deleteBy);
+
+        BanChatUserViewModel BanChatUserOnAdminSite(int chatUserId);
+
+        DeleteChatMessageByChatUserViewModel DeleteChatMessageByChatUserOnAdminSite(int chatUserId, string chatRoomName, int deleteBy);
+
     }
 }

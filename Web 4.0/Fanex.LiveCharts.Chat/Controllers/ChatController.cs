@@ -88,15 +88,15 @@ namespace Fanex.LiveCharts.Chat.Controllers
         #region Actions for Admin Site access
 
         [HttpPost]
-        public JsonResult KickOutChatUser(int chatUserId, string connectionId, string tokenName, string tokenKey)
+        public JsonResult KickOutChatUser(KickOutChatUserViewModel kickOutChatUserViewModel)
         {
-            return Json(_chatService.KickOutChatUserOnMemberSite(chatUserId, connectionId, tokenName, tokenKey));
+            return Json(_chatService.KickOutChatUserOnMemberSite(kickOutChatUserViewModel));
         }
 
         [HttpPost]
-        public JsonResult DeleteChatMessage(int chatMessageId, string chatRoomName, string tokenName, string tokenKey)
+        public JsonResult DeleteChatMessage(DeleteChatMessageViewModel deleteChatMessageViewModel)
         {
-            return Json(_chatService.DeleteChatMessageOnMemberSite(chatMessageId, chatRoomName, tokenName, tokenKey));
+            return Json(_chatService.DeleteChatMessageOnMemberSite(deleteChatMessageViewModel));
         }
 
         #endregion Actions for Admin Site access
