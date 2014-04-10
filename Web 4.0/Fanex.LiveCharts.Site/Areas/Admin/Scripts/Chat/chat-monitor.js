@@ -5,13 +5,22 @@ function ChatMonitor() {
     var me = this;
     me.chatMonitorDefault = CHAT_MONITOR_DEFAULT;
     me.usersStatus = {};
+    me.createDllSearch = false;
+    me.usersAndMessageCached = {};
 
 
     me.cacheDomElements = function () {
         me.$messageGrid = $('#messageGrid');
         me.$menuEditChatUser = $('#menuEditChatUser');
         me.$menuEditChatMessage = $('#menuEditChatMessage');
+        me.$btnSearchChatMessage = $('#btnSearchChatMessage');
+        me.$ddlMemberName = $('#ddlMemberName');
+        me.$ddlChatName = $('#ddlChatName');
+        me.$txtMessageSearch = $('#txtMessageSearch');
+    };
 
+    me.registerEvents = function () {
+        me.$btnSearchChatMessage.unbind('click').click(me.renderGrid);
     };
 
     me.registerGridEvents = function () {
@@ -27,54 +36,57 @@ function ChatMonitor() {
         me.$allMenuActions = $('#messageGrid .menu-action');
         me.$btnReload.unbind('click').click(me.initMessageGrid);
         //// Open Menu
-        //me.$allOpenMenuRemoveUser.unbind('click').click(me.showMenuEdit);
-        //me.$allOpenMenuRemoveMessage.unbind('click').click(me.showMenuEdit);
         me.showMenuEdit();
         //// User actionss
         me.$allRecoverChatUser.unbind('click').click(me.recoverChatUser);
-//        me.$allKickOutChatUser.unbind('click').click(me.kickOutChatUser);
-//        me.$allBanChatUser.unbind('click').click(me.banChatUser);
-
         //// Chat Message actions
         me.$allRecoverChatMessage.unbind('click').click(me.recoverChatMessage);
-//        me.$allRemoveOneMessage.unbind('click').click(me.removeChatMessage);
-//        me.$allRemoveAllMessages.unbind('click').click(me.removeAllChatMessageByChatUser);
-
     };
 
     me.showMenuEdit = function () {
+        //// Edit Chat User Menu
         $.contextMenu({
             selector: '#messageGrid .open-menu-remove-user',
             trigger: 'left',
             autoHide: true,
-            callback: function (key, options) {
+            callback: function (key/*, options*/) {
                 var $spanData = $(this);
                 switch (key) {
-                    case 'kickout': { me.kickOutChatUser($spanData.attr('data-chat-user-id')); };
-                    case 'ban': { me.banChatUser($spanData.attr('data-chat-user-id'), true); }
+                    case 'kickout':
+                        {
+                            me.kickOutChatUser($spanData.attr('data-chat-user-id'));
+                            break;
+                        }
+                    case 'ban':
+                        {
+                            me.banChatUser($spanData.attr('data-chat-user-id'));
+                            break;
+                        }
                 }
             },
             items: {
                 'kickout': { name: "Kick out this user", icon: "delete" },
                 'ban': { name: "Ban this user", icon: "delete" }
             }
-            //            ,events: {
-            //                show: function (opt) {
-            //                    var $this = this;
-            //                    $.contextMenu.setInputValues(opt, { name: "11111" });
-            //                }
-            //            }
         });
-
+        //// Edit Message Menu
         $.contextMenu({
             selector: '#messageGrid .open-menu-remove-message',
             trigger: 'left',
             autoHide: true,
-            callback: function (key, options) {
+            callback: function (key/*, options*/) {
                 var $spanData = $(this);
                 switch (key) {
-                    case 'removeThisMessage': { me.removeChatMessage($spanData.attr('data-chat-message-id')); };
-                    case 'removeAllMessageOfChatUser': { me.removeAllChatMessageByChatUser($spanData.attr('data-chat-user-id')); }
+                    case 'removeThisMessage':
+                        {
+                            me.removeChatMessage($spanData.attr('data-chat-message-id'));
+                            break;
+                        }
+                    case 'removeAllMessageOfChatUser':
+                        {
+                            me.removeAllChatMessageByChatUser($spanData.attr('data-chat-user-id'));
+                            break;
+                        }
                 }
             },
             items: {
@@ -82,17 +94,10 @@ function ChatMonitor() {
                 "removeAllMessageOfChatUser": { name: "Remove All Messages From This User ", icon: "delete" }
             }
         });
-        //        var $this = $(this);
-        //        var menuAction = $this.next();
-        //        menuAction.show();
-        //        menuAction.css(
-        //            {
-        //                marginLeft: '-' + menuAction.find('.actions').width() + 'px'
-        //            });
     };
 
     ///// Chat User Action
-    me.banChatUser = function (currentChatUserId, isBanned) {
+    me.banChatUser = function (currentChatUserId) {
         //banChatUserUrl
         LiveChartsAdmin.callAjax({
             url: me.chatMonitorDefault.banChatUser,
@@ -103,19 +108,12 @@ function ChatMonitor() {
             done: function (banViewModel) {
                 if (banViewModel.CommandResult.IsSuccessful) {
                     LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.success, LANGUAGE.banChatUserSuccess);
-//                    if (kickOutViewModel.NeedToSendRequestKickOut) {
-//                        me.kickOutChatUserOnMemberSite(kickOutViewModel);
-
-//                    }
                     me.initMessageGrid();
                 }
             }
         });
     };
     me.kickOutChatUser = function (currentChatUserId) {
-//        var $spanData = $(this).parent().parent().prev();
-//        var currentChatUserId = $spanData.attr('data-chat-user-id');
-
         LiveChartsAdmin.callAjax({
             url: me.chatMonitorDefault.kickOutChatUserUrl,
             type: 'POST',
@@ -179,8 +177,6 @@ function ChatMonitor() {
 
     ///// Chat Message Action
     me.removeChatMessage = function (currentChatMessageId) {
-//        var $spanData = $(this).parent().parent().prev();
-//        var currentChatMessageId = $spanData.attr('data-chat-message-id');
         LiveChartsAdmin.callAjax({
             url: me.chatMonitorDefault.deleteChatMessageUrl,
             type: 'POST',
@@ -263,17 +259,24 @@ function ChatMonitor() {
                 chatRoomId: me.chatMonitorDefault.chatRoomId
             },
             done: function (result) {
-                me.updateUsersStatus(result.ChatUsers);
-                me.gridOptions.bodyRows = me.buildGridBody(result.ChatMessages);
-                me.$messageGrid.fanexGrid(me.gridOptions);
-                me.registerGridEvents();
+                me.usersAndMessageCached = result;
+                me.updateUsersStatus(me.usersAndMessageCached.ChatUsers);
+                me.renderGrid();
             }
         });
     };
+
+    me.renderGrid = function () {
+        me.gridOptions.bodyRows = me.buildGridBody(me.usersAndMessageCached.ChatMessages);
+        me.$messageGrid.fanexGrid(me.gridOptions);
+        me.registerGridEvents();
+    }
+
     me.gridOptions = {
         columns: [
                    { HeaderText: LANGUAGE.timeGTM8, Width: 150, Name: 'Time', CellAlign: 'center', FormatDateTime: 'DD MMM, YYYY hh:mm A' },
-                   { HeaderText: LANGUAGE.username, Width: 150, Name: 'UserName', CellAlign: 'center', CellCssClass: 'user-name-content', MergeHeaderColNumber: 2 },
+                   { HeaderText: LANGUAGE.username, Width: 150, Name: 'UserName', 
+                     CellAlign: 'center', CellCssClass: 'user-name-content', MergeHeaderColNumber: 2 },
                    {
                        HeaderText: '', Width: 40, Name: 'ChatNameAction', CellAlign: 'center', CustomCellRender: function (cell) {
                            var kickedOut = me.usersStatus[cell.Value.MemberId].KickedOut;
@@ -282,13 +285,6 @@ function ChatMonitor() {
                                             + ' data-member-id="' + cell.Value.MemberId + '"'
                                             + ' data-chat-user-id="' + cell.Value.ChatUserId + '"'
                                             + '></span>';
-//                           if (!kickedOut) {
-//                               iconHtml += '<div style="display: none;" class="menu-action"> <ul class="actions" '
-//                                                        + '> '
-//                                                        + '<li class="kickout-chat-user">Kick Out <span class="action-user">' + cell.Value.MemberId + '</span></li> '
-//                                                        + '<li class="ban-chat-user">Ban <span class="action-user">' + cell.Value.MemberId + '</span></li> '
-//                                                        + '</ul> '
-//                                                + '</div>';
 //                           }
                            return iconHtml;
                        }
@@ -303,19 +299,11 @@ function ChatMonitor() {
                                                         + ' data-chat-message-id="' + cell.Value.chatMessageId + '"'
                                                         + ' data-chat-user-id="' + cell.Value.chatUserId + '"'
                                             + '></span>';
-//                           if (!cell.Value.isDeleted) {
-//                               iconHtml += '<div style="display: none;" class="menu-action"> \
-//                                            <ul class="actions"> '
-//                                                        + '<li class="remove-one-message">Delete this message</li> '
-//                                                        + '<li class="remove-all-messages">Delete all message from <span class="action-user">' + cell.Value.memberName + '</span></li> '
-//                                                        + '</ul> '
-//                                                + '</div>';
-//                           }
                            return iconHtml;
                        }
                    }
         ],
-        gridExpandHeight: 125,
+        gridExpandHeight: 170,
         showPager: true,
         pagerOption: {
             itemsPerPage: 50,
@@ -335,13 +323,34 @@ function ChatMonitor() {
             },
         timeZone: '+08:00'
     };
+//    me.preProcessChatMessage = function (chatMessages) {
+//        var searchText = me.$txtMessageSearch.val();
+//        if (searchText === '') {
+//            return chatMessages;
+//        }
+//        var chatMessageProcced = [];
+//        var messageLength = chatMessages;
+//    };
+    me.searchTextInMessage = function (searchText, searchPattern, chatMessage) {
+        if (searchText === '') {
+            return true;
+        }
+        else {
+            return searchPattern.test(chatMessage.Content);
+        }
+    };
+
     me.buildGridBody = function (chatMessages) {
-        var messagesLength = chatMessages.length;
-        var bodyRows = [];
+        var messagesLength = chatMessages.length,
+            searchText = me.$txtMessageSearch.val(),
+            bodyRows = [],
+            searchPattern =  new RegExp(searchText, 'i');
+
         for (var i = 0; i < messagesLength; i++) {
             var currentMessage = chatMessages[i];
-            bodyRows.push({
-                Columns: [
+            if (me.searchTextInMessage(searchText, searchPattern, currentMessage)) {
+                bodyRows.push({
+                    Columns: [
                    { Name: "Time", Value: currentMessage.CreateTime },
                    {
                        Name: "UserName",
@@ -362,19 +371,37 @@ function ChatMonitor() {
                        }
                    }
                 ],
-                CustomAttr: 'data-chat-message-id="' + currentMessage.ChatMessageId + '"'
-            });
+                    CustomAttr: 'data-chat-message-id="' + currentMessage.ChatMessageId + '"'
+                });
+            }
         }
 
         return bodyRows;
     };
     me.updateUsersStatus = function (usersInRoom) {
         me.usersStatus = {};
+        me.$ddlMemberName.empty().append('<option value="0">All</option>');
+        me.$ddlChatName.empty().append('<option value="0">All</option>');
         var userLength = usersInRoom.length;
         for (var i = 0; i < userLength; i++) {
             var currentUser = usersInRoom[i];
             me.usersStatus[currentUser.ChatUser.MemberId] = currentUser;
+            me.$ddlMemberName.append('<option value="' + currentUser.ChatUser.MemberId + '">' + currentUser.ChatUser.MemberId + '</option>');
+            me.$ddlChatName.append('<option value="' + currentUser.ChatUser.ChatUserId + '">' + currentUser.ChatUser.ChatName + '</option>');
         }
+        if (me.createDllSearch) {
+            me.$ddlMemberName.trigger("chosen:updated");
+            me.$ddlChatName.trigger("chosen:updated");
+        }
+        else {
+            me.$ddlMemberName.chosen({});
+            me.$ddlChatName.chosen({});
+            me.createDllSearch = true;
+        }
+    };
+
+    me.startSearch = function () {
+        alert(me.$ddlChatName.val());
     };
 
     me.exportExcel = function () {
@@ -384,14 +411,8 @@ function ChatMonitor() {
     };
     me.init = function () {
         me.cacheDomElements();
+        me.registerEvents();
         me.initMessageGrid();
-        $(document).delegate('html', 'click', function (e, isInsideCall) {
-            var $target = $(e.target);
-            if (!$target.hasClass('edit-action')) {
-                me.$allMenuActions.hide();
-            }
-        });
-        //me.registerEvents();
     };
 }
 

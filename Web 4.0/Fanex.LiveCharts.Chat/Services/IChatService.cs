@@ -77,6 +77,5 @@ namespace Fanex.LiveCharts.Chat.Services
         BanChatUserViewModel BanChatUserOnAdminSite(int chatUserId);
 
         DeleteChatMessageByChatUserViewModel DeleteChatMessageByChatUserOnAdminSite(int chatUserId, string chatRoomName, int deleteBy);
-
     }
 }

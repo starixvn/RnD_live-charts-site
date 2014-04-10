@@ -198,6 +198,10 @@
     <Content Include="Scripts\Chat\ChatSignalRAdapter.js" />
     <Content Include="Scripts\Chat\ChatWindow.js" />
     <Content Include="Scripts\Libs\Bootstrap\bootstrap-modal.js" />
+    <Content Include="Scripts\Libs\Chosen\chosen-sprite%402x.png" />
+    <Content Include="Scripts\Libs\Chosen\chosen-sprite.png" />
+    <None Include="Scripts\Libs\Chosen\chosen.less" />
+    <Content Include="Scripts\Libs\Chosen\chosen.jquery.js" />
     <Content Include="Scripts\Libs\ContextMenu\images\cut.png" />
     <Content Include="Scripts\Libs\ContextMenu\images\door.png" />
     <Content Include="Scripts\Libs\ContextMenu\images\page_white_add.png" />

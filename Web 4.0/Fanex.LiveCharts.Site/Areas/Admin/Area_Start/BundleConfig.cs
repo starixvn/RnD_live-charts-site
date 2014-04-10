@@ -49,6 +49,7 @@ namespace Fanex.LiveCharts.Site.Areas.Admin.Area_Start
                 "~/Scripts/Libs/Fanex.Grid/Fanex.Grid.js",
                 "~/Scripts/Libs/ContextMenu/jquery.ui.position.js",
                 "~/Scripts/Libs/ContextMenu/jquery.contextMenu.js",
+                "~/Scripts/Libs/Chosen/chosen.jquery.js",
                 "~/Areas/Admin/Scripts/Chat/chat-monitor.js"));
 
             bundles.Add(new ScriptBundle("~/areas/admin/chatsettingconfigjs").Include(

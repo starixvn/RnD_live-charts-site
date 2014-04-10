@@ -1,12 +1,19 @@
-﻿
+﻿// --------------------------------------------------------------------------
+// <copyright file="BanChatUserViewModel.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="Ricky.Nguyen" date="2014.4.10">Created</change>
+// </history>
 
 namespace Fanex.LiveCharts.Chat.ViewModels
 {
     using Fanex.NAP.Framework.Data;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
+
+    /// <summary>
+    /// Ban chat user view model.
+    /// </summary>
     public class BanChatUserViewModel
     {
         public int ChatUserId { get; set; }

@@ -137,6 +137,7 @@ namespace Fanex.LiveCharts.Chat.Controllers
             {
                 welcomeMessage.SettingValue = string.Format(welcomeMessage.SettingValue, chatUser.ChatName);
             }
+
             return new ChatViewModel
                 {
                     ChatRoom = chatRoom,

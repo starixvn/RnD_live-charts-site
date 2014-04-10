@@ -136,7 +136,6 @@ namespace Fanex.LiveCharts.Chat.Services
 
             return updateResult;
         }
-                
 
         public ICommandResult UpdateChatRoom(UpdateChatRoomCriteria updateChatRoomCriteria)
         {
@@ -246,10 +245,7 @@ namespace Fanex.LiveCharts.Chat.Services
         /// <summary>
         /// Kick out chat user online on member site.
         /// </summary>
-        /// <param name="chatUserId">Current chat user need be kicked out.</param>
-        /// <param name="connectionId">Call to connection id for kick out.</param>
-        /// <param name="tokenName">Token name for authentication.</param>
-        /// <param name="tokenKey">Token key for authentication.</param>
+        /// <param name="kickOutChatUser">View model contains all information of kick out chat user.</param>
         /// <returns>Status of kick out command.</returns>
         public ICommandResult KickOutChatUserOnMemberSite(KickOutChatUserViewModel kickOutChatUser)
         {
@@ -288,10 +284,7 @@ namespace Fanex.LiveCharts.Chat.Services
         /// <summary>
         /// Delete chat message on member site.
         /// </summary>
-        /// <param name="chatMessageId">Chat message id for delete.</param>
-        /// <param name="chatRoomName">Chat room name for broadcast message.</param>
-        /// <param name="tokenName">Token name for authentication.</param>
-        /// <param name="tokenKey">Token key for authentication.</param>
+        /// <param name="deleteChatMessage">Model contains information for delete chat message on member site.</param>
         /// <returns>Delete chat message result.</returns>
         public ICommandResult DeleteChatMessageOnMemberSite(DeleteChatMessageViewModel deleteChatMessage)
         {
@@ -327,11 +320,18 @@ namespace Fanex.LiveCharts.Chat.Services
             };
         }
 
+        /// <summary>
+        /// Delete group of chat message from chat user.
+        /// </summary>
+        /// <param name="deleteMessageByChatUser">Model contains information for deleting message on member site.</param>
+        /// <returns>Status of delete command.</returns>
         public ICommandResult DeleteChatMessageByChatUserIdOnMemberSite(DeleteChatMessageByChatUserViewModel deleteMessageByChatUser)
         {
             try
             {
-                ICommandResult invalidTokenResult = CheckChatCommandTokenInValid(DeleteMessageByUserCommandCacheKey + "_" + deleteMessageByChatUser.TokenName, deleteMessageByChatUser.TokenKey);
+                ICommandResult invalidTokenResult = CheckChatCommandTokenInValid(
+                    DeleteMessageByUserCommandCacheKey + "_" + deleteMessageByChatUser.TokenName, 
+                    deleteMessageByChatUser.TokenKey);
                 if (invalidTokenResult != null)
                 {
                     return invalidTokenResult;
@@ -432,6 +432,13 @@ namespace Fanex.LiveCharts.Chat.Services
             return deleteMessageViewModel;
         }
 
+        /// <summary>
+        /// Delete Chat Message on admin site, and then remove that message on client site.
+        /// </summary>
+        /// <param name="chatUserId">Chat User id need removed message.</param>
+        /// <param name="chatRoomName">Chat room name need remove.</param>
+        /// <param name="deleteBy">Which admin delete.</param>
+        /// <returns>Delete status.</returns>
         public DeleteChatMessageByChatUserViewModel DeleteChatMessageByChatUserOnAdminSite(int chatUserId, string chatRoomName, int deleteBy)
         {
             ICommandResult deleteMessageResult = UpdateChatMessageByChatUser(new UpdateChatMessageByChatUserCriteria
@@ -456,9 +463,15 @@ namespace Fanex.LiveCharts.Chat.Services
             return deleteMessageViewModel;
         }
 
+        /// <summary>
+        /// Ban chat user on admin site.
+        /// </summary>
+        /// <param name="chatUserId">Chat user be banned.</param>
+        /// <returns>Ban information for remove chat user at member site.</returns>
         public BanChatUserViewModel BanChatUserOnAdminSite(int chatUserId)
         {
-            ICommandResult updateChatUserStatus = UpdateChatUser(new UpdateChatUserCriteria { 
+            ICommandResult updateChatUserStatus = UpdateChatUser(new UpdateChatUserCriteria
+            {
                 ChatUserId = chatUserId,
                 IsBanned = true
             });
@@ -469,7 +482,7 @@ namespace Fanex.LiveCharts.Chat.Services
                 ChatUserId = chatUserId
             };
 
-            if(updateChatUserStatus.IsSuccessful)
+            if (updateChatUserStatus.IsSuccessful)
             {
                 SetBanChatUserToken(banChatUserViewModel);
             }
@@ -477,6 +490,11 @@ namespace Fanex.LiveCharts.Chat.Services
             return banChatUserViewModel;
         }
 
+        /// <summary>
+        /// Kick out chat user after banned in member site.
+        /// </summary>
+        /// <param name="banChatUser">Chat user information for kicking out.</param>
+        /// <returns>Kick out status.</returns>
         public ICommandResult BanChatUserOnMemberSite(BanChatUserViewModel banChatUser)
         {
             try
@@ -675,6 +693,7 @@ namespace Fanex.LiveCharts.Chat.Services
                 banChatUserViewModel.TokenKey,
                 new TimeSpan(0, AppSettings.CachingTimeOutMinute, 0));
         }
+
         #endregion Private Functions
     }
 }
