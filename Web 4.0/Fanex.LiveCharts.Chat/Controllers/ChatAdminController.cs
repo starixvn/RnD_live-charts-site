@@ -9,22 +9,21 @@
 
 namespace Fanex.LiveCharts.Chat.Controllers
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
     using Fanex.LiveCharts.Chat.Criteria;
     using Fanex.LiveCharts.Chat.Models;
     using Fanex.LiveCharts.Chat.Services;
-    using Fanex.NAP.Core.Web.Attribute;
-    using Fanex.LiveCharts.Services.Interface;
-    using Fanex.LiveCharts.Services.Impl;
-    using Fanex.LiveCharts.Criterias;
     using Fanex.LiveCharts.Chat.ViewModels;
-    using Fanex.LiveCharts.Web.CustomActionResult;
-    using Fanex.LiveCharts.Resources;
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
+    using Fanex.LiveCharts.Criterias;
+    using Fanex.LiveCharts.Services.Impl;
+    using Fanex.LiveCharts.Services.Interface;
     using Fanex.LiveCharts.Web;
+    using Fanex.LiveCharts.Web.CustomActionResult;
+    using Fanex.NAP.Core.Web.Attribute;
 
     /// <summary>
     /// TODO: Update summary.
@@ -32,9 +31,9 @@ namespace Fanex.LiveCharts.Chat.Controllers
     [NapSuperAuth]
     public class ChatAdminController : Controller
     {
+        private const string ChatMonitorSessionKey = "Chat.Controllers.ChatAdminController.ChatMonitorSessionKey_{0}";
         private IChatService _chatService;
         private IChartService _chartService;
-        private const string ChatMonitorSessionKey = "Chat.Controllers.ChatAdminController.ChatMonitorSessionKey_{0}";
 
         public ChatAdminController()
             : this(null, null)
@@ -68,7 +67,8 @@ namespace Fanex.LiveCharts.Chat.Controllers
                 IsDeleted = true
             });
 
-            IEnumerable<ChatUserInRoom> chatUsers = _chatService.GetChatRoomUsers(new GetChatRoomUsersCriteria { 
+            IEnumerable<ChatUserInRoom> chatUsers = _chatService.GetChatRoomUsers(new GetChatRoomUsersCriteria
+            {
                 ChatRoomId = chatRoomId,
                 IncludingBanned = true,
                 IncludingLeft = true,
@@ -81,18 +81,23 @@ namespace Fanex.LiveCharts.Chat.Controllers
             {
                 ChatMessages = chatMessages,
                 ChatUsers = chatUsers
-                
             });
         }
 
         [HttpGet]
-        public ExcelResult ExportExcel(int matchId) {
-            var templeteFilePath = Server.MapPath(@"~/App_Data/ExcelTemplate/MonitorChatConversationExportExcel.xls");  
+        public ExcelResult ExportExcel(
+            int matchId,
+            int memberId = 0,
+            int chatUserId = 0,
+            string chatMessage = "")
+        {
+            var templeteFilePath = Server.MapPath(@"~/App_Data/ExcelTemplate/MonitorChatConversationExportExcel.xls");
             var chatMonitorViewModel = GetChatMonitorViewMode(matchId);
             var sessionKey = string.Format(ChatMonitorSessionKey, chatMonitorViewModel.ChatRoom.ChatRoomId);
             var chatMessages = HttpContext.Session[sessionKey] as IEnumerable<ChatMessage>;
             var hssfWorkBook = _chatService.ExportChatConversation(chatMessages, chatMonitorViewModel.Match, chatMonitorViewModel.ChatRoom, templeteFilePath);
-            var exportFileName = string.Format("{0}_{1}_vs_{2}_{3}",
+            var exportFileName = string.Format(
+                "{0}_{1}_vs_{2}_{3}",
                 "Chat_Conversation",
                 chatMonitorViewModel.Match.HomeName,
                 chatMonitorViewModel.Match.AwayName,
@@ -150,7 +155,9 @@ namespace Fanex.LiveCharts.Chat.Controllers
         }
 
         #region Private actions
-        private ChatMonitorViewModel GetChatMonitorViewMode(int matchId) { 
+
+        private ChatMonitorViewModel GetChatMonitorViewMode(int matchId)
+        {
             var chatRooms = _chatService.GetChatRoomByMatchId(new GetChatRoomByMatchIdCriteria
             {
                 MatchId = matchId
@@ -163,17 +170,18 @@ namespace Fanex.LiveCharts.Chat.Controllers
                 defaultChatRoom = chatRooms.ElementAt(0);
             }
 
-            var match = _chartService.GetMatchDetail(new GetMatchDetailCriteria { 
+            var match = _chartService.GetMatchDetail(new GetMatchDetailCriteria
+            {
                 MatchId = matchId
             });
 
-            return new ChatMonitorViewModel { 
+            return new ChatMonitorViewModel
+            {
                 Match = match,
                 ChatRoom = defaultChatRoom
             };
         }
 
-        #endregion
-
+        #endregion Private actions
     }
 }

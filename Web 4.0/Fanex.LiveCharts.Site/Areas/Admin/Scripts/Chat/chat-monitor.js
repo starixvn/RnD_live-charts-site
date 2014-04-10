@@ -266,11 +266,30 @@ function ChatMonitor() {
         });
     };
 
+    me.filterChatMessageByChatUser = function (chatMessages) {
+        var filteredChatMessages = [],
+            memberId = parseInt(me.$ddlMemberName.val()),
+            chatUserId = parseInt(me.$ddlChatName.val()),
+            chatMessageLength = chatMessages.length;
+
+        for (var i = 0; i < chatMessageLength; i++) {
+            var chatMessage = chatMessages[i];
+            if (memberId === 0 || (memberId !== 0 && memberId === chatMessage.ChatUser.MemberId)) {
+                filteredChatMessages.push(chatMessage);
+            } else if (chatUserId === 0 || (chatUserId !== 0 && chatUserId === chatMessage.ChatUser.ChatUserId)) {
+                filteredChatMessages.push(chatMessage);
+            }
+        }
+
+        return filteredChatMessages;
+    };
+
     me.renderGrid = function () {
-        me.gridOptions.bodyRows = me.buildGridBody(me.usersAndMessageCached.ChatMessages);
+        var filteredChatMessages = me.filterChatMessageByChatUser(me.usersAndMessageCached.ChatMessages);
+        me.gridOptions.bodyRows = me.buildGridBody(filteredChatMessages);
         me.$messageGrid.fanexGrid(me.gridOptions);
         me.registerGridEvents();
-    }
+    };
 
     me.gridOptions = {
         columns: [
@@ -323,14 +342,7 @@ function ChatMonitor() {
             },
         timeZone: '+08:00'
     };
-//    me.preProcessChatMessage = function (chatMessages) {
-//        var searchText = me.$txtMessageSearch.val();
-//        if (searchText === '') {
-//            return chatMessages;
-//        }
-//        var chatMessageProcced = [];
-//        var messageLength = chatMessages;
-//    };
+
     me.searchTextInMessage = function (searchText, searchPattern, chatMessage) {
         if (searchText === '') {
             return true;
@@ -379,6 +391,8 @@ function ChatMonitor() {
         return bodyRows;
     };
     me.updateUsersStatus = function (usersInRoom) {
+        var memberId = parseInt(me.$ddlMemberName.val()),
+            chatUserId = parseInt(me.$ddlChatName.val());
         me.usersStatus = {};
         me.$ddlMemberName.empty().append('<option value="0">All</option>');
         me.$ddlChatName.empty().append('<option value="0">All</option>');
@@ -386,8 +400,12 @@ function ChatMonitor() {
         for (var i = 0; i < userLength; i++) {
             var currentUser = usersInRoom[i];
             me.usersStatus[currentUser.ChatUser.MemberId] = currentUser;
-            me.$ddlMemberName.append('<option value="' + currentUser.ChatUser.MemberId + '">' + currentUser.ChatUser.MemberId + '</option>');
-            me.$ddlChatName.append('<option value="' + currentUser.ChatUser.ChatUserId + '">' + currentUser.ChatUser.ChatName + '</option>');
+            me.$ddlMemberName.append('<option value="' + currentUser.ChatUser.MemberId + '" '
+                                        + (memberId === currentUser.ChatUser.MemberId ? 'selected' : '') 
+                                        +'>' + currentUser.ChatUser.MemberId + '</option>');
+            me.$ddlChatName.append('<option value="' + currentUser.ChatUser.ChatUserId + '" '
+                                        + (chatUserId === currentUser.ChatUser.ChatUserId ? 'selected' : '') 
+                                        + '>' + currentUser.ChatUser.ChatName + '</option>');
         }
         if (me.createDllSearch) {
             me.$ddlMemberName.trigger("chosen:updated");
