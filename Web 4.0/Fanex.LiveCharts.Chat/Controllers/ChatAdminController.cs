@@ -108,15 +108,21 @@ namespace Fanex.LiveCharts.Chat.Controllers
         }
 
         [HttpPost]
-        public JsonResult UpdateChatUserStatus(UpdateChatUserCriteria criteria)
+        public JsonResult BanChatUser(int chatUserId)
         {
-            return Json(_chatService.UpdateChatUser(criteria));
+            return Json(_chatService.BanChatUserOnAdminSite(chatUserId));
         }
 
         [HttpPost]
         public JsonResult DeleteChatMessage(int chatMessageId, string chatRoomName)
         {
             return Json(_chatService.DeleteChatMessageOnAdminSite(chatMessageId, chatRoomName, SessionManager.CurrentSession.AdminId));
+        }
+
+        [HttpPost]
+        public JsonResult DeleteAllChatMessageByChatUser(int chatUserId, string chatRoomName)
+        {
+            return Json(_chatService.DeleteChatMessageByChatUserOnAdminSite(chatUserId, chatRoomName, SessionManager.CurrentSession.AdminId));
         }
 
         [HttpPost]

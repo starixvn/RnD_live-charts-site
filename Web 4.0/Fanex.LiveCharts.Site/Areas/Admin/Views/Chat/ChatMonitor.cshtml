@@ -38,7 +38,10 @@
             chatRoomName: "@(Model.ChatRoom.ChatRoomName)",
             getChatMessagesUrl: "@(Url.Action("GetChatMessages", "ChatAdmin"))",
             kickOutChatUserUrl: "@(Url.Action("KickOutChatUser", "ChatAdmin"))",
+            banChatUser: "@(Url.Action("BanChatUser", "ChatAdmin"))",
+            updateChatUserStatusUrl: "@(Url.Action("UpdateChatUserStatus", "ChatAdmin"))",
             deleteChatMessageUrl: "@(Url.Action("DeleteChatMessage", "ChatAdmin"))",
+            deleteAllChatMessageByChatUserUrl: "@(Url.Action("DeleteAllChatMessageByChatUser", "ChatAdmin"))",
             recoverChatUserUrl: "@(Url.Action("RecoverChatUser", "ChatAdmin"))",
             recoverChatMessageUrl: "@(Url.Action("RecoverChatMessage", "ChatAdmin"))",
             exportExcelUrl: "@(Url.Action("ExportExcel", "ChatAdmin"))",
@@ -54,7 +57,8 @@
             recoverChatSuccess: '@(AdminSiteLang.RecoverChatSuccess)',
             recoverChatUser: '@(AdminSiteLang.RecoverChatUser)',
             deleteMessageSuccess: '@(AdminSiteLang.DeleteMessageSuccess)',
-            kickedOutChatUserSuccess: '@(AdminSiteLang.KickedOutChatUserSuccess)'
+            kickedOutChatUserSuccess: '@(AdminSiteLang.KickedOutChatUserSuccess)',
+            banChatUserSuccess: '@(AdminSiteLang.BanChatUserSuccessMessage)'
         };
     </script>
     @Scripts.Render("~/areas/admin/chatmonitorjs")

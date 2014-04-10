@@ -130,6 +130,14 @@ namespace Fanex.LiveCharts.Chat.Services
             return updateResult;
         }
 
+        public ICommandResult UpdateChatMessageByChatUser(UpdateChatMessageByChatUserCriteria criteria)
+        {
+            var updateResult = _chatRepository.ModifyData(criteria);
+
+            return updateResult;
+        }
+                
+
         public ICommandResult UpdateChatRoom(UpdateChatRoomCriteria updateChatRoomCriteria)
         {
             if (!string.IsNullOrEmpty(updateChatRoomCriteria.WelcomeMessage))
@@ -426,22 +434,22 @@ namespace Fanex.LiveCharts.Chat.Services
 
         public DeleteChatMessageByChatUserViewModel DeleteChatMessageByChatUserOnAdminSite(int chatUserId, string chatRoomName, int deleteBy)
         {
-            ICommandResult deleteMessageResult = UpdateChatMessage(new UpdateChatMessageCriteria
-            {
-                ChatMessageId = chatUserId,
-                IsDelete = true,
-                DeletedBy = deleteBy
-            });
+            ICommandResult deleteMessageResult = UpdateChatMessageByChatUser(new UpdateChatMessageByChatUserCriteria
+                {
+                    ChatUserId = chatUserId,
+                    DeletedBy = deleteBy,
+                    IsDelete = true
+                });
 
             var deleteMessageViewModel = new DeleteChatMessageByChatUserViewModel
             {
-                CommandResult = deleteMessageResult
+                CommandResult = deleteMessageResult,
+                ChatUserId = chatUserId,
+                ChatRoomName = chatRoomName
             };
 
             if (deleteMessageResult.IsSuccessful)
             {
-                deleteMessageViewModel.ChatUserId = chatUserId;
-                deleteMessageViewModel.ChatRoomName = chatRoomName;
                 SetDeleleMessageByChatUserToken(deleteMessageViewModel);
             }
 

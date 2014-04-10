@@ -354,4 +354,7 @@
   <data name="WelcomeMessage" xml:space="preserve">
     <value>Welcome Message</value>
   </data>
+  <data name="BanChatUserSuccessMessage" xml:space="preserve">
+    <value>Chat user has been banned successfully.</value>
+  </data>
 </root>

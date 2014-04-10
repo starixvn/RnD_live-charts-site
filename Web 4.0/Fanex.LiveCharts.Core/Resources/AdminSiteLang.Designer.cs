@@ -115,6 +115,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chat user has been banned successfully..
+        /// </summary>
+        public static string BanChatUserSuccessMessage {
+            get {
+                return ResourceManager.GetString("BanChatUserSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string Cancel {

@@ -198,6 +198,16 @@
     <Content Include="Scripts\Chat\ChatSignalRAdapter.js" />
     <Content Include="Scripts\Chat\ChatWindow.js" />
     <Content Include="Scripts\Libs\Bootstrap\bootstrap-modal.js" />
+    <Content Include="Scripts\Libs\ContextMenu\images\cut.png" />
+    <Content Include="Scripts\Libs\ContextMenu\images\door.png" />
+    <Content Include="Scripts\Libs\ContextMenu\images\page_white_add.png" />
+    <Content Include="Scripts\Libs\ContextMenu\images\page_white_copy.png" />
+    <Content Include="Scripts\Libs\ContextMenu\images\page_white_delete.png" />
+    <Content Include="Scripts\Libs\ContextMenu\images\page_white_edit.png" />
+    <Content Include="Scripts\Libs\ContextMenu\images\page_white_paste.png" />
+    <None Include="Scripts\Libs\ContextMenu\jquery.contextMenu.less" />
+    <Content Include="Scripts\Libs\ContextMenu\jquery.contextMenu.js" />
+    <Content Include="Scripts\Libs\ContextMenu\jquery.ui.position.js" />
     <Content Include="Scripts\Libs\Emoticon\Images\face-angel.png" />
     <Content Include="Scripts\Libs\Emoticon\Images\face-crying.png" />
     <Content Include="Scripts\Libs\Emoticon\Images\face-devilish.png" />

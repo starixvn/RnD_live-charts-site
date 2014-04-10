@@ -150,5 +150,7 @@
     <Setting Key="Chart_Chat_Update_Term_Condition" SpName="Chart_Chat_Update_Term_Condition" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
     <Setting Key="Chart_Chat_Get_Welcome_Message" SpName="Chart_Chat_Get_Welcome_Message" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
     <Setting Key="Chart_Chat_Update_Welcome_Message" SpName="Chart_Chat_Update_Welcome_Message" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Update_Chat_Message_By_Chat_User" SpName="Chart_Chat_Update_Chat_Message_By_Chat_User" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
+    
   </Function>
 </Functions>
