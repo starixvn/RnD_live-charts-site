@@ -529,6 +529,13 @@ namespace Fanex.LiveCharts.Chat.Services
             };
         }
 
+        public IEnumerable<ChatMessage> SearchChatMessage(SearchChatMessageCriteria criteria)
+        {
+            var chatMessages = _chatRepository.GetChatMessages(criteria);
+
+            return chatMessages;
+        }
+
         #region Export Excel
 
         /// <summary>
@@ -542,15 +549,12 @@ namespace Fanex.LiveCharts.Chat.Services
         public HSSFWorkbook ExportChatConversation(
             IEnumerable<ChatMessage> chatMessages,
             Match match,
-            ChatRoom chatRoom,
+            SearchChatMessageCriteria criteria,
             string templeteFilePath)
         {
             if (chatMessages == null)
             {
-                chatMessages = _chatRepository.GetChatMessages(new GetChatMessageByRoomCriteria
-                {
-                    ChatRoomId = chatRoom.ChatRoomId
-                });
+                chatMessages = SearchChatMessage(criteria);
             }
 
             FileStream file = new FileStream(templeteFilePath, FileMode.Open, FileAccess.Read);

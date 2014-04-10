@@ -59,23 +59,19 @@ namespace Fanex.LiveCharts.Chat.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetChatMessages(int chatRoomId)
+        public JsonResult GetChatMessages(SearchChatMessageCriteria criteria)
         {
-            IEnumerable<ChatMessage> chatMessages = _chatService.GetChatMessageByRoom(new GetChatMessageByRoomCriteria
-            {
-                ChatRoomId = chatRoomId,
-                IsDeleted = true
-            });
+            IEnumerable<ChatMessage> chatMessages = _chatService.SearchChatMessage(criteria);
 
             IEnumerable<ChatUserInRoom> chatUsers = _chatService.GetChatRoomUsers(new GetChatRoomUsersCriteria
             {
-                ChatRoomId = chatRoomId,
+                ChatRoomId = criteria.ChatRoomId,
                 IncludingBanned = true,
                 IncludingLeft = true,
                 IncludingKickedOut = true
             });
 
-            var sessionKey = string.Format(ChatMonitorSessionKey, chatRoomId);
+            var sessionKey = string.Format(ChatMonitorSessionKey, criteria.ChatRoomId);
             HttpContext.Session[sessionKey] = chatMessages;
             return Json(new
             {
@@ -87,15 +83,23 @@ namespace Fanex.LiveCharts.Chat.Controllers
         [HttpGet]
         public ExcelResult ExportExcel(
             int matchId,
-            int memberId = 0,
             int chatUserId = 0,
-            string chatMessage = "")
+            string searchText = "")
         {
             var templeteFilePath = Server.MapPath(@"~/App_Data/ExcelTemplate/MonitorChatConversationExportExcel.xls");
             var chatMonitorViewModel = GetChatMonitorViewMode(matchId);
             var sessionKey = string.Format(ChatMonitorSessionKey, chatMonitorViewModel.ChatRoom.ChatRoomId);
             var chatMessages = HttpContext.Session[sessionKey] as IEnumerable<ChatMessage>;
-            var hssfWorkBook = _chatService.ExportChatConversation(chatMessages, chatMonitorViewModel.Match, chatMonitorViewModel.ChatRoom, templeteFilePath);
+            var hssfWorkBook = _chatService.ExportChatConversation(
+                chatMessages,
+                chatMonitorViewModel.Match, 
+                new SearchChatMessageCriteria { 
+                    ChatRoomId = chatMonitorViewModel.ChatRoom.ChatRoomId,
+                    SearchText = searchText,
+                    ChatUserId = chatUserId,
+                    IncludingDeleted = true
+                }, 
+                templeteFilePath);
             var exportFileName = string.Format(
                 "{0}_{1}_vs_{2}_{3}",
                 "Chat_Conversation",

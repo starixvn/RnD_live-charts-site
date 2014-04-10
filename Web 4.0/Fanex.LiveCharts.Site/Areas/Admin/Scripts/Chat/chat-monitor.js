@@ -18,11 +18,9 @@ function ChatMonitor() {
         me.$ddlChatName = $('#ddlChatName');
         me.$txtMessageSearch = $('#txtMessageSearch');
     };
-
     me.registerEvents = function () {
-        me.$btnSearchChatMessage.unbind('click').click(me.renderGrid);
+        me.$btnSearchChatMessage.unbind('click').click(me.initMessageGrid);
     };
-
     me.registerGridEvents = function () {
         me.$btnReload = $('#btnReload');
         me.$allOpenMenuRemoveUser = $('#messageGrid .open-menu-remove-user');
@@ -42,6 +40,7 @@ function ChatMonitor() {
         //// Chat Message actions
         me.$allRecoverChatMessage.unbind('click').click(me.recoverChatMessage);
     };
+
 
     me.showMenuEdit = function () {
         //// Edit Chat User Menu
@@ -251,12 +250,17 @@ function ChatMonitor() {
     };
 
     me.initMessageGrid = function () {
+        var memberId = parseInt(me.$ddlMemberName.val()),
+            chatUserId = parseInt(me.$ddlChatName.val()),
+            searchText = me.$txtMessageSearch.val();
         me.bodyRows = [];
         LiveChartsAdmin.callAjax({
             url: me.chatMonitorDefault.getChatMessagesUrl,
             type: 'POST',
             data: {
-                chatRoomId: me.chatMonitorDefault.chatRoomId
+                chatRoomId: me.chatMonitorDefault.chatRoomId,
+                chatUserId: chatUserId,
+                searchText: searchText
             },
             done: function (result) {
                 me.usersAndMessageCached = result;
@@ -266,27 +270,8 @@ function ChatMonitor() {
         });
     };
 
-    me.filterChatMessageByChatUser = function (chatMessages) {
-        var filteredChatMessages = [],
-            memberId = parseInt(me.$ddlMemberName.val()),
-            chatUserId = parseInt(me.$ddlChatName.val()),
-            chatMessageLength = chatMessages.length;
-
-        for (var i = 0; i < chatMessageLength; i++) {
-            var chatMessage = chatMessages[i];
-            if (memberId === 0 || (memberId !== 0 && memberId === chatMessage.ChatUser.MemberId)) {
-                filteredChatMessages.push(chatMessage);
-            } else if (chatUserId === 0 || (chatUserId !== 0 && chatUserId === chatMessage.ChatUser.ChatUserId)) {
-                filteredChatMessages.push(chatMessage);
-            }
-        }
-
-        return filteredChatMessages;
-    };
-
     me.renderGrid = function () {
-        var filteredChatMessages = me.filterChatMessageByChatUser(me.usersAndMessageCached.ChatMessages);
-        me.gridOptions.bodyRows = me.buildGridBody(filteredChatMessages);
+        me.gridOptions.bodyRows = me.buildGridBody(me.usersAndMessageCached.ChatMessages);
         me.$messageGrid.fanexGrid(me.gridOptions);
         me.registerGridEvents();
     };
@@ -343,49 +328,38 @@ function ChatMonitor() {
         timeZone: '+08:00'
     };
 
-    me.searchTextInMessage = function (searchText, searchPattern, chatMessage) {
-        if (searchText === '') {
-            return true;
-        }
-        else {
-            return searchPattern.test(chatMessage.Content);
-        }
-    };
-
     me.buildGridBody = function (chatMessages) {
         var messagesLength = chatMessages.length,
-            searchText = me.$txtMessageSearch.val(),
-            bodyRows = [],
-            searchPattern =  new RegExp(searchText, 'i');
+            bodyRows = [];
 
         for (var i = 0; i < messagesLength; i++) {
             var currentMessage = chatMessages[i];
-            if (me.searchTextInMessage(searchText, searchPattern, currentMessage)) {
-                bodyRows.push({
-                    Columns: [
-                   { Name: "Time", Value: currentMessage.CreateTime },
-                   {
-                       Name: "UserName",
-                       Value: currentMessage.ChatUser.MemberId
-                   },
-                   { Name: "ChatNameAction", Value: currentMessage.ChatUser },
-                   { Name: "ChatName", Value: currentMessage.ChatUser.ChatName },
-                   {
-                       Name: "ChatMessage",
-                       Value: currentMessage.Content.replace(/\r\n/g, "<br />").replace(/\n/g, "<br />")
-                   },
-                   {
-                       Name: 'ChatMessageAction', Value: {
-                           chatMessageId: currentMessage.ChatMessageId,
-                           isDeleted: currentMessage.IsDeleted,
-                           chatUserId: currentMessage.ChatUser.ChatUserId,
-                           memberName: currentMessage.ChatUser.ChatName
-                       }
+
+            bodyRows.push({
+                Columns: [
+               { Name: "Time", Value: currentMessage.CreateTime },
+               {
+                   Name: "UserName",
+                   Value: currentMessage.ChatUser.MemberId
+               },
+               { Name: "ChatNameAction", Value: currentMessage.ChatUser },
+               { Name: "ChatName", Value: currentMessage.ChatUser.ChatName },
+               {
+                   Name: "ChatMessage",
+                   Value: currentMessage.Content.replace(/\r\n/g, "<br />").replace(/\n/g, "<br />")
+               },
+               {
+                   Name: 'ChatMessageAction', Value: {
+                       chatMessageId: currentMessage.ChatMessageId,
+                       isDeleted: currentMessage.IsDeleted,
+                       chatUserId: currentMessage.ChatUser.ChatUserId,
+                       memberName: currentMessage.ChatUser.ChatName
                    }
+               }
                 ],
-                    CustomAttr: 'data-chat-message-id="' + currentMessage.ChatMessageId + '"'
-                });
-            }
+                CustomAttr: 'data-chat-message-id="' + currentMessage.ChatMessageId + '"'
+            });
+
         }
 
         return bodyRows;
@@ -401,10 +375,12 @@ function ChatMonitor() {
             var currentUser = usersInRoom[i];
             me.usersStatus[currentUser.ChatUser.MemberId] = currentUser;
             me.$ddlMemberName.append('<option value="' + currentUser.ChatUser.MemberId + '" '
-                                        + (memberId === currentUser.ChatUser.MemberId ? 'selected' : '') 
+                                        + (memberId === currentUser.ChatUser.MemberId ? 'selected ' : '')
+                                        + 'data-chat-user-id="' + currentUser.ChatUser.ChatUserId + '"'
                                         +'>' + currentUser.ChatUser.MemberId + '</option>');
             me.$ddlChatName.append('<option value="' + currentUser.ChatUser.ChatUserId + '" '
-                                        + (chatUserId === currentUser.ChatUser.ChatUserId ? 'selected' : '') 
+                                        + (chatUserId === currentUser.ChatUser.ChatUserId ? 'selected' : '')
+                                        + 'data-member-id="' + currentUser.ChatUser.MemberId + '"'
                                         + '>' + currentUser.ChatUser.ChatName + '</option>');
         }
         if (me.createDllSearch) {
@@ -412,19 +388,25 @@ function ChatMonitor() {
             me.$ddlChatName.trigger("chosen:updated");
         }
         else {
-            me.$ddlMemberName.chosen({});
-            me.$ddlChatName.chosen({});
+            me.$ddlMemberName.chosen({}).change(me.memberChange);
+            me.$ddlChatName.chosen({}).change(me.chatNameChange);
             me.createDllSearch = true;
         }
     };
-
-    me.startSearch = function () {
-        alert(me.$ddlChatName.val());
+    me.chatNameChange = function () {
+        var currentChatUserSelected = me.$ddlChatName.find('option:selected');
+        me.$ddlMemberName.val(currentChatUserSelected.attr('data-member-id')).trigger("chosen:updated");
     };
 
+    me.memberChange = function () {
+        var currentChatMemberSelected = me.$ddlMemberName.find('option:selected');
+        me.$ddlChatName.val(currentChatUserSelected.attr('data-chat-user-id')).trigger("chosen:updated");
+    };
     me.exportExcel = function () {
         LiveChartsAdmin.downloadFile(me.chatMonitorDefault.exportExcelUrl, {
-            matchId: me.chatMonitorDefault.matchId
+            matchId: me.chatMonitorDefault.matchId,
+            chatUserId: parseInt(me.$ddlChatName.val()),
+            searchText: me.$txtMessageSearch.val()
         });
     };
     me.init = function () {

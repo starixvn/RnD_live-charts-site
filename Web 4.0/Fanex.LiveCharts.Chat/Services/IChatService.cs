@@ -28,6 +28,8 @@ namespace Fanex.LiveCharts.Chat.Services
 
         IEnumerable<ChatMessage> GetChatMessageByRoom(GetChatMessageByRoomCriteria getChatMessageByRoomCriteria);
 
+        IEnumerable<ChatMessage> SearchChatMessage(SearchChatMessageCriteria criteria);
+
         ChatRoom GetChatRoomByName(GetChatRoomByNameCriteria getChatRoomByName);
 
         IEnumerable<ChatRoom> GetChatRoomByMatchId(GetChatRoomByMatchIdCriteria getChatRoomByMatchIdCriteria);
@@ -60,7 +62,7 @@ namespace Fanex.LiveCharts.Chat.Services
 
         ICommandResult UpdateKickOutChatUser(UpdateKickOutChatUserCriteria updateKickOutChatUserCriteria);
 
-        HSSFWorkbook ExportChatConversation(IEnumerable<ChatMessage> chatMessages, Match match, ChatRoom chatRoom, string templeteFilePath);
+        HSSFWorkbook ExportChatConversation(IEnumerable<ChatMessage> chatMessages, Match match, SearchChatMessageCriteria criteria, string templeteFilePath);
 
         ICommandResult KickOutChatUserOnMemberSite(KickOutChatUserViewModel kickOutChatUserViewModel);
 

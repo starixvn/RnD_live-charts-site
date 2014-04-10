@@ -88,6 +88,7 @@
     <Compile Include="Criteria\InsertChatUserCriteria.cs" />
     <Compile Include="Criteria\InsertChatUserInRoomCriteria.cs" />
     <Compile Include="Criteria\InsertUpdateChatMessageSpamCriteria.cs" />
+    <Compile Include="Criteria\SearchChatMessageCriteria.cs" />
     <Compile Include="Criteria\UpdateChatMessageByChatUserCriteria.cs" />
     <Compile Include="Criteria\UpdateKickOutChatUserCriteria.cs" />
     <Compile Include="Criteria\UpdateChatMessageCriteria.cs" />
