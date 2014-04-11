@@ -17,6 +17,7 @@ function ChatMonitor() {
         me.$ddlMemberName = $('#ddlMemberName');
         me.$ddlChatName = $('#ddlChatName');
         me.$txtMessageSearch = $('#txtMessageSearch');
+        me.$chatUserList = $('#chatUserList');
     };
     me.registerEvents = function () {
         me.$btnSearchChatMessage.unbind('click').click(me.initMessageGrid);
@@ -250,8 +251,7 @@ function ChatMonitor() {
     };
 
     me.initMessageGrid = function () {
-        var memberId = parseInt(me.$ddlMemberName.val()),
-            chatUserId = parseInt(me.$ddlChatName.val()),
+        var chatUserId = parseInt(me.$ddlChatName.val()),
             searchText = me.$txtMessageSearch.val();
         me.bodyRows = [];
         LiveChartsAdmin.callAjax({
@@ -271,16 +271,34 @@ function ChatMonitor() {
     };
 
     me.renderGrid = function () {
+        me.gridOptions.pagerOption.currentPage = 0;
         me.gridOptions.bodyRows = me.buildGridBody(me.usersAndMessageCached.ChatMessages);
         me.$messageGrid.fanexGrid(me.gridOptions);
         me.registerGridEvents();
     };
-
+    me.exportExcel = function () {
+        LiveChartsAdmin.downloadFile(me.chatMonitorDefault.exportExcelUrl, {
+            matchId: me.chatMonitorDefault.matchId,
+            chatUserId: parseInt(me.$ddlChatName.val()),
+            searchText: me.$txtMessageSearch.val()
+        });
+    };
     me.gridOptions = {
         columns: [
                    { HeaderText: LANGUAGE.timeGTM8, Width: 150, Name: 'Time', CellAlign: 'center', FormatDateTime: 'DD MMM, YYYY hh:mm A' },
-                   { HeaderText: LANGUAGE.username, Width: 150, Name: 'UserName', 
-                     CellAlign: 'center', CellCssClass: 'user-name-content', MergeHeaderColNumber: 2 },
+                   {
+                       HeaderText: LANGUAGE.username, Width: 40, Name: 'ChatUserStatus', CellAlign: 'center', CustomCellRender: function (cell) {
+                           var kickedOut = me.usersStatus[cell.Value.MemberId].KickedOut;
+                           var userStatusClass = kickedOut ? 'recover-action recover-chat-user' : 'edit-action open-menu-remove-user';
+                           var iconHtml = '<span class="' + userStatusClass + '"'
+                                            + ' data-member-id="' + cell.Value.MemberId + '"'
+                                            + ' data-chat-user-id="' + cell.Value.ChatUserId + '"'
+                                            + '></span>';
+                           return iconHtml;
+                       }, MergeHeaderColNumber: 3 
+                   },
+                   { HeaderText: '', Width: 150, Name: 'UserName', 
+                     CellAlign: 'center', CellCssClass: 'user-name-content'},
                    {
                        HeaderText: '', Width: 40, Name: 'ChatNameAction', CellAlign: 'center', CustomCellRender: function (cell) {
                            var kickedOut = me.usersStatus[cell.Value.MemberId].KickedOut;
@@ -289,12 +307,11 @@ function ChatMonitor() {
                                             + ' data-member-id="' + cell.Value.MemberId + '"'
                                             + ' data-chat-user-id="' + cell.Value.ChatUserId + '"'
                                             + '></span>';
-//                           }
                            return iconHtml;
                        }
                    },
                    { HeaderText: LANGUAGE.chatName, Width: 150, Name: 'ChatName', CellAlign: 'center' },
-                   { HeaderText: LANGUAGE.chatMessage, Width: 490, Name: 'ChatMessage', MergeHeaderColNumber: 2, CellCssClass: 'message-content' },
+                   { HeaderText: LANGUAGE.chatMessage, Width: 450, Name: 'ChatMessage', MergeHeaderColNumber: 2, CellCssClass: 'message-content' },
                    {
                        HeaderText: '', Width: 40, Name: 'ChatMessageAction', CellAlign: 'center', CustomCellRender: function (cell) {
 
@@ -307,7 +324,7 @@ function ChatMonitor() {
                        }
                    }
         ],
-        gridExpandHeight: 170,
+        gridExpandHeight: 180,
         showPager: true,
         pagerOption: {
             itemsPerPage: 50,
@@ -338,6 +355,8 @@ function ChatMonitor() {
             bodyRows.push({
                 Columns: [
                { Name: "Time", Value: currentMessage.CreateTime },
+
+               { Name: "ChatUserStatus", Value: currentMessage.ChatUser },
                {
                    Name: "UserName",
                    Value: currentMessage.ChatUser.MemberId
@@ -368,20 +387,33 @@ function ChatMonitor() {
         var memberId = parseInt(me.$ddlMemberName.val()),
             chatUserId = parseInt(me.$ddlChatName.val());
         me.usersStatus = {};
-        me.$ddlMemberName.empty().append('<option value="0">All</option>');
-        me.$ddlChatName.empty().append('<option value="0">All</option>');
+        me.$ddlMemberName.empty().append('<option value="0" data-chat-user-id="0">All</option>');
+        me.$ddlChatName.empty().append('<option value="0" data-member-id="0">All</option>');
+        me.$chatUserList.empty();
+        var sortedUsers = me.getSortedUsers(usersInRoom);
         var userLength = usersInRoom.length;
         for (var i = 0; i < userLength; i++) {
             var currentUser = usersInRoom[i];
+            var currentMemmber = sortedUsers.memberArray[i];
+            var currentChatUser = sortedUsers.chatUserArray[i];
+            var currentChatUserStatus = sortedUsers.chatUserStatusArray[i];
             me.usersStatus[currentUser.ChatUser.MemberId] = currentUser;
-            me.$ddlMemberName.append('<option value="' + currentUser.ChatUser.MemberId + '" '
-                                        + (memberId === currentUser.ChatUser.MemberId ? 'selected ' : '')
-                                        + 'data-chat-user-id="' + currentUser.ChatUser.ChatUserId + '"'
-                                        +'>' + currentUser.ChatUser.MemberId + '</option>');
-            me.$ddlChatName.append('<option value="' + currentUser.ChatUser.ChatUserId + '" '
-                                        + (chatUserId === currentUser.ChatUser.ChatUserId ? 'selected' : '')
-                                        + 'data-member-id="' + currentUser.ChatUser.MemberId + '"'
-                                        + '>' + currentUser.ChatUser.ChatName + '</option>');
+            me.$ddlMemberName.append('<option value="' + currentMemmber.ChatUser.MemberId + '" '
+                                        + (memberId === currentMemmber.ChatUser.MemberId ? 'selected ' : '')
+                                        + 'data-chat-user-id="' + currentMemmber.ChatUser.ChatUserId + '"'
+                                        + '>' + currentMemmber.ChatUser.MemberId + '</option>');
+            me.$ddlChatName.append('<option value="' + currentChatUser.ChatUser.ChatUserId + '" '
+                                        + (chatUserId === currentChatUser.ChatUser.ChatUserId ? 'selected ' : '')
+                                        + 'data-member-id="' + currentChatUser.ChatUser.MemberId + '"'
+                                        + '>' + currentChatUser.ChatUser.ChatName + '</option>');
+            me.$chatUserList.append('<li class="chat-user-status">'
+                                        + '<span class="'
+                                            + (currentChatUserStatus.IsLeft ? 'user-left ' : 'user-online ')
+                                            + (currentChatUserStatus.KickedOut ? 'user-kicked-out ' : '')
+                                            + (currentChatUserStatus.ChatUser.Banned ? 'user-banned' : '')
+                                        +'"></span>'
+                                        + currentChatUserStatus.ChatUser.ChatName 
+                                    + '</li>');
         }
         if (me.createDllSearch) {
             me.$ddlMemberName.trigger("chosen:updated");
@@ -393,6 +425,35 @@ function ChatMonitor() {
             me.createDllSearch = true;
         }
     };
+
+    me.getSortedUsers = function (usersInRoom) {
+        var usersLength = usersInRoom.length;
+        var memberArray = usersInRoom.slice(0, usersLength).sort(function (userA, userB) {
+            return userA.ChatUser.MemberId > userB.ChatUser.MemberId;
+        });
+        var chatUserArray = usersInRoom.slice(0, usersLength).sort(function (userA, userB) {
+            return userA.ChatUser.ChatName > userB.ChatUser.ChatName;
+        });
+        var chatUserStatusArray = usersInRoom.slice(0, usersLength).sort(function (userA, userB) {
+            if (userA.IsLeft && !userB.IsLeft) {
+                return true;
+            } else if (userA.KickedOut && (!userB.IsLeft || !userB.KickedOut)) {
+                return true;
+            }
+            else if (userA.ChatUser.Banned && (!userB.IsLeft || !userB.KickedOut || !userB.ChatUser.Banned)) {
+                return true;
+            }
+
+            return false;
+        });
+
+        return {
+            memberArray: memberArray,
+            chatUserArray: chatUserArray,
+            chatUserStatusArray: chatUserStatusArray
+        };
+    };
+
     me.chatNameChange = function () {
         var currentChatUserSelected = me.$ddlChatName.find('option:selected');
         me.$ddlMemberName.val(currentChatUserSelected.attr('data-member-id')).trigger("chosen:updated");
@@ -400,15 +461,9 @@ function ChatMonitor() {
 
     me.memberChange = function () {
         var currentChatMemberSelected = me.$ddlMemberName.find('option:selected');
-        me.$ddlChatName.val(currentChatUserSelected.attr('data-chat-user-id')).trigger("chosen:updated");
+        me.$ddlChatName.val(currentChatMemberSelected.attr('data-chat-user-id')).trigger("chosen:updated");
     };
-    me.exportExcel = function () {
-        LiveChartsAdmin.downloadFile(me.chatMonitorDefault.exportExcelUrl, {
-            matchId: me.chatMonitorDefault.matchId,
-            chatUserId: parseInt(me.$ddlChatName.val()),
-            searchText: me.$txtMessageSearch.val()
-        });
-    };
+    
     me.init = function () {
         me.cacheDomElements();
         me.registerEvents();

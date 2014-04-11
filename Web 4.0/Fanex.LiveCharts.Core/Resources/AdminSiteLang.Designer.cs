@@ -79,6 +79,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add New Dummy Prediction need more than 0.
+        /// </summary>
+        public static string AddNewInvalidMessage {
+            get {
+                return ResourceManager.GetString("AddNewInvalidMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to -------- All --------.
         /// </summary>
         public static string AllLeagues {

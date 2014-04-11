@@ -137,6 +137,7 @@
     <Compile Include="Criterias\ScorePrediction\ChartAdminInsertUpdateDummyPredictionCriteria.cs" />
     <Compile Include="Criterias\ScorePrediction\ChartAdminUpdateMinuteForClosingPredictionCriteria.cs" />
     <Compile Include="Criterias\ScorePrediction\GetAllScorePredictionCriteria.cs" />
+    <Compile Include="Criterias\ScorePrediction\GetScorePredictionOptionCriteria.cs" />
     <Compile Include="Criterias\ScorePrediction\GetUserPredictionCriteria.cs" />
     <Compile Include="Criterias\ScorePrediction\InsertOrUpdateScorePredictionItemCriteria.cs" />
     <Compile Include="Criterias\IsMatchCompleteCaptureCriteria.cs" />

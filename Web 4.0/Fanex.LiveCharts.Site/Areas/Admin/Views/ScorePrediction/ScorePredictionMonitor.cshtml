@@ -44,6 +44,7 @@
             </div>
             <div class="form-row submit-dummy-predict">
                 <div class="edit-field">
+                    <input type="hidden" id="predictionOptionId" value="0" />
                     <input type="submit" id="updateDummy" value="@Lang.Submit" />
                     <input type="submit" id="resetDummy" value="@AdminSiteLang.Cancel" />
                 </div>
@@ -83,10 +84,13 @@
     <script type="text/javascript"> 
         var SCORE_PREDICTION_CONFIG = { 
             updateDummyUrl: '@(Url.Action("UpdateDummyPrediction", "ScorePrediction"))',
+            getScorePredictionOptions: '@(Url.Action("UpdateDummyPrediction", "ScorePrediction"))',
+            getScorePredictionoptionUrl: '@(Url.Action("GetScorePredictionOption", "ScorePrediction"))',
             updateScorePredictionLogTableUrl: '@(Url.Action("GetScorePredictionLogTable", "ScorePrediction"))',
             matchId: @(Model.MatchId),
             errorMessage: '@(AdminSiteLang.InvalidInput)',
-            deleteMessage: '@(AdminSiteLang.DeleteDummyDataMessage)'
+            deleteMessage: '@(AdminSiteLang.DeleteDummyDataMessage)',
+            addNewInvalidMessage: '@(AdminSiteLang.AddNewInvalidMessage)'
         } 
     </script>
     

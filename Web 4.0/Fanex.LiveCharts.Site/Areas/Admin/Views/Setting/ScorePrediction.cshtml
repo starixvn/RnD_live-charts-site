@@ -35,7 +35,7 @@
             <div class="edit-field">
                 <input type="hidden" name="SettingId" id="SettingId" value="@Model.SettingId" />
                 <input type="hidden" name="SettingName" id="SettingName" value="@Model.SettingName" />
-                <input type="text" class="setting-value @(success || firstTime ? string.Empty : "input-validation-error")" name="SettingValue" id="SettingValue" value="@Model.SettingValue" />
+                <input type="text" class="setting-value @(success || firstTime ? string.Empty : "input-validation-error")" name="SettingValue" id="SettingValue" value="@Model.SettingValue" maxlength="4" />
                 <span class="minute-available">@AdminSiteLang.Minutes</span>
                 <input id="updateDummy" type="submit" value="@Lang.Submit" />
             </div>

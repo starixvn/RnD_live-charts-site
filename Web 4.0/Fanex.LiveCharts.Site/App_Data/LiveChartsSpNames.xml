@@ -123,6 +123,8 @@
     </Setting>
     <Setting Key="Chart_Is_Match_Complete_Capture" SpName="Chart_Is_Match_Complete_Capture" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0">
     </Setting>
+    <Setting Key="Chart_Get_Score_Prediction_Option" SpName="Chart_Get_Score_Prediction_Option" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0">
+    </Setting>
     
   </Function>
 
@@ -151,6 +153,7 @@
     <Setting Key="Chart_Chat_Get_Welcome_Message" SpName="Chart_Chat_Get_Welcome_Message" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
     <Setting Key="Chart_Chat_Update_Welcome_Message" SpName="Chart_Chat_Update_Welcome_Message" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
     <Setting Key="Chart_Chat_Update_Chat_Message_By_Chat_User" SpName="Chart_Chat_Update_Chat_Message_By_Chat_User" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Search_Chat_Message" SpName="Chart_Chat_Search_Chat_Message" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
     
   </Function>
 </Functions>

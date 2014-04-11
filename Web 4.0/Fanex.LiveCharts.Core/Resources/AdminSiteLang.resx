@@ -360,4 +360,7 @@
   <data name="Member" xml:space="preserve">
     <value>Member</value>
   </data>
+  <data name="AddNewInvalidMessage" xml:space="preserve">
+    <value>Add New Dummy Prediction need more than 0</value>
+  </data>
 </root>

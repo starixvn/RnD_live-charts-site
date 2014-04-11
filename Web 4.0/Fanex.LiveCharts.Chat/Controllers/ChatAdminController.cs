@@ -61,6 +61,7 @@ namespace Fanex.LiveCharts.Chat.Controllers
         [HttpPost]
         public JsonResult GetChatMessages(SearchChatMessageCriteria criteria)
         {
+            criteria.IncludingDeleted = true;
             IEnumerable<ChatMessage> chatMessages = _chatService.SearchChatMessage(criteria);
 
             IEnumerable<ChatUserInRoom> chatUsers = _chatService.GetChatRoomUsers(new GetChatRoomUsersCriteria

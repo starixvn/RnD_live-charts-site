@@ -24,6 +24,8 @@ namespace Fanex.LiveCharts.Services.Interface
 
         ScorePredictionItem GetUserPrediction(GetUserPredictionCriteria getUserPredictionCriteria);
 
+        ScorePredictionOption GetScorePredictionOption(GetScorePredictionOptionCriteria criteria);
+
         ICommandResult InsertOrUpdateDummyPrediction(ChartAdminInsertUpdateDummyPredictionCriteria insertCriteria);
 
         bool IsStopScorePrediction(int matchId);

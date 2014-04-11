@@ -84,6 +84,12 @@ namespace Fanex.LiveCharts.Controllers
             return Json(result);
         }
 
+        [HttpPost]
+        public JsonResult GetScorePredictionOption(GetScorePredictionOptionCriteria criteria)
+        {
+            return Json(_scorePredictionService.GetScorePredictionOption(criteria));
+        }
+
         /// <summary>
         /// Insert or update user prediction, if anonymous then create new id then set to cookie.
         /// </summary>

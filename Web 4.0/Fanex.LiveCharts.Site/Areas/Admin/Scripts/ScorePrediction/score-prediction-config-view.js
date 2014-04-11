@@ -23,6 +23,7 @@ function ScorePredictionConfigView() {
         me.$messageInfo = $('#messageNotification');
         me.$messageSummaryContainer = $('#messageDetailsContainer');
         me.$messageSummaryDetails = $('#messageDetailsContainer .messageDetails');
+        me.$predictionOptionId = $('#predictionOptionId');
         me.registerEvents();
     };
 
@@ -32,20 +33,34 @@ function ScorePredictionConfigView() {
         me.$txtHomeScore.stepper(me.stepperOption);
         me.$txtAwayScore.stepper(me.stepperOption);
         me.$txtPredictionValue.parent().find();
-        $('#predictionDummyGrid .edit-dummy-value').off('click').on('click', me.selectScorePredictionOption);
+        $('#predictionDummyGrid .edit-dummy-value').unbind('click').click(me.selectScorePredictionOption);
     };
 
     me.selectScorePredictionOption = function () {
         var $this = $(this);
-        me.$txtHomeScore.val($this.attr('data-home-score'));
-        me.$txtAwayScore.val($this.attr('data-away-score'));
-        me.$txtPredictionValue.val($this.attr('data-dummy-value'));
+        LiveChartsAdmin.callAjax({
+            url: SCORE_PREDICTION_CONFIG.getScorePredictionoptionUrl,
+            type: 'POST',
+            data: {
+                scorePredictionOptionId: $this.attr('data-sp-id')
+            },
+            done: function (scorePredictionOption) {
+                if (scorePredictionOption) {
+                    me.$txtHomeScore.val(scorePredictionOption.HomeScore);
+                    me.$txtAwayScore.val(scorePredictionOption.AwayScore);
+                    me.$txtPredictionValue.val(scorePredictionOption.DummyCount);
+                    me.$predictionOptionId.val(scorePredictionOption.ScorePredictionOptionId);
+                }
+            }
+        });
+        //
     };
 
     me.resetValue = function () {
         me.$txtHomeScore.val(0);
         me.$txtAwayScore.val(0);
         me.$txtPredictionValue.val(0);
+        me.$predictionOptionId.val(0);
     };
 
     me.updateDummyPrediction = function () {
@@ -91,7 +106,7 @@ function ScorePredictionConfigView() {
             },
             done: function (result) {
                 me.$tblScorePredictionLog.empty().html(result);
-                $('#predictionDummyGrid .edit-dummy-value').off('click').on('click', me.selectScorePredictionOption);
+                $('#predictionDummyGrid .edit-dummy-value').unbind('click').click(me.selectScorePredictionOption);
             }
         });
     };
@@ -101,15 +116,27 @@ function ScorePredictionConfigView() {
         me.$messageSummaryDetails.empty();
         me.$txtPredictionValue.removeClass('input-validation-error');
 
-        if (isNaN(me.$txtPredictionValue.val())) {
+        var currentPredictionValue = me.$txtPredictionValue.val();
 
-            me.$messageSummaryContainer.show();
-            me.$txtPredictionValue.addClass('input-validation-error');
+        var isEdit = $('#predictionDummyGrid').find('.edit-dummy-value[data-home-score=' + me.$txtHomeScore.val() + ']'
+                                                    +'[data-away-score=' + me.$txtAwayScore.val() + ']');
+
+        var isValid = true;
+        if (isEdit.length === 0 && parseInt(currentPredictionValue) <= 0) {
+            me.$messageSummaryDetails.append('<li>' + SCORE_PREDICTION_CONFIG.addNewInvalidMessage + '</li>');
+            isValid = false;
+        }
+        else if (isNaN(currentPredictionValue) || parseInt(currentPredictionValue) < 0) {
             me.$messageSummaryDetails.append('<li>' + SCORE_PREDICTION_CONFIG.errorMessage + '</li>');
-            return false;
+            isValid = false;
         }
 
-        return true;
+        if (!isValid) {
+            me.$messageSummaryContainer.show();
+            me.$txtPredictionValue.addClass('input-validation-error');
+        }
+
+        return isValid;
     };
 }
 

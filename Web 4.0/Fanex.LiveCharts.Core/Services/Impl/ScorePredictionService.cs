@@ -156,6 +156,14 @@ namespace Fanex.LiveCharts.Services.Impl
             return result;
         }
 
+        public ScorePredictionOption GetScorePredictionOption(GetScorePredictionOptionCriteria criteria)
+        {
+            var option = _scorePredictionRepository.Get<ScorePredictionOption>(criteria);
+
+            return option;
+        }
+                
+
         /// <summary>
         /// Check current match is stop score prediction function or not.
         /// </summary>

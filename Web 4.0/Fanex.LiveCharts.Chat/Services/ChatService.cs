@@ -531,6 +531,11 @@ namespace Fanex.LiveCharts.Chat.Services
 
         public IEnumerable<ChatMessage> SearchChatMessage(SearchChatMessageCriteria criteria)
         {
+            if (criteria.SearchText == null)
+            {
+                criteria.SearchText = string.Empty;
+            }
+
             var chatMessages = _chatRepository.GetChatMessages(criteria);
 
             return chatMessages;
