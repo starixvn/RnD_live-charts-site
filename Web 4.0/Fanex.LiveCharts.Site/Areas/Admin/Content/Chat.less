@@ -81,6 +81,39 @@
             	word-wrap: break-word;
 				max-width: 450px;
             }
+
+            .user-status
+            {
+                .user-online, .user-disabled, .user-kickedout, .user-offline
+                {
+                    
+			        background-repeat: no-repeat;
+			        height: 16px;
+			        width: 16px;
+			        vertical-align: middle;
+			        display: block;
+                }
+
+                .user-online
+                {
+                    background-image: url("../../../Scripts/Libs/Emoticon/Images/face-smile.png");
+                }
+
+                .user-disabled
+                {
+                    background-image: url("../../../Content/Images/disabled.png");
+                }
+
+                .user-kickedout
+                {
+                    background-image: url("../../../Content/Images/kick_out.png");
+                }
+
+                .user-offline
+                {
+                    background-image: url("../../../Scripts/Libs/Emoticon/Images/face-sad.png");
+                }
+            }
     }
 
 	.freegrid .free-top-left table thead th, 
@@ -171,12 +204,11 @@
 			.chat-user-status
             {
 				cursor: pointer;
-				height: 20px;
-				border-left: 1px solid #c5c5c5;
-				padding: 3px 2px 1px 2px;
-				margin-right: -4px;
-				border-bottom: 1px solid #c5c5c5;
-				border-right: 1px solid #c5c5c5;
+                border-left: 1px solid #c5c5c5;
+                padding: 3px;
+                margin-right: -4px;
+                border-bottom: 1px solid #c5c5c5;
+                border-right: 1px solid #c5c5c5;
 
 				&:hover
                 {
@@ -185,29 +217,39 @@
 
 				.user-online, .user-left, .user-kicked-out, .user-banned
                 {
-                	width: 12px;
-					height: 12px;
-					display: inline-block;
+                	width: 16px;
+                    height: 16px;
+                    display: block;
+                    background-image: url("../../../Content/Images/recover.png");
+                    background-repeat: no-repeat;
+                    margin-top: 2px;
+                    float: left;
+                }
+
+                .chat-name-text
+                {
+                    margin-left: 3px;
+                    vertical-align: middle;
                 }
 
 				.user-online 
                 {
-                
+                    background-image: url("../../../Scripts/Libs/Emoticon/Images/face-smile.png");
                 }
 
             	.user-left
                 {
-                
+                    background-image: url("../../../Scripts/Libs/Emoticon/Images/face-sad.png");
                 }
 
 				.user-kicked-out
                 {
-                
+                    background-image: url("../../../Content/Images/kick_out.png");
                 }
 
 				.user-banned
                 {
-                
+                    background-image: url("../../../Content/Images/disabled.png");
                 }
             }
         }

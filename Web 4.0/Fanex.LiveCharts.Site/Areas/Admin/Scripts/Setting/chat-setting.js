@@ -15,6 +15,8 @@ function ChatSetting() {
         me.$txtTermCondition = $('#txtTermCondition');
         me.$txtWelcomeMessage = $('#txtWelcomeMessage');
         me.$btnUpdateWelcomeMessage = $('#btnUpdateWelcomeMessage');
+        me.$cbWelcomeMessageDisabled = $('#cbWelcomeMessageDisabled');
+        me.$cbTermConditionDisabled = $('#cbTermConditionDisabled');
     };
 
 
@@ -31,7 +33,8 @@ function ChatSetting() {
             url: CHAT_SETTING.updateTermConditionUrl,
             type: 'POST',
             data: {
-                termCondition: termCondition
+                termCondition: termCondition,
+                disabled: me.$cbTermConditionDisabled.prop('checked')
             },
             done: function (commandResult) {
                 if (commandResult.IsSuccessful) {
@@ -57,7 +60,8 @@ function ChatSetting() {
             url: CHAT_SETTING.updateWelcomeMessageUrl,
             type: 'POST',
             data: {
-                welcomeMessage: welcomeMessage
+                welcomeMessage: welcomeMessage,
+                disabled: me.$cbWelcomeMessageDisabled.prop('checked')
             },
             done: function (commandResult) {
                 if (commandResult.IsSuccessful) {

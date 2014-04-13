@@ -68,22 +68,24 @@ namespace Fanex.LiveCharts.Controllers.Admin
         }
 
         [HttpPost]
-        public JsonResult UpdateTermCondition(string termCondition)
+        public JsonResult UpdateTermCondition(string termCondition, bool disabled)
         {
             ICommandResult updateResult = _settingService.UpdateSetting(new UpdateTermConditionCriteria
             {
-                TermCondition = termCondition
+                TermCondition = termCondition,
+                Disabled = disabled
             });
 
             return Json(updateResult);
         }
 
         [HttpPost]
-        public JsonResult UpdateWelcomeMessage(string welcomeMessage)
+        public JsonResult UpdateWelcomeMessage(string welcomeMessage, bool disabled)
         {
             ICommandResult updateResult = _settingService.UpdateSetting(new UpdateWelcomeMessage
             {
-                WelcomeMessage = welcomeMessage
+                WelcomeMessage = welcomeMessage,
+                Disabled = disabled
             });
 
             return Json(updateResult);

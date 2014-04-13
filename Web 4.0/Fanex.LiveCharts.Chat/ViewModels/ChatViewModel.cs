@@ -10,6 +10,7 @@
 namespace Fanex.LiveCharts.Chat.ViewModels
 {
     using Fanex.LiveCharts.Chat.Models;
+    using Fanex.LiveCharts.Models;
 
     /// <summary>
     /// TODO: Update summary.
@@ -22,8 +23,8 @@ namespace Fanex.LiveCharts.Chat.ViewModels
 
         public ChatUserInRoom ChatUserInRoom { get; set; }
 
-        public string AnnoucementMessage { get; set; }
+        public SettingItem AnnoucementMessage { get; set; }
 
-        public string WelcomeMessage { get; set; }
+        public SettingItem WelcomeMessage { get; set; }
     }
 }

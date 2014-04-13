@@ -19,5 +19,7 @@ namespace Fanex.LiveCharts.Models
         public string SettingName { get; set; }
 
         public string SettingValue { get; set; }
+
+        public bool Disabled { get; set; }
     }
 }

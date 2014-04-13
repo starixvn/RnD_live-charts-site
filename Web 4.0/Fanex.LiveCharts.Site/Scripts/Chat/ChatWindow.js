@@ -102,10 +102,16 @@ function ChatWindow() {
 
     me.askJoinRoom = function () {
         me.$popupCreateChatName.modal('hide');
-        me.$popupJoinRoom.modal({
-            backdrop: 'static'
-        });
-        me.$btnJoinRoom.unbind('click').click(me.joinRoom);
+        if (me.$popupJoinRoom.length > 0) {
+            me.$popupJoinRoom.modal({
+                backdrop: 'static'
+            });
+            me.$btnJoinRoom.unbind('click').click(me.joinRoom);
+        }
+        else
+        {
+            me.joinRoom();
+        }
     };
 
     me.onKeyPressForSingleLine = function (event) {
@@ -219,7 +225,10 @@ function ChatWindow() {
     };
 
     me.joinRoom = function () {
-        me.$popupJoinRoom.modal('hide');
+        if (me.$popupJoinRoom.length > 0) {
+            me.$popupJoinRoom.modal('hide');
+        }
+
         me.registerEvents();
         me.chatServer.joinRoom();
     };

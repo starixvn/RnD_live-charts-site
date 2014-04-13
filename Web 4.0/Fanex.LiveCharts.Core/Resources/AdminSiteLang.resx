@@ -363,4 +363,7 @@
   <data name="AddNewInvalidMessage" xml:space="preserve">
     <value>Add New Dummy Prediction need more than 0</value>
   </data>
+  <data name="Disable" xml:space="preserve">
+    <value>Disable</value>
+  </data>
 </root>

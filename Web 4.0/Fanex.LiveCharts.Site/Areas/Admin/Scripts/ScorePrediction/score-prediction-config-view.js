@@ -116,12 +116,10 @@ function ScorePredictionConfigView() {
         me.$messageSummaryDetails.empty();
         me.$txtPredictionValue.removeClass('input-validation-error');
 
-        var currentPredictionValue = me.$txtPredictionValue.val();
-
-        var isEdit = $('#predictionDummyGrid').find('.edit-dummy-value[data-home-score=' + me.$txtHomeScore.val() + ']'
-                                                    +'[data-away-score=' + me.$txtAwayScore.val() + ']');
-
-        var isValid = true;
+        var currentPredictionValue = me.$txtPredictionValue.val(),
+            isEdit = $('#predictionDummyGrid').find('.edit-dummy-value[data-home-score=' + me.$txtHomeScore.val() + ']'
+                                                    + '[data-away-score=' + me.$txtAwayScore.val() + ']'),
+                                                    isValid = true;
         if (isEdit.length === 0 && parseInt(currentPredictionValue) <= 0) {
             me.$messageSummaryDetails.append('<li>' + SCORE_PREDICTION_CONFIG.addNewInvalidMessage + '</li>');
             isValid = false;

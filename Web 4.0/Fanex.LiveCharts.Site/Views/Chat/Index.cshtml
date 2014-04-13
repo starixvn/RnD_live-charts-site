@@ -67,23 +67,25 @@
         <button class="btn" id="btnCreateChatName">@Lang.Create</button>
     </div>
 </div>
-
-<div id="popupJoinRoom" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-    aria-hidden="true">
-    <div class="modal-header">
-        <h3>@Lang.JoinChatRoom</h3>
-    </div>
-    <div class="modal-body">
-        <form class="bs-docs-example form-horizontal">
-        <div class="control-group">
-            @Model.AnnoucementMessage
+@if(!Model.AnnoucementMessage.Disabled)
+{ 
+    <div id="popupJoinRoom" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-header">
+            <h3>@Lang.JoinChatRoom</h3>
         </div>
-        </form>
+        <div class="modal-body">
+            <form class="bs-docs-example form-horizontal">
+            <div class="control-group">
+                @Model.AnnoucementMessage
+            </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" id="btnJoinRopm">@Lang.Join</button>
+        </div>
     </div>
-    <div class="modal-footer">
-        <button class="btn" id="btnJoinRopm">@Lang.Join</button>
-    </div>
-</div>
+}
 
 
 <div id="popupChatUserList" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -142,7 +144,8 @@
             notificationSound: '@Url.Content("~/Content/Sounds/chat")',
             disconnectPage: '@Url.Action("YouAreDisconnect", "Chat")',
             kickedOutPage: '@Url.Action("KickedOut", "Chat")',
-            welcomeMessage: '@(Model.WelcomeMessage)'
+            welcomeMessage: '@(Model.WelcomeMessage.SettingValue)',
+            disbaledWelcomeMessage: '@(Model.WelcomeMessage.Disabled ? "true" : "false")'
         }
 
         var LANGUAGE = 

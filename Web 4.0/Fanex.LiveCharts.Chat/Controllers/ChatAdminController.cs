@@ -124,6 +124,15 @@ namespace Fanex.LiveCharts.Chat.Controllers
         }
 
         [HttpPost]
+        public JsonResult RecoverBannedChatUser(int chatUserId)
+        {
+            return Json(_chatService.UpdateChatUser(new UpdateChatUserCriteria { 
+                ChatUserId = chatUserId,
+                IsBanned = false
+            }));
+        }
+
+        [HttpPost]
         public JsonResult DeleteChatMessage(int chatMessageId, string chatRoomName)
         {
             return Json(_chatService.DeleteChatMessageOnAdminSite(chatMessageId, chatRoomName, SessionManager.CurrentSession.AdminId));
@@ -157,6 +166,18 @@ namespace Fanex.LiveCharts.Chat.Controllers
                 DeletedBy = SessionManager.CurrentSession.AdminId
             });
             return Json(updateResult);
+        }
+
+        [HttpPost]
+        public JsonResult RecoverChatMessageOfChatUser(int chatUserId)
+        {
+            var recoverChatMessageResult = _chatService.UpdateChatMessageByChatUser(new UpdateChatMessageByChatUserCriteria
+                {
+                    ChatUserId = chatUserId,
+                    IsDelete = false
+                });
+
+            return Json(recoverChatMessageResult);
         }
 
         #region Private actions

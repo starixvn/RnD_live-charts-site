@@ -143,8 +143,8 @@ namespace Fanex.LiveCharts.Chat.Controllers
                     ChatRoom = chatRoom,
                     ChatUser = chatUser,
                     ChatUserInRoom = chatUserInRoom,
-                    AnnoucementMessage = annoucementMessage.SettingValue,
-                    WelcomeMessage = welcomeMessage.SettingValue
+                    AnnoucementMessage = annoucementMessage,
+                    WelcomeMessage = welcomeMessage
                 };
         }
 

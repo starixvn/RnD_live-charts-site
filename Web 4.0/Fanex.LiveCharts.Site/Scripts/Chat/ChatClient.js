@@ -82,10 +82,10 @@ function ChatClient(chatUser, chatRoom) {
     me.preProcessMessage = function (chatMessage) {
         chatMessage.MessageTime =  me.formatTime(moment(chatMessage.CreateTime));
         chatMessage.Content = chatMessage.Content.replace(/\r\n/g, "<br />").replace(/\n/g, "<br />");
-        var tempDiv = $('<div>' + chatMessage.Content + '</div>');
-        var chatMessageContent = tempDiv.emoticons(DEFAULT_OBJECT.emoticonsFolder).profanityFilter({
-            customSwears: swearWords
-        });
+        var tempDiv = $('<div>' + chatMessage.Content + '</div>'),
+            chatMessageContent = tempDiv.emoticons(DEFAULT_OBJECT.emoticonsFolder).profanityFilter({
+                customSwears: swearWords
+            });
         chatMessage.Content = chatMessageContent.html();
         chatMessageContent = null;
 
@@ -94,8 +94,8 @@ function ChatClient(chatUser, chatRoom) {
 
     me.updateChatMessageHistory = function (chatMessages) {
         me.historyMessages = chatMessages;
-        var messageLength = me.historyMessages.length;
-        var lastMessageArray = [];
+        var messageLength = me.historyMessages.length,
+            lastMessageArray = [];
 
         if (me.numberOfHistoryMessagesShowing > messageLength) {
             lastMessageArray = me.historyMessages;
@@ -167,21 +167,6 @@ function ChatClient(chatUser, chatRoom) {
         return userChatNameList.join(', ');
     };
 
-//    me.showDetailUserList = function () {
-//        
-//        if (me.currentUserInRoomList && me.currentUserInRoomList.length > 0)
-//        {
-//            var userRoomLength = me.currentUserInRoomList.length;
-//            var userChatNameList = [];
-//            for (var i = 0; i < userRoomLength; i++) {
-//                var chatUserInRoom = me.currentUserInRoomList[i];
-//                userChatNameList.push(chatUserInRoom.ChatUser.ChatName);
-//            }
-
-//            alert(userChatNameList.join('\n'));
-//        }
-//    };
-
     me.kickOutChatUser = function (chatUserId) {
         if (chatUserId === me.chatUser.chatUserId) {
             location.href = DEFAULT_OBJECT.kickedOutPage;
@@ -224,8 +209,8 @@ function ChatClient(chatUser, chatRoom) {
 
     me.renderUserNotification = function (chatUser, messageText, isJoin) {
         var message = '<span class="notification-name">' + chatUser.ChatName + '</span>'
-                    + '<span class="notification-message"> ' + messageText + '</span>';
-        var classMessage = isJoin ? 'joined-message' : 'left-message';
+                    + '<span class="notification-message"> ' + messageText + '</span>',
+            classMessage = isJoin ? 'joined-message' : 'left-message';
 
         me.appendUserNotification(message, classMessage);
         me.resetContinueMessage();
@@ -248,10 +233,7 @@ function ChatClient(chatUser, chatRoom) {
     };
 
     me.scrollTop = function () {
-        ///var scrollTopTimeOutId = setTimeout(function () {
-            me.$parentMainChatRoom.animate({ scrollTop: me.$mainChatRoom.height() + 2000 });
-        //    clearTimeout(scrollTopTimeOutId);
-        //}, 10);
+        me.$parentMainChatRoom.animate({ scrollTop: me.$mainChatRoom.height() + 2000 });
     };
 
     me.randomColor = function () {

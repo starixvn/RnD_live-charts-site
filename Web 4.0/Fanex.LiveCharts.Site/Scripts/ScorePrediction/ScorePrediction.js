@@ -56,8 +56,8 @@ function ScorePrediction (
             totalPrediction = predictionOptionTotal.TotalPrediction;
 
         for (var i in predictionOptionTotal.ScorePredictionOptions) {
-            var option = predictionOptionTotal.ScorePredictionOptions[i];
-            var handicapValue = option.HomeScore - option.AwayScore;
+            var option = predictionOptionTotal.ScorePredictionOptions[i],
+                handicapValue = option.HomeScore - option.AwayScore;
             if (handicapValue > 4) {
                 handicapValue = '>+4';
             }

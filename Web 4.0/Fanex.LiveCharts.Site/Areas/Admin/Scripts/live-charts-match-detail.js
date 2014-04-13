@@ -270,10 +270,11 @@ var MatchDetail = (function ($) {
         submitEvent: function () {
             if (!FormValidator.validate(MatchDetail.errorSummary, MatchDetail.eventForm))
             { return false; }
-            var recordedTime = MatchDetail.txtRecordedTime.val();
-            var eventId = MatchDetail.spEventId.text();
-            var minute = null, second = null;
-            var url = null;
+            var recordedTime = MatchDetail.txtRecordedTime.val(),
+                eventId = MatchDetail.spEventId.text(),
+                minute = null,
+                second = null,
+                url = null;
 
             if (recordedTime !== 'undefined') {
                 var delim = recordedTime.indexOf(':');
@@ -300,8 +301,8 @@ var MatchDetail = (function ($) {
             MatchDetail.updateEvent(params);
         },
         deleteEvent: function () {
-            var eventId = MatchDetail.spEventId.text();
-            var params = {
+            var eventId = MatchDetail.spEventId.text(),
+                params = {
                 url: MatchDetail.url.deleteEventUrl,
                 EventId: eventId,
                 IsDeleted: true
@@ -385,8 +386,8 @@ FormValidator = (function ($) {
             });
 
             form.find('.edit-field input[data-val-regex-pattern]').each(function () {
-                var value = $(this).val();
-                var regex = new RegExp($(this).attr('data-val-regex-pattern'));
+                var value = $(this).val(),
+                    regex = new RegExp($(this).attr('data-val-regex-pattern'));
                 if (!regex.test(value)) {
                     $(this).attr('class', 'input-validation-error');
                     errorSummary.append($('<li>', { text: $(this).attr('data-val-regex') }));
