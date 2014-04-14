@@ -79,7 +79,7 @@
 			.message-content
             {
             	word-wrap: break-word;
-				max-width: 450px;
+				max-width: 405px;
             }
 
             .user-status
@@ -112,6 +112,28 @@
                 .user-offline
                 {
                     background-image: url("../../../Scripts/Libs/Emoticon/Images/face-sad.png");
+                }
+            }
+
+			.chat-message-status
+            {
+				.deleted-message, .avai-message
+                {
+                	background-repeat: no-repeat;
+			        height: 16px;
+			        width: 16px;
+			        vertical-align: middle;
+			        display: block;
+                }
+
+            	.deleted-message
+                {
+					background-image: url("../../../Content/Images/delete.png");
+                }
+
+				.avai-message
+                {
+					background-image: url("../../../Content/Images/check.png");
                 }
             }
     }

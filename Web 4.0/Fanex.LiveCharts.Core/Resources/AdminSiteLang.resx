@@ -369,4 +369,7 @@
   <data name="InputNumberMaxError" xml:space="preserve">
     <value>Input number cannot be greater than 99999999</value>
   </data>
+  <data name="InputNumberMaxError4" xml:space="preserve">
+    <value>Input number cannot be greater than 9999</value>
+  </data>
 </root>

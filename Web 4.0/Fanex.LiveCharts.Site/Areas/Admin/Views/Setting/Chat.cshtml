@@ -20,7 +20,12 @@
         <div class="form-row">
             <div class="lbl-field">@AdminSiteLang.Disable:</div>
             <div class="edit-field">
-                <input type="checkbox" @(Model.TermCondition.Disabled ? "checked" : string.Empty) id="cbTermConditionDisabled" />
+                <input class="chk-disable" type="checkbox" @(Model.TermCondition.Disabled ? "checked" : string.Empty) id="cbTermConditionDisabled" />
+            </div>
+        </div>
+         <div class="form-row">
+            <div class="lbl-field"></div>
+            <div class="edit-field">
                 <input id="btnUpdateTermCondition" type="submit" value="@Lang.Submit" />
             </div>
         </div>
@@ -34,13 +39,18 @@
             <div class="lbl-field">@AdminSiteLang.WelcomeMessage:</div>
             <div class="edit-field">
                 <textarea name="SettingValue" id="txtWelcomeMessage" class="term-condition-setting" >@(Model.WelcomeMessage.SettingValue)</textarea>
-                <input id="btnUpdateWelcomeMessage" type="submit" value="@Lang.Submit" />
             </div>
         </div>
         <div class="form-row">
             <div class="lbl-field">@AdminSiteLang.Disable:</div>
             <div class="edit-field">
-                <input type="checkbox" @(Model.WelcomeMessage.Disabled ? "checked" : string.Empty) id="cbWelcomeMessageDisabled" />
+                <input  class="chk-disable" type="checkbox" @(Model.WelcomeMessage.Disabled ? "checked" : string.Empty) id="cbWelcomeMessageDisabled" />
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="lbl-field"></div>
+            <div class="edit-field">
                 <input id="btnUpdateWelcomeMessage" type="submit" value="@Lang.Submit" />
             </div>
         </div>

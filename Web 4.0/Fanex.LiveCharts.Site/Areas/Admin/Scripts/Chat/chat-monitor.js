@@ -61,7 +61,7 @@ function ChatMonitor() {
                         items.ban = { name: "Ban this user", icon: "delete" };
                         break;
                     case 'kickedOut':
-                        items.recover = { name: "Re add this user", icon: "edit" };
+                        items.recover = { name: "Re add this user", icon: "add" };
                         items.ban = { name: "Ban this user", icon: "delete" };
                         break;
                     case 'banned':
@@ -97,24 +97,41 @@ function ChatMonitor() {
             selector: '#messageGrid .open-menu-remove-message',
             trigger: 'left',
             autoHide: true,
-            callback: function (key/*, options*/) {
-                var $spanData = $(this);
-                switch (key) {
-                    case 'removeThisMessage':
-                        {
-                            me.removeChatMessage($spanData.attr('data-chat-message-id'));
-                            break;
-                        }
-                    case 'removeAllMessageOfChatUser':
-                        {
-                            me.removeAllChatMessageByChatUser($spanData.attr('data-chat-user-id'));
-                            break;
-                        }
+            build: function ($trigger/*, e*/) {
+                var items = {},
+                    currentStatus = $trigger.attr('data-message-status');
+                switch (currentStatus) {
+                    case 'deleted':
+                        items.recoverThisMessage = { name: "Recover This Message", icon: "recover" };
+                        items.recoverAllMessageOfChatUser = { name: "Recover This Message From This User", icon: "recover-all" };
+                        items.removeAllMessageOfChatUser = { name: "Remove All Messages From This User ", icon: "remove-all" };
+                        break;
+                    case 'avail':
+                        items.removeThisMessage = { name: "Remove This Message", icon: "delete" };
+                        items.recoverAllMessageOfChatUser = { name: "Recover This Message From This User", icon: "recover-all" };
+                        items.removeAllMessageOfChatUser = { name: "Remove All Messages From This User ", icon: "remove-all" };
+                        break;
                 }
-            },
-            items: {
-                "removeThisMessage": { name: "Remove This Message", icon: "delete" },
-                "removeAllMessageOfChatUser": { name: "Remove All Messages From This User ", icon: "delete" }
+                return {
+                    callback: function (key/*, options*/) {
+                        var $spanData = $(this);
+                        switch (key) {
+                            case 'removeThisMessage':
+                                me.removeChatMessage($spanData.attr('data-chat-message-id'));
+                                break;
+                            case 'removeAllMessageOfChatUser':
+                                me.removeAllChatMessageByChatUser($spanData.attr('data-chat-user-id'));
+                                break;
+                            case 'recoverThisMessage':
+                                me.recoverChatMessage($spanData.attr('data-chat-message-id'));
+                                break;
+                            case 'recoverAllMessageOfChatUser':
+                                me.recoverAllChatMessageByChatUser($spanData.attr('data-chat-user-id'));
+                                break;
+                        }
+                    },
+                    items: items
+                };
             }
         });
     };
@@ -240,6 +257,24 @@ function ChatMonitor() {
             }
         });
     };
+
+    me.recoverAllChatMessageByChatUser = function (currentChatUserId) {
+        LiveChartsAdmin.callAjax({
+            url: me.chatMonitorDefault.recoverChatMessageOfChatUserUrl,
+            type: 'POST',
+            data: {
+                chatRoomName: me.chatMonitorDefault.chatRoomName,
+                chatUserId: currentChatUserId
+            },
+            done: function (deleteMessageViewModel) {
+                if (deleteMessageViewModel.IsSuccessful) {
+                    //me.removeChatMessageOnMemberSite(deleteMessageViewModel);
+                    me.initMessageGrid();
+                }
+            }
+        });
+    };
+
     me.removeChatMessageOnMemberSite = function (deleteMessageViewModel) {
         LiveChartsAdmin.callAjax({
             url: me.chatMonitorDefault.memberChartSiteUrl + '/Chat/DeleteChatMessage',
@@ -260,10 +295,7 @@ function ChatMonitor() {
             }
         });
     };
-    me.recoverChatMessage = function () {
-        var $this = $(this),
-            currentChatMessageId = $this.attr('data-chat-message-id');
-
+    me.recoverChatMessage = function (currentChatMessageId) {
         LiveChartsAdmin.callAjax({
             url: me.chatMonitorDefault.recoverChatMessageUrl,
             type: 'POST',
@@ -363,14 +395,19 @@ function ChatMonitor() {
                        }
                    },
                    { HeaderText: LANGUAGE.chatName, Width: 150, Name: 'ChatName', CellAlign: 'center' },
-                   { HeaderText: LANGUAGE.chatMessage, Width: 450, Name: 'ChatMessage', MergeHeaderColNumber: 2, CellCssClass: 'message-content' },
+                   {
+                       HeaderText: LANGUAGE.chatMessage, Width: 40, Name: 'ChatMessageStatus', CellAlign: 'center',
+                       CellCssClass: 'chat-message-status', CustomCellRender: function (cell) {
+                           return '<span class="' + (cell.Value ? 'deleted-message' : 'avai-message') + '"></span>';
+                       }, MergeHeaderColNumber: 3
+                   },
+                   { HeaderText: '', Width: 405, Name: 'ChatMessage', CellCssClass: 'message-content' },
                    {
                        HeaderText: '', Width: 40, Name: 'ChatMessageAction', CellAlign: 'center', CustomCellRender: function (cell) {
-
-                           var messageClass = cell.Value.isDeleted ? 'recover-action recover-chat-message' : 'edit-action open-menu-remove-message';
-                           var iconHtml = '<span class="' + messageClass + '"'
-                                                        + ' data-chat-message-id="' + cell.Value.chatMessageId + '"'
-                                                        + ' data-chat-user-id="' + cell.Value.chatUserId + '"'
+                           var iconHtml = '<span class="edit-action open-menu-remove-message"'
+                                                + ' data-message-status="' + (cell.Value.isDeleted ? 'deleted' : 'avail') + '"'
+                                                + ' data-chat-message-id="' + cell.Value.chatMessageId + '"'
+                                                + ' data-chat-user-id="' + cell.Value.chatUserId + '"'
                                             + '></span>';
                            return iconHtml;
                        }
@@ -415,6 +452,7 @@ function ChatMonitor() {
                },
                { Name: "ChatNameAction", Value: currentMessage.ChatUser.MemberId },
                { Name: "ChatName", Value: currentMessage.ChatUser.MemberId },
+               { Name: "ChatMessageStatus", Value: currentMessage.IsDeleted },
                {
                    Name: "ChatMessage",
                    Value: currentMessage.Content.replace(/\r\n/g, "<br />").replace(/\n/g, "<br />")

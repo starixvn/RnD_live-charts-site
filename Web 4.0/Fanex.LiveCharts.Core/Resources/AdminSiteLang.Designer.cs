@@ -385,6 +385,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Input number cannot be greater than 9999.
+        /// </summary>
+        public static string InputNumberMaxError4 {
+            get {
+                return ResourceManager.GetString("InputNumberMaxError4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid Input!.
         /// </summary>
         public static string InvalidInput {

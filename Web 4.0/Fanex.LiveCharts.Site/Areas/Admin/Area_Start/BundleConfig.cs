@@ -55,7 +55,7 @@ namespace Fanex.LiveCharts.Site.Areas.Admin.Area_Start
             bundles.Add(new ScriptBundle("~/areas/admin/chatsettingconfigjs").Include(
                 "~/Areas/Admin/Scripts/Setting/chat-setting.js"));
 
-            bundles.Add(new ScriptBundle("~/areas/admin/scorepredictionconfigjs").Include(
+            bundles.Add(new ScriptBundle("~/areas/admin/scorepredictionconfigsettingjs").Include(
                 "~/Areas/Admin/Scripts/Setting/score-prediction-setting.js"));
         }
     }
