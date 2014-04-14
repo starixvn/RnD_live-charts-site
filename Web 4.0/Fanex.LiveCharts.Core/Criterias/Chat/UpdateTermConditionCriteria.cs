@@ -19,6 +19,7 @@ namespace Fanex.LiveCharts.Criterias.Chat
         public string TermCondition { get; set; }
 
         public bool Disabled { get; set; }
+
         public override string GetSettingKey()
         {
             return "Chart_Chat_Update_Term_Condition";

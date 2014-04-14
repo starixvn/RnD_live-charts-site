@@ -46,54 +46,29 @@ function ChatMonitor() {
 
 
     me.showMenuEdit = function () {
-        $.contextMenu({
-            selector: '.context-menu-one',
-            build: function ($trigger, e) {
-                // this callback is executed every time the menu is to be shown
-                // its results are destroyed every time the menu is hidden
-                // e is the original contextmenu event, containing e.pageX and e.pageY (amongst other data)
-                return {
-                    callback: function (key, options) {
-                        var m = "clicked: " + key;
-                        window.console && console.log(m) || alert(m);
-                    },
-                    items: {
-                        "edit": { name: "Edit", icon: "edit" },
-                        "cut": { name: "Cut", icon: "cut" },
-                        "copy": { name: "Copy", icon: "copy" },
-                        "paste": { name: "Paste", icon: "paste" },
-                        "delete": { name: "Delete", icon: "delete" },
-                        "sep1": "---------",
-                        "quit": { name: "Quit", icon: "quit" }
-                    }
-                };
-            }
-        });
 
         //// Edit Chat User Menu
         $.contextMenu({
             selector: '#messageGrid .open-menu-remove-user',
             trigger: 'left',
             autoHide: true,
-            build: function ($trigger, e) {
+            build: function ($trigger/*, e*/) {
                 var items = {},
                     currentStatus = $trigger.attr('data-user-status');
-                switch(currentStatus)
-                {
+                switch (currentStatus) {
                     case 'active':
                         items.kickout = { name: "Kick out this user", icon: "delete" };
-                        items.ban = { name: "Ban this user", icon: "delete" }
+                        items.ban = { name: "Ban this user", icon: "delete" };
                         break;
                     case 'kickedOut':
                         items.recover = { name: "Re add this user", icon: "edit" };
-                        items.ban = { name: "Ban this user", icon: "delete" }
+                        items.ban = { name: "Ban this user", icon: "delete" };
                         break;
                     case 'banned':
                         items.unban = { name: "Un ban this user", icon: "cut" };
                         break;
                 }
-                //'kickout': { name: "Kick out this user", icon: "delete" },
-                //    'ban': { name: "Ban this user", icon: "delete" }
+
                 return {
                     callback: function (key/*, options*/) {
                         var $spanData = $(this),
@@ -155,17 +130,15 @@ function ChatMonitor() {
             },
             done: function (banViewModel) {
                 var result = banViewModel.CommandResult;
-                if (!isBan)
-                {
+                if (!isBan) {
                     result = banViewModel;
                 }
                 if (result.IsSuccessful) {
                     if (isBan) {
                         LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.success, LANGUAGE.banChatUserSuccess);
                     }
-                    else
-                    {
-                        LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.success, LANGUAGE.recoverChatUser)
+                    else {
+                        LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.success, LANGUAGE.recoverChatUser);
                     }
 
                     me.initMessageGrid();
@@ -347,7 +320,8 @@ function ChatMonitor() {
         columns: [
                    { HeaderText: LANGUAGE.timeGTM8, Width: 150, Name: 'Time', CellAlign: 'center', FormatDateTime: 'DD MMM, YYYY hh:mm A' },
                    {
-                       HeaderText: LANGUAGE.username, Width: 40, Name: 'ChatUserStatus', CellAlign: 'center', CellCssClass: 'user-status', CustomCellRender: function (cell) {
+                       HeaderText: LANGUAGE.username, Width: 40, Name: 'ChatUserStatus', CellAlign: 'center', 
+                       CellCssClass: 'user-status', CustomCellRender: function (cell) {
                            var currentUser = me.usersStatus[cell.Value],
                                userStatusClass = 'user-online';
                            if (currentUser.ChatUser.IsBanned)

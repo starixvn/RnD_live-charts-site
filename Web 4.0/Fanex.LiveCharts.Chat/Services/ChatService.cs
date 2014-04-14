@@ -548,7 +548,7 @@ namespace Fanex.LiveCharts.Chat.Services
         /// </summary>
         /// <param name="chatMessages">Message list for export excel file.</param>
         /// <param name="match">Current match information for export excel.</param>
-        /// <param name="chatRoom">Chat room information.</param>
+        /// <param name="criteria">Chat room information.</param>
         /// <param name="templeteFilePath">Template file path for reading style.</param>
         /// <returns>Workbook details.</returns>
         public HSSFWorkbook ExportChatConversation(

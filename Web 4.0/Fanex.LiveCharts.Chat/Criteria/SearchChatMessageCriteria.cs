@@ -1,12 +1,19 @@
-﻿
+﻿// --------------------------------------------------------------------------
+// <copyright file="SearchChatMessageCriteria.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="Ricky.Nguyen" date="2014.4.14">Created</change>
+// </history>
 
 namespace Fanex.LiveCharts.Chat.Criteria
 {
     using Fanex.NAP.Framework.Data;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
+
+    /// <summary>
+    /// Search chat message criteria.
+    /// </summary>
     public class SearchChatMessageCriteria : CriteriaBase
     {
         public int ChatRoomId { get; set; }

@@ -14,7 +14,7 @@
 <div class="setting-container">
     <form method="post" action="@(Url.Action("ScorePrediction", "Setting", new { Area = "Admin" }))">
     <div class="form dummy-prediction-container ">
-        <div class="form-row summary" style="@(firstTime ? "display:none;" : string.Empty)">
+        <div id="messageContainer" class="form-row summary" style="@(firstTime ? "display:none;" : string.Empty)">
                 <div class="@(success ? "validation-summary-valid" : "validation-summary-errors")" data-valmsg-summary="true">
                     <ul>
                         @if (success)
@@ -43,3 +43,16 @@
     </div>
     </form>
 </div>
+
+@section Foot {
+    <script type="text/javascript">
+        var success = @(success ? "true" : "false");
+        $(function () { 
+            if(success){
+                setTimeout(function(){
+                    $('#messageContainer').hide();
+                }, 3000);
+            }
+        });
+    </script>
+}

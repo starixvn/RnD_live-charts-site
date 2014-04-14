@@ -162,7 +162,6 @@ namespace Fanex.LiveCharts.Services.Impl
 
             return option;
         }
-                
 
         /// <summary>
         /// Check current match is stop score prediction function or not.
