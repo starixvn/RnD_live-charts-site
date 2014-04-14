@@ -366,4 +366,7 @@
   <data name="Disable" xml:space="preserve">
     <value>Disable</value>
   </data>
+  <data name="InputNumberMaxError" xml:space="preserve">
+    <value>Input number cannot be greater than 99999999</value>
+  </data>
 </root>

@@ -39,7 +39,7 @@
             <div class="form-row prediction-value">
                 <div class="lbl-field">@AdminSiteLang.VotingNumber</div>
                 <div class="edit-field">
-                    <input type="text" id="predictionValue" value="0" />
+                    <input type="text" id="predictionValue" value="0" maxlength="8" />
                 </div>
             </div>
             <div class="form-row submit-dummy-predict">
@@ -90,7 +90,8 @@
             matchId: @(Model.MatchId),
             errorMessage: '@(AdminSiteLang.InvalidInput)',
             deleteMessage: '@(AdminSiteLang.DeleteDummyDataMessage)',
-            addNewInvalidMessage: '@(AdminSiteLang.AddNewInvalidMessage)'
+            addNewInvalidMessage: '@(AdminSiteLang.AddNewInvalidMessage)',
+            maxNumberErrorMessage: '@(AdminSiteLang.InputNumberMaxError)'
         } 
     </script>
     

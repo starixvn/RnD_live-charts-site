@@ -128,6 +128,10 @@ function ScorePredictionConfigView() {
             me.$messageSummaryDetails.append('<li>' + SCORE_PREDICTION_CONFIG.errorMessage + '</li>');
             isValid = false;
         }
+        else if (currentPredictionValue.length >= 9) {
+            me.$messageSummaryDetails.append('<li>' + SCORE_PREDICTION_CONFIG.maxNumberErrorMessage + '</li>');
+            isValid = false;
+        }
 
         if (!isValid) {
             me.$messageSummaryContainer.show();

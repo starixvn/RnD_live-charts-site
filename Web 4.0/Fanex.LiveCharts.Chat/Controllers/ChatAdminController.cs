@@ -53,11 +53,16 @@ namespace Fanex.LiveCharts.Chat.Controllers
         /// <returns>Chat monitor page.</returns>
         public ActionResult ChatMonitor(int matchId)
         {
-            var chatMonitorViewModel = GetChatMonitorViewMode(matchId);
+            var chatMonitorViewModel = GetChatMonitorViewModel(matchId);
 
             return View("~/Areas/Admin/Views/Chat/ChatMonitor.cshtml", chatMonitorViewModel);
         }
 
+        /// <summary>
+        /// Search chat messages.
+        /// </summary>
+        /// <param name="criteria">Search message criteria.</param>
+        /// <returns>Message List.</returns>
         [HttpPost]
         public JsonResult GetChatMessages(SearchChatMessageCriteria criteria)
         {
@@ -81,6 +86,13 @@ namespace Fanex.LiveCharts.Chat.Controllers
             });
         }
 
+        /// <summary>
+        /// Export message to excel file.
+        /// </summary>
+        /// <param name="matchId">Current match id.</param>
+        /// <param name="chatUserId">Current chat user id need to export.</param>
+        /// <param name="searchText">Message for searching.</param>
+        /// <returns>Excel result file.</returns>
         [HttpGet]
         public ExcelResult ExportExcel(
             int matchId,
@@ -88,13 +100,14 @@ namespace Fanex.LiveCharts.Chat.Controllers
             string searchText = "")
         {
             var templeteFilePath = Server.MapPath(@"~/App_Data/ExcelTemplate/MonitorChatConversationExportExcel.xls");
-            var chatMonitorViewModel = GetChatMonitorViewMode(matchId);
+            var chatMonitorViewModel = GetChatMonitorViewModel(matchId);
             var sessionKey = string.Format(ChatMonitorSessionKey, chatMonitorViewModel.ChatRoom.ChatRoomId);
             var chatMessages = HttpContext.Session[sessionKey] as IEnumerable<ChatMessage>;
             var hssfWorkBook = _chatService.ExportChatConversation(
                 chatMessages,
                 chatMonitorViewModel.Match, 
-                new SearchChatMessageCriteria { 
+                new SearchChatMessageCriteria 
+                { 
                     ChatRoomId = chatMonitorViewModel.ChatRoom.ChatRoomId,
                     SearchText = searchText,
                     ChatUserId = chatUserId,
@@ -126,7 +139,8 @@ namespace Fanex.LiveCharts.Chat.Controllers
         [HttpPost]
         public JsonResult RecoverBannedChatUser(int chatUserId)
         {
-            return Json(_chatService.UpdateChatUser(new UpdateChatUserCriteria { 
+            return Json(_chatService.UpdateChatUser(new UpdateChatUserCriteria 
+            { 
                 ChatUserId = chatUserId,
                 IsBanned = false
             }));
@@ -182,7 +196,12 @@ namespace Fanex.LiveCharts.Chat.Controllers
 
         #region Private actions
 
-        private ChatMonitorViewModel GetChatMonitorViewMode(int matchId)
+        /// <summary>
+        /// Get Chat monitor view model.
+        /// </summary>
+        /// <param name="matchId">Current match need get chart.</param>
+        /// <returns>Chat monitor view model.</returns>
+        private ChatMonitorViewModel GetChatMonitorViewModel(int matchId)
         {
             var chatRooms = _chatService.GetChatRoomByMatchId(new GetChatRoomByMatchIdCriteria
             {

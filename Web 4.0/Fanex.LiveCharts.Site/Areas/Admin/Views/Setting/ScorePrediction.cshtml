@@ -12,10 +12,10 @@
         <span class="title">@ViewBag.Title</span></h1>
 }
 <div class="setting-container">
-    <form method="post" action="@(Url.Action("ScorePrediction", "Setting", new { Area = "Admin" }))">
+    <form method="post" id="availableForm" action="@(Url.Action("ScorePrediction", "Setting", new { Area = "Admin" }))">
     <div class="form dummy-prediction-container ">
         <div id="messageContainer" class="form-row summary" style="@(firstTime ? "display:none;" : string.Empty)">
-                <div class="@(success ? "validation-summary-valid" : "validation-summary-errors")" data-valmsg-summary="true">
+                <div id="messageList" class="@(success ? "validation-summary-valid" : "validation-summary-errors")" data-valmsg-summary="true">
                     <ul>
                         @if (success)
                         {
@@ -46,13 +46,12 @@
 
 @section Foot {
     <script type="text/javascript">
-        var success = @(success ? "true" : "false");
-        $(function () { 
-            if(success){
-                setTimeout(function(){
-                    $('#messageContainer').hide();
-                }, 3000);
-            }
-        });
+        var SCORE_PREDICTION_SETTING = 
+        {
+            defaultSucces: @(success ? "true" : "false"),
+            maxInputErrorMessage: "@(AdminSiteLang.InputNumberMaxError)"
+        };
     </script>
+
+     @Scripts.Render("~/areas/admin/scorepredictionconfigjs")
 }
