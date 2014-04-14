@@ -80,7 +80,7 @@
     <file relUrl="Content/themes/base/minified/images/ui-bg_glass_95_fef1ec_1x400.png" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Areas/UserLogin/themes/img/lock.png" publishTime="03/20/2014 21:33:50" />
     <file relUrl="Scripts/Libs/Bootstrap/bootstrap-dropdown.js" publishTime="03/20/2014 21:33:50" />
-    <file relUrl="Areas/Admin/Content/AdminSite.less" publishTime="04/08/2014 11:36:56" />
+    <file relUrl="Areas/Admin/Content/AdminSite.less" publishTime="04/14/2014 14:58:55" />
     <file relUrl="Areas/UserLogin/scripts/ReCheckIn.js" publishTime="03/20/2014 21:34:06" />
     <file relUrl="bin/ServiceStack.Redis.dll" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Scripts/Libs/ProfanityFilter/swearWords.js" publishTime="04/03/2014 21:34:52" />
@@ -143,7 +143,7 @@
     <file relUrl="Content/themes/reset.css" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Content/Images/down1.png" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Scripts/Libs/Fanex.Grid/images/sort-icon-new.png" publishTime="04/03/2014 21:34:52" />
-    <file relUrl="Areas/Admin/Scripts/Chat/chat-monitor.js" publishTime="04/14/2014 10:32:27" />
+    <file relUrl="Areas/Admin/Scripts/Chat/chat-monitor.js" publishTime="04/14/2014 15:11:39" />
     <file relUrl="bin/zh-TW/Fanex.LiveCharts.resources.dll" publishTime="04/14/2014 12:43:25" />
     <file relUrl="Views/Introduction/zh-TW/Chart.cshtml" publishTime="03/20/2014 21:33:50" />
     <file relUrl="Content/Bootstrap/hero-unit.less" publishTime="12/17/2013 11:18:14" />
@@ -387,7 +387,7 @@
     <file relUrl="bin/MvcPager.dll" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Scripts/ScorePrediction/ScorePrediction.js" publishTime="04/14/2014 08:44:14" />
     <file relUrl="Content/themes/nap/img/combo-pickr/inner.png" publishTime="12/17/2013 11:18:14" />
-    <file relUrl="Areas/Admin/Content/Chat.less" publishTime="04/14/2014 08:44:14" />
+    <file relUrl="Areas/Admin/Content/Chat.less" publishTime="04/14/2014 13:59:44" />
     <file relUrl="Areas/Admin/Views/Match/GetEnableCharts.cshtml" publishTime="04/03/2014 21:34:52" />
     <file relUrl="Scripts/Libs/jquery.signalR-1.2.1.min.js" publishTime="03/20/2014 21:34:06" />
     <file relUrl="Areas/Admin/Scripts/live-charts-admin-site.js" publishTime="04/03/2014 21:34:52" />
@@ -489,7 +489,7 @@
     <file relUrl="bin/Microsoft.AspNet.SignalR.SystemWeb.dll" publishTime="03/19/2014 17:15:53" />
     <file relUrl="Content/Bootstrap/wells.less" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Views/ScorePrediction/ResultPage.cshtml" publishTime="04/03/2014 21:34:52" />
-    <file relUrl="Areas/Admin/Views/Setting/Chat.cshtml" publishTime="04/14/2014 08:44:14" />
+    <file relUrl="Areas/Admin/Views/Setting/Chat.cshtml" publishTime="04/14/2014 14:58:09" />
     <file relUrl="bin/NPOI.xml" publishTime="01/05/2014 09:51:15" />
     <file relUrl="Content/Images/tile_bg.jpg" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Scripts/Libs/Emoticon/Images/face-angel.png" publishTime="04/03/2014 21:34:52" />

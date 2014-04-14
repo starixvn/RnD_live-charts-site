@@ -15,13 +15,12 @@ function ChatClient(chatUser, chatRoom) {
     me.firstMessageBelongToChatUserId = 0;
     me.isNextMessageFromSameUser = false;
     me.numberOfHistoryMessagesShowing = 12;
-    me.numberOfHistoryMessagesPaging = 100;
+    me.numberOfHistoryMessagesPaging = 12;
     me.isBrowserHidden = false;
     me.historyMessages = [];
     me.userList = {};
 
     me.cachedDomElement = function () {
-
         me.$mainChatRoom = $('#mainChatRoom');
         me.$parentMainChatRoom = me.$mainChatRoom.parent();
         me.$txtMessageInput = $('#messageInput');
@@ -133,12 +132,12 @@ function ChatClient(chatUser, chatRoom) {
             fromIndex = 0,
             toIndex = currentMessageLength - currentShowingMessageIndex - 1;
         if (currentShowingMessageIndex + me.numberOfHistoryMessagesPaging < currentMessageLength) {
-            fromIndex = me.numberOfHistoryMessagesPaging - me.numberOfHistoryMessagesPaging;
+            fromIndex = toIndex - me.numberOfHistoryMessagesPaging + 1;
         }
 
         for (var i = toIndex; i >= fromIndex; i--) {
             var previousUserId = 0;
-            if (i > 0) {
+            if (i > 0 && i !== fromIndex) {
                 previousUserId = me.historyMessages[i - 1].ChatUser.ChatUserId;
             }
             me.prependHistoryMessage(me.historyMessages[i], previousUserId);
