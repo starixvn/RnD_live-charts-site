@@ -341,7 +341,8 @@ namespace Fanex.LiveCharts.Chat.Services
 
                 if (chatHub != null)
                 {
-                    chatHub.Clients.Group(updateMessageByChatUser.ChatRoomName).updateAllChatMessageByChatUser(updateMessageByChatUser.ChatUserId, updateMessageByChatUser.IsDeleted);
+                    chatHub.Clients.Group(updateMessageByChatUser.ChatRoomName)
+                        .updateAllChatMessageByChatUser(updateMessageByChatUser.ChatUserId, updateMessageByChatUser.IsDeleted);
                 }
             }
             catch (Exception ex)
@@ -404,9 +405,7 @@ namespace Fanex.LiveCharts.Chat.Services
         /// <summary>
         /// Delete chat message on admin site, just update database and then call member site.
         /// </summary>
-        /// <param name="chatMessageId">Chat message id for update.</param>
-        /// <param name="chatRoomName">Chat room name for broadcast delete command.</param>
-        /// <param name="deleteBy">Delete by admin id.</param>
+        /// <param name="updateChatMessageCriteria">Chat message id for update.</param>
         /// <returns>Delete chat message information.</returns>
         public UpdateChatMessageViewModel UpdateChatMessageOnAdminSite(UpdateChatMessageCriteria updateChatMessageCriteria)
         {
@@ -431,9 +430,7 @@ namespace Fanex.LiveCharts.Chat.Services
         /// <summary>
         /// Delete Chat Message on admin site, and then remove that message on client site.
         /// </summary>
-        /// <param name="chatUserId">Chat User id need removed message.</param>
-        /// <param name="chatRoomName">Chat room name need remove.</param>
-        /// <param name="deleteBy">Which admin delete.</param>
+        /// <param name="updateChatMessageByChatUserCriteria">Chat User id need removed message.</param>
         /// <returns>Delete status.</returns>
         public UpdateChatMessageByChatUserViewModel UpdateChatMessageByChatUserOnAdminSite(UpdateChatMessageByChatUserCriteria updateChatMessageByChatUserCriteria)
         {
