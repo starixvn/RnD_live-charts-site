@@ -196,7 +196,7 @@ function ChatWindow() {
 
     me.insertChatUser = function () {
         var chatName = me.$txtChatName.val();
-        if (chatName != null && chatName !== '') {
+        if (me.validateChatName(chatName)) {
             LIVECHARTS.callAjax({
                 url: me.url.insertChatUserUrl,
                 type: 'POST',
@@ -210,7 +210,7 @@ function ChatWindow() {
                         me.chatUser.chatUserId = result.InsertedId;
                         me.chatUser.chatName = chatName;
                         me.askJoinRoom();
-                        
+
                     }
                     else {
                         LIVECHARTS.alertMessage(LIVECHARTS.messageType.error, result.CommandResult.Message);
@@ -218,17 +218,27 @@ function ChatWindow() {
                 }
             });
         }
-        else {
+    };
+
+    me.validateChatName = function (chatName) {
+        if (!chatName || /^\s*$/.test(chatName)) {
             LIVECHARTS.alertMessage(LIVECHARTS.messageType.error, LANGUAGE.chatNameCannotEmpty);
             me.$txtChatName.focus();
+            return false;
         }
+        else if (chatName.length > 50) {
+            LIVECHARTS.alertMessage(LIVECHARTS.messageType.error, LANGUAGE.maxLengthChatName);
+            return;
+        }
+
+        return true;
     };
 
     me.joinRoom = function () {
         if (me.$popupJoinRoom.length > 0) {
             me.$popupJoinRoom.modal('hide');
         }
-
+        me.chatClient.joinRoom();
         me.registerEvents();
         me.chatServer.joinRoom();
     };

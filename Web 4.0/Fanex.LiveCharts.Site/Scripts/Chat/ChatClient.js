@@ -19,6 +19,7 @@ function ChatClient(chatUser, chatRoom) {
     me.isBrowserHidden = false;
     me.historyMessages = [];
     me.userList = {};
+    me.userColor = '#f00';
 
     me.cachedDomElement = function () {
         me.$mainChatRoom = $('#mainChatRoom');
@@ -29,7 +30,12 @@ function ChatClient(chatUser, chatRoom) {
         me.$btnShowHistoryMessage = $('#showMessageHistory');
     };
     me.init = function () {
+        
         me.cachedDomElement();
+    };
+
+    me.joinRoom = function () {
+        me.userList[me.chatUser.chatUserId] = me.userColor;
     };
 
     me.addMessage = function (chatMessage, stopScrollTop) {
@@ -258,9 +264,12 @@ function ChatClient(chatUser, chatRoom) {
     };
 
     me.randomColor = function () {
-        var randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+        var randomColor = '';
+        for (var i = 0; i < 6; i++) {
+            randomColor += '' + parseInt(Math.random() * 9);
+        }
 
-        return randomColor;
+        return '#' + randomColor;
     };
 
     me.playSound = function (filename) {

@@ -556,6 +556,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chat name length cannot greater than 50 characters..
+        /// </summary>
+        public static string MaxLengthChatNameMessage {
+            get {
+                return ResourceManager.GetString("MaxLengthChatNameMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Members.
         /// </summary>
         public static string Members {

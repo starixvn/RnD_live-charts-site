@@ -19,7 +19,6 @@ namespace Fanex.LiveCharts.Controllers.Admin
     using Fanex.LiveCharts.ViewModel.Chat;
     using Fanex.NAP.Core.Web.Attribute;
     using Fanex.NAP.Framework.Data;
-    using System.Web;
 
     /// <summary>
     /// TODO: Update summary.

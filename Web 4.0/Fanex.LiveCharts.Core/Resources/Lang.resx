@@ -453,4 +453,7 @@
   <data name="SorrryChatUnavailable" xml:space="preserve">
     <value>Sorry, this room is not available!</value>
   </data>
+  <data name="MaxLengthChatNameMessage" xml:space="preserve">
+    <value>Chat name length cannot greater than 50 characters.</value>
+  </data>
 </root>
