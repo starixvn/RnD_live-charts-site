@@ -47,7 +47,7 @@
     <file relUrl="Content/Images/goal.gif" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Content/Images/help-icon.png" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Content/themes/nap/img/tick-ico-16.png" publishTime="12/17/2013 11:18:14" />
-    <file relUrl="Scripts/Chat/ChatSignalRAdapter.js" publishTime="04/04/2014 11:15:24" />
+    <file relUrl="Scripts/Chat/ChatSignalRAdapter.js" publishTime="04/15/2014 10:47:40" />
     <file relUrl="Content/themes/base/minified/images/ui-icons_cd0a0a_256x240.png" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Content/jQueryUI/jquery-ui-1.10.3.less" publishTime="12/17/2013 11:18:14" />
     <file relUrl="App_Data/NAPCommonSpNames.xml" publishTime="12/17/2013 11:18:14" />
@@ -63,7 +63,7 @@
     <file relUrl="Content/Bootstrap/responsive-utilities.less" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Content/themes/fonts/YanoneKaffeesatz.otf" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Views/User/Error.cshtml" publishTime="03/20/2014 21:33:50" />
-    <file relUrl="Areas/Admin/Views/Chat/ChatMonitor.cshtml" publishTime="04/14/2014 08:44:14" />
+    <file relUrl="Areas/Admin/Views/Chat/ChatMonitor.cshtml" publishTime="04/15/2014 10:06:26" />
     <file relUrl="Scripts/Libs/Fanex.Grid/Fanex.Grid.less" publishTime="04/03/2014 21:34:52" />
     <file relUrl="bin/ServiceStack.Text.dll" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Areas/UserLogin/themes/img/auth-bg.png" publishTime="03/20/2014 21:33:50" />
@@ -108,7 +108,7 @@
     <file relUrl="Content/themes/nap/img/bg_tfoot.png" publishTime="12/17/2013 11:18:14" />
     <file relUrl="bin/System.Net.Http.WebRequest.dll" publishTime="07/09/2013 11:04:48" />
     <file relUrl="Content/Images/expand-new-hover.png" publishTime="12/17/2013 11:18:14" />
-    <file relUrl="bin/vi-VN/Fanex.LiveCharts.resources.dll" publishTime="04/15/2014 08:47:23" />
+    <file relUrl="bin/vi-VN/Fanex.LiveCharts.resources.dll" publishTime="04/15/2014 12:55:48" />
     <file relUrl="Content/themes/base/jquery.ui.dialog.css" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Content/jQueryUI/jquery-ui-1.10.3.custom.min.css" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Scripts/Libs/Fanex.Grid/Fanex.Pagination.less" publishTime="04/03/2014 21:34:52" />
@@ -137,16 +137,17 @@
     <file relUrl="Scripts/Libs/Fanex.Grid/images/bgtitle.png" publishTime="04/03/2014 21:34:52" />
     <file relUrl="Content/themes/nap/img/actions/btn-duplicate.png" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Areas/UserLogin/scripts/lib/msgbox/images/question.png" publishTime="03/20/2014 21:33:50" />
-    <file relUrl="Content/MovementCharts/Chat.less" publishTime="04/08/2014 13:40:22" />
+    <file relUrl="Content/MovementCharts/Chat.less" publishTime="04/15/2014 13:08:13" />
     <file relUrl="Content/Images/top_bottom_expand.png" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Scripts/Libs/Fanex.Grid/Fanex.Pagination.js" publishTime="04/03/2014 21:34:52" />
     <file relUrl="Scripts/Libs/jquery-ui-1.10.3.custom.min.js" publishTime="03/20/2014 21:33:50" />
-    <file relUrl="bin/ja-JP/Fanex.LiveCharts.resources.dll" publishTime="04/15/2014 08:47:23" />
+    <file relUrl="bin/ja-JP/Fanex.LiveCharts.resources.dll" publishTime="04/15/2014 12:55:48" />
     <file relUrl="Content/themes/reset.css" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Content/Images/down1.png" publishTime="12/17/2013 11:18:14" />
-    <file relUrl="Areas/Admin/Scripts/Chat/chat-monitor.js" publishTime="04/14/2014 15:11:39" />
+    <file relUrl="Areas/Admin/Scripts/Chat/chat-monitor.js" publishTime="04/15/2014 12:33:02" />
     <file relUrl="Content/themes/nap/img/win8/editing/cllipboard.png" publishTime="12/17/2013 11:18:14" />
-    <file relUrl="bin/zh-TW/Fanex.LiveCharts.resources.dll" publishTime="04/15/2014 08:47:23" />
+    <file relUrl="bin/zh-TW/Fanex.LiveCharts.resources.dll" publishTime="04/15/2014 12:55:49" />
+    <file relUrl="Scripts/Libs/Chosen/chosen.less" publishTime="04/10/2014 11:25:50" />
     <file relUrl="Views/Introduction/zh-TW/Chart.cshtml" publishTime="03/20/2014 21:33:50" />
     <file relUrl="Content/Bootstrap/hero-unit.less" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Content/Bootstrap/wells.less" publishTime="12/17/2013 11:18:14" />
@@ -154,7 +155,7 @@
     <file relUrl="Content/themes/base/images/ui-icons_cd0a0a_256x240.png" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Scripts/Libs/Emoticon/Images/face-monkey.png" publishTime="04/03/2014 21:34:52" />
     <file relUrl="Content/themes/base/images/ui-bg_glass_75_dadada_1x400.png" publishTime="12/17/2013 11:18:14" />
-    <file relUrl="Scripts/Chat/ChatClient.js" publishTime="04/15/2014 08:21:25" />
+    <file relUrl="Scripts/Chat/ChatClient.js" publishTime="04/15/2014 12:49:07" />
     <file relUrl="Content/themes/base/images/ui-bg_highlight-soft_75_cccccc_1x100.png" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Content/jQueryUI/images/animated-overlay.gif" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Scripts/Libs/HighChart/highcharts.src.js" publishTime="04/03/2014 21:34:52" />
@@ -171,7 +172,7 @@
     <file relUrl="Content/Bootstrap/pagination.less" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Content/MovementCharts/ScorePredictionResult.less" publishTime="03/19/2014 09:28:53" />
     <file relUrl="Views/Shared/Error.cshtml" publishTime="04/03/2014 21:34:52" />
-    <file relUrl="bin/Fanex.LiveCharts.pdb" publishTime="04/15/2014 08:47:22" />
+    <file relUrl="bin/Fanex.LiveCharts.pdb" publishTime="04/15/2014 12:55:48" />
     <file relUrl="Scripts/Libs/Fanex.Grid/images/icn_edit.png" publishTime="04/03/2014 21:34:52" />
     <file relUrl="Content/themes/base/images/ui-icons_454545_256x240.png" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Content/MovementCharts/MovementCharts.less" publishTime="03/05/2014 13:29:35" />
@@ -190,7 +191,7 @@
     <file relUrl="Content/themes/nap/img/win8/editing/erase.png" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Scripts/Libs/Bootstrap/bootstrap-tooltip.js" publishTime="03/20/2014 21:33:50" />
     <file relUrl="Areas/Admin/Views/Setting/ScorePrediction.cshtml" publishTime="04/14/2014 12:42:48" />
-    <file relUrl="bin/Fanex.LiveCharts.Site.pdb" publishTime="04/15/2014 08:48:09" />
+    <file relUrl="bin/Fanex.LiveCharts.Site.pdb" publishTime="04/15/2014 13:12:47" />
     <file relUrl="Scripts/Libs/Emoticon/Images/face-wink.png" publishTime="04/03/2014 21:34:52" />
     <file relUrl="Areas/UserLogin/themes/img/username.png" publishTime="03/20/2014 21:33:50" />
     <file relUrl="Content/themes/nap/img/actions/dd/chgpwd-ico.png" publishTime="12/17/2013 11:18:14" />
@@ -258,7 +259,7 @@
     <file relUrl="Content/themes/nap/img/setting.png" publishTime="12/17/2013 11:18:14" />
     <file relUrl="bin/System.Web.Razor.dll" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Scripts/Libs/Fanex.Grid/Language/Fanex.Gird.Lang.ko-KR.js" publishTime="04/03/2014 21:34:52" />
-    <file relUrl="bin/th-TH/Fanex.LiveCharts.resources.dll" publishTime="04/15/2014 08:47:23" />
+    <file relUrl="bin/th-TH/Fanex.LiveCharts.resources.dll" publishTime="04/15/2014 12:55:48" />
     <file relUrl="bin/System.Net.Http.WebRequest.xml" publishTime="06/29/2012 01:00:12" />
     <file relUrl="Content/themes/nap/img/grid-view.png" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Content/themes/base/jquery.ui.all.css" publishTime="12/17/2013 11:18:14" />
@@ -297,7 +298,7 @@
     <file relUrl="Content/Images/help-image.png" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Content/Bootstrap/progress-bars.less" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Content/themes/fonts/YanoneKaffeesatz.eot" publishTime="12/17/2013 11:18:14" />
-    <file relUrl="Views/Chat/Index.cshtml" publishTime="04/14/2014 08:44:14" />
+    <file relUrl="Views/Chat/Index.cshtml" publishTime="04/15/2014 12:50:57" />
     <file relUrl="Scripts/Libs/Fanex.Grid/Language/Fanex.Gird.Lang.th-TH.js" publishTime="04/03/2014 21:34:52" />
     <file relUrl="bin/System.Web.Http.xml" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Views/Charts/OpenSoon.cshtml" publishTime="03/20/2014 21:33:50" />
@@ -307,7 +308,7 @@
     <file relUrl="Content/Bootstrap/responsive-navbar.less" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Content/themes/base/jquery-ui.css" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Content/Images/down-arrow.png" publishTime="12/17/2013 11:18:14" />
-    <file relUrl="bin/Fanex.LiveCharts.dll" publishTime="04/15/2014 08:47:22" />
+    <file relUrl="bin/Fanex.LiveCharts.dll" publishTime="04/15/2014 12:55:48" />
     <file relUrl="Content/themes/nap/img/actions/dd/permission-ico.png" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Content/themes/base/minified/jquery.ui.selectable.min.css" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Scripts/Libs/Chosen/chosen-sprite@2x.png" publishTime="04/10/2014 11:26:24" />
@@ -345,7 +346,7 @@
     <file relUrl="Scripts/Libs/Fanex.Grid/images/expand-small.png" publishTime="04/03/2014 21:34:52" />
     <file relUrl="Content/themes/base/jquery.ui.progressbar.css" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Views/Introduction/en-US/Chart.cshtml" publishTime="03/20/2014 21:33:50" />
-    <file relUrl="bin/Fanex.LiveCharts.Chat.pdb" publishTime="04/15/2014 08:48:08" />
+    <file relUrl="bin/Fanex.LiveCharts.Chat.pdb" publishTime="04/15/2014 12:55:49" />
     <file relUrl="Scripts/Libs/Fanex.Grid/Language/Fanex.Gird.Lang.vi-VN.js" publishTime="04/03/2014 21:34:52" />
     <file relUrl="Areas/UserLogin/Views/Shared/_Layout.cshtml" publishTime="03/20/2014 21:33:49" />
     <file relUrl="bin/Enyim.Caching.dll" publishTime="12/17/2013 11:18:14" />
@@ -423,7 +424,7 @@
     <file relUrl="Web.ConnectionString.config" publishTime="04/04/2014 16:46:03" />
     <file relUrl="Content/themes/nap/img/actions/user-info-ico.png" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Scripts/ScorePrediction/ScorePredictionResultView.js" publishTime="04/03/2014 21:34:52" />
-    <file relUrl="bin/ko-KR/Fanex.LiveCharts.resources.dll" publishTime="04/15/2014 08:47:23" />
+    <file relUrl="bin/ko-KR/Fanex.LiveCharts.resources.dll" publishTime="04/15/2014 12:55:48" />
     <file relUrl="Content/Bootstrap/popovers.less" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Content/MovementCharts/OpenSoon.less" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Scripts/Libs/Fanex.Grid/images/email.png" publishTime="04/03/2014 21:34:52" />
@@ -462,7 +463,7 @@
     <file relUrl="Areas/Admin/Content/ScorePrediction.less" publishTime="04/10/2014 13:51:34" />
     <file relUrl="Content/Images/chart_curve1.png" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Content/themes/nap/img/actions/edit-ico.png" publishTime="12/17/2013 11:18:14" />
-    <file relUrl="Web.config" publishTime="04/14/2014 10:10:20" />
+    <file relUrl="Web.config" publishTime="04/15/2014 12:56:23" />
     <file relUrl="Content/themes/base/jquery.ui.button.css" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Content/Images/loader3.gif" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Scripts/Libs/ContextMenu/jquery.contextMenu.js" publishTime="04/10/2014 09:08:56" />
@@ -470,15 +471,16 @@
     <file relUrl="Content/themes/nap/img/textures/fabric.png" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Content/themes/nap/img/combo-pickr/closebutton.png" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Content/themes/base/minified/images/ui-bg_glass_55_fbf9ee_1x400.png" publishTime="12/17/2013 11:18:14" />
-    <file relUrl="bin/zh-CN/Fanex.LiveCharts.resources.dll" publishTime="04/15/2014 08:47:23" />
+    <file relUrl="bin/zh-CN/Fanex.LiveCharts.resources.dll" publishTime="04/15/2014 12:55:49" />
     <file relUrl="Content/themes/nap/img/combo-pickr/openbutton.png" publishTime="12/17/2013 11:18:14" />
-    <file relUrl="bin/Fanex.LiveCharts.Chat.dll" publishTime="04/15/2014 08:48:08" />
+    <file relUrl="bin/Fanex.LiveCharts.Chat.dll" publishTime="04/15/2014 12:55:50" />
     <file relUrl="bin/System.Net.Http.Formatting.xml" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Content/themes/base/images/ui-bg_glass_65_ffffff_1x400.png" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Scripts/Libs/Fanex.Grid/images/expand-icon.png" publishTime="04/03/2014 21:34:52" />
     <file relUrl="bin/ServiceStack.Common.dll" publishTime="12/17/2013 11:18:14" />
     <file relUrl="App_Data/ExcelTemplate/MonitorChatConversationExportExcel.xls" publishTime="04/02/2014 17:43:35" />
     <file relUrl="Content/jQueryUI/images/ui-bg_glass_95_fef1ec_1x400.png" publishTime="12/17/2013 11:18:14" />
+    <file relUrl="Scripts/Libs/ContextMenu/jquery.contextMenu.less" publishTime="04/14/2014 14:47:53" />
     <file relUrl="bin/Fanex.NAP.Framework.dll" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Content/themes/nap/img/sprites.png" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Areas/UserLogin/themes/img/password.png" publishTime="03/20/2014 21:33:50" />
@@ -499,7 +501,7 @@
     <file relUrl="Content/Bootstrap/sprites.less" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Scripts/Libs/angular.min.js" publishTime="03/20/2014 21:33:50" />
     <file relUrl="Content/themes/nap/grid.less" publishTime="12/17/2013 11:18:14" />
-    <file relUrl="bin/Fanex.LiveCharts.Site.dll" publishTime="04/15/2014 08:48:09" />
+    <file relUrl="bin/Fanex.LiveCharts.Site.dll" publishTime="04/15/2014 13:12:47" />
     <file relUrl="Content/themes/nap/img/win8/editing/attach.png" publishTime="12/17/2013 11:18:14" />
     <file relUrl="bin/UMControllerLibrary.dll" publishTime="12/17/2013 11:18:14" />
     <file relUrl="Scripts/Libs/ContextMenu/jquery.ui.position.js" publishTime="04/10/2014 09:08:56" />

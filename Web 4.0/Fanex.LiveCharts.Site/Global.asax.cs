@@ -19,6 +19,8 @@ namespace Fanex.LiveCharts.Site
     using Fanex.Data.Configuration;
     using Fanex.Logging;
     using Newtonsoft.Json;
+    using Fanex.LiveCharts.Core;
+    using Microsoft.AspNet.SignalR;
 
     // Note: For instructions on enabling IIS6 or IIS7 classic mode,
     // visit http://go.microsoft.com/?LinkId=9394801
@@ -36,6 +38,8 @@ namespace Fanex.LiveCharts.Site
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
+
+            //GlobalHost.DependencyResolver.UseRedis(AppSettings.RedisHost, AppSettings.RedisPort, "password", "ChatApp");
 
             RouteTable.Routes.MapHubs();
 

@@ -117,7 +117,9 @@ function ChatClient(chatUser, chatRoom) {
         }
 
         me.scrollTop();
-        me.appendUserNotification(DEFAULT_OBJECT.welcomeMessage, 'welcome-message');
+        if (!DEFAULT_OBJECT.disabledWelcomeMessage) {
+            me.appendUserNotification(DEFAULT_OBJECT.welcomeMessage, 'welcome-message');
+        }
     };
 
     me.updateUserList = function (userInRoomList) {
