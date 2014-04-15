@@ -9,14 +9,17 @@
 
 namespace Fanex.LiveCharts.Chat.ViewModels
 {
+    using System;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class DeleteChatMessageViewModel
+    public class UpdateChatMessageViewModel
     {
-        public ICommandResult CommandResult { get; set; }
+        public CommandResult CommandResult { get; set; }
+
+        public bool IsDeleted { get; set; }
 
         public int ChatMessageId { get; set; }
 

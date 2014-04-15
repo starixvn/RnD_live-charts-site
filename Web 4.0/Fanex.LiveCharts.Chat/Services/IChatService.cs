@@ -66,18 +66,18 @@ namespace Fanex.LiveCharts.Chat.Services
 
         ICommandResult KickOutChatUserOnMemberSite(KickOutChatUserViewModel kickOutChatUserViewModel);
 
-        ICommandResult DeleteChatMessageOnMemberSite(DeleteChatMessageViewModel deleteChatMessageViewModel);
+        ICommandResult UpdateChatMessageOnMemberSite(UpdateChatMessageViewModel deleteChatMessageViewModel);
 
         ICommandResult BanChatUserOnMemberSite(BanChatUserViewModel banChatUser);
 
-        ICommandResult DeleteChatMessageByChatUserIdOnMemberSite(DeleteChatMessageByChatUserViewModel deleteMessageByChatUser);
+        ICommandResult UpdateChatMessageByChatUserIdOnMemberSite(UpdateChatMessageByChatUserViewModel deleteMessageByChatUser);
 
         KickOutChatUserViewModel KickOutChatUserOnAdminSite(int chatUserId, int chatRoomId);
 
-        DeleteChatMessageViewModel DeleteChatMessageOnAdminSite(int chatMessageId, string chatRoomName, int deleteBy);
+        UpdateChatMessageViewModel UpdateChatMessageOnAdminSite(UpdateChatMessageCriteria updateChatMessageCriteria);
 
         BanChatUserViewModel BanChatUserOnAdminSite(int chatUserId);
 
-        DeleteChatMessageByChatUserViewModel DeleteChatMessageByChatUserOnAdminSite(int chatUserId, string chatRoomName, int deleteBy);
+        UpdateChatMessageByChatUserViewModel UpdateChatMessageByChatUserOnAdminSite(UpdateChatMessageByChatUserCriteria updateChatMessageByChatUserCriteria);
     }
 }

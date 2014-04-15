@@ -450,4 +450,7 @@
   <data name="Out" xml:space="preserve">
     <value>Out</value>
   </data>
+  <data name="SorrryChatUnavailable" xml:space="preserve">
+    <value>Sorry, this room is not available!</value>
+  </data>
 </root>

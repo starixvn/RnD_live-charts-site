@@ -142,20 +142,22 @@ namespace Fanex.LiveCharts.Chat.Controllers
             return Json(_chatService.UpdateChatUser(new UpdateChatUserCriteria 
             { 
                 ChatUserId = chatUserId,
-                IsBanned = false
+                IsBanned = false,
             }));
         }
 
         [HttpPost]
-        public JsonResult DeleteChatMessage(int chatMessageId, string chatRoomName)
+        public JsonResult UpdateChatMessage(UpdateChatMessageCriteria updateChatCriteria)
         {
-            return Json(_chatService.DeleteChatMessageOnAdminSite(chatMessageId, chatRoomName, SessionManager.CurrentSession.AdminId));
+            updateChatCriteria.DeletedBy = SessionManager.CurrentSession.AdminId;
+            return Json(_chatService.UpdateChatMessageOnAdminSite(updateChatCriteria));
         }
 
         [HttpPost]
-        public JsonResult DeleteAllChatMessageByChatUser(int chatUserId, string chatRoomName)
+        public JsonResult UpdateAllChatMessageByChatUser(UpdateChatMessageByChatUserCriteria updateChatByChatUserCriteria)
         {
-            return Json(_chatService.DeleteChatMessageByChatUserOnAdminSite(chatUserId, chatRoomName, SessionManager.CurrentSession.AdminId));
+            updateChatByChatUserCriteria.DeletedBy = SessionManager.CurrentSession.AdminId;
+            return Json(_chatService.UpdateChatMessageByChatUserOnAdminSite(updateChatByChatUserCriteria));
         }
 
         [HttpPost]
@@ -168,30 +170,6 @@ namespace Fanex.LiveCharts.Chat.Controllers
                 IsKickOut = false
             });
             return Json(updateResult);
-        }
-
-        [HttpPost]
-        public JsonResult RecoverChatMessage(int chatMessageId)
-        {
-            var updateResult = _chatService.UpdateChatMessage(new UpdateChatMessageCriteria
-            {
-                ChatMessageId = chatMessageId,
-                IsDelete = false,
-                DeletedBy = SessionManager.CurrentSession.AdminId
-            });
-            return Json(updateResult);
-        }
-
-        [HttpPost]
-        public JsonResult RecoverChatMessageOfChatUser(int chatUserId)
-        {
-            var recoverChatMessageResult = _chatService.UpdateChatMessageByChatUser(new UpdateChatMessageByChatUserCriteria
-                {
-                    ChatUserId = chatUserId,
-                    IsDelete = false
-                });
-
-            return Json(recoverChatMessageResult);
         }
 
         #region Private actions

@@ -43,7 +43,7 @@ namespace Fanex.LiveCharts.Chat.Controllers
         public ActionResult Index(int matchId)
         {
             var chatViewModel = GetChatViewModel(matchId);
-            if (chatViewModel.ChatUserInRoom.KickedOut)
+            if (chatViewModel.ChatUser.IsBanned || chatViewModel.ChatUserInRoom.KickedOut)
             {
                 return RedirectToAction("KickedOut");
             }
@@ -94,9 +94,21 @@ namespace Fanex.LiveCharts.Chat.Controllers
         }
 
         [HttpPost]
-        public JsonResult DeleteChatMessage(DeleteChatMessageViewModel deleteChatMessageViewModel)
+        public JsonResult BanChatUser(BanChatUserViewModel banViewModel)
         {
-            return Json(_chatService.DeleteChatMessageOnMemberSite(deleteChatMessageViewModel));
+            return Json(_chatService.BanChatUserOnMemberSite(banViewModel));
+        }
+
+        [HttpPost]
+        public JsonResult UpdateChatMessage(UpdateChatMessageViewModel deleteChatMessageViewModel)
+        {
+            return Json(_chatService.UpdateChatMessageOnMemberSite(deleteChatMessageViewModel));
+        }
+
+        [HttpPost]
+        public JsonResult UpdateAllChatMessagesByChatUser(UpdateChatMessageByChatUserViewModel updateMessageByChatUserViewModel)
+        {
+            return Json(_chatService.UpdateChatMessageByChatUserIdOnMemberSite(updateMessageByChatUserViewModel));
         }
 
         #endregion Actions for Admin Site access

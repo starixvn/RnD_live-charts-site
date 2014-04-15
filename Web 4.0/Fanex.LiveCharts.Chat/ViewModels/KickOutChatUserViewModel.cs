@@ -26,6 +26,6 @@ namespace Fanex.LiveCharts.Chat.ViewModels
 
         public string TokenKey { get; set; }
 
-        public ICommandResult CommandResult { get; set; }
+        public CommandResult CommandResult { get; set; }
     }
 }

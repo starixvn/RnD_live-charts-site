@@ -15,7 +15,7 @@ function ChatClient(chatUser, chatRoom) {
     me.firstMessageBelongToChatUserId = 0;
     me.isNextMessageFromSameUser = false;
     me.numberOfHistoryMessagesShowing = 12;
-    me.numberOfHistoryMessagesPaging = 12;
+    me.numberOfHistoryMessagesPaging = 100;
     me.isBrowserHidden = false;
     me.historyMessages = [];
     me.userList = {};
@@ -33,23 +33,24 @@ function ChatClient(chatUser, chatRoom) {
     };
 
     me.addMessage = function (chatMessage, stopScrollTop) {
-            me.isNextMessageFromSameUser = me.lastMessageBelongToChatUserId === chatMessage.ChatUser.ChatUserId;
-            chatMessage = me.preProcessMessage(chatMessage);
-            if (typeof me.userList[chatMessage.ChatUser.ChatUserId] === 'undefined') {
-                me.userList[chatMessage.ChatUser.ChatUserId] = me.randomColor();
-            }
+        me.isNextMessageFromSameUser = me.lastMessageBelongToChatUserId === chatMessage.ChatUser.ChatUserId;
+        chatMessage = me.preProcessMessage(chatMessage);
+        if (typeof me.userList[chatMessage.ChatUser.ChatUserId] === 'undefined') {
+            me.userList[chatMessage.ChatUser.ChatUserId] = me.randomColor();
+        }
 
-            var messageText = me.buildMessage(chatMessage, me.isNextMessageFromSameUser);
-            me.lastMessageBelongToChatUserId = chatMessage.ChatUser.ChatUserId;
+        var messageText = me.buildMessage(chatMessage, me.isNextMessageFromSameUser);
 
-            me.$mainChatRoom.append(messageText);
-            if (!stopScrollTop) {
-                me.scrollTop();
-            }
+        me.lastMessageBelongToChatUserId = chatMessage.IsDeleted ? Math.floor((Math.random()*10000)+1) : chatMessage.ChatUser.ChatUserId;
 
-            if (me.isBrowserHidden) {
-                me.playSound(DEFAULT_OBJECT.notificationSound);
-            }
+        me.$mainChatRoom.append(messageText);
+        if (!stopScrollTop) {
+            me.scrollTop();
+        }
+
+        if (me.isBrowserHidden) {
+            me.playSound(DEFAULT_OBJECT.notificationSound);
+        }
     };
 
     me.prependHistoryMessage = function (chatMessage, chatPreviousUserId) {
@@ -65,7 +66,9 @@ function ChatClient(chatUser, chatRoom) {
     me.buildMessage = function (chatMessage, isNextMessageFromSameUser) {
         return '<li class="chat-message"'
                     + ' data-message-id="' + chatMessage.ChatMessageId + '"'
-                    + ' data-chat-user-id="' + chatMessage.ChatUser.ChatUserId + '">'
+                    + ' data-chat-user-id="' + chatMessage.ChatUser.ChatUserId + '"'
+                    + ( chatMessage.IsDeleted ? ' style="display:none;"' : '')
+                    + '>'
                     + (isNextMessageFromSameUser ?
                         '' :
                         '<div class="message-chat-name" style="color:' + me.userList[chatMessage.ChatUser.ChatUserId] + ';">'
@@ -176,10 +179,27 @@ function ChatClient(chatUser, chatRoom) {
         window.location.href = window.location.href;
     };
 
-    me.deleteChatMessage = function (chatMessageId) {
+    me.updateChatMessage = function (chatMessageId, isDeleted) {
         var deleteMessageElement = me.$mainChatRoom.find('.chat-message[data-message-id=' + chatMessageId + ']');
         if (deleteMessageElement.length > 0) {
-            deleteMessageElement.hide();
+            if (isDeleted) {
+                deleteMessageElement.hide();
+            }
+            else {
+                deleteMessageElement.show();
+            }
+        }
+    };
+
+    me.updateAllChatMessageByChatUser = function (chatUserId, isDeleted) {
+        var deleteMessageElement = me.$mainChatRoom.find('.chat-message[data-chat-user-id=' + chatUserId + ']');
+        if (deleteMessageElement.length > 0) {
+            if (isDeleted) {
+                deleteMessageElement.hide();
+            }
+            else {
+                deleteMessageElement.show();
+            }
         }
     };
 

@@ -35,9 +35,9 @@ namespace Fanex.LiveCharts.Chat.Services
     public class ChatService : IChatService
     {
         private const string KickOutCommandCacheKey = "Chat.Services.ChatService.KickOutCommandCacheKey";
-        private const string DeleteMessageCommandCacheKey = "Chat.Services.ChatService.DeleteMessageCommandCacheKey";
+        private const string UpdateMessageCommandCacheKey = "Chat.Services.ChatService.DeleteMessageCommandCacheKey";
         private const string BanChatUserCacheKey = "Chat.Services.ChatService.BanChatUserCacheKey";
-        private const string DeleteMessageByUserCommandCacheKey = "Chat.Services.ChatService.DeleteMessageByUserCommandCacheKey";
+        private const string UpdateMessageByUserCommandCacheKey = "Chat.Services.ChatService.DeleteMessageByUserCommandCacheKey";
         private readonly IChatRepository _chatRepository;
 
         public ChatService()
@@ -284,13 +284,13 @@ namespace Fanex.LiveCharts.Chat.Services
         /// <summary>
         /// Delete chat message on member site.
         /// </summary>
-        /// <param name="deleteChatMessage">Model contains information for delete chat message on member site.</param>
+        /// <param name="updateChatMessage">Model contains information for delete chat message on member site.</param>
         /// <returns>Delete chat message result.</returns>
-        public ICommandResult DeleteChatMessageOnMemberSite(DeleteChatMessageViewModel deleteChatMessage)
+        public ICommandResult UpdateChatMessageOnMemberSite(UpdateChatMessageViewModel updateChatMessage)
         {
             try
             {
-                ICommandResult invalidTokenResult = CheckChatCommandTokenInValid(DeleteMessageCommandCacheKey + "_" + deleteChatMessage.TokenName, deleteChatMessage.TokenKey);
+                ICommandResult invalidTokenResult = CheckChatCommandTokenInValid(UpdateMessageCommandCacheKey + "_" + updateChatMessage.TokenName, updateChatMessage.TokenKey);
                 if (invalidTokenResult != null)
                 {
                     return invalidTokenResult;
@@ -300,7 +300,7 @@ namespace Fanex.LiveCharts.Chat.Services
 
                 if (chatHub != null)
                 {
-                    chatHub.Clients.Group(deleteChatMessage.ChatRoomName).deleteChatMessage(deleteChatMessage.ChatMessageId);
+                    chatHub.Clients.Group(updateChatMessage.ChatRoomName).updateChatMessage(updateChatMessage.ChatMessageId, updateChatMessage.IsDeleted);
                 }
             }
             catch (Exception ex)
@@ -323,15 +323,15 @@ namespace Fanex.LiveCharts.Chat.Services
         /// <summary>
         /// Delete group of chat message from chat user.
         /// </summary>
-        /// <param name="deleteMessageByChatUser">Model contains information for deleting message on member site.</param>
+        /// <param name="updateMessageByChatUser">Model contains information for deleting message on member site.</param>
         /// <returns>Status of delete command.</returns>
-        public ICommandResult DeleteChatMessageByChatUserIdOnMemberSite(DeleteChatMessageByChatUserViewModel deleteMessageByChatUser)
+        public ICommandResult UpdateChatMessageByChatUserIdOnMemberSite(UpdateChatMessageByChatUserViewModel updateMessageByChatUser)
         {
             try
             {
                 ICommandResult invalidTokenResult = CheckChatCommandTokenInValid(
-                    DeleteMessageByUserCommandCacheKey + "_" + deleteMessageByChatUser.TokenName, 
-                    deleteMessageByChatUser.TokenKey);
+                    UpdateMessageByUserCommandCacheKey + "_" + updateMessageByChatUser.TokenName, 
+                    updateMessageByChatUser.TokenKey);
                 if (invalidTokenResult != null)
                 {
                     return invalidTokenResult;
@@ -341,7 +341,7 @@ namespace Fanex.LiveCharts.Chat.Services
 
                 if (chatHub != null)
                 {
-                    chatHub.Clients.Group(deleteMessageByChatUser.ChatRoomName).deleteChatMessageByChatUser(deleteMessageByChatUser.ChatUserId);
+                    chatHub.Clients.Group(updateMessageByChatUser.ChatRoomName).updateAllChatMessageByChatUser(updateMessageByChatUser.ChatUserId, updateMessageByChatUser.IsDeleted);
                 }
             }
             catch (Exception ex)
@@ -378,7 +378,7 @@ namespace Fanex.LiveCharts.Chat.Services
 
             var kickOutChatUserStatus = new KickOutChatUserViewModel
             {
-                CommandResult = kickOutResult
+                CommandResult = (CommandResult)kickOutResult
             };
 
             if (kickOutResult.IsSuccessful)
@@ -408,24 +408,20 @@ namespace Fanex.LiveCharts.Chat.Services
         /// <param name="chatRoomName">Chat room name for broadcast delete command.</param>
         /// <param name="deleteBy">Delete by admin id.</param>
         /// <returns>Delete chat message information.</returns>
-        public DeleteChatMessageViewModel DeleteChatMessageOnAdminSite(int chatMessageId, string chatRoomName, int deleteBy)
+        public UpdateChatMessageViewModel UpdateChatMessageOnAdminSite(UpdateChatMessageCriteria updateChatMessageCriteria)
         {
-            ICommandResult deleteMessageResult = UpdateChatMessage(new UpdateChatMessageCriteria
-            {
-                ChatMessageId = chatMessageId,
-                IsDelete = true,
-                DeletedBy = deleteBy
-            });
+            ICommandResult deleteMessageResult = UpdateChatMessage(updateChatMessageCriteria);
 
-            var deleteMessageViewModel = new DeleteChatMessageViewModel
+            var deleteMessageViewModel = new UpdateChatMessageViewModel
             {
-                CommandResult = deleteMessageResult
+                CommandResult = (CommandResult)deleteMessageResult,
+                IsDeleted = updateChatMessageCriteria.IsDelete
             };
 
             if (deleteMessageResult.IsSuccessful)
             {
-                deleteMessageViewModel.ChatMessageId = chatMessageId;
-                deleteMessageViewModel.ChatRoomName = chatRoomName;
+                deleteMessageViewModel.ChatMessageId = updateChatMessageCriteria.ChatMessageId;
+                deleteMessageViewModel.ChatRoomName = updateChatMessageCriteria.ChatRoomName;
                 SetDeleleMessageToken(deleteMessageViewModel);
             }
 
@@ -439,20 +435,16 @@ namespace Fanex.LiveCharts.Chat.Services
         /// <param name="chatRoomName">Chat room name need remove.</param>
         /// <param name="deleteBy">Which admin delete.</param>
         /// <returns>Delete status.</returns>
-        public DeleteChatMessageByChatUserViewModel DeleteChatMessageByChatUserOnAdminSite(int chatUserId, string chatRoomName, int deleteBy)
+        public UpdateChatMessageByChatUserViewModel UpdateChatMessageByChatUserOnAdminSite(UpdateChatMessageByChatUserCriteria updateChatMessageByChatUserCriteria)
         {
-            ICommandResult deleteMessageResult = UpdateChatMessageByChatUser(new UpdateChatMessageByChatUserCriteria
-                {
-                    ChatUserId = chatUserId,
-                    DeletedBy = deleteBy,
-                    IsDelete = true
-                });
+            ICommandResult deleteMessageResult = UpdateChatMessageByChatUser(updateChatMessageByChatUserCriteria);
 
-            var deleteMessageViewModel = new DeleteChatMessageByChatUserViewModel
+            var deleteMessageViewModel = new UpdateChatMessageByChatUserViewModel
             {
-                CommandResult = deleteMessageResult,
-                ChatUserId = chatUserId,
-                ChatRoomName = chatRoomName
+                CommandResult = (CommandResult)deleteMessageResult,
+                ChatUserId = updateChatMessageByChatUserCriteria.ChatUserId,
+                ChatRoomName = updateChatMessageByChatUserCriteria.ChatRoomName,
+                IsDeleted = updateChatMessageByChatUserCriteria.IsDelete
             };
 
             if (deleteMessageResult.IsSuccessful)
@@ -478,7 +470,7 @@ namespace Fanex.LiveCharts.Chat.Services
 
             var banChatUserViewModel = new BanChatUserViewModel
             {
-                CommandResult = updateChatUserStatus,
+                CommandResult = (CommandResult)updateChatUserStatus,
                 ChatUserId = chatUserId
             };
 
@@ -670,24 +662,24 @@ namespace Fanex.LiveCharts.Chat.Services
                 new TimeSpan(0, AppSettings.CachingTimeOutMinute, 0));
         }
 
-        private void SetDeleleMessageToken(DeleteChatMessageViewModel deleteMessageViewModel)
+        private void SetDeleleMessageToken(UpdateChatMessageViewModel deleteMessageViewModel)
         {
             deleteMessageViewModel.TokenName = string.Format("{0}_{1}", deleteMessageViewModel.ChatMessageId, deleteMessageViewModel.ChatRoomName);
             deleteMessageViewModel.TokenKey = Guid.NewGuid().ToString();
 
             CacheManager.Instance.Set<string>(
-                DeleteMessageCommandCacheKey + "_" + deleteMessageViewModel.TokenName,
+                UpdateMessageCommandCacheKey + "_" + deleteMessageViewModel.TokenName,
                 deleteMessageViewModel.TokenKey,
                 new TimeSpan(0, AppSettings.CachingTimeOutMinute, 0));
         }
 
-        private void SetDeleleMessageByChatUserToken(DeleteChatMessageByChatUserViewModel deleteMessageViewModel)
+        private void SetDeleleMessageByChatUserToken(UpdateChatMessageByChatUserViewModel deleteMessageViewModel)
         {
             deleteMessageViewModel.TokenName = string.Format("{0}_{1}", deleteMessageViewModel.ChatUserId, deleteMessageViewModel.ChatRoomName);
             deleteMessageViewModel.TokenKey = Guid.NewGuid().ToString();
 
             CacheManager.Instance.Set<string>(
-                DeleteMessageByUserCommandCacheKey + "_" + deleteMessageViewModel.TokenName,
+                UpdateMessageByUserCommandCacheKey + "_" + deleteMessageViewModel.TokenName,
                 deleteMessageViewModel.TokenKey,
                 new TimeSpan(0, AppSettings.CachingTimeOutMinute, 0));
         }

@@ -117,16 +117,16 @@ function ChatMonitor() {
                         var $spanData = $(this);
                         switch (key) {
                             case 'removeThisMessage':
-                                me.removeChatMessage($spanData.attr('data-chat-message-id'));
+                                me.updateChatMessage($spanData.attr('data-chat-message-id'), true);
                                 break;
                             case 'removeAllMessageOfChatUser':
-                                me.removeAllChatMessageByChatUser($spanData.attr('data-chat-user-id'));
+                                me.updateAllChatMessageByChatUser($spanData.attr('data-chat-user-id'), true);
                                 break;
                             case 'recoverThisMessage':
-                                me.recoverChatMessage($spanData.attr('data-chat-message-id'));
+                                me.updateChatMessage($spanData.attr('data-chat-message-id'), false);
                                 break;
                             case 'recoverAllMessageOfChatUser':
-                                me.recoverAllChatMessageByChatUser($spanData.attr('data-chat-user-id'));
+                                me.updateAllChatMessageByChatUser($spanData.attr('data-chat-user-id'), false);
                                 break;
                         }
                     },
@@ -153,6 +153,7 @@ function ChatMonitor() {
                 if (result.IsSuccessful) {
                     if (isBan) {
                         LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.success, LANGUAGE.banChatUserSuccess);
+                        me.banChatUserOnMemberSite(banViewModel);
                     }
                     else {
                         LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.success, LANGUAGE.recoverChatUser);
@@ -188,15 +189,26 @@ function ChatMonitor() {
         LiveChartsAdmin.callAjax({
             url: me.chatMonitorDefault.memberChartSiteUrl + '/Chat/KickOutChatUser',
             type: 'POST',
-            data: {
-                connectionId: kickOutViewModel.ConnectionId,
-                chatUserId: kickOutViewModel.ChatUserId,
-                tokenName: kickOutViewModel.TokenName,
-                tokenKey: kickOutViewModel.TokenKey
-            },
+            data: kickOutViewModel,
             done: function (result) {
                 if (result.IsSuccessful) {
                     LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.success, LANGUAGE.kickedOutChatUserSuccess);
+                }
+                else {
+                    LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.error, result.Message);
+                }
+            }
+        });
+    };
+    me.banChatUserOnMemberSite = function (banChatUserViewModel) {
+
+        LiveChartsAdmin.callAjax({
+            url: me.chatMonitorDefault.memberChartSiteUrl + '/Chat/BanChatUser',
+            type: 'POST',
+            data: banChatUserViewModel,
+            done: function (result) {
+                if (result.IsSuccessful) {
+                    LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.success, LANGUAGE.banChatUserSuccess);
                 }
                 else {
                     LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.error, result.Message);
@@ -225,69 +237,55 @@ function ChatMonitor() {
     };
 
     ///// Chat Message Action
-    me.removeChatMessage = function (currentChatMessageId) {
+    me.updateChatMessage = function (currentChatMessageId, isDelete) {
         LiveChartsAdmin.callAjax({
-            url: me.chatMonitorDefault.deleteChatMessageUrl,
+            url: me.chatMonitorDefault.updateChatMessageUrl,
             type: 'POST',
             data: {
                 chatRoomName: me.chatMonitorDefault.chatRoomName,
-                chatMessageId: currentChatMessageId
+                chatMessageId: currentChatMessageId,
+                isDelete: isDelete
             },
-            done: function (deleteMessageViewModel) {
-                if (deleteMessageViewModel.CommandResult.IsSuccessful) {
-                    me.removeChatMessageOnMemberSite(deleteMessageViewModel);
-                    me.initMessageGrid();
-                }
-            }
-        });
-    };
-    me.removeAllChatMessageByChatUser = function (currentChatUserId) {
-        LiveChartsAdmin.callAjax({
-            url: me.chatMonitorDefault.deleteAllChatMessageByChatUserUrl,
-            type: 'POST',
-            data: {
-                chatRoomName: me.chatMonitorDefault.chatRoomName,
-                chatUserId: currentChatUserId
-            },
-            done: function (deleteMessageViewModel) {
-                if (deleteMessageViewModel.CommandResult.IsSuccessful) {
-                    //me.removeChatMessageOnMemberSite(deleteMessageViewModel);
+            done: function (updateMessageViewModel) {
+                if (updateMessageViewModel.CommandResult.IsSuccessful) {
+                    me.updateChatMessageOnMemberSite(updateMessageViewModel);
                     me.initMessageGrid();
                 }
             }
         });
     };
 
-    me.recoverAllChatMessageByChatUser = function (currentChatUserId) {
+    me.updateAllChatMessageByChatUser = function (currentChatUserId, isDelete) {
         LiveChartsAdmin.callAjax({
-            url: me.chatMonitorDefault.recoverChatMessageOfChatUserUrl,
+            url: me.chatMonitorDefault.updateAllChatMessageByChatUserUrl,
             type: 'POST',
             data: {
                 chatRoomName: me.chatMonitorDefault.chatRoomName,
-                chatUserId: currentChatUserId
+                chatUserId: currentChatUserId,
+                isDelete: isDelete
             },
-            done: function (deleteMessageViewModel) {
-                if (deleteMessageViewModel.IsSuccessful) {
-                    //me.removeChatMessageOnMemberSite(deleteMessageViewModel);
+            done: function (updateMessageByChatUserViewModel) {
+                if (updateMessageByChatUserViewModel.CommandResult.IsSuccessful) {
+                    me.updateAllChatMessagebyChatUserOnMemberSite(updateMessageByChatUserViewModel);
                     me.initMessageGrid();
                 }
             }
         });
     };
 
-    me.removeChatMessageOnMemberSite = function (deleteMessageViewModel) {
+    me.updateChatMessageOnMemberSite = function (deleteChatMessageViewModel) {
         LiveChartsAdmin.callAjax({
-            url: me.chatMonitorDefault.memberChartSiteUrl + '/Chat/DeleteChatMessage',
+            url: me.chatMonitorDefault.memberChartSiteUrl + '/Chat/UpdateChatMessage',
             type: 'POST',
-            data: {
-                chatMessageId: deleteMessageViewModel.ChatMessageId,
-                chatRoomName: deleteMessageViewModel.ChatRoomName,
-                tokenName: deleteMessageViewModel.TokenName,
-                tokenKey: deleteMessageViewModel.TokenKey
-            },
+            data: deleteChatMessageViewModel,
             done: function (result) {
                 if (result.IsSuccessful) {
-                    LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.success, LANGUAGE.deleteMessageSuccess);
+                    if (deleteChatMessageViewModel.IsDeleted) {
+                        LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.success, LANGUAGE.deleteMessageSuccess);
+                    }
+                    else {
+                        LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.success, LANGUAGE.recoverChatSuccess);
+                    }
                 }
                 else {
                     LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.error, result.Message);
@@ -295,18 +293,20 @@ function ChatMonitor() {
             }
         });
     };
-    me.recoverChatMessage = function (currentChatMessageId) {
+
+    me.updateAllChatMessagebyChatUserOnMemberSite = function (updateMessageByChatUserViewModel) {
         LiveChartsAdmin.callAjax({
-            url: me.chatMonitorDefault.recoverChatMessageUrl,
+            url: me.chatMonitorDefault.memberChartSiteUrl + '/Chat/UpdateAllChatMessagesByChatUser',
             type: 'POST',
-            data: {
-                //chatRoomName: me.chatMonitorDefault.chatRoomName,
-                chatMessageId: currentChatMessageId
-            },
+            data: updateMessageByChatUserViewModel,
             done: function (result) {
                 if (result.IsSuccessful) {
-                    LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.success, LANGUAGE.recoverChatSuccess);
-                    me.initMessageGrid();
+                    if (updateMessageByChatUserViewModel.IsDeleted) {
+                        LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.success, LANGUAGE.deleteMessageSuccess);
+                    }
+                    else {
+                        LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.success, LANGUAGE.recoverChatSuccess);
+                    }
                 }
                 else {
                     LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.error, result.Message);
@@ -559,7 +559,7 @@ function ChatMonitor() {
                 } else if (userA.KickedOut && (!userB.IsLeft || !userB.KickedOut)) {
                     return true;
                 }
-                else if (userA.ChatUser.Banned && (!userB.IsLeft || !userB.KickedOut || !userB.ChatUser.Banned)) {
+                else if (userA.ChatUser.IsBanned && (!userB.IsLeft || !userB.KickedOut || !userB.ChatUser.IsBanned)) {
                     return true;
                 }
 

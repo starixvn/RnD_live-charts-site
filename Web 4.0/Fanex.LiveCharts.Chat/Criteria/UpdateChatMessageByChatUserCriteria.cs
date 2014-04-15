@@ -22,6 +22,9 @@ namespace Fanex.LiveCharts.Chat.Criteria
 
         public int DeletedBy { get; set; }
 
+        [SpParam(Ignored = true)]
+        public string ChatRoomName { get; set; }
+
         public override string GetSettingKey()
         {
             return "Chart_Chat_Update_Chat_Message_By_Chat_User";
