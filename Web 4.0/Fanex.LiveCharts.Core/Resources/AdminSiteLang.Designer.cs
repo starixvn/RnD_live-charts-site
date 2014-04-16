@@ -133,6 +133,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ban this User..
+        /// </summary>
+        public static string BanThisUser {
+            get {
+                return ResourceManager.GetString("BanThisUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string Cancel {
@@ -439,6 +448,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kick out this User..
+        /// </summary>
+        public static string KickOutThisUser {
+            get {
+                return ResourceManager.GetString("KickOutThisUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to League.
         /// </summary>
         public static string League {
@@ -610,6 +628,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Re-add this User to this Room..
+        /// </summary>
+        public static string ReAddThisUser {
+            get {
+                return ResourceManager.GetString("ReAddThisUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid recorded time format.
         /// </summary>
         public static string RecordedTimeFormat {
@@ -642,6 +669,42 @@ namespace Fanex.LiveCharts.Resources {
         public static string RecoverChatUser {
             get {
                 return ResourceManager.GetString("RecoverChatUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recover this Message from this User..
+        /// </summary>
+        public static string RecoverMessageFromUser {
+            get {
+                return ResourceManager.GetString("RecoverMessageFromUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recover this Message..
+        /// </summary>
+        public static string RecoverThisMessage {
+            get {
+                return ResourceManager.GetString("RecoverThisMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove all Messages from this User..
+        /// </summary>
+        public static string RemoveAllMessagesFromUser {
+            get {
+                return ResourceManager.GetString("RemoveAllMessagesFromUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove this Message..
+        /// </summary>
+        public static string RemoveThisMessage {
+            get {
+                return ResourceManager.GetString("RemoveThisMessage", resourceCulture);
             }
         }
         
@@ -786,6 +849,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string ToDate {
             get {
                 return ResourceManager.GetString("ToDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Un ban this User.
+        /// </summary>
+        public static string UnBanThisUser {
+            get {
+                return ResourceManager.GetString("UnBanThisUser", resourceCulture);
             }
         }
         

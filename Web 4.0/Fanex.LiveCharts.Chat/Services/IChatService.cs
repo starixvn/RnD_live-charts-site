@@ -36,6 +36,8 @@ namespace Fanex.LiveCharts.Chat.Services
 
         IEnumerable<ChatUserInRoom> GetChatRoomUsers(GetChatRoomUsersCriteria getChatRoomUsersCriteria);
 
+        IEnumerable<ChatUserInRoom> AdminGetChatRoomUsers(AdminGetChatRoomUsersCriteria getChatRoomUsersCriteria);
+
         ChatUser GetChatUser(GetChatUserCriteria getChatUserCriteria);
 
         ChatUserInRoom GetChatUserInRoom(GetChatUserInRoomCriteria getChatUserInRoomCriteria);

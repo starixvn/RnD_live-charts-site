@@ -6,6 +6,8 @@
 @import "../../../Scripts/Libs/Chosen/chosen.less";
 @import "Fanex.Grid.Override.less";
 
+@spiteImage: url("../../../Content/Images/chart-spite.png");
+
 #body .content
 {
 	width: 1240px;
@@ -28,7 +30,7 @@
         {
         	width: 17px;
 			height: 17px;
-			background: url(../../../Content/Images/chart-spite.png) no-repeat;
+			background: @spiteImage;
 			background-color:#EDECEB;
 			background-position: 1px 1px;
 		}
@@ -52,19 +54,6 @@
             }
         }
 
-		/*
-		.remove-action
-		{
-			background-image: url("../../../Content/Images/delete.png");
-			background-repeat: no-repeat;
-			height: 16px;
-			width: 16px;
-			position: absolute;
-			cursor: pointer;
-			left: 1px;
-			vertical-align: middle;
-		}
-		*/
 		.recover-action
 		{
 			background-image: url("../../../Content/Images/recover.png");
@@ -92,7 +81,7 @@
 			        width: 16px;
 			        vertical-align: middle;
 			        display: block;
-					background-image: url("../../../Content/Images/chart-spite.png");
+					background-image: @spiteImage;
                 }
 
                 .user-online
@@ -126,7 +115,7 @@
 					width: 21px;
 			        vertical-align: middle;
 			        display: block;
-					background-image: url("../../../Content/Images/chart-spite.png");
+					background-image: @spiteImage;
                 }
 
             	.deleted-message
@@ -245,7 +234,7 @@
                 	width: 16px;
                     height: 16px;
                     display: block;
-                    background-image: url("../../../Content/Images/chart-spite.png");
+                    background-image: @spiteImage;
                     background-repeat: no-repeat;
                     margin-top: 2px;
                     float: left;

@@ -57,15 +57,15 @@ function ChatMonitor() {
                     currentStatus = $trigger.attr('data-user-status');
                 switch (currentStatus) {
                     case 'active':
-                        items.kickout = { name: "Kick out this user", icon: "kick-out" };
-                        items.ban = { name: "Ban this user", icon: "ban" };
+                        items.kickout = { name: LANGUAGE.kickOutThisUser, icon: "kick-out" };
+                        items.ban = { name: LANGUAGE.banThisUser, icon: "ban" };
                         break;
                     case 'kickedOut':
-                        items.recover = { name: "Re add this user", icon: "add" };
-                        items.ban = { name: "Ban this user", icon: "ban" };
+                        items.recover = { name: LANGUAGE.reAddThisUser, icon: "add" };
+                        items.ban = { name: LANGUAGE.banThisUser, icon: "ban" };
                         break;
                     case 'banned':
-                        items.unban = { name: "Un ban this user", icon: "un-ban" };
+                        items.unban = { name: LANGUAGE.unBanThisUser, icon: "un-ban" };
                         break;
                 }
 
@@ -102,14 +102,14 @@ function ChatMonitor() {
                     currentStatus = $trigger.attr('data-message-status');
                 switch (currentStatus) {
                     case 'deleted':
-                        items.recoverThisMessage = { name: "Recover This Message", icon: "recover" };
-                        items.recoverAllMessageOfChatUser = { name: "Recover This Message From This User", icon: "recover-all" };
-                        items.removeAllMessageOfChatUser = { name: "Remove All Messages From This User ", icon: "remove-all" };
+                        items.recoverThisMessage = { name: LANGUAGE.recoverThisMessage, icon: "recover" };
+                        items.recoverAllMessageOfChatUser = { name: LANGUAGE.recoverMessageFromUser, icon: "recover-all" };
+                        items.removeAllMessageOfChatUser = { name: LANGUAGE.removeAllMessagesFromUser, icon: "remove-all" };
                         break;
                     case 'avail':
-                        items.removeThisMessage = { name: "Remove This Message", icon: "delete" };
-                        items.recoverAllMessageOfChatUser = { name: "Recover This Message From This User", icon: "recover-all" };
-                        items.removeAllMessageOfChatUser = { name: "Remove All Messages From This User ", icon: "remove-all" };
+                        items.removeThisMessage = { name: LANGUAGE.removeThisMessage, icon: "delete" };
+                        items.recoverAllMessageOfChatUser = { name: LANGUAGE.recoverMessageFromUser, icon: "recover-all" };
+                        items.removeAllMessageOfChatUser = { name: LANGUAGE.removeAllMessagesFromUser, icon: "remove-all" };
                         break;
                 }
                 return {
@@ -448,10 +448,10 @@ function ChatMonitor() {
                { Name: "ChatUserStatus", Value: currentMessage.ChatUser.MemberId },
                {
                    Name: "UserName",
-                   Value: currentMessage.ChatUser.MemberId
+                   Value:  me.usersStatus[currentMessage.ChatUser.MemberId].ChatUser.MemberName
                },
                { Name: "ChatNameAction", Value: currentMessage.ChatUser.MemberId },
-               { Name: "ChatName", Value: currentMessage.ChatUser.MemberId },
+               { Name: "ChatName", Value: currentMessage.ChatUser.ChatName },
                { Name: "ChatMessageStatus", Value: currentMessage.IsDeleted },
                {
                    Name: "ChatMessage",
@@ -512,7 +512,7 @@ function ChatMonitor() {
         return '<option value="' + currentMember.ChatUser.MemberId + '" '
                                         + (currentSelectedMemberId === currentMember.ChatUser.MemberId ? 'selected ' : '')
                                         + 'data-chat-user-id="' + currentMember.ChatUser.ChatUserId + '"'
-                                        + '>' + currentMember.ChatUser.MemberId + '</option>';
+                                        + '>' + currentMember.ChatUser.MemberName + '</option>';
     };
 
     me.buildChatNameOption = function (currentChatUser, currentSelectedChatUserId) {

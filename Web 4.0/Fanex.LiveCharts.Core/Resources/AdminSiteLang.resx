@@ -372,4 +372,28 @@
   <data name="InputNumberMaxError4" xml:space="preserve">
     <value>Input number cannot be greater than 9999</value>
   </data>
+  <data name="BanThisUser" xml:space="preserve">
+    <value>Ban this User.</value>
+  </data>
+  <data name="KickOutThisUser" xml:space="preserve">
+    <value>Kick out this User.</value>
+  </data>
+  <data name="ReAddThisUser" xml:space="preserve">
+    <value>Re-add this User to this Room.</value>
+  </data>
+  <data name="RemoveAllMessagesFromUser" xml:space="preserve">
+    <value>Remove all Messages from this User.</value>
+  </data>
+  <data name="RecoverMessageFromUser" xml:space="preserve">
+    <value>Recover this Message from this User.</value>
+  </data>
+  <data name="RecoverThisMessage" xml:space="preserve">
+    <value>Recover this Message.</value>
+  </data>
+  <data name="RemoveThisMessage" xml:space="preserve">
+    <value>Remove this Message.</value>
+  </data>
+  <data name="UnBanThisUser" xml:space="preserve">
+    <value>Un ban this User</value>
+  </data>
 </root>

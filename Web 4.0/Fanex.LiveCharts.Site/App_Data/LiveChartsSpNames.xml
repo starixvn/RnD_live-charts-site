@@ -154,6 +154,7 @@
     <Setting Key="Chart_Chat_Update_Welcome_Message" SpName="Chart_Chat_Update_Welcome_Message" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
     <Setting Key="Chart_Chat_Update_Chat_Message_By_Chat_User" SpName="Chart_Chat_Update_Chat_Message_By_Chat_User" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
     <Setting Key="Chart_Chat_Search_Chat_Message" SpName="Chart_Chat_Search_Chat_Message" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Admin_Get_Chat_Room_Users" SpName="Chart_Chat_Admin_Get_Chat_Room_Users" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
     
   </Function>
 </Functions>

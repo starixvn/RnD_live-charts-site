@@ -11,7 +11,8 @@
     <div class="chat-room-title">
         @Lang.ChatRoom
         <div class="in-out-container" style="display:none;">
-            <input type="submit" id="btnLeftRoom" value="@Lang.Out" class="btn left-room">
+            <input type="submit" id="btnLeftRoom" value="@(Lang.Out) " class="btn left-room" />
+            <span class="icon-left"></span>
         </div>
     </div>
     <div class="room-container">
@@ -43,7 +44,7 @@
             </div>
         </div>
         <div class="text-submit">
-            <input type="submit"  id="submitMessage" class="btn" value="@Lang.Send" />
+            <input type="submit"  id="submitMessage" class="btn btn-send" value="@Lang.Send" />
         </div>
     </div>
 </div>

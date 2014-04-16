@@ -69,7 +69,7 @@ namespace Fanex.LiveCharts.Chat.Controllers
             criteria.IncludingDeleted = true;
             IEnumerable<ChatMessage> chatMessages = _chatService.SearchChatMessage(criteria);
 
-            IEnumerable<ChatUserInRoom> chatUsers = _chatService.GetChatRoomUsers(new GetChatRoomUsersCriteria
+            IEnumerable<ChatUserInRoom> chatUsers = _chatService.AdminGetChatRoomUsers(new AdminGetChatRoomUsersCriteria
             {
                 ChatRoomId = criteria.ChatRoomId,
                 IncludingBanned = true,

@@ -171,6 +171,13 @@ namespace Fanex.LiveCharts.Chat.Services
             return chatUsers;
         }
 
+        public IEnumerable<ChatUserInRoom> AdminGetChatRoomUsers(AdminGetChatRoomUsersCriteria adminGetChatRoomUsersCriteria)
+        {
+            var chatUsers = _chatRepository.GetUsersInRoom(adminGetChatRoomUsersCriteria);
+
+            return chatUsers;
+        }
+
         public InsertResult InsertChatUserInRoom(InsertChatUserInRoomCriteria insertChatUserInRoomCriteria)
         {
             ////insertChatUserInRoomCriteria.LastOnlineTime = DateTime.Now;

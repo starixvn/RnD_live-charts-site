@@ -74,6 +74,7 @@
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="Controllers\ChatController.cs" />
+    <Compile Include="Criteria\AdminGetChatRoomUsersCriteria.cs" />
     <Compile Include="Criteria\GetChatMessageByRoomCriteria.cs" />
     <Compile Include="Criteria\GetChatMessageByTimeCriteria.cs" />
     <Compile Include="Criteria\GetChatMessageByUserIdCriteria.cs" />

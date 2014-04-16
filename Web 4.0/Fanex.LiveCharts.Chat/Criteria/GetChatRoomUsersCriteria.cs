@@ -26,7 +26,7 @@ namespace Fanex.LiveCharts.Chat.Criteria
 
         public override string GetSettingKey()
         {
-            return "Chart_Chat_Get_Chat_Room_Users";
+            return "Chart_Chat_Admin_Get_Chat_Room_Users";
         }
 
         public override bool IsValid()
