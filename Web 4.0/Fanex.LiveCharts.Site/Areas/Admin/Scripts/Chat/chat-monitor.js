@@ -57,15 +57,15 @@ function ChatMonitor() {
                     currentStatus = $trigger.attr('data-user-status');
                 switch (currentStatus) {
                     case 'active':
-                        items.kickout = { name: "Kick out this user", icon: "delete" };
-                        items.ban = { name: "Ban this user", icon: "delete" };
+                        items.kickout = { name: "Kick out this user", icon: "kick-out" };
+                        items.ban = { name: "Ban this user", icon: "ban" };
                         break;
                     case 'kickedOut':
                         items.recover = { name: "Re add this user", icon: "add" };
-                        items.ban = { name: "Ban this user", icon: "delete" };
+                        items.ban = { name: "Ban this user", icon: "ban" };
                         break;
                     case 'banned':
-                        items.unban = { name: "Un ban this user", icon: "cut" };
+                        items.unban = { name: "Un ban this user", icon: "un-ban" };
                         break;
                 }
 
@@ -413,7 +413,7 @@ function ChatMonitor() {
                        }
                    }
         ],
-        gridExpandHeight: 180,
+        gridExpandHeight: 195,
         showPager: true,
         pagerOption: {
             itemsPerPage: 50,

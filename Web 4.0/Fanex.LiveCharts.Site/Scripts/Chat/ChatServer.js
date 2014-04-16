@@ -26,7 +26,7 @@ function ChatServer(chatAdapter, chatClient, chatUser, chatRoom, chatUserInRoom 
 
     me.sendMessage = function () {
         var currentMessage = me.$txtMessageInput.val();
-        if (currentMessage !== '') {
+        if (!(!currentMessage || /^\s*$/.test(currentMessage))) {
             me.chatAdapter.server.sendMessage({
                 Content: currentMessage,
                 ChatUser: me.chatUser,
