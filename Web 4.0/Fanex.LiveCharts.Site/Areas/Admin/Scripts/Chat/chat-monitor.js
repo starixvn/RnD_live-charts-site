@@ -352,37 +352,37 @@ function ChatMonitor() {
         columns: [
                    { HeaderText: LANGUAGE.timeGTM8, Width: 150, Name: 'Time', CellAlign: 'center', FormatDateTime: 'DD MMM, YYYY hh:mm A' },
                    {
-                       HeaderText: LANGUAGE.username, Width: 40, Name: 'ChatUserStatus', CellAlign: 'center', 
+                       HeaderText: LANGUAGE.username, Width: 40, Name: 'ChatUserStatus', CellAlign: 'center',
                        CellCssClass: 'user-status', CustomCellRender: function (cell) {
                            var currentUser = me.usersStatus[cell.Value],
-                               userStatusClass = 'user-online';
-                           if (currentUser.ChatUser.IsBanned)
-                           {
+                               userStatusClass = 'user-online',
+                               statusTooltip = 'Online';
+                           if (currentUser.ChatUser.IsBanned) {
                                userStatusClass = 'user-disabled';
+                               statusTooltip = 'Banned';
                            }
-                           else if (currentUser.KickedOut)
-                           {
+                           else if (currentUser.KickedOut) {
                                userStatusClass = 'user-kickedout';
+                               statusTooltip = 'KickedOut';
                            }
-                           else if (currentUser.IsLeft)
-                           {
+                           else if (currentUser.IsLeft) {
                                userStatusClass = 'user-offline';
+                               statusTooltip = 'OffLine';
                            }
-                           return '<span class="' + userStatusClass + '"></span>';
-                       }, MergeHeaderColNumber: 3 
+                           return '<span title="' + statusTooltip + '" class="' + userStatusClass + '"></span>';
+                       }, MergeHeaderColNumber: 3
                    },
-                   { HeaderText: '', Width: 150, Name: 'UserName', 
-                     CellAlign: 'center', CellCssClass: 'user-name-content'},
+                   { HeaderText: '', Width: 150, Name: 'UserName',
+                       CellAlign: 'center', CellCssClass: 'user-name-content'
+                   },
                    {
                        HeaderText: '', Width: 40, Name: 'ChatNameAction', CellAlign: 'center', CustomCellRender: function (cell) {
                            var currentUser = me.usersStatus[cell.Value],
                                currentStatus = 'active';
-                           if (currentUser.ChatUser.IsBanned)
-                           {
+                           if (currentUser.ChatUser.IsBanned) {
                                currentStatus = 'banned';
                            }
-                           else if (currentUser.KickedOut)
-                           {
+                           else if (currentUser.KickedOut) {
                                currentStatus = 'kickedOut';
                            }
 
@@ -398,7 +398,11 @@ function ChatMonitor() {
                    {
                        HeaderText: LANGUAGE.chatMessage, Width: 40, Name: 'ChatMessageStatus', CellAlign: 'center',
                        CellCssClass: 'chat-message-status', CustomCellRender: function (cell) {
-                           return '<span class="' + (cell.Value ? 'deleted-message' : 'avai-message') + '"></span>';
+                           return '<span '
+                                    + 'title="' + (cell.Value ? 'Deleted' : 'Available') + '"'
+                                    + ' class="'
+                                    + (cell.Value ? 'deleted-message' : 'avai-message') 
+                                    + '"></span>';
                        }, MergeHeaderColNumber: 3
                    },
                    { HeaderText: '', Width: 405, Name: 'ChatMessage', CellCssClass: 'message-content' },
