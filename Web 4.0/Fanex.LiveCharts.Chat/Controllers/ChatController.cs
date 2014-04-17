@@ -9,6 +9,7 @@
 
 namespace Fanex.LiveCharts.Chat.Controllers
 {
+    using System;
     using System.Web.Mvc;
     using Fanex.LiveCharts.Chat.Criteria;
     using Fanex.LiveCharts.Chat.Models;
@@ -62,9 +63,13 @@ namespace Fanex.LiveCharts.Chat.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetChatMessageByTime(GetChatMessageByTimeCriteria getChatMessageByTimeCriteria)
+        public JsonResult GetChatMessageByTime(int chatRoomId, DateTime? latestTime)
         {
-            var result = _chatService.GetChatMessagesByTime(getChatMessageByTimeCriteria);
+            var result = _chatService.GetChatMessagesByTime(new GetChatMessageByTimeCriteria
+            {
+                ChatRoomId = chatRoomId,
+                LatestTime = latestTime ?? DateTime.Now
+            });
 
             return Json(result);
         }

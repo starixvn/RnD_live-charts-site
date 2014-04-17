@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var maxMessageLength = 1000;
 }
 @section Styles
 {
@@ -146,7 +147,9 @@
             disconnectPage: '@Url.Action("YouAreDisconnect", "Chat")',
             kickedOutPage: '@Url.Action("KickedOut", "Chat")',
             welcomeMessage: '@(Model.WelcomeMessage.SettingValue)',
-            disabledWelcomeMessage: @(Model.WelcomeMessage.Disabled ? "true" : "false")
+            disabledWelcomeMessage: @(Model.WelcomeMessage.Disabled ? "true" : "false"),
+            getHistoryMessageUrl: '@Url.Action("GetChatMessageByTime", "Chat")',
+            maxMessageLength: @(maxMessageLength)
         }
 
         var LANGUAGE = 
@@ -156,7 +159,8 @@
             youAreDisconnect: '@Lang.YouAreDisconnect',
             hasLeft: '@Lang.HasLeft',
             joinedRoom: '@Lang.JoinedRoom',
-            maxLengthChatName: '@Lang.MaxLengthChatNameMessage'
+            maxLengthChatName: '@Lang.MaxLengthChatNameMessage',
+            maxLengthMessage: '@(string.Format(Lang.MessageMaxLengthMessage, maxMessageLength))'
         }
 
     </script>

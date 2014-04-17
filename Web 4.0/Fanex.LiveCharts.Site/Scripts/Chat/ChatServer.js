@@ -1,4 +1,4 @@
-﻿/*global LIVECHARTS, LANGUAGE*/
+﻿/*global LIVECHARTS, LANGUAGE, DEFAULT_OBJECT*/
 /*exported ChatServer*/
 
 function ChatServer(chatAdapter, chatClient, chatUser, chatRoom, chatUserInRoom )
@@ -11,7 +11,7 @@ function ChatServer(chatAdapter, chatClient, chatUser, chatRoom, chatUserInRoom 
     me.chatUser = chatUser;
     me.chatClient = chatClient;
     me.chatUserInRoom = chatUserInRoom;
-    me.pastMinutes = 500;
+    me.maxInputLength = DEFAULT_OBJECT.maxMessageLength;
 
     me.cachedDomElements = function () {
         me.$mainChatRoom = $('#mainChatRoom');
@@ -27,6 +27,11 @@ function ChatServer(chatAdapter, chatClient, chatUser, chatRoom, chatUserInRoom 
     me.sendMessage = function () {
         var currentMessage = me.$txtMessageInput.val();
         if (!(!currentMessage || /^\s*$/.test(currentMessage))) {
+
+            if (currentMessage.length > DEFAULT_OBJECT.maxMessageLength) {
+                LIVECHARTS.alertMessage(LIVECHARTS.messageType.error, LANGUAGE.maxLengthMessage);
+            }
+
             me.chatAdapter.server.sendMessage({
                 Content: currentMessage,
                 ChatUser: me.chatUser,
@@ -42,7 +47,6 @@ function ChatServer(chatAdapter, chatClient, chatUser, chatRoom, chatUserInRoom 
 
     me.joinRoom = function () {
         me.chatAdapter.server.joinRoom(me.chatUser, me.chatRoom, me.chatUserInRoom.chatUserInRoomId);
-        me.getChatMessageHistory();
     };
 
     me.getUserList = function () {

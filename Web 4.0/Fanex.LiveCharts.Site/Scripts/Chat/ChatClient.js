@@ -16,6 +16,9 @@ function ChatClient(chatUser, chatRoom) {
     me.isNextMessageFromSameUser = false;
     me.numberOfHistoryMessagesShowing = 12;
     me.numberOfHistoryMessagesPaging = 100;
+    me.numberOfGetMessageHistoryFromDb = 1000;
+    me.currentHistoryTime = null;
+    me.stillHaveHistoryMessage = false;
     me.isBrowserHidden = false;
     me.historyMessages = [];
     me.userList = {};
@@ -37,6 +40,7 @@ function ChatClient(chatUser, chatRoom) {
 
     me.joinRoom = function () {
         me.userList[me.chatUser.chatUserId] = me.userColor;
+        me.getChatMessageHistory();
     };
 
     me.addMessage = function (chatMessage, stopScrollTop) {
@@ -101,10 +105,30 @@ function ChatClient(chatUser, chatRoom) {
         return chatMessage;
     };
 
+    me.getChatMessageHistory = function () {
+        LIVECHARTS.callAjax({
+            url: DEFAULT_OBJECT.getHistoryMessageUrl,
+            type: 'POST',
+            data: {
+                chatRoomId: me.chatRoom.chatRoomId,
+                latestTime: me.currentHistoryTime
+            },
+            useBlockUI: false,
+            done: function (chatMessages) {
+                if (chatMessages) {
+                    me.updateChatMessageHistory(chatMessages);
+                }
+            }
+        });
+    };
+
     me.updateChatMessageHistory = function (chatMessages) {
         me.historyMessages = chatMessages;
         var messageLength = me.historyMessages.length,
             lastMessageArray = [];
+
+        me.stillHaveHistoryMessage = messageLength === me.numberOfGetMessageHistoryFromDb;
+
 
         if (me.numberOfHistoryMessagesShowing > messageLength) {
             lastMessageArray = me.historyMessages;
@@ -154,10 +178,16 @@ function ChatClient(chatUser, chatRoom) {
                 previousUserId = me.historyMessages[i - 1].ChatUser.ChatUserId;
             }
             me.prependHistoryMessage(me.historyMessages[i], previousUserId);
+            me.currentHistoryTime = me.historyMessages[i].CreateTime;
         }
 
         if (fromIndex === 0) {
-            me.$btnShowHistoryMessage.hide();
+            if (me.stillHaveHistoryMessage) {
+                me.getChatMessageHistory();
+            }
+            else {
+                me.$btnShowHistoryMessage.hide();
+            }
         }
 
         me.numberOfHistoryMessagesShowing += me.numberOfHistoryMessagesPaging;
