@@ -38,6 +38,7 @@ namespace Fanex.LiveCharts.Chat.Services
         private const string UpdateMessageCommandCacheKey = "Chat.Services.ChatService.DeleteMessageCommandCacheKey";
         private const string BanChatUserCacheKey = "Chat.Services.ChatService.BanChatUserCacheKey";
         private const string UpdateMessageByUserCommandCacheKey = "Chat.Services.ChatService.DeleteMessageByUserCommandCacheKey";
+        private const int CodeFail = 10;
         private readonly IChatRepository _chatRepository;
 
         public ChatService()
@@ -109,9 +110,22 @@ namespace Fanex.LiveCharts.Chat.Services
         /// Insert chat user.
         /// </summary>
         /// <param name="insertchatUserCriteria">Data for insert.</param>
+        /// <param name="chatNameDenyList">Chat name deny list.</param>
         /// <returns>Insert command result.</returns>
-        public InsertResult InsertChatUser(InsertChatUserCriteria insertchatUserCriteria)
+        public InsertResult InsertChatUser(InsertChatUserCriteria insertchatUserCriteria, string chatNameDenyList)
         {
+            if (CheckChatNameViolateRule(insertchatUserCriteria.ChatName, chatNameDenyList))
+            {
+                return new InsertResult
+                {
+                    CommandResult = new CommandResult
+                    {
+                        Code = CodeFail,
+                        Message = Lang.ChatNameViolateMessage
+                    }
+                };
+            }
+
             ////insertchatUserCriteria.CreateTime = DateTime.Now;
             if (!string.IsNullOrEmpty(insertchatUserCriteria.ChatName))
             {
@@ -697,6 +711,30 @@ namespace Fanex.LiveCharts.Chat.Services
                 BanChatUserCacheKey + "_" + banChatUserViewModel.TokenName,
                 banChatUserViewModel.TokenKey,
                 new TimeSpan(0, AppSettings.CachingTimeOutMinute, 0));
+        }
+
+        /// <summary>
+        /// Check current chat name violate rule or not.
+        /// </summary>
+        /// <param name="chatName">Current chat name.</param>
+        /// <param name="chatNameDenyList">List name deny.</param>
+        /// <returns>Violate or not.</returns>
+        private bool CheckChatNameViolateRule(string chatName, string chatNameDenyList)
+        {
+            if (!string.IsNullOrEmpty(chatNameDenyList))
+            {
+                string[] chatNameDenies = chatNameDenyList.Split(new char[] { ',' });
+                var nameLower = chatName.ToLower();
+                foreach (string chatNameDeny in chatNameDenies)
+                {
+                    if (nameLower.Contains(chatNameDeny.ToLower().Trim()))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
 
         #endregion Private Functions

@@ -48,7 +48,7 @@ namespace Fanex.LiveCharts.Chat.Services
 
         InsertResult InsertChatRoom(InsertChatRoomCriteria insertChatRoomCriteria);
 
-        InsertResult InsertChatUser(InsertChatUserCriteria insertchatUserCriteria);
+        InsertResult InsertChatUser(InsertChatUserCriteria insertchatUserCriteria, string chatNameDenyList);
 
         InsertResult InsertChatUserInRoom(InsertChatUserInRoomCriteria insertChatUserInRoomCriteria);
 

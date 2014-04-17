@@ -2646,7 +2646,7 @@ if (typeof (fanexGridLanguage) === 'undefined') {
     /* File Created: December 4, 2013 */
     var fanexGridLanguage = {};
     fanexGridLanguage['en-US'] = {
-        noData: 'There is no data',
+        noData: 'No Information Available',
         pageSize: 'Page size',
         goToPage: 'Go To Page',
         pagingText: 'Displaying <b>{0}</b> to <b>{1}</b> of <b>{2}</b> item(s)'

@@ -78,7 +78,7 @@ function ChatWindow() {
         me.$btnMultiline.powerTip({ placement: 'ne', smartPlacement: true });
         me.$popupChatUserList.modal({ show: false });
         me.$txtMessageInput.unbind('keypress').keypress(me.onKeyPressForSingleLine);
-        me.$btnLeftRoom.unbind('click').click(me.chatClient.leftRoom).parent().show();
+        me.$btnLeftRoom.unbind('click').click(me.chatClient.leftRoom).show();
         me.registerEmoticon();
     };
 

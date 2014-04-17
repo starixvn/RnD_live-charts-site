@@ -10,8 +10,8 @@
 <div class="chat-room-container">
     <div class="chat-room-title">
         @Lang.ChatRoom
-        <div class="in-out-container" style="display:none;">
-            <input type="submit" id="btnLeftRoom" value="@(Lang.Out) " class="btn left-room" />
+        <div class="in-out-container" style="display:none;" id="btnLeftRoom">
+            <input type="submit" value="@(Lang.Out) " class="btn left-room" />
             <span class="icon-left"></span>
         </div>
     </div>
@@ -39,8 +39,8 @@
             </div>
             <textarea id="messageInput" placeholder="@Lang.Text" maxlength="1000"></textarea>
             <div class="emoticon-container">
-                <div class="emoticon-icon" id="btnEmoticon">
-                </div>
+                <span class="emoticon-icon" id="btnEmoticon">
+                </span>
             </div>
         </div>
         <div class="text-submit">

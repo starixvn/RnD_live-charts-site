@@ -8,6 +8,7 @@ function ChatSetting() {
         me.cachedElements();
         me.$btnUpdateTermCondition.unbind('click').click(me.updateTermCondition);
         me.$btnUpdateWelcomeMessage.unbind('click').click(me.updateWelcomeMessage);
+        me.$btnUpdateChatNameDenyList.unbind('click').click(me.updateChatNameDenyList);
     };
 
     me.cachedElements = function () {
@@ -17,6 +18,8 @@ function ChatSetting() {
         me.$btnUpdateWelcomeMessage = $('#btnUpdateWelcomeMessage');
         me.$cbWelcomeMessageDisabled = $('#cbWelcomeMessageDisabled');
         me.$cbTermConditionDisabled = $('#cbTermConditionDisabled');
+        me.$btnUpdateChatNameDenyList = $('#btnUpdateChatNameDenyList');
+        me.$txtChatNameDenyList = $('#txtChatNameDenyList');
     };
 
 
@@ -75,8 +78,34 @@ function ChatSetting() {
 
     };
 
+    me.updateChatNameDenyList = function () {
+        var chatNameDenyList = me.$txtChatNameDenyList.val();
+        if (me.isNotValid(chatNameDenyList)) {
+            me.$txtChatNameDenyList.focus();
+            LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.error, CHAT_SETTING.invalidInput);
+            return;
+        }
+
+        LiveChartsAdmin.callAjax({
+            url: CHAT_SETTING.updateChatNameDenyListUrl,
+            type: 'POST',
+            data: {
+                chatNameDenyList: chatNameDenyList
+            },
+            done: function (commandResult) {
+                if (commandResult.IsSuccessful) {
+                    LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.success, commandResult.Message);
+                }
+                else {
+                    LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.error, commandResult.Message);
+                }
+            }
+        });
+
+    };
+
     me.isNotValid = function (value) {
-        return value == null || value === '';
+        return !value || /^\s*$/.test(value);
     };
 }
 

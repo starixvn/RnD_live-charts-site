@@ -80,7 +80,9 @@ namespace Fanex.LiveCharts.Chat.Controllers
         [HttpPost]
         public JsonResult InsertChatUser(InsertChatUserCriteria insertChatUserCriteria)
         {
-            var commandResult = _chatService.InsertChatUser(insertChatUserCriteria);
+            var chatNameDenyList = _settingService.GetSetting(new GetChatNameDenyListCriteria());
+
+            var commandResult = _chatService.InsertChatUser(insertChatUserCriteria, chatNameDenyList.SettingValue);
 
             return Json(commandResult);
         }
@@ -129,7 +131,8 @@ namespace Fanex.LiveCharts.Chat.Controllers
 
             ChatRoom chatRoom = _chatService.GetChatRoomByName(new GetChatRoomByNameCriteria
             {
-                ChatRoomName = string.Format("{0}_{1}", matchId, SessionManager.CurrentSession.Language.Replace('-', '_').Trim()),
+                ////SessionManager.CurrentSession.Language.Replace('-', '_').Trim()
+                ChatRoomName = string.Format("{0}_en_US", matchId),
                 MatchId = matchId
             });
 

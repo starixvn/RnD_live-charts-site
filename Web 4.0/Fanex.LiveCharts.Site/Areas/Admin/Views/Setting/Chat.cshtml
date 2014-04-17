@@ -58,11 +58,30 @@
 </div>
 
 
+<div class="setting-container">
+    <div class="form dummy-prediction-container ">
+        <div class="form-row">
+            <div class="lbl-field">@AdminSiteLang.ChatNameDenyList:</div>
+            <div class="edit-field">
+                <textarea name="SettingValue" id="txtChatNameDenyList" class="term-condition-setting" >@(Model.ChatNameDenyList.SettingValue)</textarea>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="lbl-field"></div>
+            <div class="edit-field">
+                <input id="btnUpdateChatNameDenyList" type="submit" value="@Lang.Submit" />
+            </div>
+        </div>
+    </div>
+</div>
+
+
 @section Foot {
     <script type="text/javascript"> 
         var CHAT_SETTING = {
             updateTermConditionUrl: '@(Url.Action("UpdateTermCondition", "Setting"))',
             updateWelcomeMessageUrl: '@(Url.Action("UpdateWelcomeMessage", "Setting"))',
+            updateChatNameDenyListUrl: '@(Url.Action("UpdateChatNameDenyList", "Setting"))',
             invalidInput: '@AdminSiteLang.InvalidInput'
         } 
     </script>

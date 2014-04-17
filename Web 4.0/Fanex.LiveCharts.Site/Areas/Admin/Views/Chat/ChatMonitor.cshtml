@@ -44,14 +44,23 @@
     </div>
 </section>
 <div class="chart-monitor">
+    <div id="messageGrid-grid-title" class="grid-title" style="width: 1072px;">
+        <div class="grid-title-label" id="reporttile">@(gridTitle)</div>
+        <div class="grid-toolbox">
+            <div class="refresh-button">
+                    <div id="resultRefreshCountDown">
+                    </div>
+                </div>
+            <input type="button" id="btnExportmessageGrid" class="btnExcel" title="Export to Excel"></div>
+    </div>
     <div id="messageGrid" class="freegrid">
     </div>
 </div>
 <div class="chat-user-status-container">
-    <div class="chat-user-status-title">Chat User Status</div>
-    <div class="chat-user-list"> 
+    <div class="chat-user-status-title">
+        Chat User Status</div>
+    <div class="chat-user-list">
         <ul id="chatUserList">
-            
         </ul>
     </div>
 </div>

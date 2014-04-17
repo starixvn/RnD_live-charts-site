@@ -108,8 +108,10 @@
     <Compile Include="Core\TeamChoosingType.cs" />
     <Compile Include="Core\Extensions.cs" />
     <Compile Include="Core\LockProvider.cs" />
+    <Compile Include="Criterias\Chat\GetChatNameDenyListCriteria.cs" />
     <Compile Include="Criterias\Chat\GetTermConditionCriteria.cs" />
     <Compile Include="Criterias\Chat\GetWelcomeMessageCriteria.cs" />
+    <Compile Include="Criterias\Chat\UpdateChatNameDenyListCriteria.cs" />
     <Compile Include="Criterias\Chat\UpdateTermConditionCriteria.cs" />
     <Compile Include="Criterias\Chat\UpdateWelcomeMessage.cs" />
     <Compile Include="Criterias\CheckUserTokenCriteria.cs" />

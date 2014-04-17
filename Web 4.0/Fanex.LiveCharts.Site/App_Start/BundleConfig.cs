@@ -31,8 +31,7 @@ namespace Fanex.LiveCharts.Site
             bundles.Add(new ScriptBundle("~/bundles/adminsitejquery")
                 .Include("~/Scripts/Libs/jquery-1.9.1.js")
                 .Include("~/Scripts/Libs/jquery-ui-1.10.3.custom.js")
-                .Include("~/Scripts/Libs/BlockUI/jquery.blockUI.js")
-                .Include("~/Scripts/LIVECHARTS.js"));
+                .Include("~/Scripts/Libs/BlockUI/jquery.blockUI.js"));
 
             RegisterChartBundles(bundles);
             RegisterScorePredictionBundles(bundles);

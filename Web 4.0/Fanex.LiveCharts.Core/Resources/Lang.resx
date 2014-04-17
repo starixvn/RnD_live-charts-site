@@ -456,4 +456,7 @@
   <data name="MaxLengthChatNameMessage" xml:space="preserve">
     <value>Chat name length cannot greater than 50 characters.</value>
   </data>
+  <data name="ChatNameViolateMessage" xml:space="preserve">
+    <value>Chat Name is violated Naming rules, please choose another one!</value>
+  </data>
 </root>

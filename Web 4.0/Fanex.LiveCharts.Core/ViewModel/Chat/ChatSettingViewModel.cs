@@ -19,5 +19,7 @@ namespace Fanex.LiveCharts.ViewModel.Chat
         public SettingItem TermCondition { get; set; }
 
         public SettingItem WelcomeMessage { get; set; }
+
+        public SettingItem ChatNameDenyList { get; set; }
     }
 }

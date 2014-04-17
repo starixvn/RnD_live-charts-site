@@ -145,16 +145,16 @@
     <Setting Key="Chart_Chat_Get_Chat_User_In_Room" SpName="Chart_Chat_Get_Chat_User_In_Room" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
     <Setting Key="Chart_Chat_Get_Chat_User_In_Room_By_ConnectionId" SpName="Chart_Chat_Get_Chat_User_In_Room_By_ConnectionId" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
     <Setting Key="Chart_Chat_Insert_Update_Chat_Message_Spam" SpName="Chart_Chat_Insert_Update_Chat_Message_Spam" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
-    <Setting Key="Chart_Chat_Get_Chat_Message_By_Room" SpName="Chart_Chat_Get_Chat_Message_By_Room" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
     <Setting Key="Chart_Chat_Get_Chat_Room_By_Match_Id" SpName="Chart_Chat_Get_Chat_Room_By_Match_Id" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
     <Setting Key="Chart_Chat_Update_Kick_Out_Chat_User" SpName="Chart_Chat_Update_Kick_Out_Chat_User" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
     <Setting Key="Chart_Chat_Get_Term_Condition" SpName="Chart_Chat_Get_Term_Condition" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
     <Setting Key="Chart_Chat_Update_Term_Condition" SpName="Chart_Chat_Update_Term_Condition" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
     <Setting Key="Chart_Chat_Get_Welcome_Message" SpName="Chart_Chat_Get_Welcome_Message" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
     <Setting Key="Chart_Chat_Update_Welcome_Message" SpName="Chart_Chat_Update_Welcome_Message" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
-    <Setting Key="Chart_Chat_Update_Chat_Message_By_Chat_User" SpName="Chart_Chat_Update_Chat_Message_By_Chat_User" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
     <Setting Key="Chart_Chat_Search_Chat_Message" SpName="Chart_Chat_Search_Chat_Message" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
     <Setting Key="Chart_Chat_Admin_Get_Chat_Room_Users" SpName="Chart_Chat_Admin_Get_Chat_Room_Users" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Get_Chat_Name_Deny_List" SpName="Chart_Chat_Get_Chat_Name_Deny_List" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Update_Chat_Name_Deny_List" SpName="Chart_Chat_Update_Chat_Name_Deny_List" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
     
   </Function>
 </Functions>

@@ -20,6 +20,7 @@ function ChatClient(chatUser, chatRoom) {
     me.historyMessages = [];
     me.userList = {};
     me.userColor = '#f00';
+    
 
     me.cachedDomElement = function () {
         me.$mainChatRoom = $('#mainChatRoom');
@@ -124,6 +125,7 @@ function ChatClient(chatUser, chatRoom) {
 
         me.scrollTop();
         if (!DEFAULT_OBJECT.disabledWelcomeMessage) {
+            me.lastMessageBelongToChatUserId = 0;
             me.appendUserNotification(DEFAULT_OBJECT.welcomeMessage, 'welcome-message');
         }
     };

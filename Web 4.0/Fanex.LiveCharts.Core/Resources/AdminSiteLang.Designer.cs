@@ -205,6 +205,24 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chat Name Deny List.
+        /// </summary>
+        public static string ChatNameDenyList {
+            get {
+                return ResourceManager.GetString("ChatNameDenyList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chat Name is violated Naming rules!.
+        /// </summary>
+        public static string ChatNameViolateMessage {
+            get {
+                return ResourceManager.GetString("ChatNameViolateMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chat Setting.
         /// </summary>
         public static string ChatSetting {

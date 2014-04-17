@@ -61,7 +61,8 @@ namespace Fanex.LiveCharts.Controllers.Admin
             ChatSettingViewModel chatSetting = new ChatSettingViewModel
             {
                 TermCondition = _settingService.GetSetting(new GetTermConditionCriteria()),
-                WelcomeMessage = _settingService.GetSetting(new GetWelcomeMessageCriteria())
+                WelcomeMessage = _settingService.GetSetting(new GetWelcomeMessageCriteria()),
+                ChatNameDenyList = _settingService.GetSetting(new GetChatNameDenyListCriteria())
             };
 
             return View(chatSetting);
@@ -86,6 +87,18 @@ namespace Fanex.LiveCharts.Controllers.Admin
             {
                 WelcomeMessage = welcomeMessage,
                 Disabled = disabled
+            });
+
+            return Json(updateResult);
+        }
+
+        [HttpPost]
+        public JsonResult UpdateChatNameDenyList(string chatNameDenyList)
+        {
+            chatNameDenyList = chatNameDenyList.Replace("\r\n", string.Empty).Replace("\n", string.Empty);
+            ICommandResult updateResult = _settingService.UpdateSetting(new UpdateChatNameDenyListCriteria 
+            { 
+                ChatNameDenyList = chatNameDenyList
             });
 
             return Json(updateResult);

@@ -396,4 +396,10 @@
   <data name="UnBanThisUser" xml:space="preserve">
     <value>Un ban this User</value>
   </data>
+  <data name="ChatNameDenyList" xml:space="preserve">
+    <value>Chat Name Deny List</value>
+  </data>
+  <data name="ChatNameViolateMessage" xml:space="preserve">
+    <value>Chat Name is violated Naming rules!</value>
+  </data>
 </root>

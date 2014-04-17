@@ -4,6 +4,7 @@
 @import "../../../Scripts/Libs/Fanex.Grid/Fanex.Grid.less";
 @import "../../../Scripts/Libs/ContextMenu/jquery.contextMenu.less";
 @import "../../../Scripts/Libs/Chosen/chosen.less";
+@import "../../../Scripts/Libs/RefreshCountDown/RefreshCountDown.less";
 @import "Fanex.Grid.Override.less";
 
 @spiteImage: url("../../../Content/Images/chart-spite.png");
@@ -268,4 +269,22 @@
             }
         }
     }
+}
+
+
+.refresh-button
+{
+	display: inline-block;
+	margin: -6px -3px;
+
+	.countdown-time
+    {
+		line-height: 16px;
+		padding-right: 3px;
+    }
+
+	.wait-loading-icon {
+		margin-left: 10px;
+		float: left;
+	}
 }

@@ -178,20 +178,15 @@ namespace Fanex.LiveCharts.Chat.Controllers
         /// Get Chat monitor view model.
         /// </summary>
         /// <param name="matchId">Current match need get chart.</param>
+        /// <param name="language">Current language of room.</param>
         /// <returns>Chat monitor view model.</returns>
-        private ChatMonitorViewModel GetChatMonitorViewModel(int matchId)
+        private ChatMonitorViewModel GetChatMonitorViewModel(int matchId, string language = "en-US")
         {
-            var chatRooms = _chatService.GetChatRoomByMatchId(new GetChatRoomByMatchIdCriteria
+            var chatRoom = _chatService.GetChatRoomByName(new GetChatRoomByNameCriteria
             {
+                ChatRoomName = string.Format("{0}_{1}", matchId, language.Replace('-', '_')),
                 MatchId = matchId
             });
-
-            //// If there are many rooms, then get first room.
-            var defaultChatRoom = new ChatRoom();
-            if (chatRooms.Any())
-            {
-                defaultChatRoom = chatRooms.ElementAt(0);
-            }
 
             var match = _chartService.GetMatchDetail(new GetMatchDetailCriteria
             {
@@ -201,7 +196,7 @@ namespace Fanex.LiveCharts.Chat.Controllers
             return new ChatMonitorViewModel
             {
                 Match = match,
-                ChatRoom = defaultChatRoom
+                ChatRoom = chatRoom
             };
         }
 

@@ -7,6 +7,7 @@ function ChatMonitor() {
     me.usersStatus = {};
     me.createDllSearch = false;
     me.usersAndMessageCached = {};
+    me.refreshMinutes = 1;
 
 
     me.cacheDomElements = function () {
@@ -18,12 +19,35 @@ function ChatMonitor() {
         me.$ddlChatName = $('#ddlChatName');
         me.$txtMessageSearch = $('#txtMessageSearch');
         me.$chatUserList = $('#chatUserList');
+        me.$resultRefreshCountDown = $('#resultRefreshCountDown');
+        me.$btnExportmessageGrid = $('#btnExportmessageGrid');
     };
     me.registerEvents = function () {
         me.$btnSearchChatMessage.unbind('click').click(me.initMessageGrid);
+        me.$btnExportmessageGrid.unbind('click').click(me.exportExcel);
+        me.$resultRefreshCountDown.parent().show();
+        me.$resultRefreshCountDown.refreshCountDown('stopCountDown').refreshCountDown({
+            countDownMinutes: me.refreshMinutes,
+            countDownSeconds: 0,
+            refreshFunction: function (countDownObject, countDownStart) {
+                //                            if (!me.isStopPrediction) {
+                //                                me.getCorrectScoreResult({
+                //                                    matchId: me.matchId
+                //                                });
+                //                                me.checkMatchStatus();
+                me.initMessageGrid();
+                setTimeout(function () {
+                    countDownStart(countDownObject);
+                }, 1000);
+                //                            }
+                //                            else {
+                //                                me.$resultRefreshCountDown.refreshCountDown('stopCountDown');
+                //                            }
+            }
+        });
     };
     me.registerGridEvents = function () {
-        me.$btnReload = $('#btnReload');
+        //me.$btnReload = $('#btnReload');
         me.$allOpenMenuRemoveUser = $('#messageGrid .open-menu-remove-user');
         me.$allKickOutChatUser = $('#messageGrid .kickout-chat-user');
         me.$allBanChatUser = $('#messageGrid .ban-chat-user');
@@ -33,7 +57,8 @@ function ChatMonitor() {
         me.$allRecoverChatUser = $('#messageGrid .recover-chat-user');
         me.$allRecoverChatMessage = $('#messageGrid .recover-chat-message');
         me.$allMenuActions = $('#messageGrid .menu-action');
-        me.$btnReload.unbind('click').click(me.initMessageGrid);
+
+        //me.$btnReload.unbind('click').click(me.initMessageGrid);
         //// Open Menu
         me.showMenuEdit();
         //// User actionss
@@ -42,6 +67,9 @@ function ChatMonitor() {
         me.$allRecoverChatMessage.unbind('click').click(me.recoverChatMessage);
         //// Chat User status search
         me.$chatUserList.find('.chat-user-status').unbind('click').click(me.searchByChatUserEvent);
+
+        
+        
     };
 
 
@@ -164,7 +192,6 @@ function ChatMonitor() {
             }
         });
     };
-    
     me.kickOutChatUser = function (currentChatUserId) {
         LiveChartsAdmin.callAjax({
             url: me.chatMonitorDefault.kickOutChatUserUrl,
@@ -254,7 +281,6 @@ function ChatMonitor() {
             }
         });
     };
-
     me.updateAllChatMessageByChatUser = function (currentChatUserId, isDelete) {
         LiveChartsAdmin.callAjax({
             url: me.chatMonitorDefault.updateAllChatMessageByChatUserUrl,
@@ -272,7 +298,6 @@ function ChatMonitor() {
             }
         });
     };
-
     me.updateChatMessageOnMemberSite = function (deleteChatMessageViewModel) {
         LiveChartsAdmin.callAjax({
             url: me.chatMonitorDefault.memberChartSiteUrl + '/Chat/UpdateChatMessage',
@@ -293,7 +318,6 @@ function ChatMonitor() {
             }
         });
     };
-
     me.updateAllChatMessagebyChatUserOnMemberSite = function (updateMessageByChatUserViewModel) {
         LiveChartsAdmin.callAjax({
             url: me.chatMonitorDefault.memberChartSiteUrl + '/Chat/UpdateAllChatMessagesByChatUser',
@@ -314,7 +338,8 @@ function ChatMonitor() {
             }
         });
     };
-
+    
+    //// Grid
     me.initMessageGrid = function () {
         var chatUserId = parseInt(me.$ddlChatName.val()),
             searchText = me.$txtMessageSearch.val();
@@ -334,7 +359,6 @@ function ChatMonitor() {
             }
         });
     };
-
     me.renderGrid = function () {
         me.gridOptions.pagerOption.currentPage = 0;
         me.gridOptions.bodyRows = me.buildGridBody(me.usersAndMessageCached.ChatMessages);
@@ -426,18 +450,9 @@ function ChatMonitor() {
             showDetail: true,
             afterPagedFunction: me.registerGridEvents
         },
-        showTitle: true,
-        titleInfo:
-            {
-                text: me.chatMonitorDefault.gridTitle,
-                showExcelButton: true,
-                exportExcelFunction: me.exportExcel,
-                customButtons: '<input type="button" id="btnReload" class="reload-button">',
-                showButtonsWhenNoData: false
-            },
+        showTitle: false,
         timeZone: '+08:00'
     };
-
     me.buildGridBody = function (chatMessages) {
         var messagesLength = chatMessages.length,
             bodyRows = [];
@@ -511,21 +526,18 @@ function ChatMonitor() {
             me.createDllSearch = true;
         }
     };
-
     me.buildMemberOption = function (currentMember, currentSelectedMemberId) {
         return '<option value="' + currentMember.ChatUser.MemberId + '" '
                                         + (currentSelectedMemberId === currentMember.ChatUser.MemberId ? 'selected ' : '')
                                         + 'data-chat-user-id="' + currentMember.ChatUser.ChatUserId + '"'
                                         + '>' + currentMember.ChatUser.MemberName + '</option>';
     };
-
     me.buildChatNameOption = function (currentChatUser, currentSelectedChatUserId) {
         return '<option value="' + currentChatUser.ChatUser.ChatUserId + '" '
                                         + (currentSelectedChatUserId === currentChatUser.ChatUser.ChatUserId ? 'selected ' : '')
                                         + 'data-member-id="' + currentChatUser.ChatUser.MemberId + '"'
                                         + '>' + currentChatUser.ChatUser.ChatName + '</option>';
     };
-
     me.buildChatUserStatusOption = function (currentChatUserStatus) {
         var currentUserStatusClass = 'user-online';
         if (currentChatUserStatus.ChatUser.IsBanned)
@@ -548,7 +560,6 @@ function ChatMonitor() {
                     + '<span class="chat-name-text">' + currentChatUserStatus.ChatUser.ChatName + '</span>'
                 + '</li>';
     };
-
     me.getSortedUsers = function (usersInRoom) {
         var usersLength = usersInRoom.length,
             memberArray = usersInRoom.slice(0, usersLength).sort(function (userA, userB) {
@@ -576,7 +587,6 @@ function ChatMonitor() {
             chatUserStatusArray: chatUserStatusArray
         };
     };
-
     me.searchByChatUserEvent = function () {
         var $this = $(this),
             currentChatUserId = $this.attr('data-chat-user-id'),

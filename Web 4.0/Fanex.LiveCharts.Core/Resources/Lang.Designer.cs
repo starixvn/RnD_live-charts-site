@@ -178,6 +178,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chat Name is violated Naming rules, please choose another one!.
+        /// </summary>
+        public static string ChatNameViolateMessage {
+            get {
+                return ResourceManager.GetString("ChatNameViolateMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chat Room.
         /// </summary>
         public static string ChatRoom {
