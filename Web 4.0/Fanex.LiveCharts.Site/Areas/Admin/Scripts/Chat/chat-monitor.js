@@ -7,7 +7,7 @@ function ChatMonitor() {
     me.usersStatus = {};
     me.createDllSearch = false;
     me.usersAndMessageCached = {};
-    me.refreshMinutes = 1;
+    me.refreshMinutes = 2;
 
 
     me.cacheDomElements = function () {
@@ -397,7 +397,7 @@ function ChatMonitor() {
                        }, MergeHeaderColNumber: 3
                    },
                    { HeaderText: '', Width: 150, Name: 'UserName',
-                       CellAlign: 'center', CellCssClass: 'user-name-content'
+                       CellAlign: 'center', CellCssClass: 'user-name-content', AllowTruncate: true
                    },
                    {
                        HeaderText: '', Width: 40, Name: 'ChatNameAction', CellAlign: 'center', CustomCellRender: function (cell) {
@@ -418,7 +418,7 @@ function ChatMonitor() {
                            return iconHtml;
                        }
                    },
-                   { HeaderText: LANGUAGE.chatName, Width: 150, Name: 'ChatName', CellAlign: 'center' },
+                   { HeaderText: LANGUAGE.chatName, Width: 150, Name: 'ChatName', CellAlign: 'center', AllowTruncate: true },
                    {
                        HeaderText: LANGUAGE.chatMessage, Width: 40, Name: 'ChatMessageStatus', CellAlign: 'center',
                        CellCssClass: 'chat-message-status', CustomCellRender: function (cell) {

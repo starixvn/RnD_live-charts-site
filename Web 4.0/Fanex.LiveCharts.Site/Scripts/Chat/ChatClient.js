@@ -115,7 +115,6 @@ function ChatClient(chatUser, chatRoom) {
                 chatRoomId: me.chatRoom.chatRoomId,
                 latestTime: moment(me.currentHistoryTime).format()
             },
-            useBlockUI: false,
             done: function (chatMessages) {
                 if (chatMessages) {
                     if (chatMessages.length === 0) {
@@ -165,7 +164,7 @@ function ChatClient(chatUser, chatRoom) {
         me.scrollTop();
         if (!DEFAULT_OBJECT.disabledWelcomeMessage) {
             me.lastMessageBelongToChatUserId = 0;
-            me.appendUserNotification(DEFAULT_OBJECT.welcomeMessage, 'welcome-message');
+            me.appendUserNotification(LIVECHARTS.htmlDecode(DEFAULT_OBJECT.welcomeMessage), 'welcome-message');
         }
     };
 

@@ -51,6 +51,7 @@ namespace Fanex.LiveCharts.Chat.Hubs
                 Content = chatMessage.Content
             });
             chatMessage.CreateTime = DateTime.Now;
+            chatMessage.ChatUser.ChatName = HttpUtility.HtmlDecode(chatMessage.ChatUser.ChatName);
             if (commandResult.CommandResult.IsSuccessful)
             {
                 chatMessage.ChatMessageId = commandResult.InsertedId;
@@ -128,10 +129,16 @@ namespace Fanex.LiveCharts.Chat.Hubs
             }
         }
 
+        /// <summary>
+        /// Notify all user in room when new user joined room.
+        /// </summary>
+        /// <param name="chatUser">Current chat user information.</param>
+        /// <param name="chatRoom">Current chat room information.</param>
         public void NotifyUserJoinedRoom(ChatUser chatUser, ChatRoom chatRoom)
         {
             try
             {
+                chatUser.ChatName = HttpUtility.HtmlDecode(chatUser.ChatName);
                 Clients.Group(chatRoom.ChatRoomName).notifyUserJoinedRoom(chatUser, GetCurrentUserList(chatRoom.ChatRoomId));
             }
             catch (Exception ex)
