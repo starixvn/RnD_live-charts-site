@@ -82,11 +82,10 @@ function ChatClient(chatUser, chatRoom) {
                     + ' data-chat-user-id="' + chatMessage.ChatUser.ChatUserId + '"'
                     + ( chatMessage.IsDeleted ? ' style="display:none;"' : '')
                     + '>'
-                    + (isNextMessageFromSameUser ?
-                        '' :
-                        '<div class="message-chat-name" style="color:' + me.userList[chatMessage.ChatUser.ChatUserId] + ';">'
+                    + '<div class="message-chat-name" style="color:' + me.userList[chatMessage.ChatUser.ChatUserId] + ';' 
+                            + (isNextMessageFromSameUser ? 'display:none;' : '') + '">'
                             + chatMessage.ChatUser.ChatName
-                        + ':</div>')
+                        + ':</div>'
                     + '<div class="message-content">'
                         + '<div class="message-content-main">' + chatMessage.Content + '</div>'
                         + '<div class="message-content-time">' + chatMessage.MessageTime + '</div>'
@@ -239,7 +238,11 @@ function ChatClient(chatUser, chatRoom) {
         var deleteMessageElement = me.$mainChatRoom.find('.chat-message[data-message-id=' + chatMessageId + ']');
         if (deleteMessageElement.length > 0) {
             if (isDeleted) {
+                if (deleteMessageElement.find('.message-chat-name').is(':visible')) {
+                    deleteMessageElement.next().find('.message-chat-name').show();
+                }
                 deleteMessageElement.hide();
+                
             }
             else {
                 deleteMessageElement.show();
@@ -252,6 +255,7 @@ function ChatClient(chatUser, chatRoom) {
         if (deleteMessageElement.length > 0) {
             if (isDeleted) {
                 deleteMessageElement.hide();
+                
             }
             else {
                 deleteMessageElement.show();

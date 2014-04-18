@@ -46,6 +46,19 @@ function ChatWindow() {
     };
 
     me.signalRConnectDone = function () {
+        if (me.chatUserInRoom.justOutRoom) {
+            me.$popupWaitingJoinRoom.modal({
+                backdrop: 'static'
+            });
+            me.$btnWaitingJoinRoom.unbind('click').click(me.initChatRoom);
+        }
+        else {
+            me.initChatRoom();
+        }
+    };
+
+    me.initChatRoom = function () {
+        me.$popupWaitingJoinRoom.modal('hide');
         me.checkValidUser();
         me.startTimer();
         me.handleBrowserStatus();
@@ -65,10 +78,12 @@ function ChatWindow() {
         me.$txtChatName = $('#txtChatName');
         me.$btnMultiline = $('#btnMultiline');
         me.$btnJoinRoom = $('#btnJoinRopm');
+        me.$btnWaitingJoinRoom = $('#btnJoinRoom');
         me.$popupJoinRoom = $('#popupJoinRoom');
         me.$popupChatUserList = $('#popupChatUserList');
         me.$userListContainer = $('#userListContainer');
         me.$btnLeftRoom = $('#btnLeftRoom');
+        me.$popupWaitingJoinRoom = $('#popupWaitingJoinRoom');
     };
 
     me.registerEvents = function () {
@@ -78,8 +93,16 @@ function ChatWindow() {
         me.$btnMultiline.powerTip({ placement: 'ne', smartPlacement: true });
         me.$popupChatUserList.modal({ show: false });
         me.$txtMessageInput.unbind('keypress').keypress(me.onKeyPressForSingleLine);
-        me.$btnLeftRoom.unbind('click').click(me.chatClient.leftRoom).show();
+        me.$btnLeftRoom.unbind('click').click(me.outRoom).show();
         me.registerEmoticon();
+    };
+
+    me.outRoom = function () {
+        var currentUrl = location.href;
+        if (currentUrl.indexOf('justOutRoom') < 0) {
+            currentUrl += '&justOutRoom=true';
+        }
+        window.location.href = currentUrl;
     };
 
     me.checkValidUser = function () {

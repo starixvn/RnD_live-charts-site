@@ -156,6 +156,7 @@
     <Setting Key="Chart_Chat_Get_Chat_Name_Deny_List" SpName="Chart_Chat_Get_Chat_Name_Deny_List" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
     <Setting Key="Chart_Chat_Update_Chat_Name_Deny_List" SpName="Chart_Chat_Update_Chat_Name_Deny_List" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
     <Setting Key="Chart_Chat_Update_Chat_Message_Of_Chat_User" SpName="Chart_Chat_Update_Chat_Message_Of_Chat_User" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Update_Chat_User_Agree_Terms" SpName="Chart_Chat_Update_Chat_User_Agree_Terms" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
     
   </Function>
 </Functions>

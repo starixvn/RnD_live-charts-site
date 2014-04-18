@@ -551,6 +551,13 @@ namespace Fanex.LiveCharts.Chat.Services
             return chatMessages;
         }
 
+        public ICommandResult UpdateChatUserAgreedTerms(UpdateChatUserAgreeTermsCriteria criteria)
+        {
+            var updateResult = _chatRepository.ModifyData(criteria);
+
+            return updateResult;
+        }
+
         #region Export Excel
 
         /// <summary>

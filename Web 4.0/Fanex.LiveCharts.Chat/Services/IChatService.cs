@@ -54,6 +54,8 @@ namespace Fanex.LiveCharts.Chat.Services
 
         ICommandResult UpdateChatMessage(UpdateChatMessageCriteria updateChatMessageCriteria);
 
+        ICommandResult UpdateChatUserAgreedTerms(UpdateChatUserAgreeTermsCriteria criteria);
+
         ICommandResult UpdateChatMessageByChatUser(UpdateChatMessageOfChatUserCriteria criteria);
 
         ICommandResult UpdateChatRoom(UpdateChatRoomCriteria updateChatRoomCriteria);

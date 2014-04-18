@@ -3,6 +3,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var maxMessageLength = 1000;
+    var justOutRoom = (bool)ViewBag.JustOutRoom;
 }
 @section Styles
 {
@@ -11,7 +12,7 @@
 <div class="chat-room-container">
     <div class="chat-room-title">
         @Lang.ChatRoom
-        <div class="in-out-container" style="display:none;" id="btnLeftRoom">
+        <div class="in-out-container" style="display: none;" id="btnLeftRoom">
             <input type="submit" value="@(Lang.Out) " class="btn left-room" />
             <span class="icon-left"></span>
         </div>
@@ -24,8 +25,8 @@
         </div>
         <div class="footer-room">
             <div class="members-info-container">
-                <span class="member-text">@(Lang.Members):</span> <span class="member-online btn-link" id="memberOnline">
-                    0</span>
+                <span class="member-text">@(Lang.Members):</span> <span class="member-online btn-link"
+                    id="memberOnline">0</span>
             </div>
             <div class="timer-container">
                 <span class="timer-text">@(Lang.GMTPlus8):</span> <span class="gmt-8-timer" id="gmt8Timer">
@@ -36,12 +37,12 @@
     <div class="room-input">
         <div class="text-input">
             <div class="multiline-icon-container">
-                <span class="multiline-icon" id="btnMultiline" title="@Lang.MultilineOff" data-multiline-on="@Lang.MultilineOn" data-multiline-off="@Lang.MultilineOff" data-multiline-status="off"></span>
+                <span class="multiline-icon" id="btnMultiline" title="@Lang.MultilineOff" data-multiline-on="@Lang.MultilineOn" data-multiline-off="@Lang.MultilineOff" data-multiline-status="off">
+                </span>
             </div>
             <textarea id="messageInput" placeholder="@Lang.Text" maxlength="1000"></textarea>
             <div class="emoticon-container">
-                <span class="emoticon-icon" id="btnEmoticon">
-                </span>
+                <span class="emoticon-icon" id="btnEmoticon"></span>
             </div>
         </div>
         <div class="text-submit">
@@ -50,8 +51,8 @@
     </div>
 </div>
 <!-- Modal -->
-<div id="popupCreateChatName" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-    aria-hidden="true">
+<div id="popupCreateChatName" class="modal hide fade" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-header">
         <h3>@Lang.CreateChatName</h3>
     </div>
@@ -69,7 +70,7 @@
         <button class="btn" id="btnCreateChatName">@Lang.Create</button>
     </div>
 </div>
-@if(!Model.AnnoucementMessage.Disabled)
+@if (!Model.AnnoucementMessage.Disabled && !Model.ChatUser.AgreedTerms)
 { 
     <div id="popupJoinRoom" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
         aria-hidden="true">
@@ -88,24 +89,36 @@
         </div>
     </div>
 }
-
-
 <div id="popupChatUserList" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
     aria-hidden="true">
     <div class="modal-header">
-         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            &times;</button>
         <h3>@Lang.UserList</h3>
     </div>
     <div class="modal-body">
         <form class="bs-docs-example form-horizontal">
-            <div id="userListContainer" class="user-list-container">
-            
-            </div>
+        <div id="userListContainer" class="user-list-container">
+        </div>
         </form>
     </div>
 </div>
-
-
+<div id="popupWaitingJoinRoom" class="modal hide fade" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <h3>@Lang.JoinChatRoom</h3>
+    </div>
+    <div class="modal-body">
+        <form class="bs-docs-example form-horizontal">
+        <div class="control-group">
+            @Model.ChatUser.ChatName
+        </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" id="btnJoinRoom">@Lang.Join</button>
+    </div>
+</div>
 @section Scripts
 {
     <script src="~/Scripts/Libs/jquery.signalR-1.2.1.min.js"></script>
@@ -123,7 +136,8 @@
         var CURRENT_CHAT_USER_IN_ROOM = 
             {
                 chatUserInRoomId: @(Model.ChatUserInRoom.ChatUserInRoomId),
-                kickedOut: @(Model.ChatUserInRoom.KickedOut ? "true" : "false")
+                kickedOut: @(Model.ChatUserInRoom.KickedOut ? "true" : "false"),
+                justOutRoom: @(justOutRoom ? "true" : "false")
             };
 
         var CURRENT_CHAT_USER = 
@@ -131,7 +145,8 @@
             memberId: @(Model.ChatUser.MemberId),
             chatUserId: @(Model.ChatUser.ChatUserId),
             chatName: '@(Model.ChatUser.ChatName)',
-            isBanned: '@(Model.ChatUser.IsBanned)'
+            isBanned: '@(Model.ChatUser.IsBanned)',
+            agreedTerms: @(Model.ChatUser.AgreedTerms ? "true" : "false")
         }
 
         var CURRENT_TIME_FORMAT = 
@@ -164,6 +179,5 @@
         }
 
     </script>
-    
     @Scripts.Render("~/bundles/chatroomjs")
 }

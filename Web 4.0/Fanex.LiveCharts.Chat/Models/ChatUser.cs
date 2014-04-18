@@ -27,6 +27,8 @@ namespace Fanex.LiveCharts.Chat.Models
 
         public bool IsBanned { get; set; }
 
+        public bool AgreedTerms { get; set; }
+
         public DateTime CreateTime { get; set; }
 
         public DateTime ModifiedTime { get; set; }
