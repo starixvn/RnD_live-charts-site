@@ -232,6 +232,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chat User Status.
+        /// </summary>
+        public static string ChatUserStatus {
+            get {
+                return ResourceManager.GetString("ChatUserStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Completed.
         /// </summary>
         public static string Completed {
@@ -363,6 +372,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string EventTypeRequired {
             get {
                 return ResourceManager.GetString("EventTypeRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export To Excel.
+        /// </summary>
+        public static string ExportExcel {
+            get {
+                return ResourceManager.GetString("ExportExcel", resourceCulture);
             }
         }
         
@@ -786,6 +804,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string Sport {
             get {
                 return ResourceManager.GetString("Sport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stop auto refresh.
+        /// </summary>
+        public static string StopAutoRefresh {
+            get {
+                return ResourceManager.GetString("StopAutoRefresh", resourceCulture);
             }
         }
         

@@ -7,7 +7,8 @@ function ChatMonitor() {
     me.usersStatus = {};
     me.createDllSearch = false;
     me.usersAndMessageCached = {};
-    me.refreshMinutes = 2;
+    me.refreshMinutes = 1;
+    me.stopCountDown = false;
 
 
     me.cacheDomElements = function () {
@@ -21,12 +22,20 @@ function ChatMonitor() {
         me.$chatUserList = $('#chatUserList');
         me.$resultRefreshCountDown = $('#resultRefreshCountDown');
         me.$btnExportmessageGrid = $('#btnExportmessageGrid');
+        me.$stopAutoRefresh = $('#stopAutoRefresh');
     };
+
     me.registerEvents = function () {
         me.$btnSearchChatMessage.unbind('click').click(me.initMessageGrid);
         me.$btnExportmessageGrid.unbind('click').click(me.exportExcel);
+        me.$stopAutoRefresh.unbind('click').click(me.handleRefreshCountDown);
+        me.startCountDown();
+
+    };
+
+    me.startCountDown = function () {
         me.$resultRefreshCountDown.parent().show();
-        me.$resultRefreshCountDown.refreshCountDown('stopCountDown').refreshCountDown({
+        me.$resultRefreshCountDown.refreshCountDown({
             countDownMinutes: me.refreshMinutes,
             countDownSeconds: 0,
             refreshFunction: function (countDownObject, countDownStart) {
@@ -35,7 +44,9 @@ function ChatMonitor() {
                 //                                    matchId: me.matchId
                 //                                });
                 //                                me.checkMatchStatus();
-                me.initMessageGrid();
+                if (!me.stopCountDown) {
+                    me.initMessageGrid();
+                }
                 setTimeout(function () {
                     countDownStart(countDownObject);
                 }, 1000);
@@ -46,6 +57,20 @@ function ChatMonitor() {
             }
         });
     };
+
+    me.handleRefreshCountDown = function () {
+        var $this = $(this);
+        var isCheck = $this.prop('checked');
+        me.stopCountDown = isCheck;
+        if (isCheck) {
+            me.$resultRefreshCountDown.refreshCountDown('stopCountDown');
+            me.$resultRefreshCountDown.parent().hide();
+        }
+        else {
+            me.startCountDown();
+        }
+    };
+
     me.registerGridEvents = function () {
         //me.$btnReload = $('#btnReload');
         me.$allOpenMenuRemoveUser = $('#messageGrid .open-menu-remove-user');

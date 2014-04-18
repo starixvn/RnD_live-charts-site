@@ -462,4 +462,7 @@
   <data name="MessageMaxLengthMessage" xml:space="preserve">
     <value>Message length cannot be greater than {0}.</value>
   </data>
+  <data name="MessageNoPrediction" xml:space="preserve">
+    <value>Please submit your prediction to see Score Prediction result.</value>
+  </data>
 </root>

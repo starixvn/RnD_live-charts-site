@@ -71,6 +71,7 @@ namespace Fanex.LiveCharts.Controllers.Admin
         [HttpPost]
         public JsonResult UpdateTermCondition(string termCondition, bool disabled)
         {
+            termCondition = termCondition.Replace("\r\n", string.Empty).Replace("\n", string.Empty);
             ICommandResult updateResult = _settingService.UpdateSetting(new UpdateTermConditionCriteria
             {
                 TermCondition = termCondition,
@@ -83,6 +84,7 @@ namespace Fanex.LiveCharts.Controllers.Admin
         [HttpPost]
         public JsonResult UpdateWelcomeMessage(string welcomeMessage, bool disabled)
         {
+            welcomeMessage = welcomeMessage.Replace("\r\n", string.Empty).Replace("\n", string.Empty);
             ICommandResult updateResult = _settingService.UpdateSetting(new UpdateWelcomeMessage
             {
                 WelcomeMessage = welcomeMessage,

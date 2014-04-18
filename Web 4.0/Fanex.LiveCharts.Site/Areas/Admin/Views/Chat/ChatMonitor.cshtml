@@ -47,18 +47,22 @@
     <div id="messageGrid-grid-title" class="grid-title">
         <div class="grid-title-label" id="reporttile">@(gridTitle)</div>
         <div class="grid-toolbox">
+            <label for="stopAutoRefresh" class="stop-auto-refresh">
+                @AdminSiteLang.StopAutoRefresh
+            <input type="checkbox" id="stopAutoRefresh" />
+            </label>
             <div class="refresh-button">
-                    <div id="resultRefreshCountDown">
-                    </div>
+                <div id="resultRefreshCountDown">
                 </div>
-            <input type="button" id="btnExportmessageGrid" class="btnExcel" title="Export to Excel"></div>
+            </div>
+            <input type="button" id="btnExportmessageGrid" class="btnExcel" title="@AdminSiteLang.ExportExcel" /></div>
     </div>
     <div id="messageGrid" class="freegrid">
     </div>
 </div>
 <div class="chat-user-status-container">
     <div class="chat-user-status-title">
-        Chat User Status</div>
+        @AdminSiteLang.ChatUserStatus</div>
     <div class="chat-user-list">
         <ul id="chatUserList">
         </ul>

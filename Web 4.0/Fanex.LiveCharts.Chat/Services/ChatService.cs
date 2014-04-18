@@ -144,7 +144,7 @@ namespace Fanex.LiveCharts.Chat.Services
             return updateResult;
         }
 
-        public ICommandResult UpdateChatMessageByChatUser(UpdateChatMessageByChatUserCriteria criteria)
+        public ICommandResult UpdateChatMessageByChatUser(UpdateChatMessageOfChatUserCriteria criteria)
         {
             var updateResult = _chatRepository.ModifyData(criteria);
 
@@ -453,7 +453,7 @@ namespace Fanex.LiveCharts.Chat.Services
         /// </summary>
         /// <param name="updateChatMessageByChatUserCriteria">Chat User id need removed message.</param>
         /// <returns>Delete status.</returns>
-        public UpdateChatMessageByChatUserViewModel UpdateChatMessageByChatUserOnAdminSite(UpdateChatMessageByChatUserCriteria updateChatMessageByChatUserCriteria)
+        public UpdateChatMessageByChatUserViewModel UpdateChatMessageByChatUserOnAdminSite(UpdateChatMessageOfChatUserCriteria updateChatMessageByChatUserCriteria)
         {
             ICommandResult deleteMessageResult = UpdateChatMessageByChatUser(updateChatMessageByChatUserCriteria);
 

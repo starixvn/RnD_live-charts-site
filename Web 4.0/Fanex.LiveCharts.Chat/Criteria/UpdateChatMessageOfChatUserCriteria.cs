@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="UpdateChatMessageByChatUserCriteria.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="UpdateChatMessageOfChatUserCriteria.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -14,7 +14,7 @@ namespace Fanex.LiveCharts.Chat.Criteria
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class UpdateChatMessageByChatUserCriteria : CriteriaBase
+    public class UpdateChatMessageOfChatUserCriteria : CriteriaBase
     {
         public int ChatUserId { get; set; }
 
@@ -27,7 +27,7 @@ namespace Fanex.LiveCharts.Chat.Criteria
 
         public override string GetSettingKey()
         {
-            return "Chart_Chat_Update_Chat_Message_By_Chat_User";
+            return "Chart_Chat_Update_Chat_Message_Of_Chat_User";
         }
 
         public override bool IsValid()

@@ -154,7 +154,7 @@ namespace Fanex.LiveCharts.Chat.Controllers
         }
 
         [HttpPost]
-        public JsonResult UpdateAllChatMessageByChatUser(UpdateChatMessageByChatUserCriteria updateChatByChatUserCriteria)
+        public JsonResult UpdateAllChatMessageByChatUser(UpdateChatMessageOfChatUserCriteria updateChatByChatUserCriteria)
         {
             updateChatByChatUserCriteria.DeletedBy = SessionManager.CurrentSession.AdminId;
             return Json(_chatService.UpdateChatMessageByChatUserOnAdminSite(updateChatByChatUserCriteria));

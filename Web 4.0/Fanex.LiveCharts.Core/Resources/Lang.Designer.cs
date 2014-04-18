@@ -601,6 +601,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please submit your prediction to see Score Prediction result..
+        /// </summary>
+        public static string MessageNoPrediction {
+            get {
+                return ResourceManager.GetString("MessageNoPrediction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to minute.
         /// </summary>
         public static string Minute {

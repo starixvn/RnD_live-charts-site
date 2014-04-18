@@ -35,6 +35,7 @@ function ScorePredictionView(defaultValue) {
         me.$resultRefreshCountDown = $('#resultRefreshCountDown');
         me.$resultContainer = $('#resultContainer');
         me.$predictionContainer = $('#predictionContainer');
+        me.$messageNoVotingInfo = $('#messageNoVotingInfo');
 
         //// Spinner
 
@@ -62,6 +63,9 @@ function ScorePredictionView(defaultValue) {
                     me.getCorrectScoreResult({
                         matchId: me.matchId
                     });
+                }
+                else {
+                    me.$messageNoVotingInfo.show();
                 }
 
                 me.$txtHomeScore.val(result.HomeScore);
@@ -135,6 +139,7 @@ function ScorePredictionView(defaultValue) {
     me.getCorrectScoreResult = function (params) {
         if (!me.isShowedResult) {
             me.$resultContainer.show();
+            me.$messageNoVotingInfo.hide();
             if (!me.isStopPrediction) {
                 me.loadRefreshCountDown();
             }
@@ -147,6 +152,7 @@ function ScorePredictionView(defaultValue) {
             data: params,
             useBlockUI: false,
             done: function (result) {
+                
                 var resultArray = me.scorePrediction.getCorrectScoreResult(result);
                 var scoreOption = me.scorePrediction.getScoreOption(resultArray, 'Correct Score');
                 me.resultChart = me.$smallContainerResult.highcharts(scoreOption);
