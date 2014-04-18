@@ -16,12 +16,14 @@ function ChatClient(chatUser, chatRoom) {
     me.isNextMessageFromSameUser = false;
     me.numberOfHistoryMessagesShowing = 12;
     me.numberOfHistoryMessagesPaging = 100;
-    me.numberOfGetMessageHistoryFromDb = 1000;
+    me.currentHistoryIndex = 0;
     me.currentHistoryTime = null;
     me.stillHaveHistoryMessage = false;
     me.isBrowserHidden = false;
+    me.stopGetHistoryMessage = false;
     me.historyMessages = [];
     me.userList = {};
+    me.alreadyGetHistoryMessage = false;
     me.userColor = '#f00';
     
 
@@ -40,7 +42,7 @@ function ChatClient(chatUser, chatRoom) {
 
     me.joinRoom = function () {
         me.userList[me.chatUser.chatUserId] = me.userColor;
-        me.getChatMessageHistory();
+        me.getChatMessageHistory(true);
     };
 
     me.addMessage = function (chatMessage, stopScrollTop) {
@@ -105,47 +107,60 @@ function ChatClient(chatUser, chatRoom) {
         return chatMessage;
     };
 
-    me.getChatMessageHistory = function () {
+    me.getChatMessageHistory = function (firstTime) {
         LIVECHARTS.callAjax({
             url: DEFAULT_OBJECT.getHistoryMessageUrl,
             type: 'POST',
             data: {
                 chatRoomId: me.chatRoom.chatRoomId,
-                latestTime: me.currentHistoryTime
+                latestTime: moment(me.currentHistoryTime).format()
             },
             useBlockUI: false,
             done: function (chatMessages) {
                 if (chatMessages) {
-                    me.updateChatMessageHistory(chatMessages);
+                    if (chatMessages.length === 0) {
+                        me.stopGetHistoryMessage = true;
+                    }
+
+                    if (firstTime) {
+                        me.updateChatMessageHistoryFirstTime(chatMessages);
+                    }
+                    else {
+                        me.updateHistoryMessageLaterTime(chatMessages);
+                    }
                 }
             }
         });
     };
 
-    me.updateChatMessageHistory = function (chatMessages) {
+    me.updateHistoryMessageLaterTime = function (chatMessages) {
+        me.historyMessages = me.historyMessages.concat(chatMessages);
+        me.showPreviousMessagesNew();
+    };
+
+    me.updateChatMessageHistoryFirstTime = function (chatMessages) {
         me.historyMessages = chatMessages;
         var messageLength = me.historyMessages.length,
             lastMessageArray = [];
-
-        me.stillHaveHistoryMessage = messageLength === me.numberOfGetMessageHistoryFromDb;
-
 
         if (me.numberOfHistoryMessagesShowing > messageLength) {
             lastMessageArray = me.historyMessages;
         }
         else {
-            lastMessageArray = me.historyMessages.slice(messageLength - me.numberOfHistoryMessagesShowing, messageLength);
-            me.$btnShowHistoryMessage.unbind('click').click(me.showPreviousMessages).show();
+            lastMessageArray = me.historyMessages.slice(me.currentHistoryIndex, me.numberOfHistoryMessagesShowing);
+            me.$btnShowHistoryMessage.unbind('click').click(me.showPreviousMessagesNew).show();
         }
 
         var lastMessageLength = lastMessageArray.length;
-        for (var i = 0; i < lastMessageLength; i++) {
+        for (var i = lastMessageArray.length - 1; i >= 0; i--) {
             var currentMesage = lastMessageArray[i];
-            if (i === 0) {
+            if (i === lastMessageArray.length - 1) {
                 me.firstMessageBelongToChatUserId = currentMesage.ChatUser.ChatUserId;
             }
             me.addMessage(currentMesage, true);
         }
+
+        me.currentHistoryIndex = lastMessageLength;
 
         me.scrollTop();
         if (!DEFAULT_OBJECT.disabledWelcomeMessage) {
@@ -163,34 +178,36 @@ function ChatClient(chatUser, chatRoom) {
 
     };
 
-    me.showPreviousMessages = function () {
-        var currentShowingMessageIndex = me.numberOfHistoryMessagesShowing,
-            currentMessageLength = me.historyMessages.length,
-            fromIndex = 0,
-            toIndex = currentMessageLength - currentShowingMessageIndex - 1;
-        if (currentShowingMessageIndex + me.numberOfHistoryMessagesPaging < currentMessageLength) {
-            fromIndex = toIndex - me.numberOfHistoryMessagesPaging + 1;
+    me.showPreviousMessagesNew = function () {
+        var currentMessageLength = me.historyMessages.length,
+            fromIndex = me.currentHistoryIndex,
+            toIndex = fromIndex + me.numberOfHistoryMessagesPaging;
+        if (toIndex > currentMessageLength
+            && !me.alreadyGetHistoryMessage
+            && !me.stopGetHistoryMessage) {
+            me.currentHistoryTime = me.historyMessages[currentMessageLength - 1].CreateTime;
+            me.getChatMessageHistory();
+            me.alreadyGetHistoryMessage = true;
         }
-
-        for (var i = toIndex; i >= fromIndex; i--) {
-            var previousUserId = 0;
-            if (i > 0 && i !== fromIndex) {
-                previousUserId = me.historyMessages[i - 1].ChatUser.ChatUserId;
-            }
-            me.prependHistoryMessage(me.historyMessages[i], previousUserId);
-            me.currentHistoryTime = me.historyMessages[i].CreateTime;
-        }
-
-        if (fromIndex === 0) {
-            if (me.stillHaveHistoryMessage) {
-                me.getChatMessageHistory();
-            }
-            else {
+        else {
+            if (toIndex > currentMessageLength) {
+                toIndex = currentMessageLength;
                 me.$btnShowHistoryMessage.hide();
             }
-        }
 
-        me.numberOfHistoryMessagesShowing += me.numberOfHistoryMessagesPaging;
+            for (var i = fromIndex; i < toIndex; i++) {
+                var previousUserId = 0;
+                if (i < toIndex - 1) {
+                    previousUserId = me.historyMessages[i + 1].ChatUser.ChatUserId;
+                }
+
+                me.prependHistoryMessage(me.historyMessages[i], previousUserId);
+                
+            }
+
+            me.currentHistoryIndex = toIndex;
+            me.alreadyGetHistoryMessage = false;
+        }
     };
 
     me.getCurrentUserList = function () {
