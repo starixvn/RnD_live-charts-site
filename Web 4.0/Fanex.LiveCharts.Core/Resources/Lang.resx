@@ -465,4 +465,13 @@
   <data name="MessageNoPrediction" xml:space="preserve">
     <value>Please submit your prediction to see Score Prediction result.</value>
   </data>
+  <data name="ChatNameWarning" xml:space="preserve">
+    <value>Chat name just be created only one time, and you will use it for all rooms, please consider to name the chat name. </value>
+  </data>
+  <data name="TermsCondition" xml:space="preserve">
+    <value>Terms Condition</value>
+  </data>
+  <data name="Agree" xml:space="preserve">
+    <value>Agree</value>
+  </data>
 </root>

@@ -24,6 +24,8 @@ function ChatClient(chatUser, chatRoom) {
     me.historyMessages = [];
     me.userList = {};
     me.alreadyGetHistoryMessage = false;
+    me.newestTime = null;
+    me.oldestTime = null;
     me.userColor = '#f00';
     
 
@@ -52,6 +54,8 @@ function ChatClient(chatUser, chatRoom) {
             me.userList[chatMessage.ChatUser.ChatUserId] = me.randomColor();
         }
 
+        me.checkAddNewestTimeLine(chatMessage.CreateTime);
+
         var messageText = me.buildMessage(chatMessage, me.isNextMessageFromSameUser);
 
         me.lastMessageBelongToChatUserId = chatMessage.IsDeleted ? Math.floor((Math.random()*10000)+1) : chatMessage.ChatUser.ChatUserId;
@@ -66,12 +70,29 @@ function ChatClient(chatUser, chatRoom) {
         }
     };
 
+    me.checkAddNewestTimeLine = function (messageTime) {
+        var currentChatMessageTime = moment(messageTime).zone(me.formatTimer.timeZone);
+        if (me.newestTime.date() !== currentChatMessageTime.date()) {
+            me.addDistinguishLine(currentChatMessageTime, false);
+        }
+        me.newestTime = currentChatMessageTime;
+    };
+
+    me.checkAddOldestTimeLine = function (messageTime) {
+        var currentChatMessageTime = moment(messageTime).zone(me.formatTimer.timeZone);
+        if (me.oldestTime.date() !== currentChatMessageTime.date()) {
+            me.addDistinguishLine(me.oldestTime, true);
+        }
+        me.oldestTime = currentChatMessageTime;
+    };
+
     me.prependHistoryMessage = function (chatMessage, chatPreviousUserId) {
             me.isPreviousMessageFromSameUser = chatPreviousUserId === chatMessage.ChatUser.ChatUserId;
             chatMessage = me.preProcessMessage(chatMessage);
             if (typeof me.userList[chatMessage.ChatUser.ChatUserId] === 'undefined') {
                 me.userList[chatMessage.ChatUser.ChatUserId] = me.randomColor();
             }
+            me.checkAddOldestTimeLine(chatMessage.CreateTime);
             var messageText = me.buildMessage(chatMessage, me.isPreviousMessageFromSameUser);
             me.$mainChatRoom.prepend(messageText);
     };
@@ -150,13 +171,25 @@ function ChatClient(chatUser, chatRoom) {
         }
 
         var lastMessageLength = lastMessageArray.length;
-        for (var i = lastMessageArray.length - 1; i >= 0; i--) {
+        if (lastMessageLength > 0) {
+            me.newestTime = moment(lastMessageArray[lastMessageLength - 1].CreateTime).zone(me.formatTimer.timeZone);
+            me.oldestTime = moment(lastMessageArray[lastMessageLength - 1].CreateTime).zone(me.formatTimer.timeZone);
+        }
+        else {
+            me.newestTime = moment().zone(me.formatTimer.timeZone);
+        }
+
+        for (var i = lastMessageLength - 1; i >= 0; i--) {
             var currentMesage = lastMessageArray[i];
-            if (i === lastMessageArray.length - 1) {
+
+            if (i === lastMessageLength - 1) {
                 me.firstMessageBelongToChatUserId = currentMesage.ChatUser.ChatUserId;
             }
+
             me.addMessage(currentMesage, true);
         }
+
+        
 
         me.currentHistoryIndex = lastMessageLength;
 
@@ -164,6 +197,22 @@ function ChatClient(chatUser, chatRoom) {
         if (!DEFAULT_OBJECT.disabledWelcomeMessage) {
             me.lastMessageBelongToChatUserId = 0;
             me.appendUserNotification(LIVECHARTS.htmlDecode(DEFAULT_OBJECT.welcomeMessage), 'welcome-message');
+        }
+    };
+
+    me.addDistinguishLine = function (currentChatMessageTime, isHistory) {
+        var timeLineHtml = '<li class="chat-message">'
+                    + '<div class="message-content time-content">'
+                        + '<div class="message-content-main">----- '
+                                + currentChatMessageTime.format(me.formatTimer.timeLine)
+                        + ' -----</div>'
+                    + '</div>'
+               + '</li>';
+        if (isHistory) {
+            me.$mainChatRoom.prepend(timeLineHtml);
+        }
+        else {
+            me.$mainChatRoom.append(timeLineHtml);
         }
     };
 
@@ -179,7 +228,8 @@ function ChatClient(chatUser, chatRoom) {
     me.showPreviousMessagesNew = function () {
         var currentMessageLength = me.historyMessages.length,
             fromIndex = me.currentHistoryIndex,
-            toIndex = fromIndex + me.numberOfHistoryMessagesPaging;
+            toIndex = fromIndex + me.numberOfHistoryMessagesPaging,
+                stopAddHistoryMessage = false;
         if (toIndex > currentMessageLength
             && !me.alreadyGetHistoryMessage
             && !me.stopGetHistoryMessage) {
@@ -190,7 +240,7 @@ function ChatClient(chatUser, chatRoom) {
         else {
             if (toIndex > currentMessageLength) {
                 toIndex = currentMessageLength;
-                me.$btnShowHistoryMessage.hide();
+                stopAddHistoryMessage = true;
             }
 
             for (var i = fromIndex; i < toIndex; i++) {
@@ -205,6 +255,10 @@ function ChatClient(chatUser, chatRoom) {
 
             me.currentHistoryIndex = toIndex;
             me.alreadyGetHistoryMessage = false;
+            if (stopAddHistoryMessage) {
+                me.$btnShowHistoryMessage.hide();
+                me.addDistinguishLine(moment(me.historyMessages[toIndex - 1].CreateTime).zone(me.formatTimer.timeZone), true);
+            }
         }
     };
 

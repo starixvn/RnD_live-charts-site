@@ -79,7 +79,7 @@ function ChatWindow() {
         me.$btnMultiline = $('#btnMultiline');
         me.$btnJoinRoom = $('#btnJoinRopm');
         me.$btnWaitingJoinRoom = $('#btnJoinRoom');
-        me.$popupJoinRoom = $('#popupJoinRoom');
+        me.$popupTermsCondition = $('#popupTermsCondition');
         me.$popupChatUserList = $('#popupChatUserList');
         me.$userListContainer = $('#userListContainer');
         me.$btnLeftRoom = $('#btnLeftRoom');
@@ -124,17 +124,36 @@ function ChatWindow() {
     };
 
     me.askJoinRoom = function () {
-        me.$popupCreateChatName.modal('hide');
-        if (me.$popupJoinRoom.length > 0) {
-            me.$popupJoinRoom.modal({
-                backdrop: 'static'
-            });
-            me.$btnJoinRoom.unbind('click').click(me.joinRoom);
-        }
-        else
-        {
+        if (me.chatUser.agreedTerms) {
             me.joinRoom();
         }
+        else {
+            me.$popupCreateChatName.modal('hide');
+            if (me.$popupTermsCondition.length > 0) {
+                me.$popupTermsCondition.modal({
+                    backdrop: 'static'
+                });
+                me.$btnJoinRoom.unbind('click').click(me.updateAgreeTerms);
+            }
+        }
+    };
+
+    me.updateAgreeTerms = function () {
+        LIVECHARTS.callAjax({
+            url: DEFAULT_OBJECT.updateAgreeTerms,
+            type: 'POST',
+            data: {
+                chatUserId: me.chatUser.chatUserId
+            },
+            done: function (result) {
+                if (result && result.IsSuccessful) {
+                    me.joinRoom();
+                }
+                else {
+                    LIVECHARTS.alertMessage(LIVECHARTS.messageType.error, result.Message);
+                }
+            }
+        });
     };
 
     me.onKeyPressForSingleLine = function (event) {
@@ -258,8 +277,8 @@ function ChatWindow() {
     };
 
     me.joinRoom = function () {
-        if (me.$popupJoinRoom.length > 0) {
-            me.$popupJoinRoom.modal('hide');
+        if (me.$popupTermsCondition.length > 0) {
+            me.$popupTermsCondition.modal('hide');
         }
         me.chatClient.joinRoom();
         me.registerEvents();

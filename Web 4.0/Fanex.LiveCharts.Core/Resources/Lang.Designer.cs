@@ -97,6 +97,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Agree.
+        /// </summary>
+        public static string Agree {
+            get {
+                return ResourceManager.GetString("Agree", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Away.
         /// </summary>
         public static string Away {
@@ -183,6 +192,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string ChatNameViolateMessage {
             get {
                 return ResourceManager.GetString("ChatNameViolateMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chat name just be created only one time, and you will use it for all rooms, please consider to name the chat name. .
+        /// </summary>
+        public static string ChatNameWarning {
+            get {
+                return ResourceManager.GetString("ChatNameWarning", resourceCulture);
             }
         }
         
@@ -975,6 +993,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string SubmitAndViewResult {
             get {
                 return ResourceManager.GetString("SubmitAndViewResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Terms Condition.
+        /// </summary>
+        public static string TermsCondition {
+            get {
+                return ResourceManager.GetString("TermsCondition", resourceCulture);
             }
         }
         

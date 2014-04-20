@@ -51,31 +51,37 @@
     </div>
 </div>
 <!-- Modal -->
-<div id="popupCreateChatName" class="modal hide fade" tabindex="-1" role="dialog"
-    aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-header">
-        <h3>@Lang.CreateChatName</h3>
-    </div>
-    <div class="modal-body">
-        <form class="bs-docs-example form-horizontal">
-        <div class="control-group">
-            <label class="control-label" for="txtChatName">@Lang.ChatName:</label>
-            <div class="controls">
-                <input type="text" id="txtChatName" placeholder="@Lang.ChatName"/>
-            </div>
+@if(string.IsNullOrEmpty(Model.ChatUser.ChatName))
+{ 
+    <div id="popupCreateChatName" class="modal hide fade" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <h3>@Lang.CreateChatName</h3>
         </div>
-        </form>
+        <div class="modal-body">
+            <form class="bs-docs-example form-horizontal">
+            <div class="control-group">
+                @Lang.ChatNameWarning
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="txtChatName">@Lang.ChatName:</label>
+                <div class="controls">
+                    <input type="text" id="txtChatName" placeholder="@Lang.ChatName"/>
+                </div>
+            </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" id="btnCreateChatName">@Lang.Create</button>
+        </div>
     </div>
-    <div class="modal-footer">
-        <button class="btn" id="btnCreateChatName">@Lang.Create</button>
-    </div>
-</div>
+}
 @if (!Model.AnnoucementMessage.Disabled && !Model.ChatUser.AgreedTerms)
 { 
-    <div id="popupJoinRoom" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    <div id="popupTermsCondition" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
         aria-hidden="true">
         <div class="modal-header">
-            <h3>@Lang.JoinChatRoom</h3>
+            <h3>@Lang.TermsCondition</h3>
         </div>
         <div class="modal-body">
             <form class="bs-docs-example form-horizontal">
@@ -85,7 +91,7 @@
             </form>
         </div>
         <div class="modal-footer">
-            <button class="btn" id="btnJoinRopm">@Lang.Join</button>
+            <button class="btn" id="btnJoinRopm">@Lang.Agree</button>
         </div>
     </div>
 }
@@ -152,7 +158,8 @@
         var CURRENT_TIME_FORMAT = 
         { 
             timeZone:'+08:00',
-            format: 'HH:mm'
+            format: 'HH:mm',
+            timeLine: 'MMMM Do YYYY'
         }
 
         var DEFAULT_OBJECT = 
@@ -164,6 +171,7 @@
             welcomeMessage: '@(Model.WelcomeMessage.SettingValue)',
             disabledWelcomeMessage: @(Model.WelcomeMessage.Disabled ? "true" : "false"),
             getHistoryMessageUrl: '@Url.Action("GetChatMessageByTime", "Chat")',
+            updateAgreeTerms: '@(Url.Action("UpdateAgreeTerms","Chat"))',
             maxMessageLength: @(maxMessageLength)
         }
 

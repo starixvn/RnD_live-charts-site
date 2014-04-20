@@ -23,6 +23,7 @@ function ChatMonitor() {
         me.$resultRefreshCountDown = $('#resultRefreshCountDown');
         me.$btnExportmessageGrid = $('#btnExportmessageGrid');
         me.$stopAutoRefresh = $('#stopAutoRefresh');
+        me.$content = $('#body');
     };
 
     me.registerEvents = function () {
@@ -634,7 +635,20 @@ function ChatMonitor() {
     me.init = function () {
         me.cacheDomElements();
         me.registerEvents();
+        me.autoAdjustWidth();
         me.initMessageGrid();
+    };
+
+    me.autoAdjustWidth = function () {
+        var currentContentWidth = me.$content.width(),
+            chatUserStatusWidth = 160,
+            minContentWidth = chatUserStatusWidth + 600;
+        if (currentContentWidth < minContentWidth) {
+            currentContentWidth = minContentWidth;
+        }
+        var gridWidth = currentContentWidth - chatUserStatusWidth;
+        me.$content.find('.chart-monitor').width(gridWidth - 30);
+        me.$content.find('.grid-title').width(gridWidth - 35);
     };
 }
 

@@ -84,6 +84,15 @@ namespace Fanex.LiveCharts.Chat.Controllers
         }
 
         [HttpPost]
+        public JsonResult UpdateAgreeTerms(UpdateChatUserAgreeTermsCriteria criteria)
+        {
+            criteria.AgreedTerms = true;
+            var result = _chatService.UpdateChatUserAgreedTerms(criteria);
+
+            return Json(result);
+        }
+
+        [HttpPost]
         public JsonResult InsertChatUser(InsertChatUserCriteria insertChatUserCriteria)
         {
             var chatNameDenyList = _settingService.GetSetting(new GetChatNameDenyListCriteria());
