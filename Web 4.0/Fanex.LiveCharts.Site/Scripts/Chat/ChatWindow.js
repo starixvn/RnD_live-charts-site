@@ -189,7 +189,11 @@ function ChatWindow() {
         me.$btnEmoticon.data('powertipjq', tooltip);
         me.$btnEmoticon.powerTip({
             placement: 'nw',
-            mouseOnToPopup: true
+            mouseOnToPopup: true,
+            manual: true
+        });
+        me.$btnEmoticon.unbind('click').click(function () {
+            $.powerTip.show(me.$btnEmoticon);
         });
     };
 
