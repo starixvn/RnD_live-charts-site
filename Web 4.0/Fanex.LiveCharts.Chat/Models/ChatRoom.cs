@@ -13,7 +13,7 @@ namespace Fanex.LiveCharts.Chat.Models
     using System.Collections.Generic;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Chat Room.
     /// </summary>
     [Serializable]
     public class ChatRoom

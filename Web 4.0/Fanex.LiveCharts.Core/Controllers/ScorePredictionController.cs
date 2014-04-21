@@ -24,7 +24,7 @@ namespace Fanex.LiveCharts.Controllers
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Score prediction controller for hander score prediction request.
     /// </summary>
     public class ScorePredictionController : BaseController
     {

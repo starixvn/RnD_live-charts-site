@@ -20,7 +20,7 @@ namespace Fanex.LiveCharts.Chat.Hubs
     using Microsoft.AspNet.SignalR;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Chat Hub SignalR.
     /// </summary>
     public class ChatHub : Hub, IChatHub
     {
@@ -173,7 +173,7 @@ namespace Fanex.LiveCharts.Chat.Hubs
                         ConnectionId = Context.ConnectionId
                     });
 
-                if (currentChatUserInRoom != null 
+                if (currentChatUserInRoom != null
                     && currentChatUserInRoom.ChatRoom != null)
                 {
                     var updateResult = _chatService.UpdateChatUserInRoom(new UpdateChatUserInRoomCriteria

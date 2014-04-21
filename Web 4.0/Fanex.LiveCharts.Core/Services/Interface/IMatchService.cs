@@ -16,9 +16,8 @@ namespace Fanex.LiveCharts.Services.Interface
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// I Match Service.
     /// </summary>
-    [SuppressMessage("StyleCop.CSharp.NexcelRules.NexcelRulesChecking", "EX1003:MethodMustBeDocumented", Justification = "Checked it.")]
     public interface IMatchService
     {
         IEnumerable<Match> GetEnableCharts(GetEnableChartsCriteria criteria);

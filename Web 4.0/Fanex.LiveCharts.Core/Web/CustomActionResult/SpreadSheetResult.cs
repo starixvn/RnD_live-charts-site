@@ -15,7 +15,7 @@ namespace Fanex.LiveCharts.Web.CustomActionResult
     using NPOI.HSSF.UserModel;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Spread Sheet Result.
     /// </summary>
     public abstract class SpreadSheetResult : ActionResult
     {

@@ -30,7 +30,7 @@ namespace Fanex.LiveCharts.Chat.Services
     using NPOI.SS.Util;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Chat Service.
     /// </summary>
     public class ChatService : IChatService
     {

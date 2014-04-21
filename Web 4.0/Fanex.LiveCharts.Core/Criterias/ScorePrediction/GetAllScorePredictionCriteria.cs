@@ -13,7 +13,7 @@ namespace Fanex.LiveCharts.Criterias.ScorePrediction
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Get All Score Prediction Criteria.
     /// </summary>
     public class GetAllScorePredictionCriteria : CriteriaBase
     {

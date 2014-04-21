@@ -21,7 +21,7 @@ namespace Fanex.LiveCharts.Controllers.Admin
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Setting controller for update admin configuration.
     /// </summary>
     [NapSuperAuth]
     public class SettingController : Controller

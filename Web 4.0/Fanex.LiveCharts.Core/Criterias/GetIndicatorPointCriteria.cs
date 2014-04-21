@@ -9,13 +9,11 @@
 
 namespace Fanex.LiveCharts.Criterias
 {
-    using System.Diagnostics.CodeAnalysis;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Get Indicator Point Criteria.
     /// </summary>
-    [SuppressMessage("StyleCop.CSharp.NexcelRules.NexcelRulesChecking", "EX1003:MethodMustBeDocumented", Justification = "Checked it.")]
     public class GetIndicatorPointCriteria : CriteriaBase
     {
         public int MatchId { get; set; }

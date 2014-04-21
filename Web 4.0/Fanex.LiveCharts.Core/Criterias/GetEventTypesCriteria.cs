@@ -9,14 +9,12 @@
 
 namespace Fanex.LiveCharts.Criterias
 {
-    using System.Diagnostics.CodeAnalysis;
     using System.Threading;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Get Event Types Criteria.
     /// </summary>
-    [SuppressMessage("StyleCop.CSharp.NexcelRules.NexcelRulesChecking", "EX1003:MethodMustBeDocumented", Justification = "Checked it.")]
     public class GetEventTypesCriteria : CriteriaBase
     {
         public string CurrentLanguage

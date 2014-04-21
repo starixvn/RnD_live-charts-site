@@ -13,7 +13,7 @@ namespace Fanex.LiveCharts.Repositories.Interface
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// I Base Repository.
     /// </summary>
     public interface IBaseRepository : IDynamicRepository
     {

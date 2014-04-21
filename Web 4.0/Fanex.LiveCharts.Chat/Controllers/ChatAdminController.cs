@@ -12,7 +12,6 @@ namespace Fanex.LiveCharts.Chat.Controllers
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Web.Mvc;
     using Fanex.LiveCharts.Chat.Criteria;
     using Fanex.LiveCharts.Chat.Models;
@@ -26,7 +25,7 @@ namespace Fanex.LiveCharts.Chat.Controllers
     using Fanex.NAP.Core.Web.Attribute;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Chat Admin Controller.
     /// </summary>
     [NapSuperAuth]
     public class ChatAdminController : Controller
@@ -105,14 +104,14 @@ namespace Fanex.LiveCharts.Chat.Controllers
             var chatMessages = HttpContext.Session[sessionKey] as IEnumerable<ChatMessage>;
             var hssfWorkBook = _chatService.ExportChatConversation(
                 chatMessages,
-                chatMonitorViewModel.Match, 
-                new SearchChatMessageCriteria 
-                { 
+                chatMonitorViewModel.Match,
+                new SearchChatMessageCriteria
+                {
                     ChatRoomId = chatMonitorViewModel.ChatRoom.ChatRoomId,
                     SearchText = searchText,
                     ChatUserId = chatUserId,
                     IncludingDeleted = true
-                }, 
+                },
                 templeteFilePath);
             var exportFileName = string.Format(
                 "{0}_{1}_vs_{2}_{3}",
@@ -139,8 +138,8 @@ namespace Fanex.LiveCharts.Chat.Controllers
         [HttpPost]
         public JsonResult RecoverBannedChatUser(int chatUserId)
         {
-            return Json(_chatService.UpdateChatUser(new UpdateChatUserCriteria 
-            { 
+            return Json(_chatService.UpdateChatUser(new UpdateChatUserCriteria
+            {
                 ChatUserId = chatUserId,
                 IsBanned = false,
             }));

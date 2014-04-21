@@ -10,7 +10,7 @@
 namespace Fanex.LiveCharts.Repositories.Interface
 {
     /// <summary>
-    /// TODO: Update summary.
+    /// I Setting Repository.
     /// </summary>
     public interface ISettingRepository : IBaseRepository
     {

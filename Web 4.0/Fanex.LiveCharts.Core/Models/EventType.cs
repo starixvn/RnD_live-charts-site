@@ -12,7 +12,7 @@ namespace Fanex.LiveCharts.Models
     using System;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Event Type.
     /// </summary>
     [Serializable]
     public class EventType : EntityBase

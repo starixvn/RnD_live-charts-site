@@ -12,7 +12,7 @@ namespace Fanex.LiveCharts.Repositories.Impl
     using Fanex.LiveCharts.Repositories.Interface;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Score Prediction Repository.
     /// </summary>
     public class ScorePredictionRepository : BaseRepository, IScorePredictionRepository
     {

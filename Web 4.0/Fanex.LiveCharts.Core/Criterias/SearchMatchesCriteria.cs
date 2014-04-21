@@ -11,13 +11,11 @@ namespace Fanex.LiveCharts.Criterias
 {
     using System;
     using System.ComponentModel.DataAnnotations;
-    using System.Diagnostics.CodeAnalysis;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Search Matches Criteria.
     /// </summary>
-    [SuppressMessage("StyleCop.CSharp.NexcelRules.NexcelRulesChecking", "EX1003:MethodMustBeDocumented", Justification = "Checked it.")]
     public class SearchMatchesCriteria : CriteriaBase
     {
         [DataType(DataType.DateTime)]

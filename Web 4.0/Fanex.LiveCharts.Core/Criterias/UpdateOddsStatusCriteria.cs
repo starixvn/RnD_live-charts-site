@@ -9,14 +9,10 @@
 
 namespace Fanex.LiveCharts.Criterias
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Update Odds Status Criteria.
     /// </summary>
     public class UpdateOddsStatusCriteria : CriteriaBase
     {

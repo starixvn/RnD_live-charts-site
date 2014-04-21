@@ -12,7 +12,7 @@ namespace Fanex.LiveCharts.Criterias
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Is Match Complete Capture Criteria.
     /// </summary>
     public class IsMatchCompleteCaptureCriteria : CriteriaBase
     {

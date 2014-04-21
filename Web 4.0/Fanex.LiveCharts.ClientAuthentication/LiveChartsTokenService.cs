@@ -10,7 +10,6 @@
 namespace Fanex.LiveCharts.ClientAuthentication
 {
     using System;
-    using System.Collections.Generic;
     using System.Configuration;
     using System.IO;
     using System.Net;
@@ -20,7 +19,7 @@ namespace Fanex.LiveCharts.ClientAuthentication
     using Fanex.LiveCharts.ClientAuthentication.Models;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Live Charts Token Service.
     /// </summary>
     public static class LiveChartsTokenService
     {

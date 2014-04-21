@@ -9,14 +9,10 @@
 
 namespace Fanex.LiveCharts.Criterias.ScorePrediction
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Chart Admin Update Minute For Closing Prediction Criteria.
     /// </summary>
     public class ChartAdminUpdateMinuteForClosingPredictionCriteria : CriteriaBase
     {

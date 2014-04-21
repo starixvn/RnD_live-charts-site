@@ -23,7 +23,7 @@ namespace Fanex.LiveCharts.Services.Impl
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Score Prediction Service.
     /// </summary>
     public class ScorePredictionService : ServiceBase, IScorePredictionService
     {

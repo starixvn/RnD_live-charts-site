@@ -16,7 +16,7 @@ namespace Fanex.LiveCharts.Authentication.Criterias
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Insert Token Criteria.
     /// </summary>
     public class InsertTokenCriteria : CriteriaBase
     {

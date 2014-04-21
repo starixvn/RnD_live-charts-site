@@ -9,11 +9,10 @@
 
 namespace Fanex.LiveCharts.Criterias.ScorePrediction
 {
-    using System;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Insert Or Update Score Prediction Item Criteria.
     /// </summary>
     public class InsertOrUpdateScorePredictionItemCriteria : CriteriaBase
     {

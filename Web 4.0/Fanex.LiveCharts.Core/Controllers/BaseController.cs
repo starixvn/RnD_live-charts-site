@@ -15,7 +15,7 @@ namespace Fanex.LiveCharts.Controllers
     using Fanex.LiveCharts.Web;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Base controller for update language.
     /// </summary>
     public class BaseController : Controller
     {

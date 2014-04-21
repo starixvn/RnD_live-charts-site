@@ -13,7 +13,7 @@ namespace Fanex.LiveCharts.Authentication.Criterias
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Get Charts Criteria.
     /// </summary>
     public class GetChartsCriteria : CriteriaBase
     {

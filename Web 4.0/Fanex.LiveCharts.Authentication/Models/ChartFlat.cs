@@ -15,7 +15,7 @@ namespace Fanex.LiveCharts.Authentication.Models
     using System.Text;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Chart Flat.
     /// </summary>
     public class ChartFlat
     {

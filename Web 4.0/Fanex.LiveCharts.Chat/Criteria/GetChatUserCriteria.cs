@@ -9,11 +9,10 @@
 
 namespace Fanex.LiveCharts.Chat.Criteria
 {
-    using System;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Get Chat User Criteria.
     /// </summary>
     public class GetChatUserCriteria : CriteriaBase
     {
@@ -26,7 +25,7 @@ namespace Fanex.LiveCharts.Chat.Criteria
 
         public override bool IsValid()
         {
-            throw new NotImplementedException();
+            return MemberId > 0;
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Fanex.LiveCharts.Services.Impl
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Match Service.
     /// </summary>
     public class MatchService : ServiceBase, IMatchService
     {

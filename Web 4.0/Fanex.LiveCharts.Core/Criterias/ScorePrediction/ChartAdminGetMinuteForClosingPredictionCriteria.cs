@@ -9,25 +9,21 @@
 
 namespace Fanex.LiveCharts.Criterias.ScorePrediction
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Chart Admin Get Minute For Closing Prediction Criteria.
     /// </summary>
     public class ChartAdminGetMinuteForClosingPredictionCriteria : CriteriaBase
     {
-         public override string GetSettingKey()
-         {
-             return "Chart_Admin_Get_Minute_For_Closing_Prediction";
-         }
+        public override string GetSettingKey()
+        {
+            return "Chart_Admin_Get_Minute_For_Closing_Prediction";
+        }
 
-         public override bool IsValid()
-         {
-             return true;
-         }
+        public override bool IsValid()
+        {
+            return true;
+        }
     }
 }

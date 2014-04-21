@@ -15,7 +15,7 @@ namespace Fanex.LiveCharts.Models
     using System.Text;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Point Base.
     /// </summary>
     [Serializable]
     public class PointBase

@@ -18,7 +18,7 @@ namespace Fanex.LiveCharts.Chat.Services
     using NPOI.HSSF.UserModel;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// I Chat Service.
     /// </summary>
     public interface IChatService
     {

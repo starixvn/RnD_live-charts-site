@@ -12,7 +12,7 @@ namespace Fanex.LiveCharts.Authentication.Controllers
     using System.Web.Mvc;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Home Controller.
     /// </summary>
     public class HomeController : Controller
     {

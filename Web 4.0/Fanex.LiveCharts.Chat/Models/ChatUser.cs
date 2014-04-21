@@ -12,7 +12,7 @@ namespace Fanex.LiveCharts.Chat.Models
     using System;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Chat User.
     /// </summary>
     [Serializable]
     public class ChatUser

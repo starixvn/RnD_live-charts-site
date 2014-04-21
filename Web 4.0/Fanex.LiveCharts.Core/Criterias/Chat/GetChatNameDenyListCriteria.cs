@@ -13,7 +13,7 @@ namespace Fanex.LiveCharts.Criterias.Chat
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Get Chat Name Deny List Criteria.
     /// </summary>
     public class GetChatNameDenyListCriteria : CriteriaBase
     {

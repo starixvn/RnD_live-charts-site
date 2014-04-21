@@ -14,7 +14,7 @@ namespace Fanex.LiveCharts.Authentication.Core
     using Fanex.Logging;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Couch Base Caching Service.
     /// </summary>
     public static class CouchBaseCachingService
     {

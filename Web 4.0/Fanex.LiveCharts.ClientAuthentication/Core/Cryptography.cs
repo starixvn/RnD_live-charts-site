@@ -15,7 +15,7 @@ namespace Fanex.LiveCharts.ClientAuthentication.Core
     using System.Text;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Cryptography Utility.
     /// </summary>
     public static class Cryptography
     {

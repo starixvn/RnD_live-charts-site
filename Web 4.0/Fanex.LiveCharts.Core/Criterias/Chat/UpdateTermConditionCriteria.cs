@@ -12,7 +12,7 @@ namespace Fanex.LiveCharts.Criterias.Chat
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Update Term Condition Criteria.
     /// </summary>
     public class UpdateTermConditionCriteria : CriteriaBase
     {

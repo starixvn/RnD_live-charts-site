@@ -13,7 +13,7 @@ namespace Fanex.LiveCharts.Chat.ViewModels
     using Fanex.LiveCharts.Models;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Chat Monitor View Model.
     /// </summary>
     public class ChatMonitorViewModel
     {

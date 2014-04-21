@@ -12,7 +12,7 @@ namespace Fanex.LiveCharts.Criterias.Chat
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Update Welcome Message.
     /// </summary>
     public class UpdateWelcomeMessage : CriteriaBase
     {

@@ -14,7 +14,7 @@ namespace Fanex.LiveCharts.ClientAuthentication.Models
     using System.Text;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Bet Type Info.
     /// </summary>
     [Serializable]
     public class BetTypeInfo

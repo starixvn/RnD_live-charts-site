@@ -20,7 +20,7 @@ namespace Fanex.LiveCharts.Authentication.Services
     using Fanex.LiveCharts.ClientAuthentication.Models;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Authentication Service.
     /// </summary>
     public class AuthenticationService : ServiceBase
     {

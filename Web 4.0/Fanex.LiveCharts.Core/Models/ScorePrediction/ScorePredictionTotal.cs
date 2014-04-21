@@ -12,7 +12,7 @@ namespace Fanex.LiveCharts.Models.ScorePrediction
     using System.Collections.Generic;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Score Prediction Total.
     /// </summary>
     public class ScorePredictionTotal
     {

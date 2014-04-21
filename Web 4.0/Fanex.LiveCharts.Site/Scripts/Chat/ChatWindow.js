@@ -46,15 +46,10 @@ function ChatWindow() {
     };
 
     me.signalRConnectDone = function () {
-        if (me.chatUserInRoom.justOutRoom) {
-            me.$popupWaitingJoinRoom.modal({
-                backdrop: 'static'
-            });
-            me.$btnWaitingJoinRoom.unbind('click').click(me.initChatRoom);
-        }
-        else {
-            me.initChatRoom();
-        }
+        me.$popupWaitingJoinRoom.modal({
+            backdrop: 'static'
+        });
+        me.$btnWaitingJoinRoom.unbind('click').click(me.initChatRoom);
     };
 
     me.initChatRoom = function () {
@@ -93,16 +88,8 @@ function ChatWindow() {
         me.$btnMultiline.powerTip({ placement: 'ne', smartPlacement: true });
         me.$popupChatUserList.modal({ show: false });
         me.$txtMessageInput.unbind('keypress').keypress(me.onKeyPressForSingleLine);
-        me.$btnLeftRoom.unbind('click').click(me.outRoom).show();
+        me.$btnLeftRoom.unbind('click').click(me.chatClient.leftRoom).show();
         me.registerEmoticon();
-    };
-
-    me.outRoom = function () {
-        var currentUrl = location.href;
-        if (currentUrl.indexOf('justOutRoom') < 0) {
-            currentUrl += '&justOutRoom=true';
-        }
-        window.location.href = currentUrl;
     };
 
     me.checkValidUser = function () {
@@ -124,7 +111,7 @@ function ChatWindow() {
     };
 
     me.askJoinRoom = function () {
-        if (me.chatUser.agreedTerms) {
+        if (me.chatUser.agreedTerms || me.chatRoom.termConditionDisabled) {
             me.joinRoom();
         }
         else {
@@ -252,7 +239,6 @@ function ChatWindow() {
                         me.chatUser.chatUserId = result.InsertedId;
                         me.chatUser.chatName = chatName;
                         me.askJoinRoom();
-
                     }
                     else {
                         LIVECHARTS.alertMessage(LIVECHARTS.messageType.error, result.CommandResult.Message);

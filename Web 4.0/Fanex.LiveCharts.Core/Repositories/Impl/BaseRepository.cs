@@ -19,7 +19,7 @@ namespace Fanex.LiveCharts.Repositories.Impl
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Error Code Default.
     /// </summary>
     public class BaseRepository : DynamicRepository
     {

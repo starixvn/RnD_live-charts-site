@@ -16,7 +16,7 @@ namespace Fanex.LiveCharts.Repositories.Interface
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// I Score Prediction Repository.
     /// </summary>
     public interface IScorePredictionRepository : IBaseRepository
     {

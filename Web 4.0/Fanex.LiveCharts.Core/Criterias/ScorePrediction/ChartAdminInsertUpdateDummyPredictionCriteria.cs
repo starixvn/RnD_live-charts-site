@@ -12,7 +12,7 @@ namespace Fanex.LiveCharts.Criterias.ScorePrediction
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Chart Admin Insert Update Dummy Prediction Criteria.
     /// </summary>
     public class ChartAdminInsertUpdateDummyPredictionCriteria : CriteriaBase
     {

@@ -14,7 +14,7 @@ namespace Fanex.LiveCharts.Services.Impl
     using Fanex.LiveCharts.Core;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Remove Lock Object Service.
     /// </summary>
     public class RemoveLockObjectService : ServiceBase
     {

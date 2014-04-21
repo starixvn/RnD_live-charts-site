@@ -14,7 +14,7 @@ namespace Fanex.LiveCharts.Authentication.Services
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Service Base.
     /// </summary>
     public class ServiceBase : DynamicRepository
     {

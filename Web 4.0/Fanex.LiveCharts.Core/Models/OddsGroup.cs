@@ -14,7 +14,7 @@ namespace Fanex.LiveCharts.Models
     using Fanex.LiveCharts.Core;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Odds Group.
     /// </summary>
     public class OddsGroup
     {

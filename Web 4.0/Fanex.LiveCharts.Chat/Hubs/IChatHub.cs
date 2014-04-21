@@ -15,7 +15,7 @@ namespace Fanex.LiveCharts.Chat.Hubs
     using Fanex.LiveCharts.Chat.Models;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// I Chat Hub.
     /// </summary>
     public interface IChatHub
     {

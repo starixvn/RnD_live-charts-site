@@ -9,14 +9,10 @@
 
 namespace Fanex.LiveCharts.Criterias.Chat
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Update ChatName Deny List Criteria.
     /// </summary>
     public class UpdateChatNameDenyListCriteria : CriteriaBase
     {

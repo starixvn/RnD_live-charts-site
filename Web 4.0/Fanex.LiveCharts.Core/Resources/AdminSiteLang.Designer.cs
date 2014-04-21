@@ -709,7 +709,7 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Recover this Message from this User..
+        ///   Looks up a localized string similar to Recover all Messages from this User..
         /// </summary>
         public static string RecoverMessageFromUser {
             get {

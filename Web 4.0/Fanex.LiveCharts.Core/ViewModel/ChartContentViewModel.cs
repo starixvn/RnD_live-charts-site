@@ -15,7 +15,7 @@ namespace Fanex.LiveCharts.ViewModel
     using Fanex.LiveCharts.Models;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Chart Content View Model.
     /// </summary>
     public class ChartContentViewModel
     {

@@ -1,7 +1,9 @@
 ﻿/* File Created: March 20, 2014 */
 /// <reference path="ChatSignalRAdapter.js" />
+/*jshint maxstatements:false*/
 /*global moment, CURRENT_TIME_FORMAT, DEFAULT_OBJECT, swearWords, LIVECHARTS, LANGUAGE*/
 /*exported ChatClient*/
+
 function ChatClient(chatUser, chatRoom) {
     'use strict';
     var me = this;
@@ -37,6 +39,7 @@ function ChatClient(chatUser, chatRoom) {
         me.$memberOnline = $('#memberOnline');
         me.$btnShowHistoryMessage = $('#showMessageHistory');
     };
+
     me.init = function () {
         
         me.cachedDomElement();
@@ -73,6 +76,7 @@ function ChatClient(chatUser, chatRoom) {
     me.checkAddNewestTimeLine = function (messageTime) {
         var currentChatMessageTime = moment(messageTime).zone(me.formatTimer.timeZone);
         if (me.newestTime.date() !== currentChatMessageTime.date()) {
+            me.isNextMessageFromSameUser = false;
             me.addDistinguishLine(currentChatMessageTime, false);
         }
         me.newestTime = currentChatMessageTime;
@@ -81,6 +85,7 @@ function ChatClient(chatUser, chatRoom) {
     me.checkAddOldestTimeLine = function (messageTime) {
         var currentChatMessageTime = moment(messageTime).zone(me.formatTimer.timeZone);
         if (me.oldestTime.date() !== currentChatMessageTime.date()) {
+            me.isPreviousMessageFromSameUser = false;
             me.addDistinguishLine(me.oldestTime, true);
         }
         me.oldestTime = currentChatMessageTime;
@@ -246,7 +251,7 @@ function ChatClient(chatUser, chatRoom) {
             for (var i = fromIndex; i < toIndex; i++) {
                 var previousUserId = 0;
                 if (i < toIndex - 1) {
-                    previousUserId = me.historyMessages[i + 1].ChatUser.ChatUserId;
+                    previousUserId = me.historyMessages[i + 1].IsDeleted ? Math.floor((Math.random()*10000)+1) : me.historyMessages[i + 1].ChatUser.ChatUserId;
                 }
 
                 me.prependHistoryMessage(me.historyMessages[i], previousUserId);

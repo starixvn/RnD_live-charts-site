@@ -12,7 +12,7 @@ namespace Fanex.LiveCharts.ClientAuthentication.Models
     using System;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Chart Info.
     /// </summary>
     [Serializable]
     public class ChartInfo

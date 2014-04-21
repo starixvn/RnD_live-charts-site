@@ -12,7 +12,7 @@ namespace Fanex.LiveCharts.Chat.ViewModels
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Kick Out Chat User View Model.
     /// </summary>
     public class KickOutChatUserViewModel
     {

@@ -16,7 +16,7 @@ namespace Fanex.LiveCharts.Chat.Repositories
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// I Chat Repository.
     /// </summary>
     public interface IChatRepository : IBaseRepository
     {

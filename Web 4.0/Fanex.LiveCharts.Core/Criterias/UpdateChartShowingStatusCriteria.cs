@@ -9,20 +9,16 @@
 
 namespace Fanex.LiveCharts.Criterias
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Update Chart Showing Status Criteria.
     /// </summary>
     public class UpdateChartShowingStatusCriteria : CriteriaBase
     {
         public int MatchId { get; set; }
 
-        public byte ChartShowingStatus { get; set; } 
+        public byte ChartShowingStatus { get; set; }
 
         public override string GetSettingKey()
         {

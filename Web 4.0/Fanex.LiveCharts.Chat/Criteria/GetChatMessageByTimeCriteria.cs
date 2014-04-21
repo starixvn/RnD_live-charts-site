@@ -10,13 +10,10 @@
 namespace Fanex.LiveCharts.Chat.Criteria
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Get Chat Message By Time Criteria.
     /// </summary>
     public class GetChatMessageByTimeCriteria : CriteriaBase
     {

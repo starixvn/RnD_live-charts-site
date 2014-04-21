@@ -10,7 +10,7 @@
 namespace Fanex.LiveCharts.ClientAuthentication.Core
 {
     /// <summary>
-    /// TODO: Update summary.
+    /// Language Type.
     /// </summary>
     public enum LanguageType : int
     {

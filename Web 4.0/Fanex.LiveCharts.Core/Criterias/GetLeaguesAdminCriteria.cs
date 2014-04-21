@@ -10,13 +10,11 @@
 namespace Fanex.LiveCharts.Criterias
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Get Leagues Admin Criteria.
     /// </summary>
-    [SuppressMessage("StyleCop.CSharp.NexcelRules.NexcelRulesChecking", "EX1003:MethodMustBeDocumented", Justification = "Checked it.")]
     public class GetLeaguesAdminCriteria : CriteriaBase
     {
         public DateTime MatchDate { get; set; }

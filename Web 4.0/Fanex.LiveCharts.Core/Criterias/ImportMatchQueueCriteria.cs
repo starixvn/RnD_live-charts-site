@@ -14,9 +14,8 @@ namespace Fanex.LiveCharts.Criterias
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Import Match Queue Criteria.
     /// </summary>
-    [SuppressMessage("StyleCop.CSharp.NexcelRules.NexcelRulesChecking", "EX1003:MethodMustBeDocumented", Justification = "Checked it.")]
     public class ImportMatchQueueCriteria : CriteriaBase
     {
         public int MatchId { get; set; }

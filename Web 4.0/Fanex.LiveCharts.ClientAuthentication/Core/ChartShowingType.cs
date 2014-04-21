@@ -10,7 +10,7 @@
 namespace Fanex.LiveCharts.ClientAuthentication.Core
 {
     /// <summary>
-    /// TODO: Update summary.
+    /// Chart Showing Type.
     /// </summary>
     public enum ChartShowingType : byte
     {

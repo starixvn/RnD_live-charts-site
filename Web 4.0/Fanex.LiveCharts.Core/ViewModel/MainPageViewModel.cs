@@ -10,7 +10,7 @@
 namespace Fanex.LiveCharts.ViewModel
 {
     /// <summary>
-    /// TODO: Update summary.
+    /// Main Page View Model.
     /// </summary>
     public class MainPageViewModel
     {

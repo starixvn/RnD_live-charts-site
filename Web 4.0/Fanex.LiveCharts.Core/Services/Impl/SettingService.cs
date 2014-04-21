@@ -17,7 +17,7 @@ namespace Fanex.LiveCharts.Services.Impl
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Setting Service.
     /// </summary>
     public class SettingService : ISettingService
     {

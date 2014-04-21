@@ -13,9 +13,8 @@ namespace Fanex.LiveCharts.Criterias
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Update Event Criteria.
     /// </summary>
-    [SuppressMessage("StyleCop.CSharp.NexcelRules.NexcelRulesChecking", "EX1003:MethodMustBeDocumented", Justification = "Checked it.")]
     public class UpdateEventCriteria : CriteriaBase
     {
         public int EventId { get; set; }

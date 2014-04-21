@@ -15,7 +15,7 @@ namespace Fanex.LiveCharts.Authentication.Core
     using Fanex.Logging;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// App Settings.
     /// </summary>
     public class AppSettings
     {

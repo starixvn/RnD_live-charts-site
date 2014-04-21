@@ -23,7 +23,7 @@ namespace Fanex.LiveCharts.Chat.Controllers
     using Fanex.LiveCharts.Web;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Chat Controller.
     /// </summary>
     public class ChatController : BaseController
     {
@@ -41,10 +41,9 @@ namespace Fanex.LiveCharts.Chat.Controllers
             _settingService = settingService ?? new SettingService();
         }
 
-        public ActionResult Index(int matchId, bool justOutRoom = false)
+        public ActionResult Index(int matchId)
         {
             var chatViewModel = GetChatViewModel(matchId);
-            ViewBag.JustOutRoom = justOutRoom;
             if (chatViewModel.ChatUser.IsBanned || chatViewModel.ChatUserInRoom.KickedOut)
             {
                 return RedirectToAction("KickedOut");

@@ -9,13 +9,11 @@
 
 namespace Fanex.LiveCharts.Criterias
 {
-    using System.Diagnostics.CodeAnalysis;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Insert Event Criteria.
     /// </summary>
-    [SuppressMessage("StyleCop.CSharp.NexcelRules.NexcelRulesChecking", "EX1003:MethodMustBeDocumented", Justification = "Checked it.")]
     public class InsertEventCriteria : CriteriaBase
     {
         public int MatchId { get; set; }

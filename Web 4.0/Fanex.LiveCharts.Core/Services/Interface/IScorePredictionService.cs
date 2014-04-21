@@ -14,7 +14,7 @@ namespace Fanex.LiveCharts.Services.Interface
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// I Score Prediction Service.
     /// </summary>
     public interface IScorePredictionService
     {

@@ -385,7 +385,7 @@
     <value>Remove all Messages from this User.</value>
   </data>
   <data name="RecoverMessageFromUser" xml:space="preserve">
-    <value>Recover this Message from this User.</value>
+    <value>Recover all Messages from this User.</value>
   </data>
   <data name="RecoverThisMessage" xml:space="preserve">
     <value>Recover this Message.</value>

@@ -9,14 +9,12 @@
 
 namespace Fanex.LiveCharts.Criterias
 {
-    using System.Diagnostics.CodeAnalysis;
     using System.Threading;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Get Events By Match Id Criteria.
     /// </summary>
-    [SuppressMessage("StyleCop.CSharp.NexcelRules.NexcelRulesChecking", "EX1003:MethodMustBeDocumented", Justification = "Checked it.")]
     public class GetEventsByMatchIdCriteria : CriteriaBase
     {
         public int MatchId { get; set; }

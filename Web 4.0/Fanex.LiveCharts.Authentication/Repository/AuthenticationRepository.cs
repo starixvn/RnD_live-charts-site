@@ -10,7 +10,7 @@
 namespace Fanex.LiveCharts.Authentication.Repository
 {
     /// <summary>
-    /// TODO: Update summary.
+    /// Authentication Repository.
     /// </summary>
     public class AuthenticationRepository
     {

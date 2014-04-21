@@ -10,7 +10,7 @@
 namespace Fanex.LiveCharts.Models
 {
     /// <summary>
-    /// TODO: Update summary.
+    /// Setting Item.
     /// </summary>
     public class SettingItem
     {

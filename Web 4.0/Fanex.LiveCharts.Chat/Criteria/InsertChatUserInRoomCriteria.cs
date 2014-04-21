@@ -9,11 +9,10 @@
 
 namespace Fanex.LiveCharts.Chat.Criteria
 {
-    using System;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Insert Chat User In Room Criteria.
     /// </summary>
     public class InsertChatUserInRoomCriteria : CriteriaBase
     {

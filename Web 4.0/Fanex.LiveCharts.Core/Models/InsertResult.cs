@@ -12,7 +12,7 @@ namespace Fanex.LiveCharts.Models
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Insert Result.
     /// </summary>
     public class InsertResult
     {

@@ -3,7 +3,6 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var maxMessageLength = 1000;
-    var justOutRoom = (bool)ViewBag.JustOutRoom;
 }
 @section Styles
 {
@@ -136,14 +135,14 @@
             matchId: @(Model.ChatRoom.MatchId),
             chatRoomId: @(Model.ChatRoom.ChatRoomId),
             chatRoomName: '@(Model.ChatRoom.ChatRoomName)',
-            welcomeMessage: '@(Model.ChatRoom.WelcomeMessage)'
+            welcomeMessage: '@(Model.ChatRoom.WelcomeMessage)',
+            termConditionDisabled: @(Model.AnnoucementMessage.Disabled ? "true" : "false")
         }
 
         var CURRENT_CHAT_USER_IN_ROOM = 
             {
                 chatUserInRoomId: @(Model.ChatUserInRoom.ChatUserInRoomId),
-                kickedOut: @(Model.ChatUserInRoom.KickedOut ? "true" : "false"),
-                justOutRoom: @(justOutRoom ? "true" : "false")
+                kickedOut: @(Model.ChatUserInRoom.KickedOut ? "true" : "false")
             };
 
         var CURRENT_CHAT_USER = 

@@ -12,7 +12,7 @@ namespace Fanex.LiveCharts.Chat.Models
     using System;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Chat Message Spam.
     /// </summary>
     public class ChatMessageSpam
     {

@@ -16,7 +16,7 @@ namespace Fanex.LiveCharts.Authentication.Controllers
     using Fanex.Logging;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Authentication Controller.
     /// </summary>
     public class AuthenticationController : ApiController
     {
@@ -42,9 +42,9 @@ namespace Fanex.LiveCharts.Authentication.Controllers
         /// <param name="chartShowingStatus">Chart can be show in production or both production and QA site.</param>
         /// <returns>Array of Chart.</returns>
         public ChartInfo[] GetCharts(
-            DateTime kickOffDate, 
-            int sportId = 0, 
-            int timeZone = -4, 
+            DateTime kickOffDate,
+            int sportId = 0,
+            int timeZone = -4,
             string matchStatus = "all",
             byte chartShowingStatus = 1)
         {

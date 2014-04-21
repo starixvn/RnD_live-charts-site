@@ -10,7 +10,7 @@
 namespace Fanex.LiveCharts.Models
 {
     /// <summary>
-    /// TODO: Update summary.
+    /// Team model.
     /// </summary>
     public class Team : EntityBase
     {

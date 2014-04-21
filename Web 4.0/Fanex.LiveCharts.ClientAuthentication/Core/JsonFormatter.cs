@@ -20,7 +20,7 @@ namespace Fanex.LiveCharts.ClientAuthentication.Core
     using System.Web.UI;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// JSON Serialization Mode.
     /// </summary>
     public enum JSONSerializationMode
     {
