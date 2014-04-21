@@ -41,7 +41,7 @@
             </div>
             <textarea id="messageInput" placeholder="@Lang.Text" maxlength="1000"></textarea>
             <div class="emoticon-container">
-                <span class="emoticon-icon" id="btnEmoticon"></span>
+                <span class="emoticon-icon" id="btnEmoticon" title="@Lang.Emoticon"></span>
             </div>
         </div>
         <div class="text-submit">
@@ -90,7 +90,7 @@
             </form>
         </div>
         <div class="modal-footer">
-            <button class="btn" id="btnJoinRopm">@Lang.Agree</button>
+            <button class="btn" id="btnAgreeTerms">@Lang.Agree</button>
         </div>
     </div>
 }
@@ -115,7 +115,7 @@
     </div>
     <div class="modal-body">
         <form class="bs-docs-example form-horizontal">
-        <div class="control-group">
+        <div class="control-group" id="waitingMessage">
             @Model.ChatUser.ChatName
         </div>
         </form>

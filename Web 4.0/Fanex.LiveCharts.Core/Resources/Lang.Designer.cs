@@ -214,6 +214,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This room is not longer available for this match..
+        /// </summary>
+        public static string ChatRoomCloseMessage {
+            get {
+                return ResourceManager.GetString("ChatRoomCloseMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please choose a Betting Odds!.
         /// </summary>
         public static string ChooseABettingOdd {
@@ -318,6 +327,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string Draw {
             get {
                 return ResourceManager.GetString("Draw", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Emoticon.
+        /// </summary>
+        public static string Emoticon {
+            get {
+                return ResourceManager.GetString("Emoticon", resourceCulture);
             }
         }
         

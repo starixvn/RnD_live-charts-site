@@ -474,4 +474,10 @@
   <data name="Agree" xml:space="preserve">
     <value>Agree</value>
   </data>
+  <data name="Emoticon" xml:space="preserve">
+    <value>Emoticon</value>
+  </data>
+  <data name="ChatRoomCloseMessage" xml:space="preserve">
+    <value>This room is not longer available for this match.</value>
+  </data>
 </root>

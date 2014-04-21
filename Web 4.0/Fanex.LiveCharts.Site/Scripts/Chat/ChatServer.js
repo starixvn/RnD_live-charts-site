@@ -30,6 +30,7 @@ function ChatServer(chatAdapter, chatClient, chatUser, chatRoom, chatUserInRoom 
 
             if (currentMessage.length > DEFAULT_OBJECT.maxMessageLength) {
                 LIVECHARTS.alertMessage(LIVECHARTS.messageType.error, LANGUAGE.maxLengthMessage);
+                return;
             }
 
             me.chatAdapter.server.sendMessage({

@@ -46,17 +46,13 @@ function ChatWindow() {
     };
 
     me.signalRConnectDone = function () {
-        me.$popupWaitingJoinRoom.modal({
-            backdrop: 'static'
-        });
-        me.$btnWaitingJoinRoom.unbind('click').click(me.initChatRoom);
+        me.checkValidUser();
     };
 
     me.initChatRoom = function () {
-        me.$popupWaitingJoinRoom.modal('hide');
-        me.checkValidUser();
         me.startTimer();
         me.handleBrowserStatus();
+        me.joinRoom();
     };
 
     me.cacheDOMElements = function () {
@@ -72,8 +68,8 @@ function ChatWindow() {
         me.$popupCreateChatName = $('#popupCreateChatName');
         me.$txtChatName = $('#txtChatName');
         me.$btnMultiline = $('#btnMultiline');
-        me.$btnJoinRoom = $('#btnJoinRopm');
-        me.$btnWaitingJoinRoom = $('#btnJoinRoom');
+        me.$btnAgreeTerms = $('#btnAgreeTerms');
+        me.$btnJoinRoom = $('#btnJoinRoom');
         me.$popupTermsCondition = $('#popupTermsCondition');
         me.$popupChatUserList = $('#popupChatUserList');
         me.$userListContainer = $('#userListContainer');
@@ -111,18 +107,24 @@ function ChatWindow() {
     };
 
     me.askJoinRoom = function () {
-        if (me.chatUser.agreedTerms || me.chatRoom.termConditionDisabled) {
-            me.joinRoom();
-        }
-        else {
-            me.$popupCreateChatName.modal('hide');
-            if (me.$popupTermsCondition.length > 0) {
-                me.$popupTermsCondition.modal({
-                    backdrop: 'static'
-                });
-                me.$btnJoinRoom.unbind('click').click(me.updateAgreeTerms);
+        me.$popupWaitingJoinRoom.find('#waitingMessage').html(me.chatUser.chatName);
+        me.$popupWaitingJoinRoom.modal({
+            backdrop: 'static'
+        });
+        me.$btnJoinRoom.unbind('click').click(function () {
+            me.$popupWaitingJoinRoom.modal('hide');
+            if (me.chatUser.agreedTerms || me.chatRoom.termConditionDisabled) {
+                me.initChatRoom();
             }
-        }
+            else {
+                if (me.$popupTermsCondition.length > 0) {
+                    me.$popupTermsCondition.modal({
+                        backdrop: 'static'
+                    });
+                    me.$btnAgreeTerms.unbind('click').click(me.updateAgreeTerms);
+                }
+            }
+        });
     };
 
     me.updateAgreeTerms = function () {
@@ -135,6 +137,7 @@ function ChatWindow() {
             done: function (result) {
                 if (result && result.IsSuccessful) {
                     me.joinRoom();
+                    me.$popupTermsCondition.modal('hide');
                 }
                 else {
                     LIVECHARTS.alertMessage(LIVECHARTS.messageType.error, result.Message);
@@ -240,6 +243,7 @@ function ChatWindow() {
                 useBlockUI: false,
                 done: function (result) {
                     if (result && result.CommandResult.IsSuccessful) {
+                        me.$popupCreateChatName.modal('hide');
                         me.chatUser.chatUserId = result.InsertedId;
                         me.chatUser.chatName = chatName;
                         me.askJoinRoom();
@@ -267,9 +271,6 @@ function ChatWindow() {
     };
 
     me.joinRoom = function () {
-        if (me.$popupTermsCondition.length > 0) {
-            me.$popupTermsCondition.modal('hide');
-        }
         me.chatClient.joinRoom();
         me.registerEvents();
         me.chatServer.joinRoom();

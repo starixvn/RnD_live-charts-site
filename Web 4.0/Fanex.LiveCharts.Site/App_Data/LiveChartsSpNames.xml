@@ -106,6 +106,7 @@
 
     <Setting Key="Chart_Get_Current_Match_Data" SpName="Chart_Get_Current_Match_Data" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" ></Setting>
     <Setting Key="Chart_Admin_Update_Chart_Showing_Status" SpName="Chart_Admin_Update_Chart_Showing_Status" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" ></Setting>
+    <Setting Key="Chart_Get_Match_Status" SpName="Chart_Get_Match_Status" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
   </Function>
 
   <Function Name="Score-Prediction">

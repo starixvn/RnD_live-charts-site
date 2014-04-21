@@ -47,5 +47,7 @@ namespace Fanex.LiveCharts.Services.Interface
         ICommandResult UpdateOddsStatus(UpdateOddsStatusCriteria updateOddsStatusCriteria);
 
         ICommandResult UpdateChartShowingStatus(UpdateChartShowingStatusCriteria updateChartShowingStatusCriteria);
+
+       
     }
 }
