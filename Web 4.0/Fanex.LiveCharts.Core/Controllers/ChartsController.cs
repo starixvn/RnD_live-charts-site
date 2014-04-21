@@ -31,16 +31,21 @@ namespace Fanex.LiveCharts.Controllers
     {
         private readonly IChartService _chartService;
         private readonly IScorePredictionService _scorePredictionService;
+        private readonly IMatchService _matchService;
 
         public ChartsController()
-            : this(null, null)
+            : this(null, null, null)
         {
         }
 
-        public ChartsController(IChartService chartService, IScorePredictionService scorePredictionService)
+        public ChartsController(
+            IChartService chartService, 
+            IScorePredictionService scorePredictionService,
+            IMatchService matchService)
         {
             _chartService = chartService ?? new ChartService();
             _scorePredictionService = scorePredictionService ?? new ScorePredictionService();
+            _matchService = matchService ?? new MatchService();
         }
 
         public ActionResult MainPage(int matchId)
@@ -286,6 +291,12 @@ namespace Fanex.LiveCharts.Controllers
             },
             JsonRequestBehavior.AllowGet);
         }
+
+        ////[HttpPost]
+        ////public JsonResult IsMatchCompleted(GetMatchStatusCriteria getMatchStatusCriteria)
+        ////{
+        ////    var isCompleted = _ma
+        ////}
 
         public ActionResult OpenSoon()
         {

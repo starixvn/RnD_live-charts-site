@@ -129,6 +129,7 @@
     <Compile Include="Criterias\GetLeaguesCriteria.cs" />
     <Compile Include="Criterias\GetMatchByIdCriteria.cs" />
     <Compile Include="Criterias\GetMatchesCriteria.cs" />
+    <Compile Include="Criterias\GetMatchStatusCriteria.cs" />
     <Compile Include="Criterias\GetMaxTimeCriteria.cs" />
     <Compile Include="Criterias\GetPointsCriteria.cs" />
     <Compile Include="Criterias\ChartFilter.cs" />

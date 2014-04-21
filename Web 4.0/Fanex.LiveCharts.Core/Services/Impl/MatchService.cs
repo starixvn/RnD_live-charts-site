@@ -354,5 +354,24 @@ namespace Fanex.LiveCharts.Services.Impl
                 return new CommandResult();
             }
         }
+
+        /// <summary>
+        /// Check current Match is completed or not.
+        /// </summary>
+        /// <param name="getMatchStatus">Current query information.</param>
+        /// <returns>Match is completed or not.</returns>
+        public bool IsMatchCompleted(GetMatchStatusCriteria getMatchStatus)
+        {
+            var isMatchCompleted = false;
+
+            var currentMatchStatus = _chartRepository.Get<dynamic>(getMatchStatus);
+
+            if (currentMatchStatus.Status == "completed")
+            {
+                isMatchCompleted = true;
+            }
+
+            return isMatchCompleted;
+        }
     }
 }

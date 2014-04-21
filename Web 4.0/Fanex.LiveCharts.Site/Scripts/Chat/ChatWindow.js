@@ -39,6 +39,7 @@ function ChatWindow() {
 
     //// Innitial all information
     me.init = function () {
+        me.chatUser.chatName = LIVECHARTS.htmlDecode(me.chatUser.chatName);
         me.cacheDOMElements();
         me.chatClient.init();
         me.chatServer.init();
@@ -245,8 +246,8 @@ function ChatWindow() {
                     if (result && result.CommandResult.IsSuccessful) {
                         me.$popupCreateChatName.modal('hide');
                         me.chatUser.chatUserId = result.InsertedId;
-                        me.chatUser.chatName = chatName;
-                        me.askJoinRoom();
+                        me.chatUser.chatName = LIVECHARTS.htmlEncode(chatName);
+                        me.askJoinRoom(true);
                     }
                     else {
                         LIVECHARTS.alertMessage(LIVECHARTS.messageType.error, result.CommandResult.Message);

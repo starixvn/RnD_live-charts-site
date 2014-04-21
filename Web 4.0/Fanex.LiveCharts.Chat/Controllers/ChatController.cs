@@ -21,6 +21,7 @@ namespace Fanex.LiveCharts.Chat.Controllers
     using Fanex.LiveCharts.Services.Impl;
     using Fanex.LiveCharts.Services.Interface;
     using Fanex.LiveCharts.Web;
+    using System.Web;
 
     /// <summary>
     /// Chat Controller.

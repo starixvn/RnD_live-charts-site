@@ -48,6 +48,6 @@ namespace Fanex.LiveCharts.Services.Interface
 
         ICommandResult UpdateChartShowingStatus(UpdateChartShowingStatusCriteria updateChartShowingStatusCriteria);
 
-       
+        bool IsMatchCompleted(GetMatchStatusCriteria getMatchStatus);
     }
 }
