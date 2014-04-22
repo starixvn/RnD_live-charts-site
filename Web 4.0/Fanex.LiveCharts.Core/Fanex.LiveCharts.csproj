@@ -218,7 +218,7 @@
     <Compile Include="Web\CustomActionResult\ExcelResult.cs" />
     <Compile Include="Web\CustomActionResult\SpreadSheetResult.cs" />
     <Compile Include="Web\Filters\P3PAttribute.cs" />
-    <Compile Include="Web\Filters\ReCheckInAttribute.cs" />
+    <Compile Include="Web\Filters\LiveChartAuthenticationAttribute.cs" />
     <Compile Include="Web\SessionManager.cs" />
   </ItemGroup>
   <ItemGroup>

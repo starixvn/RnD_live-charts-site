@@ -109,7 +109,7 @@ namespace Fanex.LiveCharts.Controllers
         /// <param name="isLive">Chart live or not.</param>
         /// <param name="kickOffTime">Kick off time of match.</param>
         /// <returns>Point list.</returns>
-        [HttpGet, ReCheckIn]
+        [HttpGet, LiveChartAuthentication]
         public Dictionary<int, Point> GetPriceChartPoints(
             int priceChartTimeIndex,
             int matchId,

@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="ReCheckInAttribute.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="LiveChartAuthenticationAttribute.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -17,7 +17,7 @@ namespace Fanex.LiveCharts.Web.Filters
     /// <summary>
     /// Recheck in filter, check current user status for every request.
     /// </summary>
-    public class ReCheckInAttribute : ActionFilterAttribute
+    public class LiveChartAuthenticationAttribute : ActionFilterAttribute
     {
         /// <summary>
         /// Check current session is valid or not, kick out if not valid.
@@ -33,8 +33,7 @@ namespace Fanex.LiveCharts.Web.Filters
                 {
                     isKickOut = true;
                 }
-
-                if (!isKickOut)
+                else
                 {
                     isKickOut = SessionManager.CurrentSession.MemberId == 0 && SessionManager.CurrentSession.AdminId == 0;
                 }

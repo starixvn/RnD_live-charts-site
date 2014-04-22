@@ -159,7 +159,7 @@ namespace Fanex.LiveCharts.Controllers
         /// </summary>
         /// <param name="matchId">Check current match id is equal with match id save in session.</param>
         /// <returns>Return kick out status.</returns>
-        [HttpPost, ReCheckIn]
+        [HttpPost, LiveChartAuthentication]
         public JsonResult ReCheckIn(int matchId)
         {
             var isKickOut = false;

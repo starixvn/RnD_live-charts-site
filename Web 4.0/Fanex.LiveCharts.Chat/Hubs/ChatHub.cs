@@ -51,7 +51,7 @@ namespace Fanex.LiveCharts.Chat.Hubs
                 Content = chatMessage.Content
             });
             chatMessage.CreateTime = DateTime.Now;
-            chatMessage.ChatUser.ChatName = HttpUtility.HtmlDecode(chatMessage.ChatUser.ChatName);
+            ////chatMessage.ChatUser.ChatName = HttpUtility.HtmlDecode(chatMessage.ChatUser.ChatName);
             if (commandResult.CommandResult.IsSuccessful)
             {
                 chatMessage.ChatMessageId = commandResult.InsertedId;
@@ -138,7 +138,6 @@ namespace Fanex.LiveCharts.Chat.Hubs
         {
             try
             {
-                chatUser.ChatName = HttpUtility.HtmlDecode(chatUser.ChatName);
                 Clients.Group(chatRoom.ChatRoomName).notifyUserJoinedRoom(chatUser, GetCurrentUserList(chatRoom.ChatRoomId));
             }
             catch (Exception ex)

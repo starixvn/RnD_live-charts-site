@@ -1123,6 +1123,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to please click on &quot;Join&quot; button if you want to join this room..
+        /// </summary>
+        public static string WantToJoinRoom {
+            get {
+                return ResourceManager.GetString("WantToJoinRoom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You are forced disconnect because another session joins this room..
         /// </summary>
         public static string YouAreDisconnect {

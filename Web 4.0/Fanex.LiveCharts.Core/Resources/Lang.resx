@@ -480,4 +480,7 @@
   <data name="ChatRoomCloseMessage" xml:space="preserve">
     <value>This room is not longer available for this match.</value>
   </data>
+  <data name="WantToJoinRoom" xml:space="preserve">
+    <value>please click on "Join" button if you want to join this room.</value>
+  </data>
 </root>

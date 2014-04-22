@@ -27,6 +27,7 @@ namespace Fanex.LiveCharts.Controllers
     /// <summary>
     /// Chart Controller.
     /// </summary>
+    [LiveChartAuthentication]
     public class ChartsController : BaseController
     {
         private readonly IChartService _chartService;
@@ -39,7 +40,7 @@ namespace Fanex.LiveCharts.Controllers
         }
 
         public ChartsController(
-            IChartService chartService, 
+            IChartService chartService,
             IScorePredictionService scorePredictionService,
             IMatchService matchService)
         {
@@ -120,7 +121,7 @@ namespace Fanex.LiveCharts.Controllers
         /// <param name="betTypeId">Current bet type.</param>
         /// <param name="teamChoosing">Team choosing, home or away.</param>
         /// <returns>Return View.</returns>
-        [ReCheckIn]
+        [LiveChartAuthentication]
         public ActionResult ChartContent(
             int matchId,
             int betTypeId = (int)BetTypeEnum.Handicap,
@@ -292,11 +293,13 @@ namespace Fanex.LiveCharts.Controllers
             JsonRequestBehavior.AllowGet);
         }
 
-        ////[HttpPost]
-        ////public JsonResult IsMatchCompleted(GetMatchStatusCriteria getMatchStatusCriteria)
-        ////{
-        ////    var isCompleted = _ma
-        ////}
+        [HttpPost]
+        public JsonResult IsMatchCompleted(GetMatchStatusCriteria getMatchStatusCriteria)
+        {
+            var isCompleted = _matchService.IsMatchCompleted(getMatchStatusCriteria);
+
+            return Json(isCompleted);
+        }
 
         public ActionResult OpenSoon()
         {

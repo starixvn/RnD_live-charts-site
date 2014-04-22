@@ -366,7 +366,8 @@ namespace Fanex.LiveCharts.Services.Impl
 
             var currentMatchStatus = _chartRepository.Get<dynamic>(getMatchStatus);
 
-            if (currentMatchStatus.Status == "completed")
+            if (currentMatchStatus != null
+                && currentMatchStatus.Status == "completed")
             {
                 isMatchCompleted = true;
             }

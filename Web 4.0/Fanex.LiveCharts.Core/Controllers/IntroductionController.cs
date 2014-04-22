@@ -16,7 +16,7 @@ namespace Fanex.LiveCharts.Controllers
     /// <summary>
     /// Introduction controller for help page.
     /// </summary>
-    [ReCheckIn]
+    [LiveChartAuthentication]
     public class IntroductionController : BaseController
     {
         /// <summary>

@@ -21,10 +21,12 @@ namespace Fanex.LiveCharts.Chat.Controllers
     using Fanex.LiveCharts.Services.Impl;
     using Fanex.LiveCharts.Services.Interface;
     using Fanex.LiveCharts.Web;
+    using Fanex.LiveCharts.Web.Filters;
 
     /// <summary>
     /// Chat Controller.
     /// </summary>
+    [LiveChartAuthentication]
     public class ChatController : BaseController
     {
         private readonly IChatService _chatService;

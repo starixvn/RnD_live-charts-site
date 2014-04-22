@@ -31,6 +31,7 @@ function ChatWindow() {
     me.formatTimer = CURRENT_TIME_FORMAT;
     me.isMultiline = false;
     me.maxRowsInput = 12;
+    me.checkMatchCompletedInterval = null;
     me.url = {
         getGetChatMessageByTimeUrl: LIVECHARTS.resolveUrl('Chat/GetGetChatMessageByTime'),
         getChatMessageByUserUrl: LIVECHARTS.resolveUrl('Chat/GetChatMessageByUser'),
@@ -44,6 +45,20 @@ function ChatWindow() {
         me.chatClient.init();
         me.chatServer.init();
         me.chatAdapter.init(me, me.signalRConnectDone);
+        //me.checkMatchCompletedInterval = setInterval(me.checkMatchCompleted, 60000);
+    };
+
+    me.checkMatchCompleted = function () {
+        LIVECHARTS.callAjax({
+            url: DEFAULT_OBJECT.checkMatchCompleted,
+            type: 'POST',
+            data: {
+                MatchId: me.chatRoom.matchId
+            },
+            done: function (isCompleted) {
+                me.isCompleted = isCompleted;
+            }
+        });
     };
 
     me.signalRConnectDone = function () {

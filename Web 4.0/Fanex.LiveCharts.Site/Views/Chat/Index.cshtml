@@ -115,8 +115,8 @@
     </div>
     <div class="modal-body">
         <form class="bs-docs-example form-horizontal">
-        <div class="control-group" id="waitingMessage">
-            @Model.ChatUser.ChatName
+        <div class="control-group">
+            <span id="waitingMessage">@Model.ChatUser.ChatName</span>, @Lang.WantToJoinRoom
         </div>
         </form>
     </div>
@@ -171,6 +171,7 @@
             disabledWelcomeMessage: @(Model.WelcomeMessage.Disabled ? "true" : "false"),
             getHistoryMessageUrl: '@Url.Action("GetChatMessageByTime", "Chat")',
             updateAgreeTerms: '@(Url.Action("UpdateAgreeTerms","Chat"))',
+            checkMatchCompleted: '@(Url.Action("IsMatchCompleted","Charts"))',
             maxMessageLength: @(maxMessageLength)
         }
 

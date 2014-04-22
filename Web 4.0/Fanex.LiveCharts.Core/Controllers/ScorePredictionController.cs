@@ -20,12 +20,14 @@ namespace Fanex.LiveCharts.Controllers
     using Fanex.LiveCharts.Services.Interface;
     using Fanex.LiveCharts.ViewModel.ScorePrediction;
     using Fanex.LiveCharts.Web;
+    using Fanex.LiveCharts.Web.Filters;
     using Fanex.NAP.Core.Web.Attribute;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
     /// Score prediction controller for hander score prediction request.
     /// </summary>
+    [LiveChartAuthentication]
     public class ScorePredictionController : BaseController
     {
         private const string CorePredictionCookie = "E86E0D7F-FD5A-412B-823F-A4E6517AE51D";
