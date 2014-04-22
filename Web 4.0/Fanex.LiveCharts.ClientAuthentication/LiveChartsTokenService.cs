@@ -120,6 +120,7 @@ namespace Fanex.LiveCharts.ClientAuthentication
         private static string GetStream(string urlRequest)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(urlRequest);
+            request.Timeout = 15000;
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
             //// Get the stream associated with the response.

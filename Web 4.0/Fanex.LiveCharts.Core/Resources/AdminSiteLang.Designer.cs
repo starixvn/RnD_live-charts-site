@@ -205,7 +205,7 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Chat Name Deny List.
+        ///   Looks up a localized string similar to Key words list was denied in creating chat name.
         /// </summary>
         public static string ChatNameDenyList {
             get {
@@ -930,6 +930,24 @@ namespace Fanex.LiveCharts.Resources {
         public static string VotingNumber {
             get {
                 return ResourceManager.GetString("VotingNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please note that each key word will be separated by comma, and user cannot create chat name which contains list key words above..
+        /// </summary>
+        public static string WarningUpdateChatNameDenyList {
+            get {
+                return ResourceManager.GetString("WarningUpdateChatNameDenyList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please note that if you want to show chat name, you can use {0}. In chat room, {0} will be replaced by chat name..
+        /// </summary>
+        public static string WarningUpdateWelcomeMessage {
+            get {
+                return ResourceManager.GetString("WarningUpdateWelcomeMessage", resourceCulture);
             }
         }
         

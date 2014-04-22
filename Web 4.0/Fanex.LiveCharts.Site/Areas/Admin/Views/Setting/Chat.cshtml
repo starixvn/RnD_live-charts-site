@@ -39,6 +39,7 @@
             <div class="lbl-field">@AdminSiteLang.WelcomeMessage:</div>
             <div class="edit-field">
                 <textarea name="SettingValue" id="txtWelcomeMessage" class="term-condition-setting" >@(Model.WelcomeMessage.SettingValue)</textarea>
+                <div class="setting-warning">*@AdminSiteLang.WarningUpdateWelcomeMessage</div>
             </div>
         </div>
         <div class="form-row">
@@ -64,6 +65,7 @@
             <div class="lbl-field">@AdminSiteLang.ChatNameDenyList:</div>
             <div class="edit-field">
                 <textarea name="SettingValue" id="txtChatNameDenyList" class="term-condition-setting" >@(Model.ChatNameDenyList.SettingValue)</textarea>
+                <div class="setting-warning">*@AdminSiteLang.WarningUpdateChatNameDenyList</div>
             </div>
         </div>
         <div class="form-row">
