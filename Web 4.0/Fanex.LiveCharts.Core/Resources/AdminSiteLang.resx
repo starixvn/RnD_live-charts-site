@@ -415,6 +415,6 @@
     <value>Please note that each key word will be separated by comma, and user cannot create chat name which contains list key words above.</value>
   </data>
   <data name="WarningUpdateWelcomeMessage" xml:space="preserve">
-    <value>Please note that if you want to show chat name, you can use {0}. In chat room, {0} will be replaced by chat name.</value>
+    <value>Please note that if you want to show chat name, you can use {ChatName}. In chat room, {ChatName} will be replaced by chat name.</value>
   </data>
 </root>

@@ -230,7 +230,10 @@ function ChatMonitor() {
                 if (kickOutViewModel.CommandResult.IsSuccessful) {
                     if (kickOutViewModel.NeedToSendRequestKickOut) {
                         me.kickOutChatUserOnMemberSite(kickOutViewModel);
-
+                    }
+                    else
+                    {
+                        LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.success, LANGUAGE.kickedOutChatUserSuccess);
                     }
                     me.initMessageGrid();
                 }
@@ -455,7 +458,7 @@ function ChatMonitor() {
                                     + '"></span>';
                        }, MergeHeaderColNumber: 3
                    },
-                   { HeaderText: '', Width: 405, Name: 'ChatMessage', CellCssClass: 'message-content' },
+                   { HeaderText: '', Width: 395, Name: 'ChatMessage', CellCssClass: 'message-content' },
                    {
                        HeaderText: '', Width: 40, Name: 'ChatMessageAction', CellAlign: 'center', CustomCellRender: function (cell) {
                            var iconHtml = '<span class="edit-action open-menu-remove-message"'
@@ -588,24 +591,13 @@ function ChatMonitor() {
     };
     me.getSortedUsers = function (usersInRoom) {
         var usersLength = usersInRoom.length,
-            memberArray = usersInRoom.slice(0, usersLength).sort(function (userA, userB) {
-                return userA.ChatUser.MemberId > userB.ChatUser.MemberId;
+            memberArray = usersInRoom.slice(0).sort(function (userA, userB) {
+                return userA.ChatUser.MemberName > userB.ChatUser.MemberName;
             }),
-            chatUserArray = usersInRoom.slice(0, usersLength).sort(function (userA, userB) {
+            chatUserArray = usersInRoom.slice(0).sort(function (userA, userB) {
                 return userA.ChatUser.ChatName > userB.ChatUser.ChatName;
             }),
-            chatUserStatusArray = usersInRoom.slice(0, usersLength).sort(function (userA, userB) {
-                if (userA.IsLeft && !userB.IsLeft) {
-                    return true;
-                } else if (userA.KickedOut && (!userB.IsLeft || !userB.KickedOut)) {
-                    return true;
-                }
-                else if (userA.ChatUser.IsBanned && (!userB.IsLeft || !userB.KickedOut || !userB.ChatUser.IsBanned)) {
-                    return true;
-                }
-
-                return false;
-            });
+            chatUserStatusArray = me.sortChatUserStatus(usersInRoom.slice(0));
 
         return {
             memberArray: memberArray,
@@ -613,6 +605,32 @@ function ChatMonitor() {
             chatUserStatusArray: chatUserStatusArray
         };
     };
+    me.sortChatUserStatus = function (chatUsersInRoom) {
+        var onlineUsers = [],
+            offLineUser = [],
+            kickedOutUsers = [],
+            bannedUsers = [],
+            chatUserLength = chatUsersInRoom.length;
+
+        for (var i = 0; i < chatUserLength; i++) {
+            var currentUser = chatUsersInRoom[i];
+            if (currentUser.ChatUser.IsBanned) {
+                bannedUsers.push(currentUser);
+            }
+            else if (currentUser.KickedOut) {
+                kickedOutUsers.push(currentUser);
+            }
+            else if (!currentUser.IsLeft) {
+                onlineUsers.push(currentUser);
+            }
+            else {
+                offLineUser.push(currentUser);
+            }
+        }
+
+        return onlineUsers.concat(offLineUser).concat(kickedOutUsers).concat(bannedUsers);
+    };
+
     me.searchByChatUserEvent = function () {
         var $this = $(this),
             currentChatUserId = $this.attr('data-chat-user-id'),

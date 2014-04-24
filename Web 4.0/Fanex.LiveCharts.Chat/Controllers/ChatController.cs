@@ -26,7 +26,7 @@ namespace Fanex.LiveCharts.Chat.Controllers
     /// <summary>
     /// Chat Controller.
     /// </summary>
-    [LiveChartAuthentication]
+    ////[LiveChartAuthentication]
     public class ChatController : BaseController
     {
         private readonly IChatService _chatService;
@@ -164,9 +164,9 @@ namespace Fanex.LiveCharts.Chat.Controllers
 
             SettingItem annoucementMessage = _settingService.GetSetting(new GetTermConditionCriteria());
             SettingItem welcomeMessage = _settingService.GetSetting(new GetWelcomeMessageCriteria());
-            if (welcomeMessage.SettingValue.Contains("{0}"))
+            if (welcomeMessage.SettingValue.Contains("{ChatName}"))
             {
-                welcomeMessage.SettingValue = string.Format(welcomeMessage.SettingValue, chatUser.ChatName);
+                welcomeMessage.SettingValue = welcomeMessage.SettingValue.Replace("{ChatName}", chatUser.ChatName);
             }
 
             return new ChatViewModel

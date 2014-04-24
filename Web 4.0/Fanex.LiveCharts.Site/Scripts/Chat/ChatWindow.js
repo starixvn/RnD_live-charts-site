@@ -32,6 +32,7 @@ function ChatWindow() {
     me.isMultiline = false;
     me.maxRowsInput = 12;
     me.checkMatchCompletedInterval = null;
+    me.alreadyInsertCode = 1002;
     me.url = {
         getGetChatMessageByTimeUrl: LIVECHARTS.resolveUrl('Chat/GetGetChatMessageByTime'),
         getChatMessageByUserUrl: LIVECHARTS.resolveUrl('Chat/GetChatMessageByUser'),
@@ -265,6 +266,11 @@ function ChatWindow() {
                         me.askJoinRoom(true);
                     }
                     else {
+                        if (result && result.CommandResult.Code === me.alreadyInsertCode) {
+                            setTimeout(function () {
+                                window.location.href = window.location.href;
+                            }, 3000);
+                        }
                         LIVECHARTS.alertMessage(LIVECHARTS.messageType.error, result.CommandResult.Message);
                     }
                 }

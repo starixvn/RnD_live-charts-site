@@ -943,7 +943,7 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please note that if you want to show chat name, you can use {0}. In chat room, {0} will be replaced by chat name..
+        ///   Looks up a localized string similar to Please note that if you want to show chat name, you can use {ChatName}. In chat room, {ChatName} will be replaced by chat name..
         /// </summary>
         public static string WarningUpdateWelcomeMessage {
             get {

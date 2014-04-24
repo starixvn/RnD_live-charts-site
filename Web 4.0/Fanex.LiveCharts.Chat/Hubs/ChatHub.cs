@@ -75,9 +75,8 @@ namespace Fanex.LiveCharts.Chat.Hubs
         /// </summary>
         /// <param name="chatUser">Current user need join room.</param>
         /// <param name="chatRoom">Current room.</param>
-        /// <param name="chatUserInRoomId">If current user already have information in this room, then just change connection id.</param>
         /// <returns>Notify other user in room.</returns>
-        public Task JoinRoom(ChatUser chatUser, ChatRoom chatRoom, int chatUserInRoomId)
+        public Task JoinRoom(ChatUser chatUser, ChatRoom chatRoom)
         {
             var currentChatUserInRoom = _chatService.GetChatUserInRoom(new GetChatUserInRoomCriteria
             {
@@ -101,7 +100,7 @@ namespace Fanex.LiveCharts.Chat.Hubs
                 {
                     ChatRoomId = chatRoom.ChatRoomId,
                     ChatUserId = chatUser.ChatUserId,
-                    ChatUserInRoomId = chatUserInRoomId,
+                    ChatUserInRoomId = currentChatUserInRoom.ChatUserInRoomId,
                     ConnectionId = Context.ConnectionId
                 });
 
