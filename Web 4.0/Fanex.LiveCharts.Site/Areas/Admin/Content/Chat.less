@@ -51,72 +51,12 @@
 
 	#messageGrid
     {
-		.edit-action
-        {
-			display: block;
-			margin: 0 auto;
-			width: 34px;
-			height: 19px;
-			background: url(../../../Content/themes/nap/img/actions/dd/action-ico.png) no-repeat center 0;
-			font-size: 0;
-			cursor: pointer;
-
-			&:hover
-            {
-            	background-position: center -56px;
-            }
-        }
-
-		.recover-action
-		{
-			background-image: url("../../../Content/Images/recover.png");
-			background-repeat: no-repeat;
-			height: 16px;
-			width: 16px;
-			cursor: pointer;
-			vertical-align: middle;
-			display: block;
-		}
+		
 		
 			.message-content
             {
             	word-wrap: break-word;
-				max-width: 395px;
-            }
-
-            .user-status
-            {
-                .user-online, .user-disabled, .user-kickedout, .user-offline
-                {
-                    
-			        background-repeat: no-repeat;
-			        height: 16px;
-			        width: 16px;
-			        vertical-align: middle;
-			        display: block;
-					background-image: @spiteImage;
-                }
-
-                .user-online
-                {
-					background-position: 0px -157px;
-                }
-
-                .user-disabled
-                {
-					background-position: 0px -198px;
-                }
-
-                .user-kickedout
-                {
-					background-position: 0px -240px;
-                }
-
-                .user-offline
-                {
-                    
-					background-position: 0px -177px;
-                }
+				max-width: 340px;
             }
 
 			.chat-message-status
@@ -143,6 +83,12 @@
             }
     }
 
+	
+	
+}
+
+.content
+{
 	.freegrid .free-top-left table thead th, 
 	.freegrid .col_header table thead th, 
 	#pagination a:hover, 
@@ -158,7 +104,70 @@
 		color: #549cba;
     }
 
+	.edit-action
+        {
+			display: block;
+			margin: 0 auto;
+			width: 34px;
+			height: 19px;
+			background: url(../../../Content/themes/nap/img/actions/dd/action-ico.png) no-repeat center 0;
+			font-size: 0;
+			cursor: pointer;
+
+			&:hover
+            {
+            	background-position: center -56px;
+            }
+        }
+
+		.recover-action
+		{
+			background-image: url("../../../Content/Images/recover.png");
+			background-repeat: no-repeat;
+			height: 16px;
+			width: 16px;
+			cursor: pointer;
+			vertical-align: middle;
+			display: block;
+		}
+
+	.user-status
+	{
+		.user-online, .user-disabled, .user-kickedout, .user-offline
+		{
+                    
+			background-repeat: no-repeat;
+			height: 16px;
+			width: 16px;
+			vertical-align: middle;
+			display: block;
+			background-image: @spiteImage;
+		}
+
+		.user-online
+		{
+			background-position: 0px -157px;
+		}
+
+		.user-disabled
+		{
+			background-position: 0px -198px;
+		}
+
+		.user-kickedout
+		{
+			background-position: 0px -240px;
+		}
+
+		.user-offline
+		{
+                    
+			background-position: 0px -177px;
+		}
+	}
+
 }
+
 
 .menu-action
 {
@@ -205,7 +214,7 @@
 
 .chat-user-status-container
 {
-	width: 160px;
+	width: 250px;
 	float: left;
 
 	.chat-user-status-title
@@ -220,69 +229,11 @@
 		padding: 5px 0px 6px 2px;
     }
 
-	.chat-user-list
+	#chatUserGrid 
     {
-		width: 100%;
-		max-height: 731px;
-		overflow-y: auto;
-		overflow-x: hidden;
-		padding-right: 5px;
-
-    	#chatUserList
+		.user-status-click-search
         {
-			margin-left: 0px;
-
-			.chat-user-status
-            {
-				cursor: pointer;
-                border-left: 1px solid #c5c5c5;
-                padding: 3px;
-                margin-right: -4px;
-                border-bottom: 1px solid #c5c5c5;
-                border-right: 1px solid #c5c5c5;
-
-				&:hover
-                {
-                    background-color: #e2ffff;
-                }
-
-				.user-online, .user-left, .user-kicked-out, .user-banned
-                {
-                	width: 16px;
-                    height: 16px;
-                    display: block;
-                    background-image: @spiteImage;
-                    background-repeat: no-repeat;
-                    margin-top: 2px;
-                    float: left;
-                }
-
-                .chat-name-text
-                {
-                    margin-left: 3px;
-                    vertical-align: middle;
-                }
-
-				.user-online 
-                {
-                    background-position: 0px -157px;
-                }
-
-            	.user-left
-                {
-                    background-position: 0px -177px;
-                }
-
-				.user-kicked-out
-                {
-                    background-position: 0px -240px;
-                }
-
-				.user-banned
-                {
-                    background-position: 0px -198px;
-                }
-            }
+        	cursor: pointer;
         }
     }
 }
@@ -296,6 +247,7 @@
 	.refresh-countdown
     {
 		width: auto;
+		border-radius: 0px;
     }
 
 	.countdown-time
@@ -308,4 +260,12 @@
 		margin-left: 10px;
 		float: left;
 	}
+}
+
+.ie8 #messageGrid, .ie9 #messageGrid
+{
+	.message-content
+    {
+        word-break: break-all;
+    }
 }

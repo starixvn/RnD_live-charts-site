@@ -13,6 +13,7 @@ function ChatMonitor() {
 
     me.cacheDomElements = function () {
         me.$messageGrid = $('#messageGrid');
+        me.$chatUserGrid = $('#chatUserGrid');
         me.$menuEditChatUser = $('#menuEditChatUser');
         me.$menuEditChatMessage = $('#menuEditChatMessage');
         me.$btnSearchChatMessage = $('#btnSearchChatMessage');
@@ -92,7 +93,9 @@ function ChatMonitor() {
         //// Chat Message actions
         me.$allRecoverChatMessage.unbind('click').click(me.recoverChatMessage);
         //// Chat User status search
-        me.$chatUserList.find('.chat-user-status').unbind('click').click(me.searchByChatUserEvent);
+
+        me.$chatUserGrid.find('.user-status-click-search').unbind('click').click(me.searchByChatUserEvent);
+        //me.$chatUserList.find('.chat-user-status').unbind('click').click(me.searchByChatUserEvent);
 
         
         
@@ -103,7 +106,7 @@ function ChatMonitor() {
 
         //// Edit Chat User Menu
         $.contextMenu({
-            selector: '#messageGrid .open-menu-remove-user',
+            selector: '#chatUserGrid .open-menu-remove-user',
             trigger: 'left',
             autoHide: true,
             build: function ($trigger/*, e*/) {
@@ -389,9 +392,9 @@ function ChatMonitor() {
         });
     };
     me.renderGrid = function () {
-        me.gridOptions.pagerOption.currentPage = 0;
-        me.gridOptions.bodyRows = me.buildGridBody(me.usersAndMessageCached.ChatMessages);
-        me.$messageGrid.fanexGrid(me.gridOptions);
+        me.messageGridOptions.pagerOption.currentPage = 0;
+        me.messageGridOptions.bodyRows = me.buildMessageGridBody(me.usersAndMessageCached.ChatMessages);
+        me.$messageGrid.fanexGrid(me.messageGridOptions);
         me.registerGridEvents();
     };
     me.exportExcel = function () {
@@ -401,52 +404,52 @@ function ChatMonitor() {
             searchText: me.$txtMessageSearch.val()
         });
     };
-    me.gridOptions = {
-        columns: [
-                   { HeaderText: LANGUAGE.timeGTM8, Width: 150, Name: 'Time', CellAlign: 'center', FormatDateTime: 'DD MMM, YYYY hh:mm A' },
-                   {
-                       HeaderText: LANGUAGE.username, Width: 40, Name: 'ChatUserStatus', CellAlign: 'center',
-                       CellCssClass: 'user-status', CustomCellRender: function (cell) {
-                           var currentUser = me.usersStatus[cell.Value],
+
+    me.renderColumnChatUserStatus = function (cell) {
+        var currentUser = me.usersStatus[cell.Value],
                                userStatusClass = 'user-online',
                                statusTooltip = 'Online';
-                           if (currentUser.ChatUser.IsBanned) {
-                               userStatusClass = 'user-disabled';
-                               statusTooltip = 'Banned';
-                           }
-                           else if (currentUser.KickedOut) {
-                               userStatusClass = 'user-kickedout';
-                               statusTooltip = 'KickedOut';
-                           }
-                           else if (currentUser.IsLeft) {
-                               userStatusClass = 'user-offline';
-                               statusTooltip = 'OffLine';
-                           }
-                           return '<span title="' + statusTooltip + '" class="' + userStatusClass + '"></span>';
-                       }, MergeHeaderColNumber: 3
-                   },
-                   { HeaderText: '', Width: 150, Name: 'UserName',
-                       CellAlign: 'center', CellCssClass: 'user-name-content', AllowTruncate: true
-                   },
-                   {
-                       HeaderText: '', Width: 40, Name: 'ChatNameAction', CellAlign: 'center', CustomCellRender: function (cell) {
-                           var currentUser = me.usersStatus[cell.Value],
-                               currentStatus = 'active';
-                           if (currentUser.ChatUser.IsBanned) {
-                               currentStatus = 'banned';
-                           }
-                           else if (currentUser.KickedOut) {
-                               currentStatus = 'kickedOut';
-                           }
+        if (currentUser.ChatUser.IsBanned) {
+            userStatusClass = 'user-disabled';
+            statusTooltip = 'Banned';
+        }
+        else if (currentUser.KickedOut) {
+            userStatusClass = 'user-kickedout';
+            statusTooltip = 'KickedOut';
+        }
+        else if (currentUser.IsLeft) {
+            userStatusClass = 'user-offline';
+            statusTooltip = 'OffLine';
+        }
+        return '<span title="' + statusTooltip + '" class="' + userStatusClass + '"></span>';
+    };
 
-                           var iconHtml = '<span class="edit-action open-menu-remove-user"'
+    me.renderChatNameAction = function (cell) {
+        var currentUser = me.usersStatus[cell.Value],
+                               currentStatus = 'active';
+        if (currentUser.ChatUser.IsBanned) {
+            currentStatus = 'banned';
+        }
+        else if (currentUser.KickedOut) {
+            currentStatus = 'kickedOut';
+        }
+
+        var iconHtml = '<span class="edit-action open-menu-remove-user"'
                                             + ' data-user-status="' + currentStatus + '"'
                                             + ' data-member-id="' + currentUser.ChatUser.MemberId + '"'
                                             + ' data-chat-user-id="' + currentUser.ChatUser.ChatUserId + '"'
                                             + '></span>';
-                           return iconHtml;
-                       }
+        return iconHtml;
+    };
+
+    me.messageGridOptions = {
+        columns: [
+                   { HeaderText: LANGUAGE.timeGTM8, Width: 150, Name: 'Time', CellAlign: 'center', FormatDateTime: 'DD MMM, YYYY hh:mm A' },
+                   {
+                       HeaderText: LANGUAGE.username, Width: 40, Name: 'ChatUserStatus', CellAlign: 'center',
+                       CellCssClass: 'user-status', CustomCellRender: me.renderColumnChatUserStatus, MergeHeaderColNumber: 2
                    },
+                   { HeaderText: '', Width: 150, Name: 'UserName', CellAlign: 'center', CellCssClass: 'user-name-content', AllowTruncate: true },
                    { HeaderText: LANGUAGE.chatName, Width: 150, Name: 'ChatName', CellAlign: 'center', AllowTruncate: true },
                    {
                        HeaderText: LANGUAGE.chatMessage, Width: 40, Name: 'ChatMessageStatus', CellAlign: 'center',
@@ -458,7 +461,7 @@ function ChatMonitor() {
                                     + '"></span>';
                        }, MergeHeaderColNumber: 3
                    },
-                   { HeaderText: '', Width: 395, Name: 'ChatMessage', CellCssClass: 'message-content' },
+                   { HeaderText: '', Width: 340, Name: 'ChatMessage', CellCssClass: 'message-content' },
                    {
                        HeaderText: '', Width: 40, Name: 'ChatMessageAction', CellAlign: 'center', CustomCellRender: function (cell) {
                            var iconHtml = '<span class="edit-action open-menu-remove-message"'
@@ -482,7 +485,25 @@ function ChatMonitor() {
         showTitle: false,
         timeZone: '+08:00'
     };
-    me.buildGridBody = function (chatMessages) {
+
+    me.chatUserGridOptions = {
+        columns: [
+            {
+                HeaderText: LANGUAGE.chatName, Width: 30, Name: 'ChatUserStatus', CellAlign: 'center',
+                CellCssClass: 'user-status', CustomCellRender: me.renderColumnChatUserStatus, MergeHeaderColNumber: 3
+            },
+            { HeaderText: '', Width: 150, Name: 'ChatName', CellAlign: 'center', AllowTruncate: true, CellCssClass: 'user-status-click-search' },
+            { HeaderText: '', Width: 40, Name: 'ChatNameAction', CellAlign: 'center', CustomCellRender: me.renderChatNameAction }
+        ],
+        gridExpandHeight: 195,
+        showTitle: true,
+        titleInfo:
+        {
+            text: ""
+        }
+    };
+
+    me.buildMessageGridBody = function (chatMessages) {
         var messagesLength = chatMessages.length,
             bodyRows = [];
 
@@ -498,7 +519,6 @@ function ChatMonitor() {
                    Name: "UserName",
                    Value:  me.usersStatus[currentMessage.ChatUser.MemberId].ChatUser.MemberName
                },
-               { Name: "ChatNameAction", Value: currentMessage.ChatUser.MemberId },
                { Name: "ChatName", Value: currentMessage.ChatUser.ChatName },
                { Name: "ChatMessageStatus", Value: currentMessage.IsDeleted },
                {
@@ -529,8 +549,7 @@ function ChatMonitor() {
         me.usersStatus = {};
         me.$ddlMemberName.empty().append('<option value="0" data-chat-user-id="0">All</option>');
         me.$ddlChatName.empty().append('<option value="0" data-member-id="0">All</option>');
-        me.$chatUserList.empty();
-        
+        me.chatUserGridBodyRows = [];
 
         for (var i = 0; i < userLength; i++) {
             var currentUser = usersInRoom[i],
@@ -541,7 +560,7 @@ function ChatMonitor() {
             me.usersStatus[currentUser.ChatUser.MemberId] = currentUser;
             me.$ddlMemberName.append(me.buildMemberOption(currentMember, memberId));
             me.$ddlChatName.append(me.buildChatNameOption(currentChatUser, chatUserId));
-            me.$chatUserList.append(me.buildChatUserStatusOption(currentChatUserStatus));
+            me.buildChatUserStatusRow(currentChatUserStatus);
         }
 
         //// Create new choosen or just update.
@@ -554,6 +573,11 @@ function ChatMonitor() {
             me.$ddlChatName.chosen({}).change(me.chatNameChange);
             me.createDllSearch = true;
         }
+
+        //// Render Chat Name Grid.
+        me.chatUserGridOptions.bodyRows = me.chatUserGridBodyRows;
+        me.chatUserGridOptions.titleInfo.text = "Total Chat User: " + me.chatUserGridBodyRows.length;
+        me.$chatUserGrid.fanexGrid(me.chatUserGridOptions);
     };
     me.buildMemberOption = function (currentMember, currentSelectedMemberId) {
         return '<option value="' + currentMember.ChatUser.MemberId + '" '
@@ -567,31 +591,21 @@ function ChatMonitor() {
                                         + 'data-member-id="' + currentChatUser.ChatUser.MemberId + '"'
                                         + '>' + currentChatUser.ChatUser.ChatName + '</option>';
     };
-    me.buildChatUserStatusOption = function (currentChatUserStatus) {
-        var currentUserStatusClass = 'user-online';
-        if (currentChatUserStatus.ChatUser.IsBanned)
-        {
-            currentUserStatusClass = 'user-banned';
-        }
-        else if (currentChatUserStatus.KickedOut)
-        {
-            currentUserStatusClass = 'user-kicked-out';
-        }
-        else if (currentChatUserStatus.IsLeft)
-        {
-            currentUserStatusClass = 'user-left';
-        }
-        return '<li class="chat-user-status" '
-                    + 'data-chat-user-id="' + currentChatUserStatus.ChatUser.ChatUserId + '" '
-                    + 'data-member-id="' + currentChatUserStatus.ChatUser.MemberId + '" '
-                + '>'
-                    + '<span class="' + currentUserStatusClass + '"></span>'
-                    + '<span class="chat-name-text">' + currentChatUserStatus.ChatUser.ChatName + '</span>'
-                + '</li>';
+    me.buildChatUserStatusRow = function (currentChatUserStatus) {
+        me.chatUserGridBodyRows.push({
+            Columns: [
+               { Name: "ChatUserStatus", Value: currentChatUserStatus.ChatUser.MemberId },
+               { Name: "ChatName", Value: currentChatUserStatus.ChatUser.ChatName,
+                   CustomAttr: 'data-chat-user-id="' + currentChatUserStatus.ChatUser.ChatUserId + '"' +
+                                'data-member-id="' + currentChatUserStatus.ChatUser.MemberId + '"'
+                   
+               },
+               { Name: "ChatNameAction", Value: currentChatUserStatus.ChatUser.MemberId }
+               ]
+        });
     };
     me.getSortedUsers = function (usersInRoom) {
-        var usersLength = usersInRoom.length,
-            memberArray = usersInRoom.slice(0).sort(function (userA, userB) {
+        var memberArray = usersInRoom.slice(0).sort(function (userA, userB) {
                 return userA.ChatUser.MemberName > userB.ChatUser.MemberName;
             }),
             chatUserArray = usersInRoom.slice(0).sort(function (userA, userB) {
@@ -605,6 +619,11 @@ function ChatMonitor() {
             chatUserStatusArray: chatUserStatusArray
         };
     };
+
+    me.sortChatUserByChatName = function (userA, userB) {
+        return userA.ChatUser.ChatName > userB.ChatUser.ChatName;
+    };
+
     me.sortChatUserStatus = function (chatUsersInRoom) {
         var onlineUsers = [],
             offLineUser = [],
@@ -659,7 +678,7 @@ function ChatMonitor() {
 
     me.autoAdjustWidth = function () {
         var currentContentWidth = me.$content.width(),
-            chatUserStatusWidth = 160,
+            chatUserStatusWidth = 250,
             minContentWidth = chatUserStatusWidth + 600;
         if (currentContentWidth < minContentWidth) {
             currentContentWidth = minContentWidth;
