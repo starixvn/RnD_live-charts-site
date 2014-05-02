@@ -66,6 +66,7 @@ namespace Fanex.LiveCharts.Site
         public static void RegisterChatBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/chatroomjs")
+                .Include("~/Scripts/Libs/jquery-ui-1.10.3.custom.js")
                 .Include("~/Scripts/Libs/Moment/moment.js")
                 .Include("~/Scripts/Libs/Bootstrap/bootstrap-modal.js")
                 .Include("~/Scripts/Libs/PowerTip/jquery.powertip.js")

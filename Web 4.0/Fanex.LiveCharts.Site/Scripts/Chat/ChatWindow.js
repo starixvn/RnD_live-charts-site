@@ -46,7 +46,7 @@ function ChatWindow() {
         me.chatClient.init();
         me.chatServer.init();
         me.chatAdapter.init(me, me.signalRConnectDone);
-        //me.checkMatchCompletedInterval = setInterval(me.checkMatchCompleted, 60000);
+        me.checkMatchCompletedInterval = setInterval(me.checkMatchCompleted, 60000);
     };
 
     me.checkMatchCompleted = function () {
@@ -57,7 +57,9 @@ function ChatWindow() {
                 MatchId: me.chatRoom.matchId
             },
             done: function (isCompleted) {
-                me.isCompleted = isCompleted;
+                if (isCompleted) {
+                    location.href = DEFAULT_OBJECT.kickedOutPage;
+                }
             }
         });
     };
@@ -67,6 +69,19 @@ function ChatWindow() {
     };
 
     me.initChatRoom = function () {
+        // me.$roomContainer.resizable();
+        var maxHeight = 285;
+        me.$roomContainer.resizable({
+            handles: 's',
+            minHeight: 170,
+            maxHeight: maxHeight
+        });
+        me.$roomContainer.bind("resize", function (event, ui) {
+            if (ui && ui.size) {
+                me.$chatConversation.height(ui.size.height - 24);
+                me.$txtMessageInput.height(Math.abs(ui.size.height - maxHeight) + 20);
+            }
+        });
         me.startTimer();
         me.handleBrowserStatus();
         me.joinRoom();
@@ -92,6 +107,9 @@ function ChatWindow() {
         me.$userListContainer = $('#userListContainer');
         me.$btnLeftRoom = $('#btnLeftRoom');
         me.$popupWaitingJoinRoom = $('#popupWaitingJoinRoom');
+        me.$roomContainer = $('#roomContainer');
+        me.$roomInput = $('#roomInput');
+        me.$chatConversation = $('#chatConversation');
     };
 
     me.registerEvents = function () {
