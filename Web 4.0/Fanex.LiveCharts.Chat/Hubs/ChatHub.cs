@@ -104,10 +104,8 @@ namespace Fanex.LiveCharts.Chat.Hubs
                     ConnectionId = Context.ConnectionId
                 });
 
-            return Groups.Add(Context.ConnectionId, chatRoom.ChatRoomName).ContinueWith(jr =>
-                {
-                    NotifyUserJoinedRoom(chatUser, chatRoom);
-                });
+            NotifyUserJoinedRoom(chatUser, chatRoom);
+            return Groups.Add(Context.ConnectionId, chatRoom.ChatRoomName);
         }
 
         public Task LeaveRoom(ChatUser chatUser, ChatRoom chatRoom)
@@ -137,7 +135,9 @@ namespace Fanex.LiveCharts.Chat.Hubs
         {
             try
             {
-                Clients.Group(chatRoom.ChatRoomName).notifyUserJoinedRoom(chatUser, GetCurrentUserList(chatRoom.ChatRoomId));
+                var userList = GetCurrentUserList(chatRoom.ChatRoomId);
+                Clients.Caller.notifyUserJoinedRoom(chatUser, userList);
+                Clients.Group(chatRoom.ChatRoomName).notifyUserJoinedRoom(chatUser, userList);
             }
             catch (Exception ex)
             {

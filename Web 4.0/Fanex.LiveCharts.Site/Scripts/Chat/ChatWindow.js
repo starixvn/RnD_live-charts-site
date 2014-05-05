@@ -281,6 +281,7 @@ function ChatWindow() {
                         me.$popupCreateChatName.modal('hide');
                         me.chatUser.chatUserId = result.InsertedId;
                         me.chatUser.chatName = LIVECHARTS.htmlEncode(chatName);
+                        DEFAULT_OBJECT.welcomeMessage = DEFAULT_OBJECT.welcomeMessage.replace('{ChatName}', me.chatUser.chatName);
                         me.askJoinRoom(true);
                     }
                     else {

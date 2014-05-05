@@ -151,6 +151,9 @@ namespace Fanex.LiveCharts.Chat.Controllers
                 ChatRoomName = string.Format("{0}_en_US", matchId),
                 MatchId = matchId
             });
+            
+            SettingItem annoucementMessage = _settingService.GetSetting(new GetTermConditionCriteria());
+            SettingItem welcomeMessage = _settingService.GetSetting(new GetWelcomeMessageCriteria());
 
             var chatUserInRoom = new ChatUserInRoom();
             if (chatUser.ChatUserId > 0)
@@ -160,13 +163,11 @@ namespace Fanex.LiveCharts.Chat.Controllers
                     ChatUserId = chatUser.ChatUserId,
                     ChatRoomId = chatRoom.ChatRoomId
                 });
-            }
 
-            SettingItem annoucementMessage = _settingService.GetSetting(new GetTermConditionCriteria());
-            SettingItem welcomeMessage = _settingService.GetSetting(new GetWelcomeMessageCriteria());
-            if (welcomeMessage.SettingValue.Contains("{ChatName}"))
-            {
-                welcomeMessage.SettingValue = welcomeMessage.SettingValue.Replace("{ChatName}", chatUser.ChatName);
+                if (welcomeMessage.SettingValue.Contains("{ChatName}"))
+                {
+                    welcomeMessage.SettingValue = welcomeMessage.SettingValue.Replace("{ChatName}", chatUser.ChatName);
+                }
             }
 
             return new ChatViewModel
