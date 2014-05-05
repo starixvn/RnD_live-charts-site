@@ -173,6 +173,16 @@ namespace Fanex.LiveCharts.Services.Impl
             bool isStopScorePrediction = false;
             try
             {
+                var matchDetail = _chartService.GetMatchDetail(new GetMatchDetailCriteria 
+                { 
+                    MatchId = matchId
+                });
+
+                if (matchDetail.KickOffTime > DateTime.Now)
+                {
+                    return false;
+                }
+
                 var isMatchComplete = _chartService.IsMatchCompletedCapture(new IsMatchCompleteCaptureCriteria
                 {
                     MatchId = matchId
