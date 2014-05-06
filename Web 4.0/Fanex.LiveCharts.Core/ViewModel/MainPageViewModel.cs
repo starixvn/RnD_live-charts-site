@@ -21,5 +21,7 @@ namespace Fanex.LiveCharts.ViewModel
         public int AwayId { get; set; }
 
         public bool AnonymousLogin { get; set; }
+
+        public bool IsMatchCompleted { get; set; }
     }
 }

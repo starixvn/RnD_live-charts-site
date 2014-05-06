@@ -49,13 +49,22 @@ namespace Fanex.LiveCharts.Controllers
             _matchService = matchService ?? new MatchService();
         }
 
+        /// <summary>
+        /// Get Main page contains chart, score prediction, chat.
+        /// </summary>
+        /// <param name="matchId">Current match id for get chart.</param>
+        /// <returns>Main page.</returns>
         public ActionResult MainPage(int matchId)
         {
             var mainPageViewModel = new MainPageViewModel
             {
                 MatchId = matchId,
                 AnonymousLogin = SessionManager.CurrentSession.AdminId == 0
-                                && SessionManager.CurrentSession.MemberId <= 0
+                                && SessionManager.CurrentSession.MemberId <= 0,
+                IsMatchCompleted = _matchService.IsMatchCompleted(new GetMatchStatusCriteria
+                {
+                    MatchId = matchId
+                })
             };
 
             return View(mainPageViewModel);

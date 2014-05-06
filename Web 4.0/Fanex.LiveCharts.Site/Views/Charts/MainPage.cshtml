@@ -2,6 +2,7 @@
 @model MainPageViewModel
 @{
     ViewBag.Title = "Main Page";
+    var chatUrl = Model.IsMatchCompleted ? Url.Action("KickedOut", "Chat") : string.Format("~/Chat/Index?matchId={0}", Model.MatchId);
 }
 
 @section Styles
@@ -28,7 +29,7 @@
             <input type="button" id="submitPreditionValue" class="btn collapse-expand-icon" data-expand="true" title="@(Lang.CollapseExpandScorePrediction)">
         </div>
         <div class="chat-page">
-            <iframe id="frmChatPage" width="100%" height="100%" src="~/Chat/Index?matchId=@(Model.MatchId.ToString())" frameborder="0"></iframe>
+            <iframe id="frmChatPage" width="100%" height="100%" src="@(chatUrl)" frameborder="0"></iframe>
         </div>
     }
 </div>
