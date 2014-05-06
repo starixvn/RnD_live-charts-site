@@ -47,14 +47,17 @@
     <div id="messageGrid-grid-title" class="grid-title">
         <div class="grid-title-label" id="reporttile">@(gridTitle)</div>
         <div class="grid-toolbox">
-            <label for="stopAutoRefresh" class="stop-auto-refresh">
-                @AdminSiteLang.StopAutoRefresh
-            <input type="checkbox" id="stopAutoRefresh" />
-            </label>
-            <div class="refresh-button">
-                <div id="resultRefreshCountDown">
+            @if (!Model.IsMatchCompleted)
+            {
+                <label for="stopAutoRefresh" class="stop-auto-refresh">
+                    @AdminSiteLang.StopAutoRefresh
+                <input type="checkbox" id="stopAutoRefresh" />
+                </label>
+                <div class="refresh-button">
+                    <div id="resultRefreshCountDown">
+                    </div>
                 </div>
-            </div>
+            }
             <input type="button" id="btnExportmessageGrid" class="btnExcel" title="@AdminSiteLang.ExportExcel" /></div>
     </div>
     <div id="messageGrid" class="freegrid">

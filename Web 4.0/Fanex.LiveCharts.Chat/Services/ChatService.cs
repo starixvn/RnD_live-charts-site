@@ -612,7 +612,7 @@ namespace Fanex.LiveCharts.Chat.Services
                     timeCell.SetCellValue(chatMessage.CreateTime.ToGMT8());
                     timeCell.CellStyle = timeCellStyle;
                     var usernameCell = messageRow.CreateCell(1);
-                    usernameCell.SetCellValue(chatMessage.ChatUser.ChatUserId);
+                    usernameCell.SetCellValue(chatMessage.ChatUser.MemberName);
                     usernameCell.CellStyle = timeCellStyle;
                     var chatNameCell = messageRow.CreateCell(2);
                     chatNameCell.SetCellValue(chatMessage.ChatUser.ChatName);

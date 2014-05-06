@@ -20,5 +20,7 @@ namespace Fanex.LiveCharts.Chat.ViewModels
         public Match Match { get; set; }
 
         public ChatRoom ChatRoom { get; set; }
+
+        public bool IsMatchCompleted { get; set; }
     }
 }

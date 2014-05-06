@@ -31,18 +31,20 @@ namespace Fanex.LiveCharts.Chat.Controllers
     public class ChatAdminController : Controller
     {
         private const string ChatMonitorSessionKey = "Chat.Controllers.ChatAdminController.ChatMonitorSessionKey_{0}";
-        private IChatService _chatService;
-        private IChartService _chartService;
+        private readonly IChatService _chatService;
+        private readonly IChartService _chartService;
+        private readonly IMatchService _matchService;
 
         public ChatAdminController()
-            : this(null, null)
+            : this(null, null, null)
         {
         }
 
-        public ChatAdminController(IChatService chatService, IChartService chartService)
+        public ChatAdminController(IChatService chatService, IChartService chartService, IMatchService matchService)
         {
             _chatService = chatService ?? new ChatService();
             _chartService = chartService ?? new ChartService();
+            _matchService = matchService ?? new MatchService();
         }
 
         /// <summary>
@@ -195,7 +197,11 @@ namespace Fanex.LiveCharts.Chat.Controllers
             return new ChatMonitorViewModel
             {
                 Match = match,
-                ChatRoom = chatRoom
+                ChatRoom = chatRoom,
+                IsMatchCompleted = _matchService.IsMatchCompleted(new GetMatchStatusCriteria
+                {
+                   MatchId = matchId
+                })
             };
         }
 
