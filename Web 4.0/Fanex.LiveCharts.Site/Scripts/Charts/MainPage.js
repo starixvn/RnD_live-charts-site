@@ -31,7 +31,6 @@ function MainPage() {
 
 
         me.$btnCollapseExpand.unbind('click').click(me.collapseExpand);
-        //me.handleBrowserStatus();
     };
 
     me.collapseExpand = function () {
@@ -42,18 +41,20 @@ function MainPage() {
             me.$parentFrmScorePredictionPage.addClass('collapse');
             me.$parentFrmChatPage.addClass('expand');
             me.$btnCollapseExpand.addClass('expand');
-            me.$FrmChatPage.contents().find('#chatConversation').addClass('expand');
+            me.$FrmChatPage.contents().find('#chatConversation').addClass('expand').height(543);
+            me.$FrmChatPage.contents().find('#messageInput').height(20);
+            document.getElementById('frmChatPage').contentWindow.$('#roomContainer').height(567).trigger('resizableChatBox', [566, 450]);
         }
         else {
             $this.attr('data-expand', 'true');
             me.$parentFrmScorePredictionPage.removeClass('collapse');
             me.$parentFrmChatPage.removeClass('expand');
             me.$btnCollapseExpand.removeClass('expand');
-            me.$FrmChatPage.contents().find('#chatConversation').removeClass('expand');
+            me.$FrmChatPage.contents().find('#messageInput').height(20);
+            me.$FrmChatPage.contents().find('#chatConversation').removeClass('expand').height(262);
+            document.getElementById('frmChatPage').contentWindow.$('#roomContainer').height(286).trigger('resizableChatBox', [285, 170]);
         }
     };
-
-    
 }
 
 $(function () {

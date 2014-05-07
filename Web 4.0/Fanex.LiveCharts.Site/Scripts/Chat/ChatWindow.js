@@ -47,6 +47,24 @@ function ChatWindow() {
         me.chatServer.init();
         me.chatAdapter.init(me, me.signalRConnectDone);
         me.checkMatchCompletedInterval = setInterval(me.checkMatchCompleted, 60000);
+        window.maxHeightResizableChatBox = 285;
+        me.$roomContainer.resizable({
+            handles: 's',
+            minHeight: 170,
+            maxHeight: window.maxHeightResizableChatBox
+        });
+        me.$roomContainer.bind("resize", function (event, ui) {
+            if (ui && ui.size) {
+                me.$chatConversation.height(ui.size.height - 24);
+                me.$txtMessageInput.height(Math.abs(ui.size.height - window.maxHeightResizableChatBox) + 20);
+            }
+        });
+
+        me.$roomContainer.unbind('resizableChatBox').bind('resizableChatBox', function (e, newMaxHeight, newMinHeight) {
+            window.maxHeightResizableChatBox = newMaxHeight;
+            me.$roomContainer.resizable("option", "minHeight", newMinHeight);
+            me.$roomContainer.resizable("option", "maxHeight", newMaxHeight);
+        });
     };
 
     me.checkMatchCompleted = function () {
@@ -70,18 +88,7 @@ function ChatWindow() {
 
     me.initChatRoom = function () {
         // me.$roomContainer.resizable();
-        var maxHeight = 285;
-        me.$roomContainer.resizable({
-            handles: 's',
-            minHeight: 170,
-            maxHeight: maxHeight
-        });
-        me.$roomContainer.bind("resize", function (event, ui) {
-            if (ui && ui.size) {
-                me.$chatConversation.height(ui.size.height - 24);
-                me.$txtMessageInput.height(Math.abs(ui.size.height - maxHeight) + 20);
-            }
-        });
+        
         me.startTimer();
         me.handleBrowserStatus();
         me.joinRoom();
@@ -281,7 +288,7 @@ function ChatWindow() {
                         me.$popupCreateChatName.modal('hide');
                         me.chatUser.chatUserId = result.InsertedId;
                         me.chatUser.chatName = LIVECHARTS.htmlEncode(chatName);
-                        DEFAULT_OBJECT.welcomeMessage = DEFAULT_OBJECT.welcomeMessage.replace('{ChatName}', me.chatUser.chatName);
+                        DEFAULT_OBJECT.welcomeMessage = LIVECHARTS.htmlEncode(DEFAULT_OBJECT.welcomeMessage.replace('{ChatName}', me.chatUser.chatName));
                         me.askJoinRoom(true);
                     }
                     else {
