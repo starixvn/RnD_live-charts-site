@@ -13,10 +13,11 @@ namespace Fanex.NAP.Hub.Areas.UserLogin.Controllers
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using System.Security.Cryptography;
+    using System.Text;
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Security;
-    using Fanex.Common;
     using Fanex.Common.Extensions;
     using Fanex.LiveCharts.Core;
     using Fanex.Logging;
@@ -46,12 +47,14 @@ namespace Fanex.NAP.Hub.Areas.UserLogin.Controllers
     {
         #region members
 
+        private const string FormTokenName = "__SecureFormToken";
         private IUserService _userService;
         private IGroupService _groupService;
         private ISiteService _siteService;
         private IMenuItemService _menuItemService;
         private ICurrentSession _currentSession;
         private IMaintainanceService _maintenanceService;
+        private HashAlgorithm _hashAlgorithm = new SHA1Managed();
 
         #endregion members
 
@@ -79,6 +82,24 @@ namespace Fanex.NAP.Hub.Areas.UserLogin.Controllers
         }
 
         #endregion ctors
+
+        public string FormToken
+        {
+            get
+            {
+                if (Session[FormTokenName] == null)
+                {
+                    return string.Empty;
+                }
+
+                return Session[FormTokenName].ToString();
+            }
+
+            set
+            {
+                Session[FormTokenName] = value;
+            }
+        }
 
         #region helpers
 
@@ -139,12 +160,44 @@ namespace Fanex.NAP.Hub.Areas.UserLogin.Controllers
                 return RedirectToAction("Offline", "Common");
             }
 
+            ////Security for login form
+            string loginToken = Guid.NewGuid().ToString("N");
+            FormToken = loginToken;
+            ViewBag.LoginToken = loginToken;
+
+            AddTokenToCookie(loginToken);
+
             return View();
         }
 
+        private void AddTokenToCookie(string loginToken)
+        {
+            //// Create the non-persistent secure form token cookie
+            var responseCookie = new HttpCookie(FormTokenName)
+            {
+                //// Set the HttpOnly property to prevent the cookie from
+                //// being accessed by client side script
+                HttpOnly = true,
+
+                //// Add login token to the cookie value
+                Value = loginToken
+            };
+
+            ////If we are using SSL, the cookie should be set to secure to
+            ////prevent it from being sent over HTTP connections
+            if (FormsAuthentication.RequireSSL && Request.IsSecureConnection)
+            {
+                responseCookie.Secure = true;
+            }
+
+            ////Add the cookie to the response
+            Response.Cookies.Set(responseCookie);
+        }
+
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Index(string username, string password)
+        public ActionResult Index(string username, string password, string loginToken)
         {
             if (!username.IsNullOrTrimEmpty() && !password.IsNullOrTrimEmpty())
             {
@@ -154,9 +207,11 @@ namespace Fanex.NAP.Hub.Areas.UserLogin.Controllers
                 {
                     if (user != null)
                     {
-                        password = Cryptography.CfsEnCode(password);
+                        ////password = Cryptography.CfsEnCode(password);
 
-                        if (password == user.Password)
+                        string hashPassword = SHA256(user.Password + loginToken);
+
+                        if (password == hashPassword)
                         {
                             var group = user.Group == null ? null : _groupService.GetById(user.Group.Id);
                             var siteLevelList = _siteService.GetSiteLevelByUser(user.Id, Environment); // gets all sites of logging-in user
@@ -305,6 +360,24 @@ namespace Fanex.NAP.Hub.Areas.UserLogin.Controllers
             }
 
             return View();
+        }
+
+        private string SHA256(string input)
+        {
+            _hashAlgorithm = new SHA256Managed();
+            return GetHash(input);
+        }
+
+        private string GetHash(string input)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                throw new ArgumentException("Hey guy! I dont want to hash an empty or white space string");
+            }
+
+            var hashData = _hashAlgorithm.ComputeHash(Encoding.UTF8.GetBytes(input));
+            string encrypted = BitConverter.ToString(hashData).Replace("-", string.Empty).ToLower();
+            return encrypted;
         }
 
         #endregion sign in
