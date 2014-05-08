@@ -14,7 +14,7 @@ namespace Fanex.LiveCharts.Chat.Services
     using Fanex.LiveCharts.Chat.Models;
     using Fanex.LiveCharts.Chat.ViewModels;
     using Fanex.LiveCharts.Models;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.NAP.Framework.Command;
     using NPOI.HSSF.UserModel;
 
     /// <summary>

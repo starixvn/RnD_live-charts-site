@@ -16,6 +16,7 @@ namespace Fanex.LiveCharts.Repositories.Impl
     using Fanex.LiveCharts.Models;
     using Fanex.LiveCharts.Resources;
     using Fanex.NAP.Core.Criteria.Misc;
+    using Fanex.NAP.Framework.Command;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>

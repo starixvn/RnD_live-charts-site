@@ -22,7 +22,7 @@ namespace Fanex.LiveCharts.Controllers
     using Fanex.LiveCharts.Web;
     using Fanex.LiveCharts.Web.Filters;
     using Fanex.NAP.Core.Web.Attribute;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.NAP.Framework.Command;
 
     /// <summary>
     /// Score prediction controller for hander score prediction request.

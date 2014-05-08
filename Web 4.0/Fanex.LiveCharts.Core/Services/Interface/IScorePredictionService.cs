@@ -11,7 +11,7 @@ namespace Fanex.LiveCharts.Services.Interface
 {
     using Fanex.LiveCharts.Criterias.ScorePrediction;
     using Fanex.LiveCharts.Models.ScorePrediction;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.NAP.Framework.Command;
 
     /// <summary>
     /// I Score Prediction Service.

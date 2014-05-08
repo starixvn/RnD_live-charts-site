@@ -10,10 +10,9 @@
 namespace Fanex.LiveCharts.Services.Interface
 {
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using Fanex.LiveCharts.Criterias;
     using Fanex.LiveCharts.Models;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.NAP.Framework.Command;
 
     /// <summary>
     /// I Match Service.

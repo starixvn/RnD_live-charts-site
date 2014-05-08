@@ -9,11 +9,11 @@
 
 namespace Fanex.LiveCharts.Services.Impl
 {
-    using Fanex.LiveCharts.Criterias.ScorePrediction;
     using Fanex.LiveCharts.Models;
     using Fanex.LiveCharts.Repositories.Impl;
     using Fanex.LiveCharts.Repositories.Interface;
     using Fanex.LiveCharts.Services.Interface;
+    using Fanex.NAP.Framework.Command;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
@@ -23,7 +23,8 @@ namespace Fanex.LiveCharts.Services.Impl
     {
         private readonly ISettingRepository _settingRepository;
 
-        public SettingService() : this(null)
+        public SettingService()
+            : this(null)
         {
         }
 

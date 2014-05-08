@@ -53,7 +53,7 @@ namespace Fanex.NAP.Hub.Areas.UserLogin.Controllers
         private ISiteService _siteService;
         private IMenuItemService _menuItemService;
         private ICurrentSession _currentSession;
-        private IMaintainanceService _maintenanceService;
+        private IMaintenanceService _maintenanceService;
         private HashAlgorithm _hashAlgorithm = new SHA1Managed();
 
         #endregion members
@@ -71,14 +71,14 @@ namespace Fanex.NAP.Hub.Areas.UserLogin.Controllers
             ISiteService siteService,
             IMenuItemService menuItemService,
             ICurrentSession currentSession,
-            IMaintainanceService maintenanceService)
+            IMaintenanceService maintenanceService)
         {
             _userService = userService ?? new UserService();
             _groupService = groupService ?? new GroupService();
             _siteService = siteService ?? new SiteService();
             _menuItemService = menuItemService ?? new MenuItemService();
             _currentSession = currentSession ?? new CurrentSession();
-            _maintenanceService = maintenanceService ?? new MaintainanceService();
+            _maintenanceService = maintenanceService ?? new MaintenanceService();
         }
 
         #endregion ctors
@@ -268,7 +268,7 @@ namespace Fanex.NAP.Hub.Areas.UserLogin.Controllers
                                 #region redirects user
 
                                 // if the user login directly, not through NAP Hub
-                                if (this.IsSiteLogin == 1)
+                                if (this.IsSiteLogin)
                                 {
                                     #region checks if logging-in user is active on this site
 

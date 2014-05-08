@@ -9,8 +9,8 @@
 
 namespace Fanex.LiveCharts.Services.Interface
 {
-    using Fanex.LiveCharts.Criterias.ScorePrediction;
     using Fanex.LiveCharts.Models;
+    using Fanex.NAP.Framework.Command;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>

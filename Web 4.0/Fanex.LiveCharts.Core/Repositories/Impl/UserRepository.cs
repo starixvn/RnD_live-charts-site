@@ -32,6 +32,11 @@ namespace Fanex.LiveCharts.Repositories.Impl
                 using (ObjectDb objDb = new ObjectDb(criteria.GetSettingKey()))
                 {
                     var parameters = criteria.GetSpParams();
+                    if (!parameters.ContainsKey("iskickedout"))
+                    {
+                        parameters.Add("iskickedout", string.Empty);
+                    }
+
                     objDb.ExecuteNonQuery(parameters);
 
                     var isKickedOut = Converter.ToBool(parameters["iskickedout"]);
@@ -54,6 +59,11 @@ namespace Fanex.LiveCharts.Repositories.Impl
                 using (ObjectDb objDb = new ObjectDb(criteria.GetSettingKey()))
                 {
                     var parameters = criteria.GetSpParams();
+                    if (!parameters.ContainsKey("onuserid"))
+                    {
+                        parameters.Add("onuserid", string.Empty);
+                    }
+
                     objDb.ExecuteNonQuery(parameters);
 
                     return Converter.ToInt(parameters["onuserid"]);
@@ -75,6 +85,11 @@ namespace Fanex.LiveCharts.Repositories.Impl
                 using (ObjectDb objDb = new ObjectDb(criteria.GetSettingKey()))
                 {
                     var parameters = criteria.GetSpParams();
+                    if (!parameters.ContainsKey("isvalid"))
+                    {
+                        parameters.Add("isvalid", string.Empty);
+                    }
+
                     objDb.ExecuteNonQuery(parameters);
 
                     var isValid = Converter.ToBool(parameters["isvalid"]);

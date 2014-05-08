@@ -19,7 +19,7 @@ namespace Fanex.LiveCharts.Services.Impl
     using Fanex.LiveCharts.Repositories.Interface;
     using Fanex.LiveCharts.Resources;
     using Fanex.LiveCharts.Services.Interface;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.NAP.Framework.Command;
 
     /// <summary>
     /// Match Service.

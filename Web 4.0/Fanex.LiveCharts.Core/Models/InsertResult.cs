@@ -9,7 +9,7 @@
 
 namespace Fanex.LiveCharts.Models
 {
-    using Fanex.NAP.Framework.Data;
+    using Fanex.NAP.Framework.Command;
 
     /// <summary>
     /// Insert Result.

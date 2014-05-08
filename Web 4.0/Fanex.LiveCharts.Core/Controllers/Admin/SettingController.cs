@@ -18,7 +18,7 @@ namespace Fanex.LiveCharts.Controllers.Admin
     using Fanex.LiveCharts.Services.Interface;
     using Fanex.LiveCharts.ViewModel.Chat;
     using Fanex.NAP.Core.Web.Attribute;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.NAP.Framework.Command;
 
     /// <summary>
     /// Setting controller for update admin configuration.
@@ -98,8 +98,8 @@ namespace Fanex.LiveCharts.Controllers.Admin
         public JsonResult UpdateChatNameDenyList(string chatNameDenyList)
         {
             chatNameDenyList = chatNameDenyList.Replace("\r\n", string.Empty).Replace("\n", string.Empty);
-            ICommandResult updateResult = _settingService.UpdateSetting(new UpdateChatNameDenyListCriteria 
-            { 
+            ICommandResult updateResult = _settingService.UpdateSetting(new UpdateChatNameDenyListCriteria
+            {
                 ChatNameDenyList = chatNameDenyList
             });
 

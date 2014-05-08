@@ -37,6 +37,11 @@ namespace Fanex.LiveCharts.Repositories.Impl
                 using (ObjectDb objDb = new ObjectDb(criteria.GetSettingKey()))
                 {
                     var parameters = criteria.GetSpParams();
+                    if (!parameters.ContainsKey("maxtime"))
+                    {
+                        parameters.Add("maxtime", string.Empty);
+                    }
+
                     objDb.ExecuteNonQuery(parameters);
 
                     var maxTime = Converter.ToDateTime(parameters["maxtime"]);
@@ -61,6 +66,11 @@ namespace Fanex.LiveCharts.Repositories.Impl
                 using (ObjectDb objDb = new ObjectDb(criteria.GetSettingKey()))
                 {
                     var parameters = criteria.GetSpParams();
+                    if (!parameters.ContainsKey("maxtime"))
+                    {
+                        parameters.Add("maxtime", string.Empty);
+                    }
+
                     var list = objDb.Query<T>(parameters);
 
                     maxTime = Converter.ToDateTime(parameters["maxtime"]);

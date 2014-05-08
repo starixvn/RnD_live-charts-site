@@ -132,7 +132,8 @@ function ScorePrediction (
                     formatter: function () {
                         return '' + this.value + '%';
                     }
-                }
+                },
+                tickInterval: 20
             },
             tooltip: {
                 valueSuffix: ' %'

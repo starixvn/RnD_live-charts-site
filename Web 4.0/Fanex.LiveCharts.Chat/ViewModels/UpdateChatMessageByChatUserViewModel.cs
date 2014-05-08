@@ -9,8 +9,7 @@
 
 namespace Fanex.LiveCharts.Chat.ViewModels
 {
-    using System;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.NAP.Framework.Command;
 
     /// <summary>
     /// Update Chat Message By Chat User View Model.

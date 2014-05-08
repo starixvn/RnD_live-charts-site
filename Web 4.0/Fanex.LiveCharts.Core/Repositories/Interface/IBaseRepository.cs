@@ -10,6 +10,7 @@
 namespace Fanex.LiveCharts.Repositories.Interface
 {
     using Fanex.LiveCharts.Models;
+    using Fanex.NAP.Framework.Command;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>

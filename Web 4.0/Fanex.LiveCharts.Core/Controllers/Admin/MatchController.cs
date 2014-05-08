@@ -20,7 +20,7 @@ namespace Fanex.LiveCharts.Controllers.Admin
     using Fanex.LiveCharts.Services.Impl;
     using Fanex.LiveCharts.Services.Interface;
     using Fanex.NAP.Core.Web.Attribute;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.NAP.Framework.Command;
 
     /// <summary>
     /// Controller handle chart action.

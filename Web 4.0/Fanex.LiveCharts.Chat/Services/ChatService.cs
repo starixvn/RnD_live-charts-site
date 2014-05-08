@@ -23,7 +23,7 @@ namespace Fanex.LiveCharts.Chat.Services
     using Fanex.LiveCharts.Models;
     using Fanex.LiveCharts.Resources;
     using Fanex.LiveCharts.Services.Impl;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.NAP.Framework.Command;
     using Microsoft.AspNet.SignalR;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
@@ -351,7 +351,7 @@ namespace Fanex.LiveCharts.Chat.Services
             try
             {
                 ICommandResult invalidTokenResult = CheckChatCommandTokenInValid(
-                    UpdateMessageByUserCommandCacheKey + "_" + updateMessageByChatUser.TokenName, 
+                    UpdateMessageByUserCommandCacheKey + "_" + updateMessageByChatUser.TokenName,
                     updateMessageByChatUser.TokenKey);
                 if (invalidTokenResult != null)
                 {
