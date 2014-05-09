@@ -483,4 +483,7 @@
   <data name="WantToJoinRoom" xml:space="preserve">
     <value>please click on "Join" button if you want to join this room.</value>
   </data>
+  <data name="MatchCompletedPageNotAvai" xml:space="preserve">
+    <value>Sorry, this match is completed so this page is not available!</value>
+  </data>
 </root>

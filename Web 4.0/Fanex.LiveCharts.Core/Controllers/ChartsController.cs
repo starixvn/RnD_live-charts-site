@@ -27,7 +27,6 @@ namespace Fanex.LiveCharts.Controllers
     /// <summary>
     /// Chart Controller.
     /// </summary>
-    [LiveChartAuthentication]
     public class ChartsController : BaseController
     {
         private readonly IChartService _chartService;
@@ -54,6 +53,7 @@ namespace Fanex.LiveCharts.Controllers
         /// </summary>
         /// <param name="matchId">Current match id for get chart.</param>
         /// <returns>Main page.</returns>
+        [LiveChartAuthentication]
         public ActionResult MainPage(int matchId)
         {
             var mainPageViewModel = new MainPageViewModel
@@ -204,6 +204,7 @@ namespace Fanex.LiveCharts.Controllers
             "StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
+        [LiveChartAuthentication]
         public ChartContentViewModel GetChartContentViewModel(
             int matchId,
             int betTypeId = (int)BetTypeEnum.Handicap,
@@ -302,6 +303,7 @@ namespace Fanex.LiveCharts.Controllers
             JsonRequestBehavior.AllowGet);
         }
 
+        [LiveChartAuthentication]
         [HttpPost]
         public JsonResult IsMatchCompleted(GetMatchStatusCriteria getMatchStatusCriteria)
         {

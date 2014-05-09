@@ -10,6 +10,7 @@ function MainPage() {
         me.$FrmChatPage = $('#frmChatPage');
         me.$allFrame = $('#frmChartPage, #frmScorePredictionPage, #frmChatPage');
         me.$btnCollapseExpand = $('#submitPreditionValue');
+        me.$reCheckInUrl = $('#reCheckInUrl');
     };
 
     me.init = function () {

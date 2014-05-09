@@ -601,6 +601,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sorry, this match is completed so this page is not available!.
+        /// </summary>
+        public static string MatchCompletedPageNotAvai {
+            get {
+                return ResourceManager.GetString("MatchCompletedPageNotAvai", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chat name length cannot be greater than 50 characters..
         /// </summary>
         public static string MaxLengthChatNameMessage {
