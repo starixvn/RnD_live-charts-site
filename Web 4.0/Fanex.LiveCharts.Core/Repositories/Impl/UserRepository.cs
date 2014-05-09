@@ -32,10 +32,6 @@ namespace Fanex.LiveCharts.Repositories.Impl
                 using (ObjectDb objDb = new ObjectDb(criteria.GetSettingKey()))
                 {
                     var parameters = criteria.GetSpParams();
-                    if (!parameters.ContainsKey("iskickedout"))
-                    {
-                        parameters.Add("iskickedout", string.Empty);
-                    }
 
                     objDb.ExecuteNonQuery(parameters);
 

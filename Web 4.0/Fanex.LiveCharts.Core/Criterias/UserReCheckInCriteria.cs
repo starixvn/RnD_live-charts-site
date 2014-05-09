@@ -21,6 +21,8 @@ namespace Fanex.LiveCharts.Criterias
     {
         public int MemberId { get; set; }
 
+        public bool IsKickedOut { get; set; }
+
         public override string GetSettingKey()
         {
             return "Chart_User_ReCheckIn";
