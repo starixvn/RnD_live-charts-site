@@ -70,7 +70,7 @@ namespace Fanex.LiveCharts.Chat.Controllers
             var result = _chatService.GetChatMessagesByTime(new GetChatMessageByTimeCriteria
             {
                 ChatRoomId = chatRoomId,
-                LatestTime = latestTime ?? DateTime.Now
+                LatestTime = latestTime ?? DateTime.Now.AddMinutes(5)
             });
 
             return Json(result);
