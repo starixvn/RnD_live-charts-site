@@ -117,6 +117,7 @@ function ChatWindow() {
         me.$roomContainer = $('#roomContainer');
         me.$roomInput = $('#roomInput');
         me.$chatConversation = $('#chatConversation');
+        me.$termConditionMessage = $('#termConditionMessage');
     };
 
     me.registerEvents = function () {

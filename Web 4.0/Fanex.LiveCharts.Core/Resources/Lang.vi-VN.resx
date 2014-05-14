@@ -117,34 +117,148 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Agree" xml:space="preserve">
+    <value>Đồng ý</value>
+  </data>
   <data name="BetCountVolumn" xml:space="preserve">
-    <value>Market Movement</value>
+    <value>Diễn biến thị trường</value>
   </data>
   <data name="ChartUnavailable" xml:space="preserve">
-    <value>Sorry, chart is unavailable for this game!</value>
+    <value>Xin lỗi, trận đấu này không hỗ trợ biểu đồ</value>
+  </data>
+  <data name="ChatName" xml:space="preserve">
+    <value>Tên hội thoại</value>
+  </data>
+  <data name="ChatNameCannotEmpty" xml:space="preserve">
+    <value>Tên hội thoại không được để trống.</value>
+  </data>
+  <data name="ChatNameWarning" xml:space="preserve">
+    <value>Tên hội thoại chỉ tạo được một lần, bạn sẽ sử dụng nó cho tất cả các cuộc hội thoại, vui lòng lưu ý khi đặt tên.</value>
+  </data>
+  <data name="ChatRoom" xml:space="preserve">
+    <value>Phòng hội thoại</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Tạo tên hội thoại</value>
+  </data>
+  <data name="CreateChatName" xml:space="preserve">
+    <value>Tạo tên hội thoại</value>
   </data>
   <data name="CurrentOdds" xml:space="preserve">
-    <value>Current Odds</value>
+    <value>Tỷ lệ hiện tại</value>
+  </data>
+  <data name="Emoticon" xml:space="preserve">
+    <value>Biểu tượng cảm xúc</value>
   </data>
   <data name="Handicap" xml:space="preserve">
     <value>Handicap</value>
   </data>
+  <data name="HasLeft" xml:space="preserve">
+    <value>Đã thoát</value>
+  </data>
+  <data name="InvalidInput" xml:space="preserve">
+    <value>Không hợp lệ</value>
+  </data>
+  <data name="Join" xml:space="preserve">
+    <value>Tham gia</value>
+  </data>
+  <data name="JoinChatRoom" xml:space="preserve">
+    <value>Tham gia cuộc hội thoại</value>
+  </data>
+  <data name="JoinedRoom" xml:space="preserve">
+    <value>Đã tham gia vào nhóm hội thoại</value>
+  </data>
+  <data name="MaxLengthChatNameMessage" xml:space="preserve">
+    <value>Tên hội thoại không được dài quá 50 chữ</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>Thành viên</value>
+  </data>
+  <data name="MessageCannotEmpty" xml:space="preserve">
+    <value>Tin nhắn không được để trống.</value>
+  </data>
+  <data name="MessageMaxLengthMessage" xml:space="preserve">
+    <value>Độ dài tin nhắn không dài hơn {0}</value>
+  </data>
+  <data name="MessageNoPrediction" xml:space="preserve">
+    <value>Vui lòng gửi dự đoán của bạn để xem kết quả điểm dự đoán.</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>Khác</value>
+  </data>
   <data name="Movement" xml:space="preserve">
-    <value>Movement</value>
+    <value>Diễn biến</value>
+  </data>
+  <data name="MultilineOff" xml:space="preserve">
+    <value>Nhiều dòng Tắt</value>
+  </data>
+  <data name="MultilineOn" xml:space="preserve">
+    <value>Nhiều dòng Bật</value>
   </data>
   <data name="OpenSoonMessage" xml:space="preserve">
-    <value>This Chart will be open soon. Please come back after:</value>
+    <value>Biểu đồ này sẽ được mở sớm. Vui lòng quay lại sau.</value>
+  </data>
+  <data name="Out" xml:space="preserve">
+    <value>Thoát</value>
   </data>
   <data name="Over" xml:space="preserve">
-    <value>Over</value>
+    <value>Trên</value>
   </data>
   <data name="OverUnder" xml:space="preserve">
-    <value>Over/Under</value>
+    <value>Trên/Dưới</value>
   </data>
   <data name="Price" xml:space="preserve">
-    <value>Price</value>
+    <value>Giá</value>
+  </data>
+  <data name="ScorePrediction" xml:space="preserve">
+    <value>Điểm dự đoán</value>
+  </data>
+  <data name="ScorePredictionStopMessage" xml:space="preserve">
+    <value>Điểm dự đoán không thể thực hiện ở trận đấu này</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Gửi</value>
+  </data>
+  <data name="ShowHistoryMessages" xml:space="preserve">
+    <value>Hiển thị lịch sử tin nhắn</value>
+  </data>
+  <data name="SorrryChatUnavailable" xml:space="preserve">
+    <value>Xin lỗi, nhóm hội thoại này không có sẵn.</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Gửi</value>
+  </data>
+  <data name="SubmitAndViewResult" xml:space="preserve">
+    <value>Gửi và xem kết quả</value>
+  </data>
+  <data name="TermsCondition" xml:space="preserve">
+    <value>Điều kiện</value>
+  </data>
+  <data name="Text" xml:space="preserve">
+    <value>Văn bản</value>
+  </data>
+  <data name="TotalPredictionResult" xml:space="preserve">
+    <value>Tổng kết quả điểm dự đoán</value>
   </data>
   <data name="Under" xml:space="preserve">
-    <value>Under</value>
+    <value>Dưới</value>
+  </data>
+  <data name="UpdateSuccessfullyMessage" xml:space="preserve">
+    <value>Cập nhật thành công.</value>
+  </data>
+  <data name="UserList" xml:space="preserve">
+    <value>Danh sách bạn bè</value>
+  </data>
+  <data name="ViewAllScorePredictionResults" xml:space="preserve">
+    <value>Xem tất cả kết quả điểm dự đoán</value>
+  </data>
+  <data name="WantToJoinRoom" xml:space="preserve">
+    <value>Vui lòng chọn "Tham gia"  nếu bạn muốn tham gia phòng hội thoại này.</value>
+  </data>
+  <data name="YouAreDisconnect" xml:space="preserve">
+    <value>Bạn bị mất kết nối do một phiên khác đăng nhập</value>
+  </data>
+  <data name="YourPrediction" xml:space="preserve">
+    <value>Dự đoán của bạn</value>
   </data>
 </root>

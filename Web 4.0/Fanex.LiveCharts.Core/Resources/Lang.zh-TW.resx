@@ -117,23 +117,89 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Agree" xml:space="preserve">
+    <value>同意</value>
+  </data>
   <data name="BetCountVolumn" xml:space="preserve">
     <value>市場動靜</value>
   </data>
   <data name="ChartUnavailable" xml:space="preserve">
     <value>對不起，此賽事不提供圖表！</value>
   </data>
+  <data name="ChatName" xml:space="preserve">
+    <value>聊天名</value>
+  </data>
+  <data name="ChatNameCannotEmpty" xml:space="preserve">
+    <value>聊天名稱不能為空！</value>
+  </data>
+  <data name="ChatNameWarning" xml:space="preserve">
+    <value>聊天名稱僅是只創建一次，和您將使用它的所有房室，請考慮名稱的聊天名稱.</value>
+  </data>
+  <data name="ChatRoom" xml:space="preserve">
+    <value>聊天室</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>創建聊天名稱</value>
+  </data>
+  <data name="CreateChatName" xml:space="preserve">
+    <value>創建聊天名稱</value>
+  </data>
   <data name="CurrentOdds" xml:space="preserve">
     <value>目前賠率</value>
+  </data>
+  <data name="Emoticon" xml:space="preserve">
+    <value>情緒圖標</value>
   </data>
   <data name="Handicap" xml:space="preserve">
     <value>亞洲盤</value>
   </data>
+  <data name="HasLeft" xml:space="preserve">
+    <value>已離開</value>
+  </data>
+  <data name="InvalidInput" xml:space="preserve">
+    <value>無效輸入</value>
+  </data>
+  <data name="Join" xml:space="preserve">
+    <value>加入</value>
+  </data>
+  <data name="JoinChatRoom" xml:space="preserve">
+    <value>加入聊天室</value>
+  </data>
+  <data name="JoinedRoom" xml:space="preserve">
+    <value>加入聊天室</value>
+  </data>
+  <data name="MaxLengthChatNameMessage" xml:space="preserve">
+    <value>聊天名稱的長度不能超過50個字符</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>會員</value>
+  </data>
+  <data name="MessageCannotEmpty" xml:space="preserve">
+    <value>信息不能為空！</value>
+  </data>
+  <data name="MessageMaxLengthMessage" xml:space="preserve">
+    <value>信息長度不能大於{0}</value>
+  </data>
+  <data name="MessageNoPrediction" xml:space="preserve">
+    <value>請提交您預測，請參閱得分預測結果</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>更多</value>
+  </data>
   <data name="Movement" xml:space="preserve">
     <value>動靜</value>
   </data>
+  <data name="MultilineOff" xml:space="preserve">
+    <value>多線關閉</value>
+  </data>
+  <data name="MultilineOn" xml:space="preserve">
+    <value>多線開</value>
+  </data>
   <data name="OpenSoonMessage" xml:space="preserve">
     <value>此圖表即將開放，請稍候再來：</value>
+  </data>
+  <data name="Out" xml:space="preserve">
+    <value>出</value>
   </data>
   <data name="Over" xml:space="preserve">
     <value>大</value>
@@ -144,7 +210,55 @@
   <data name="Price" xml:space="preserve">
     <value>赔率</value>
   </data>
+  <data name="ScorePrediction" xml:space="preserve">
+    <value>得分預測</value>
+  </data>
+  <data name="ScorePredictionStopMessage" xml:space="preserve">
+    <value>得分預測不能再進行這場比賽</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>發送</value>
+  </data>
+  <data name="ShowHistoryMessages" xml:space="preserve">
+    <value>顯示歷史紀錄信息</value>
+  </data>
+  <data name="SorrryChatUnavailable" xml:space="preserve">
+    <value>此聊天室不可用</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>提交</value>
+  </data>
+  <data name="SubmitAndViewResult" xml:space="preserve">
+    <value>提交和參看結果</value>
+  </data>
+  <data name="TermsCondition" xml:space="preserve">
+    <value>條件</value>
+  </data>
+  <data name="Text" xml:space="preserve">
+    <value>文本</value>
+  </data>
+  <data name="TotalPredictionResult" xml:space="preserve">
+    <value>總預測結果</value>
+  </data>
   <data name="Under" xml:space="preserve">
     <value>小</value>
+  </data>
+  <data name="UpdateSuccessfullyMessage" xml:space="preserve">
+    <value>你提交已成功更新！</value>
+  </data>
+  <data name="UserList" xml:space="preserve">
+    <value>用户列表</value>
+  </data>
+  <data name="ViewAllScorePredictionResults" xml:space="preserve">
+    <value>參看所有得分預測結果</value>
+  </data>
+  <data name="WantToJoinRoom" xml:space="preserve">
+    <value>請點擊“加入”按鈕（如果您想要加入此聊天室)</value>
+  </data>
+  <data name="YouAreDisconnect" xml:space="preserve">
+    <value>您強迫中斷連接因為另一個會話加入本室</value>
+  </data>
+  <data name="YourPrediction" xml:space="preserve">
+    <value>您的预测</value>
   </data>
 </root>

@@ -433,7 +433,7 @@
     <value>Please log in to experience new features, Score Prediction and Live Chat!</value>
   </data>
   <data name="CreateChatName" xml:space="preserve">
-    <value>Create Chat Name</value>
+    <value>Create Chat Room Nickname</value>
   </data>
   <data name="Create" xml:space="preserve">
     <value>Create</value>
@@ -466,7 +466,8 @@
     <value>Please submit your prediction to see Score Prediction result.</value>
   </data>
   <data name="ChatNameWarning" xml:space="preserve">
-    <value>Chat name just be created only one time, and you will use it for all rooms, please consider to name the chat name. </value>
+    <value>Nickname is your unique identity and is permanent on your account to be used in all chat rooms.&lt;br/&gt; 
+Please be considered and do not use any offensive nickname.</value>
   </data>
   <data name="TermsCondition" xml:space="preserve">
     <value>Terms Condition</value>

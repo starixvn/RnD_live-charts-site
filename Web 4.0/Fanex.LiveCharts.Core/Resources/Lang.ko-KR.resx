@@ -117,23 +117,89 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Agree" xml:space="preserve">
+    <value>동의</value>
+  </data>
   <data name="BetCountVolumn" xml:space="preserve">
-    <value>Market Movement</value>
+    <value>시장 움직임</value>
   </data>
   <data name="ChartUnavailable" xml:space="preserve">
-    <value>Sorry, chart is unavailable for this game!</value>
+    <value>죄송합니다, 이 게임은 차트 이용이 불가능합니다.</value>
+  </data>
+  <data name="ChatName" xml:space="preserve">
+    <value>채팅이름</value>
+  </data>
+  <data name="ChatNameCannotEmpty" xml:space="preserve">
+    <value>채팅 이름은 비워둘 수 없습니다.</value>
+  </data>
+  <data name="ChatNameWarning" xml:space="preserve">
+    <value>채팅 이름설정은 한번만 가능하며 한번 설정된 이름은 모든 채팅방에서 사용되오니 채팅이름 설정시 참고하시기 바랍니다.</value>
+  </data>
+  <data name="ChatRoom" xml:space="preserve">
+    <value>채팅방</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>만들기</value>
+  </data>
+  <data name="CreateChatName" xml:space="preserve">
+    <value>채팅이름설정</value>
   </data>
   <data name="CurrentOdds" xml:space="preserve">
-    <value>Current Odds</value>
+    <value>현재 배당률</value>
+  </data>
+  <data name="Emoticon" xml:space="preserve">
+    <value>이모티콘</value>
   </data>
   <data name="Handicap" xml:space="preserve">
     <value>핸디캡</value>
   </data>
+  <data name="HasLeft" xml:space="preserve">
+    <value>나가셨습니다．</value>
+  </data>
+  <data name="InvalidInput" xml:space="preserve">
+    <value>올바르지 않습니다.</value>
+  </data>
+  <data name="Join" xml:space="preserve">
+    <value>입장하기</value>
+  </data>
+  <data name="JoinChatRoom" xml:space="preserve">
+    <value>채팅방입장하기</value>
+  </data>
+  <data name="JoinedRoom" xml:space="preserve">
+    <value>방에 입장하셨습니다.</value>
+  </data>
+  <data name="MaxLengthChatNameMessage" xml:space="preserve">
+    <value>채팅이름은 최대 50자를 초과할 수 없습니다.</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>회원</value>
+  </data>
+  <data name="MessageCannotEmpty" xml:space="preserve">
+    <value>메시지는 비워둘 수 없습니다.</value>
+  </data>
+  <data name="MessageMaxLengthMessage" xml:space="preserve">
+    <value>대화 길이는 {0}보다 클 수 없습니다.</value>
+  </data>
+  <data name="MessageNoPrediction" xml:space="preserve">
+    <value>점수 예상결과를 보려면 예상점수를 제출하시기 바랍니다.</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>더 보기</value>
+  </data>
   <data name="Movement" xml:space="preserve">
-    <value>Movement</value>
+    <value>이동</value>
+  </data>
+  <data name="MultilineOff" xml:space="preserve">
+    <value>멀티 라인 끄기</value>
+  </data>
+  <data name="MultilineOn" xml:space="preserve">
+    <value>멀티 라인 켜기</value>
   </data>
   <data name="OpenSoonMessage" xml:space="preserve">
-    <value>This Chart will be open soon. Please come back after:</value>
+    <value>이 차트는 곧 이용하실 수 있습니다.잠시 후 다시 이용해주세요.</value>
+  </data>
+  <data name="Out" xml:space="preserve">
+    <value>나가기</value>
   </data>
   <data name="Over" xml:space="preserve">
     <value>오버</value>
@@ -144,7 +210,55 @@
   <data name="Price" xml:space="preserve">
     <value>Price</value>
   </data>
+  <data name="ScorePrediction" xml:space="preserve">
+    <value>예상 점수</value>
+  </data>
+  <data name="ScorePredictionStopMessage" xml:space="preserve">
+    <value>이 경기의 점수예상은 더 이상 불가능합니다.</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>보내기</value>
+  </data>
+  <data name="ShowHistoryMessages" xml:space="preserve">
+    <value>이전 대화 보기</value>
+  </data>
+  <data name="SorrryChatUnavailable" xml:space="preserve">
+    <value>죄송합니다. 가능한 채팅방이 없습니다.</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>제출</value>
+  </data>
+  <data name="SubmitAndViewResult" xml:space="preserve">
+    <value>제출 및 결과확인</value>
+  </data>
+  <data name="TermsCondition" xml:space="preserve">
+    <value>약관조건</value>
+  </data>
+  <data name="Text" xml:space="preserve">
+    <value>문자</value>
+  </data>
+  <data name="TotalPredictionResult" xml:space="preserve">
+    <value>총 예상 결과</value>
+  </data>
   <data name="Under" xml:space="preserve">
     <value>언더</value>
+  </data>
+  <data name="UpdateSuccessfullyMessage" xml:space="preserve">
+    <value>귀하의 제출이 성공적으로 업데이트되없습니다.</value>
+  </data>
+  <data name="UserList" xml:space="preserve">
+    <value>사용자목록</value>
+  </data>
+  <data name="ViewAllScorePredictionResults" xml:space="preserve">
+    <value>모든 점수 예상결과 보기</value>
+  </data>
+  <data name="WantToJoinRoom" xml:space="preserve">
+    <value>채팅방에 입장하려면 "입장"버튼을 클릭하세요</value>
+  </data>
+  <data name="YouAreDisconnect" xml:space="preserve">
+    <value>다른 섹션이 채팅방에 참여되어 연결이 강제적으로 끊어졌습니다.</value>
+  </data>
+  <data name="YourPrediction" xml:space="preserve">
+    <value>당신의 예상</value>
   </data>
 </root>

@@ -71,7 +71,7 @@ namespace Fanex.LiveCharts.Controllers.Admin
         [HttpPost]
         public JsonResult UpdateTermCondition(string termCondition, bool disabled)
         {
-            termCondition = termCondition.Replace("\r\n", string.Empty).Replace("\n", string.Empty);
+            termCondition = termCondition.Replace("\r\n", "{br}").Replace("\n", "{br}");
             ICommandResult updateResult = _settingService.UpdateSetting(new UpdateTermConditionCriteria
             {
                 TermCondition = termCondition,

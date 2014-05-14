@@ -196,7 +196,8 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Chat name just be created only one time, and you will use it for all rooms, please consider to name the chat name. .
+        ///   Looks up a localized string similar to Nickname is your unique identity and is permanent on your account to be used in all chat rooms.&lt;br/&gt; 
+        ///Please be considered and do not use any offensive nickname..
         /// </summary>
         public static string ChatNameWarning {
             get {
@@ -286,7 +287,7 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create Chat Name.
+        ///   Looks up a localized string similar to Create Chat Room Nickname.
         /// </summary>
         public static string CreateChatName {
             get {

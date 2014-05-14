@@ -3,6 +3,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var maxMessageLength = 1000;
+    var termArray = Model.AnnoucementMessage.SettingValue.Split(new string[] { "{br}" }, StringSplitOptions.None);
 }
 @section Styles
 {
@@ -60,7 +61,7 @@
         <div class="modal-body">
             <form class="bs-docs-example form-horizontal">
             <div class="control-group">
-                @Lang.ChatNameWarning
+                @Html.Raw(Lang.ChatNameWarning)
             </div>
             <div class="control-group">
                 <label class="control-label" for="txtChatName">@Lang.ChatName:</label>
@@ -84,8 +85,12 @@
         </div>
         <div class="modal-body">
             <form class="bs-docs-example form-horizontal">
-            <div class="control-group">
-                @Model.AnnoucementMessage.SettingValue
+            <div class="control-group" id="termConditionMessage">
+                @foreach (var term in termArray)
+                {
+                    @term
+                    <br />
+                }
             </div>
             </form>
         </div>

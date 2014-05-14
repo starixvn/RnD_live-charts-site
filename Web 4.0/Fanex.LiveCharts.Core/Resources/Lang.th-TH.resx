@@ -117,23 +117,89 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Agree" xml:space="preserve">
+    <value>ตกลง</value>
+  </data>
   <data name="BetCountVolumn" xml:space="preserve">
-    <value>Market Movement</value>
+    <value>ความเคลื่อนไหวของตลาด</value>
   </data>
   <data name="ChartUnavailable" xml:space="preserve">
-    <value>Sorry, chart is unavailable for this game!</value>
+    <value>ขออภัย แผนภูมิไม่พร้อมใช้งานสำหรับคู่นี้</value>
+  </data>
+  <data name="ChatName" xml:space="preserve">
+    <value>ชื่อสนทนา</value>
+  </data>
+  <data name="ChatNameCannotEmpty" xml:space="preserve">
+    <value>ชื่อผู้สนทนาเว้นว่างไม่ได้</value>
+  </data>
+  <data name="ChatNameWarning" xml:space="preserve">
+    <value>ชื่อจะสร้างได้เพียงครั้งเดียวสำหรับทุกห้อง โปรดพิจารณาชื่อที่จะตั้งใช้ในการสนทนา</value>
+  </data>
+  <data name="ChatRoom" xml:space="preserve">
+    <value>ห้องสนทนา</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>สร้าง</value>
+  </data>
+  <data name="CreateChatName" xml:space="preserve">
+    <value>สร้างชื่อสนทนา</value>
   </data>
   <data name="CurrentOdds" xml:space="preserve">
-    <value>Current Odds</value>
+    <value>ราคาต่อรองปัจจุบัน</value>
+  </data>
+  <data name="Emoticon" xml:space="preserve">
+    <value>emoticon</value>
   </data>
   <data name="Handicap" xml:space="preserve">
     <value>ราคาต่อรอง</value>
   </data>
+  <data name="HasLeft" xml:space="preserve">
+    <value>ออก</value>
+  </data>
+  <data name="InvalidInput" xml:space="preserve">
+    <value>โมฆะ</value>
+  </data>
+  <data name="Join" xml:space="preserve">
+    <value>เข้าร่วม</value>
+  </data>
+  <data name="JoinChatRoom" xml:space="preserve">
+    <value>เข้าร่วมห้องสนทนา</value>
+  </data>
+  <data name="JoinedRoom" xml:space="preserve">
+    <value>ข้าร่วมห้อง</value>
+  </data>
+  <data name="MaxLengthChatNameMessage" xml:space="preserve">
+    <value>ชื่อผู้สนทนาไม่มากกว่า 50ตัวอักษร</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>สมาชิก</value>
+  </data>
+  <data name="MessageCannotEmpty" xml:space="preserve">
+    <value>ข้อความเว้นว่างไม่ได้</value>
+  </data>
+  <data name="MessageMaxLengthMessage" xml:space="preserve">
+    <value>ความยาวข้อไม่สามารถจะมากกว่า {0}</value>
+  </data>
+  <data name="MessageNoPrediction" xml:space="preserve">
+    <value>กรุณากดทายคะแนน เพื่อดูผลคะแนนทำนาย</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>ดูเพิ่ม</value>
+  </data>
   <data name="Movement" xml:space="preserve">
-    <value>Movement</value>
+    <value>การเคลื่อนไหว</value>
+  </data>
+  <data name="MultilineOff" xml:space="preserve">
+    <value>หลายบรรทัด-ปิด</value>
+  </data>
+  <data name="MultilineOn" xml:space="preserve">
+    <value>หลายบรรทัด-เปิด</value>
   </data>
   <data name="OpenSoonMessage" xml:space="preserve">
-    <value>This Chart will be open soon. Please come back after:</value>
+    <value>แผนภูมินี้จะเปิดให้บริการในเร็ว ๆ นี้ กรุณาตรวจสอบหลังจาก :</value>
+  </data>
+  <data name="Out" xml:space="preserve">
+    <value>ออก</value>
   </data>
   <data name="Over" xml:space="preserve">
     <value>มากกว่า</value>
@@ -142,9 +208,57 @@
     <value>สูง/ต่ำ</value>
   </data>
   <data name="Price" xml:space="preserve">
-    <value>Price</value>
+    <value>ราคา</value>
+  </data>
+  <data name="ScorePrediction" xml:space="preserve">
+    <value>ทายผลคะแนน</value>
+  </data>
+  <data name="ScorePredictionStopMessage" xml:space="preserve">
+    <value>ทายผลคะแนนไม่มีทำหรับคู่แข่งขันนี้</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>ส่ง</value>
+  </data>
+  <data name="ShowHistoryMessages" xml:space="preserve">
+    <value>แสดงประวัติข้อความ</value>
+  </data>
+  <data name="SorrryChatUnavailable" xml:space="preserve">
+    <value>ขออภัย, ห้องนี้ไม่สามารถใช้ได้!</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>ตกลง</value>
+  </data>
+  <data name="SubmitAndViewResult" xml:space="preserve">
+    <value>ตกลงและดูผล</value>
+  </data>
+  <data name="TermsCondition" xml:space="preserve">
+    <value>เงื่อนไข</value>
+  </data>
+  <data name="Text" xml:space="preserve">
+    <value>ข้อความ</value>
+  </data>
+  <data name="TotalPredictionResult" xml:space="preserve">
+    <value>ผลการการทาย</value>
   </data>
   <data name="Under" xml:space="preserve">
     <value>น้อยกว่า</value>
+  </data>
+  <data name="UpdateSuccessfullyMessage" xml:space="preserve">
+    <value>การทายผลคะแนนของคุณได้อัพเดทเรียบร้อยแล้ว</value>
+  </data>
+  <data name="UserList" xml:space="preserve">
+    <value>รายชื่อผู้ใช้</value>
+  </data>
+  <data name="ViewAllScorePredictionResults" xml:space="preserve">
+    <value>ดูผลการการทายคะแนนทั้งหมด</value>
+  </data>
+  <data name="WantToJoinRoom" xml:space="preserve">
+    <value>กรุณาคลิกปุ่ม "เข้าร่วม" ถ้าคุณต้องการที่จะเข้าร่วมในห้องนี้</value>
+  </data>
+  <data name="YouAreDisconnect" xml:space="preserve">
+    <value>คุณถูกบังคับให้ออกจากห้องนี้เนื่องจากเซสชั่นอื่นร่วมห้องนี้</value>
+  </data>
+  <data name="YourPrediction" xml:space="preserve">
+    <value>ทายยผลของคุณ</value>
   </data>
 </root>
