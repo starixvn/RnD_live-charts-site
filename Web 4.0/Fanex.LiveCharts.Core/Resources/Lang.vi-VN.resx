@@ -138,6 +138,9 @@
   <data name="ChatRoom" xml:space="preserve">
     <value>Phòng hội thoại</value>
   </data>
+  <data name="CorrectScore" xml:space="preserve">
+    <value>Điểm số chính xác</value>
+  </data>
   <data name="Create" xml:space="preserve">
     <value>Tạo tên hội thoại</value>
   </data>
@@ -147,8 +150,14 @@
   <data name="CurrentOdds" xml:space="preserve">
     <value>Tỷ lệ hiện tại</value>
   </data>
+  <data name="Draw" xml:space="preserve">
+    <value>Hòa</value>
+  </data>
   <data name="Emoticon" xml:space="preserve">
     <value>Biểu tượng cảm xúc</value>
+  </data>
+  <data name="Even" xml:space="preserve">
+    <value>Chẵn</value>
   </data>
   <data name="Handicap" xml:space="preserve">
     <value>Handicap</value>
@@ -195,8 +204,17 @@
   <data name="MultilineOn" xml:space="preserve">
     <value>Nhiều dòng Bật</value>
   </data>
+  <data name="Odd" xml:space="preserve">
+    <value>Lẻ</value>
+  </data>
+  <data name="OddEven" xml:space="preserve">
+    <value>Lẻ/Chẵn</value>
+  </data>
   <data name="OpenSoonMessage" xml:space="preserve">
     <value>Biểu đồ này sẽ được mở sớm. Vui lòng quay lại sau.</value>
+  </data>
+  <data name="Others" xml:space="preserve">
+    <value>Khác</value>
   </data>
   <data name="Out" xml:space="preserve">
     <value>Thoát</value>

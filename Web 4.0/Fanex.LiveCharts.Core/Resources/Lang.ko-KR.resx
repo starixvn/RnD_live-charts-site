@@ -138,6 +138,9 @@
   <data name="ChatRoom" xml:space="preserve">
     <value>채팅방</value>
   </data>
+  <data name="CorrectScore" xml:space="preserve">
+    <value>정확한 점수</value>
+  </data>
   <data name="Create" xml:space="preserve">
     <value>만들기</value>
   </data>
@@ -147,8 +150,14 @@
   <data name="CurrentOdds" xml:space="preserve">
     <value>현재 배당률</value>
   </data>
+  <data name="Draw" xml:space="preserve">
+    <value>무승부</value>
+  </data>
   <data name="Emoticon" xml:space="preserve">
     <value>이모티콘</value>
+  </data>
+  <data name="Even" xml:space="preserve">
+    <value>짝수</value>
   </data>
   <data name="Handicap" xml:space="preserve">
     <value>핸디캡</value>
@@ -195,8 +204,17 @@
   <data name="MultilineOn" xml:space="preserve">
     <value>멀티 라인 켜기</value>
   </data>
+  <data name="Odd" xml:space="preserve">
+    <value>홀수</value>
+  </data>
+  <data name="OddEven" xml:space="preserve">
+    <value>홀수/짝수</value>
+  </data>
   <data name="OpenSoonMessage" xml:space="preserve">
     <value>이 차트는 곧 이용하실 수 있습니다.잠시 후 다시 이용해주세요.</value>
+  </data>
+  <data name="Others" xml:space="preserve">
+    <value>기타</value>
   </data>
   <data name="Out" xml:space="preserve">
     <value>나가기</value>

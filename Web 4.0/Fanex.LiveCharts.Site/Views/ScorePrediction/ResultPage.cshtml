@@ -79,10 +79,13 @@
     };
     var LANGUAGE = 
         {
-            draw: '@(Lang.Draw)',
-            handicap: '@(Lang.Handicap)',
-            oddEven: '@(Lang.OddEven)',
-            correctScore: '@(Lang.CorrectScore)'
+            draw: '@(Html.Raw(Lang.Draw))',
+            handicap: '@(Html.Raw(Lang.Handicap))',
+            oddEven: '@(Html.Raw(Lang.OddEven))',
+            correctScore: '@(Html.Raw(Lang.CorrectScore))',
+            odd: "@(Html.Raw(Lang.Odd))",
+            even: "@(Html.Raw(Lang.Even))",
+            others: "@(Html.Raw(Lang.Others))"
         };
 </script>
 @if (Model.IsAdminSite)
