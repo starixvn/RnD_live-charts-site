@@ -42,6 +42,12 @@ function ScorePrediction (
                 customData: {
                     currentPrediction: currentOption.ScorePredictionCount,
                     totalPrediction: totalPrediction
+                },
+                dataLabels:
+                {
+                    style: {
+                        color: 'black'
+                    }
                 }
             });
 
@@ -92,7 +98,13 @@ function ScorePrediction (
                 customData: {
                     currentPrediction: point.total,
                     totalPrediction: totalPrediction
-                }
+                },
+                dataLabels:
+                    {
+                        style: {
+                            color: 'black'
+                        }
+                    }
             });
         }
         return me.sortResult(resultArray);
@@ -340,7 +352,13 @@ function ScorePrediction (
             customData: {
                 currentPrediction: 0,
                 totalPrediction: 0
-            }
+            },
+            dataLabels:
+                {
+                    style: {
+                        color: 'black'
+                    }
+                }
         };
 
         for (var i = points.length - 1; i >= 0; i--) {

@@ -261,7 +261,7 @@ namespace Fanex.LiveCharts.Controllers
                     break;
 
                 case (int)LanguageType.Vietnamese:  // Vietnamese
-                    SessionManager.CurrentSession.Language = "vi-VN";
+                    SessionManager.CurrentSession.Language = "en-US";
                     break;
 
                 case (int)LanguageType.English:
