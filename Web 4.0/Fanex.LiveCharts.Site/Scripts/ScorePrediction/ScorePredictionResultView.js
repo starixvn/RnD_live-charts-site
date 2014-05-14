@@ -106,14 +106,14 @@ function ScorePredictionResultView(scorePredictionViewModel) {
     /* Render result*/
     me.renderCorrectScoreResult = function (result) {
         var resultArray = me.scorePrediction.getCorrectScoreResult(result),
-            getChartOption = me.scorePrediction.getScoreOption(resultArray, 'Correct Score');
+            getChartOption = me.scorePrediction.getScoreOption(resultArray, LANGUAGE.correctScore);
         
         me.$correctScoreResultContainer.highcharts(getChartOption);
     };
 
     me.renderHandicapResult = function (result) {
         var resultArray = me.scorePrediction.getHandicapResult(result),
-            getChartOption = me.scorePrediction.getScoreOption(resultArray, 'Handicap');
+            getChartOption = me.scorePrediction.getScoreOption(resultArray, LANGUAGE.handicap);
 
         me.$handicapResultContainer.highcharts(getChartOption);
 
@@ -127,7 +127,7 @@ function ScorePredictionResultView(scorePredictionViewModel) {
 
     me.renderOddEvenResult = function (result) {
         var resultArray = me.scorePrediction.getOddEvenResult(result),
-            getChartOption = me.scorePrediction.getBarOption(resultArray, 'Odd/Even');
+            getChartOption = me.scorePrediction.getBarOption(resultArray, LANGUAGE.oddEven);
         me.$oddEvenResultContainer.highcharts(getChartOption);
     };
 }

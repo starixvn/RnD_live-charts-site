@@ -341,6 +341,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Even.
+        /// </summary>
+        public static string Even {
+            get {
+                return ResourceManager.GetString("Even", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Favorite.
         /// </summary>
         public static string Favorite {
@@ -724,6 +733,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string NoOfTickets {
             get {
                 return ResourceManager.GetString("NoOfTickets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Odd.
+        /// </summary>
+        public static string Odd {
+            get {
+                return ResourceManager.GetString("Odd", resourceCulture);
             }
         }
         

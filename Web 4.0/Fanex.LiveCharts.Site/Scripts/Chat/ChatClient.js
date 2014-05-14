@@ -300,8 +300,11 @@ function ChatClient(chatUser, chatRoom) {
                 if (deleteMessageElement.find('.message-chat-name').is(':visible')) {
                     deleteMessageElement.next().find('.message-chat-name').show();
                 }
+                if (deleteMessageElement.is(':last-child')) {
+                    me.lastMessageBelongToChatUserId = 0;
+                }
                 deleteMessageElement.hide();
-                
+
             }
             else {
                 deleteMessageElement.show();

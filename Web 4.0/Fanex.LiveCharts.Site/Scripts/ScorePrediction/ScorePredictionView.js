@@ -154,7 +154,7 @@ function ScorePredictionView(defaultValue) {
             done: function (result) {
                 
                 var resultArray = me.scorePrediction.getCorrectScoreResult(result);
-                var scoreOption = me.scorePrediction.getScoreOption(resultArray, 'Correct Score');
+                var scoreOption = me.scorePrediction.getScoreOption(resultArray, LANGUAGE.correctScore);
                 me.resultChart = me.$smallContainerResult.highcharts(scoreOption);
             }
         });

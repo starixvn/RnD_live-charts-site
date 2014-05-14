@@ -138,6 +138,9 @@
   <data name="ChatRoom" xml:space="preserve">
     <value>聊天室</value>
   </data>
+  <data name="CorrectScore" xml:space="preserve">
+    <value>波膽</value>
+  </data>
   <data name="Create" xml:space="preserve">
     <value>創建聊天名稱</value>
   </data>
@@ -147,8 +150,14 @@
   <data name="CurrentOdds" xml:space="preserve">
     <value>目前賠率</value>
   </data>
+  <data name="Draw" xml:space="preserve">
+    <value>和局</value>
+  </data>
   <data name="Emoticon" xml:space="preserve">
     <value>情緒圖標</value>
+  </data>
+  <data name="Even" xml:space="preserve">
+    <value>雙</value>
   </data>
   <data name="Handicap" xml:space="preserve">
     <value>亞洲盤</value>
@@ -195,8 +204,17 @@
   <data name="MultilineOn" xml:space="preserve">
     <value>多線開</value>
   </data>
+  <data name="Odd" xml:space="preserve">
+    <value>單</value>
+  </data>
+  <data name="OddEven" xml:space="preserve">
+    <value>單雙盤</value>
+  </data>
   <data name="OpenSoonMessage" xml:space="preserve">
     <value>此圖表即將開放，請稍候再來：</value>
+  </data>
+  <data name="Others" xml:space="preserve">
+    <value>其他</value>
   </data>
   <data name="Out" xml:space="preserve">
     <value>出</value>

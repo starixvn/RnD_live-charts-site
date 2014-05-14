@@ -1,5 +1,6 @@
 ﻿/* File Created: March 3, 2014 */
 'use strict';
+/*global LANGUAGE*/
 /* exported ScorePrediction */
 function ScorePrediction (
     homeName,
@@ -19,9 +20,9 @@ function ScorePrediction (
     me.homeName = homeName || '';
     me.awayName = awayName || '';
     me.drawName = drawName || '';
-    me.oddName = oddName || 'Odd';
-    me.evenName = evenName || 'Even';
-    me.otherName = 'Others';
+    me.oddName = oddName || LANGUAGE.odd;
+    me.evenName = evenName || LANGUAGE.even;
+    me.otherName = LANGUAGE.others;
     me.minPercent = 4;
     me.isAdminSite = false;
 
@@ -165,7 +166,7 @@ function ScorePrediction (
                             }
                             return textFormat;
                         }
-                    },
+                    }
                     
                 },
                 series: {

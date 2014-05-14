@@ -487,4 +487,10 @@ Please be considered and do not use any offensive nickname.</value>
   <data name="MatchCompletedPageNotAvai" xml:space="preserve">
     <value>Sorry, this match is completed so this page is not available!</value>
   </data>
+  <data name="Even" xml:space="preserve">
+    <value>Even</value>
+  </data>
+  <data name="Odd" xml:space="preserve">
+    <value>Odd</value>
+  </data>
 </root>
