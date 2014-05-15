@@ -38,6 +38,8 @@ namespace Fanex.LiveCharts.Chat.Services
         private const string UpdateMessageCommandCacheKey = "Chat.Services.ChatService.DeleteMessageCommandCacheKey";
         private const string BanChatUserCacheKey = "Chat.Services.ChatService.BanChatUserCacheKey";
         private const string UpdateMessageByUserCommandCacheKey = "Chat.Services.ChatService.DeleteMessageByUserCommandCacheKey";
+        private const string UpdateMuteChatUserCommandCacheKey = "Chat.Services.ChatService.UpdateMuteChatUserCommandCacheKey";
+        private const string UpdateMuteChatRoomCommandCacheKey = "Chat.Services.ChatService.UpdateMuteChatRoomCommandCacheKey";
         private const int CodeFail = 10;
         private readonly IChatRepository _chatRepository;
 
@@ -213,6 +215,55 @@ namespace Fanex.LiveCharts.Chat.Services
             var updateResult = _chatRepository.ModifyData(updateKickOutChatUserCriteria);
 
             return updateResult;
+        }
+
+        /// <summary>
+        /// Update Mute Chat user.
+        /// </summary>
+        /// <param name="criteria">Mute information.</param>
+        /// <returns>Update mute information for using in member site.</returns>
+        public UpdateMuteChatUserViewModel UpdateMuteChatUserOnAdminSite(UpdateMuteChatUserCriteria criteria)
+        {
+            var updateResult = _chatRepository.ModifyData(criteria);
+
+            var updateMuteChatUserViewModel = new UpdateMuteChatUserViewModel
+            {
+                CommandResult = (CommandResult)updateResult,
+                ChatUserId = criteria.ChatUserId,
+                ChatRoomId = criteria.ChatRoomId,
+                ChatRoomName = criteria.ChatRoomName
+            };
+
+            if (updateResult.IsSuccessful)
+            {
+                SetUpdateMuteChatUserToken(updateMuteChatUserViewModel);
+            }
+
+            return updateMuteChatUserViewModel;
+        }
+
+        /// <summary>
+        /// Update mute chat room information.
+        /// </summary>
+        /// <param name="criteria">Mute information.</param>
+        /// <returns>Mute information for using in member site.</returns>
+        public UpdateMuteChatRoomViewModel UpdateMuteChatRoomOnAdminSite(UpdateMuteChatRoomCriteria criteria)
+        {
+            var updateResult = _chatRepository.ModifyData(criteria);
+
+            var updateMuteChatRoomViewModel = new UpdateMuteChatRoomViewModel
+            {
+                CommandResult = (CommandResult)updateResult,
+                ChatRoomId = criteria.ChatRoomId,
+                ChatRoomName = criteria.ChatRoomName
+            };
+
+            if (updateResult.IsSuccessful)
+            {
+                SetUpdateMuteChatRoomToken(updateMuteChatRoomViewModel);
+            }
+
+            return updateMuteChatRoomViewModel;
         }
 
         /// <summary>
@@ -539,6 +590,84 @@ namespace Fanex.LiveCharts.Chat.Services
             };
         }
 
+        /// <summary>
+        /// Update mute or not for chat user in member site.
+        /// </summary>
+        /// <param name="muteChatUser">Mute chat user information.</param>
+        /// <returns>Status of command.</returns>
+        public ICommandResult UpdateMuteChatUserOnMemberSite(UpdateMuteChatUserViewModel muteChatUser)
+        {
+            try
+            {
+                ICommandResult invalidTokenResult = CheckChatCommandTokenInValid(UpdateMuteChatUserCommandCacheKey + "_" + muteChatUser.TokenName, muteChatUser.TokenKey);
+                if (invalidTokenResult != null)
+                {
+                    return invalidTokenResult;
+                }
+
+                IHubContext chatHub = GlobalHost.ConnectionManager.GetHubContext<ChatHub>();
+
+                if (chatHub != null)
+                {
+                    chatHub.Clients.Group(muteChatUser.ChatRoomName).updateMuteChatUser(muteChatUser.ChatUserId, muteChatUser.Muted);
+                }
+            }
+            catch (Exception ex)
+            {
+                ServiceBase.ExceptionHandler(ex);
+                return new CommandResult
+                {
+                    Code = 11,
+                    Message = ex.Message
+                };
+            }
+
+            return new CommandResult
+            {
+                Code = 0,
+                Message = string.Empty
+            };
+        }
+
+        /// <summary>
+        /// Update mute or not for chat room in member site.
+        /// </summary>
+        /// <param name="muteChatRoom">Mute chat room information.</param>
+        /// <returns>Status of command.</returns>
+        public ICommandResult UpdateMuteChatRoomOnMemberSite(UpdateMuteChatRoomViewModel muteChatRoom)
+        {
+            try
+            {
+                ICommandResult invalidTokenResult = CheckChatCommandTokenInValid(UpdateMuteChatRoomCommandCacheKey + "_" + muteChatRoom.TokenName, muteChatRoom.TokenKey);
+                if (invalidTokenResult != null)
+                {
+                    return invalidTokenResult;
+                }
+
+                IHubContext chatHub = GlobalHost.ConnectionManager.GetHubContext<ChatHub>();
+
+                if (chatHub != null)
+                {
+                    chatHub.Clients.Group(muteChatRoom.ChatRoomName).updateMuteChatRoom(muteChatRoom.Muted);
+                }
+            }
+            catch (Exception ex)
+            {
+                ServiceBase.ExceptionHandler(ex);
+                return new CommandResult
+                {
+                    Code = 11,
+                    Message = ex.Message
+                };
+            }
+
+            return new CommandResult
+            {
+                Code = 0,
+                Message = string.Empty
+            };
+        }
+
         public IEnumerable<ChatMessage> SearchChatMessage(SearchChatMessageCriteria criteria)
         {
             if (criteria.SearchText == null)
@@ -717,6 +846,28 @@ namespace Fanex.LiveCharts.Chat.Services
             CacheManager.Instance.Set<string>(
                 BanChatUserCacheKey + "_" + banChatUserViewModel.TokenName,
                 banChatUserViewModel.TokenKey,
+                new TimeSpan(0, AppSettings.CachingTimeOutMinute, 0));
+        }
+
+        private void SetUpdateMuteChatUserToken(UpdateMuteChatUserViewModel updateMuteChatUser)
+        {
+            updateMuteChatUser.TokenName = string.Format("{0}_{1}", updateMuteChatUser.ChatUserId, updateMuteChatUser.ChatRoomId);
+            updateMuteChatUser.TokenKey = Guid.NewGuid().ToString();
+
+            CacheManager.Instance.Set<string>(
+                UpdateMuteChatUserCommandCacheKey + "_" + updateMuteChatUser.TokenName,
+                updateMuteChatUser.TokenKey,
+                new TimeSpan(0, AppSettings.CachingTimeOutMinute, 0));
+        }
+
+        private void SetUpdateMuteChatRoomToken(UpdateMuteChatRoomViewModel updateMuteChatRoom)
+        {
+            updateMuteChatRoom.TokenName = string.Format("{0}", updateMuteChatRoom.ChatRoomId);
+            updateMuteChatRoom.TokenKey = Guid.NewGuid().ToString();
+
+            CacheManager.Instance.Set<string>(
+                UpdateMuteChatRoomCommandCacheKey + "_" + updateMuteChatRoom.TokenName,
+                updateMuteChatRoom.TokenKey,
                 new TimeSpan(0, AppSettings.CachingTimeOutMinute, 0));
         }
 

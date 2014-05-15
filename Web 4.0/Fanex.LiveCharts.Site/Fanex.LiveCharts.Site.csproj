@@ -272,6 +272,8 @@
     <Content Include="Scripts\Libs\Fanex.Grid\images\sorting_asc.gif" />
     <Content Include="Scripts\Libs\Fanex.Grid\images\sorting_bg.gif" />
     <Content Include="Scripts\Libs\Fanex.Grid\images\sorting_desc.gif" />
+    <Content Include="Content\Images\sound-icon.png" />
+    <Content Include="Content\Images\sound-off-icon.png" />
     <Content Include="Scripts\Libs\Fanex.Grid\images\white-top-bottom.gif" />
     <Content Include="Scripts\Libs\Fanex.Grid\Language\Fanex.Gird.Lang.en-US.js" />
     <Content Include="Scripts\Libs\Fanex.Grid\Language\Fanex.Gird.Lang.ja-JP.js" />

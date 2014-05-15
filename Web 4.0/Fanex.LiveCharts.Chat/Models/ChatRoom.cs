@@ -27,5 +27,7 @@ namespace Fanex.LiveCharts.Chat.Models
         public DateTime CreateTime { get; set; }
 
         public string WelcomeMessage { get; set; }
+
+        public bool Muted { get; set; }
     }
 }

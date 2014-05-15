@@ -348,6 +348,14 @@ function ChatClient(chatUser, chatRoom) {
         }, 5000);
     };
 
+//    me.updateMuteChatUser = function (chatUserId, isMute) { 
+//    
+//    };
+
+//    me.updateMuteChatRoom = function (isMute) {
+//    
+//    };
+
     me.renderUserNotification = function (chatUser, messageText, isJoin) {
         var message = '<span class="notification-name">' + chatUser.ChatName + '</span>'
                     + '<span class="notification-message"> ' + messageText + '</span>',

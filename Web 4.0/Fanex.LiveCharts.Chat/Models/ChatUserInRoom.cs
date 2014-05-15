@@ -26,6 +26,8 @@ namespace Fanex.LiveCharts.Chat.Models
 
         public bool KickedOut { get; set; }
 
+        public bool Muted { get; set; }
+
         public ChatUser ChatUser { get; set; }
 
         public ChatRoom ChatRoom { get; set; }

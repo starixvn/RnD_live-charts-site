@@ -75,6 +75,7 @@
             matchId: @(Model.ChatRoom.MatchId),
             chatRoomId: @(Model.ChatRoom.ChatRoomId),
             chatRoomName: "@(Model.ChatRoom.ChatRoomName)",
+            isRoomMuted: @(Model.ChatRoom.Muted ? "true" : "false"),
             getChatMessagesUrl: "@(Url.Action("GetChatMessages", "ChatAdmin"))",
             kickOutChatUserUrl: "@(Url.Action("KickOutChatUser", "ChatAdmin"))",
             banChatUser: "@(Url.Action("BanChatUser", "ChatAdmin"))",
@@ -84,6 +85,8 @@
             recoverChatUserUrl: "@(Url.Action("RecoverChatUser", "ChatAdmin"))",
             recoverBannedChatUserUrl: "@(Url.Action("RecoverBannedChatUser", "ChatAdmin"))",
             exportExcelUrl: "@(Url.Action("ExportExcel", "ChatAdmin"))",
+            updateMuteChatUserUrl: "@(Url.Action("UpdateMuteChatUser", "ChatAdmin"))",
+            updateMuteChatRoomUrl: "@(Url.Action("UpdateMuteChatRoom", "ChatAdmin"))",
             gridTitle: "@(gridTitle)",
             memberChartSiteUrl: "@(AppSettings.MemberChartSiteUrl)"
         };
@@ -94,6 +97,7 @@
             chatName: '@(AdminSiteLang.ChatName)',
             chatMessage: '@(AdminSiteLang.ChatMessage)',
             recoverChatSuccess: '@(AdminSiteLang.RecoverChatSuccess)',
+            updateSuccess: '@(AdminSiteLang.UpdateSuccessfully)',
             recoverChatUser: '@(AdminSiteLang.RecoverChatUser)',
             deleteMessageSuccess: '@(AdminSiteLang.DeleteMessageSuccess)',
             kickedOutChatUserSuccess: '@(AdminSiteLang.KickedOutChatUserSuccess)',
@@ -102,6 +106,8 @@
             recoverThisMessage: '@(AdminSiteLang.RecoverThisMessage)',
             removeThisMessage: '@(AdminSiteLang.RemoveThisMessage)',
             banThisUser: '@(AdminSiteLang.BanThisUser)',
+            muteThisUser: '@(AdminSiteLang.MuteThisUser)',
+            unmuteThisUser: '@(AdminSiteLang.UnMuteThisUser)',
             unBanThisUser: '@(AdminSiteLang.UnBanThisUser)',
             removeAllMessagesFromUser: '@(AdminSiteLang.RemoveAllMessagesFromUser)',
             kickOutThisUser: '@(AdminSiteLang.KickOutThisUser)',
@@ -109,4 +115,5 @@
         };
     </script>
     @Scripts.Render("~/areas/admin/chatmonitorjs")
+    
 }

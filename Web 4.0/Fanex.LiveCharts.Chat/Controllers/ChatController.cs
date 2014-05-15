@@ -43,6 +43,7 @@ namespace Fanex.LiveCharts.Chat.Controllers
             _settingService = settingService ?? new SettingService();
         }
 
+        [LiveChartAuthentication]
         public ActionResult Index(int matchId)
         {
             var chatViewModel = GetChatViewModel(matchId);
@@ -127,6 +128,18 @@ namespace Fanex.LiveCharts.Chat.Controllers
         public JsonResult UpdateAllChatMessagesByChatUser(UpdateChatMessageByChatUserViewModel updateMessageByChatUserViewModel)
         {
             return Json(_chatService.UpdateChatMessageByChatUserIdOnMemberSite(updateMessageByChatUserViewModel));
+        }
+
+        [HttpPost]
+        public JsonResult UpdateMuteChatUser(UpdateMuteChatUserViewModel updateMuteChatUserViewModel)
+        {
+            return Json(_chatService.UpdateMuteChatUserOnMemberSite(updateMuteChatUserViewModel));
+        }
+
+        [HttpPost]
+        public JsonResult UpdateMuteChatRoom(UpdateMuteChatRoomViewModel updateMuteChatRoomViewModel)
+        {
+            return Json(_chatService.UpdateMuteChatRoomOnMemberSite(updateMuteChatRoomViewModel));
         }
 
         #endregion Actions for Admin Site access

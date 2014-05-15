@@ -637,6 +637,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mute this user.
+        /// </summary>
+        public static string MuteThisUser {
+            get {
+                return ResourceManager.GetString("MuteThisUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No Information Available.
         /// </summary>
         public static string NoInfoAvailable {
@@ -903,6 +912,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string UnBanThisUser {
             get {
                 return ResourceManager.GetString("UnBanThisUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unmute this user.
+        /// </summary>
+        public static string UnMuteThisUser {
+            get {
+                return ResourceManager.GetString("UnMuteThisUser", resourceCulture);
             }
         }
         

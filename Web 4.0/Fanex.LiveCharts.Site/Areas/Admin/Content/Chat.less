@@ -47,6 +47,7 @@
 				margin-right: 4px;
             }
         }
+
     }
 
 	#messageGrid
@@ -133,7 +134,7 @@
 
 	.user-status
 	{
-		.user-online, .user-disabled, .user-kickedout, .user-offline
+		.user-online, .user-disabled, .user-kickedout, .user-offline, .user-muted
 		{
                     
 			background-repeat: no-repeat;
@@ -163,6 +164,12 @@
 		{
                     
 			background-position: 0px -177px;
+		}
+
+		.user-muted
+		{
+                    
+			background-position: 0px -189px;
 		}
 	}
 
@@ -236,6 +243,34 @@
         	cursor: pointer;
         }
     }
+
+	.btn-mute
+        {
+			background: url("../../../Content/Images/sound-icon.png") no-repeat;
+			border: 0 solid red;
+			cursor: pointer;
+			font-size: 11px;
+			height: 17px;
+			margin: 0 2px;
+			overflow: visible;
+			padding-left: 6px;
+			padding-right: 6px;
+			width: 18px;
+        }
+
+		.btn-un-mute
+        {
+			background: url("../../../Content/Images/sound-off-icon.png") no-repeat;
+			border: 0 solid red;
+			cursor: pointer;
+			font-size: 11px;
+			height: 17px;
+			margin: 0 2px;
+			overflow: visible;
+			padding-left: 6px;
+			padding-right: 6px;
+			width: 18px;
+        }
 }
 
 

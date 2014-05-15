@@ -58,6 +58,10 @@ namespace Fanex.LiveCharts.Chat.Services
 
         ICommandResult UpdateChatMessageByChatUser(UpdateChatMessageOfChatUserCriteria criteria);
 
+        UpdateMuteChatUserViewModel UpdateMuteChatUserOnAdminSite(UpdateMuteChatUserCriteria criteria);
+
+        UpdateMuteChatRoomViewModel UpdateMuteChatRoomOnAdminSite(UpdateMuteChatRoomCriteria criteria);
+
         ICommandResult UpdateChatRoom(UpdateChatRoomCriteria updateChatRoomCriteria);
 
         ICommandResult UpdateChatUser(UpdateChatUserCriteria updateChatUserCriteria);
@@ -83,5 +87,9 @@ namespace Fanex.LiveCharts.Chat.Services
         BanChatUserViewModel BanChatUserOnAdminSite(int chatUserId);
 
         UpdateChatMessageByChatUserViewModel UpdateChatMessageByChatUserOnAdminSite(UpdateChatMessageOfChatUserCriteria updateChatMessageByChatUserCriteria);
+
+        ICommandResult UpdateMuteChatRoomOnMemberSite(UpdateMuteChatRoomViewModel muteChatRoom);
+
+        ICommandResult UpdateMuteChatUserOnMemberSite(UpdateMuteChatUserViewModel muteChatUser);
     }
 }

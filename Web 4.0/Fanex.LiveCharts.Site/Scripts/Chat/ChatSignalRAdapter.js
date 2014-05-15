@@ -21,6 +21,8 @@ function ChatSignalRAdapter() {
         me.hub.client.updateChatMessage = chatWindow.chatClient.updateChatMessage;
         me.hub.client.banChatUser = chatWindow.chatClient.kickOutChatUser;
         me.hub.client.updateAllChatMessageByChatUser = chatWindow.chatClient.updateAllChatMessageByChatUser;
+        me.hub.client.updateMuteChatUser = chatWindow.chatClient.updateMuteChatUser;
+        me.hub.client.updateMuteChatRoom = chatWindow.chatClient.updateMuteChatRoom;
 
         if (!window.hubReady) {
             window.hubReady = $.connection.hub.start();

@@ -138,6 +138,18 @@ namespace Fanex.LiveCharts.Chat.Controllers
         }
 
         [HttpPost]
+        public JsonResult UpdateMuteChatUser(UpdateMuteChatUserCriteria updateMuteChatUserCriteria)
+        {
+            return Json(_chatService.UpdateMuteChatUserOnAdminSite(updateMuteChatUserCriteria));
+        }
+
+        [HttpPost]
+        public JsonResult UpdateMuteChatRoom(UpdateMuteChatRoomCriteria updateMuteChatRoom)
+        {
+            return Json(_chatService.UpdateMuteChatRoomOnAdminSite(updateMuteChatRoom));
+        }
+
+        [HttpPost]
         public JsonResult RecoverBannedChatUser(int chatUserId)
         {
             return Json(_chatService.UpdateChatUser(new UpdateChatUserCriteria

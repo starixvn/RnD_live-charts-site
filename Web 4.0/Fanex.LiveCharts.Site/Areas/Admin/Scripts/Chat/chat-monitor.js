@@ -84,6 +84,7 @@ function ChatMonitor() {
         me.$allRecoverChatUser = $('#messageGrid .recover-chat-user');
         me.$allRecoverChatMessage = $('#messageGrid .recover-chat-message');
         me.$allMenuActions = $('#messageGrid .menu-action');
+        me.$btnMuteButton = $('#muteButton');
 
         //me.$btnReload.unbind('click').click(me.initMessageGrid);
         //// Open Menu
@@ -97,8 +98,8 @@ function ChatMonitor() {
         me.$chatUserGrid.find('.user-status-click-search').unbind('click').click(me.searchByChatUserEvent);
         //me.$chatUserList.find('.chat-user-status').unbind('click').click(me.searchByChatUserEvent);
 
-        
-        
+        me.$btnMuteButton.unbind('click').click(me.updateMuteChatRoomOnAdminSite);
+
     };
 
 
@@ -114,15 +115,19 @@ function ChatMonitor() {
                     currentStatus = $trigger.attr('data-user-status');
                 switch (currentStatus) {
                     case 'active':
-                        items.kickout = { name: LANGUAGE.kickOutThisUser, icon: "kick-out" };
-                        items.ban = { name: LANGUAGE.banThisUser, icon: "ban" };
+                        items.mute = { name: LANGUAGE.muteThisUser, icon: 'mute' };
+                        items.kickout = { name: LANGUAGE.kickOutThisUser, icon: 'kick-out' };
+                        items.ban = { name: LANGUAGE.banThisUser, icon: 'ban' };
+                        break;
+                    case 'muted':
+                        items.unmute = { name: LANGUAGE.unmuteThisUser, icon: 'un-mute' };
                         break;
                     case 'kickedOut':
-                        items.recover = { name: LANGUAGE.reAddThisUser, icon: "add" };
-                        items.ban = { name: LANGUAGE.banThisUser, icon: "ban" };
+                        items.recover = { name: LANGUAGE.reAddThisUser, icon: 'add' };
+                        items.ban = { name: LANGUAGE.banThisUser, icon: 'ban' };
                         break;
                     case 'banned':
-                        items.unban = { name: LANGUAGE.unBanThisUser, icon: "un-ban" };
+                        items.unban = { name: LANGUAGE.unBanThisUser, icon: 'un-ban' };
                         break;
                 }
 
@@ -142,6 +147,12 @@ function ChatMonitor() {
                                 break;
                             case 'unban':
                                 me.updateBanChatUser(currentChatUserId, false);
+                                break;
+                            case 'mute':
+                                me.updateMuteChatUserOnAdminSite(currentChatUserId, true);
+                                break;
+                            case 'unmute':
+                                me.updateMuteChatUserOnAdminSite(currentChatUserId, false);
                                 break;
                         }
                     },
@@ -294,6 +305,66 @@ function ChatMonitor() {
             }
         });
     };
+    me.updateMuteChatUserOnAdminSite = function (currentChatUserId, isMute) {
+        LiveChartsAdmin.callAjax({
+            url: me.chatMonitorDefault.updateMuteChatUserUrl,
+            type: 'POST',
+            data: {
+                chatRoomId: me.chatMonitorDefault.chatRoomId,
+                chatRoomName: me.chatMonitorDefault.chatRoomName,
+                chatUserId: currentChatUserId,
+                isMute: isMute
+            },
+            done: function (result) {
+                if (result.CommandResult.IsSuccessful) {
+                    me.updateMuteOnMemberSite(result, false);
+                    me.initMessageGrid();
+                }
+                else {
+                    LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.error, result.Message);
+                }
+            }
+        });
+    };
+
+    me.updateMuteOnMemberSite = function (muteViewModel, isRoom) {
+        LiveChartsAdmin.callAjax({
+            url: me.chatMonitorDefault.memberChartSiteUrl + (isRoom ? '/Chat/UpdateMuteChatRoom' : '/Chat/UpdateMuteChatUser'),
+            type: 'POST',
+            data: muteViewModel,
+            done: function (result) {
+                if (result.IsSuccessful) {
+                    LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.success, LANGUAGE.updateSuccess);
+                }
+                else {
+                    LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.error, result.Message);
+                }
+            }
+        });
+    };
+
+    me.updateMuteChatRoomOnAdminSite = function () {
+        var isMute = me.$btnMuteButton.hasClass('btn-mute');
+        LiveChartsAdmin.callAjax({
+            url: me.chatMonitorDefault.updateMuteChatRoomUrl,
+            type: 'POST',
+            data: {
+                chatRoomId: me.chatMonitorDefault.chatRoomId,
+                chatRoomName: me.chatMonitorDefault.chatRoomName,
+                isMute: isMute
+            },
+            done: function (result) {
+                if (result.CommandResult.IsSuccessful) {
+                    me.updateMuteOnMemberSite(result, true);
+                    me.chatMonitorDefault.isRoomMuted = isMute;
+                    me.initMessageGrid();
+                }
+                else {
+                    LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.error, result.Message);
+                }
+            }
+        });
+    };
 
     ///// Chat Message Action
     me.updateChatMessage = function (currentChatMessageId, isDelete) {
@@ -407,8 +478,9 @@ function ChatMonitor() {
 
     me.renderColumnChatUserStatus = function (cell) {
         var currentUser = me.usersStatus[cell.Value],
-                               userStatusClass = 'user-online',
-                               statusTooltip = 'Online';
+            userStatusClass = 'user-online',
+            statusTooltip = 'Online';
+
         if (currentUser.ChatUser.IsBanned) {
             userStatusClass = 'user-disabled';
             statusTooltip = 'Banned';
@@ -416,6 +488,10 @@ function ChatMonitor() {
         else if (currentUser.KickedOut) {
             userStatusClass = 'user-kickedout';
             statusTooltip = 'KickedOut';
+        }
+        else if (currentUser.Muted) {
+            userStatusClass = 'user-muted';
+            statusTooltip = 'Muted';
         }
         else if (currentUser.IsLeft) {
             userStatusClass = 'user-offline';
@@ -432,6 +508,9 @@ function ChatMonitor() {
         }
         else if (currentUser.KickedOut) {
             currentStatus = 'kickedOut';
+        }
+        else if (currentUser.Muted) {
+            currentStatus = 'muted';
         }
 
         var iconHtml = '<span class="edit-action open-menu-remove-user"'
@@ -577,8 +656,22 @@ function ChatMonitor() {
         //// Render Chat Name Grid.
         me.chatUserGridOptions.bodyRows = me.chatUserGridBodyRows;
         me.chatUserGridOptions.titleInfo.text = "Total Chat User: " + me.chatUserGridBodyRows.length;
+        me.chatUserGridOptions.titleInfo.customButtons = me.renderMuteButton();
         me.$chatUserGrid.fanexGrid(me.chatUserGridOptions);
     };
+
+    me.renderMuteButton = function () {
+        //'<input type="button" id="muteButton" class="btn-mute" />'
+        // me.chatMonitorDefault.
+
+        if (me.chatMonitorDefault.isRoomMuted) {
+            return '<input type="button" id="muteButton" class="btn-un-mute" />';
+        }
+        else {
+            return '<input type="button" id="muteButton" class="btn-mute" />';
+        }
+    };
+
     me.buildMemberOption = function (currentMember, currentSelectedMemberId) {
         return '<option value="' + currentMember.ChatUser.MemberId + '" '
                                         + (currentSelectedMemberId === currentMember.ChatUser.MemberId ? 'selected ' : '')
@@ -629,6 +722,7 @@ function ChatMonitor() {
             offLineUser = [],
             kickedOutUsers = [],
             bannedUsers = [],
+            mutedUsers = [],
             chatUserLength = chatUsersInRoom.length;
 
         for (var i = 0; i < chatUserLength; i++) {
@@ -639,6 +733,9 @@ function ChatMonitor() {
             else if (currentUser.KickedOut) {
                 kickedOutUsers.push(currentUser);
             }
+            else if (currentUser.Muted) {
+                mutedUsers.push(currentUser);
+            }
             else if (!currentUser.IsLeft) {
                 onlineUsers.push(currentUser);
             }
@@ -647,7 +744,7 @@ function ChatMonitor() {
             }
         }
 
-        return onlineUsers.concat(offLineUser).concat(kickedOutUsers).concat(bannedUsers);
+        return onlineUsers.concat(offLineUser).concat(mutedUsers).concat(kickedOutUsers).concat(bannedUsers);
     };
 
     me.searchByChatUserEvent = function () {

@@ -97,6 +97,8 @@
     <Compile Include="Criteria\UpdateChatRoomCriteria.cs" />
     <Compile Include="Criteria\UpdateChatUserCriteria.cs" />
     <Compile Include="Criteria\UpdateChatUserInRoomCriteria.cs" />
+    <Compile Include="Criteria\UpdateMuteChatRoomCriteria.cs" />
+    <Compile Include="Criteria\UpdateMuteChatUserCriteria.cs" />
     <Compile Include="Hubs\ChatHub.cs" />
     <Compile Include="Hubs\IChatHub.cs" />
     <Compile Include="Models\ChatMessage.cs" />
@@ -112,6 +114,8 @@
     <Compile Include="ViewModels\BanChatUserViewModel.cs" />
     <Compile Include="ViewModels\ChatMonitorViewModel.cs" />
     <Compile Include="ViewModels\ChatViewModel.cs" />
+    <Compile Include="ViewModels\UpdateMuteChatRoomViewModel.cs" />
+    <Compile Include="ViewModels\UpdateMuteChatUserViewModel.cs" />
     <Compile Include="ViewModels\UpdateChatMessageByChatUserViewModel.cs" />
     <Compile Include="ViewModels\UpdateChatMessageViewModel.cs" />
     <Compile Include="ViewModels\KickOutChatUserViewModel.cs" />
