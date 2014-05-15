@@ -185,10 +185,10 @@
             home: '@(Lang.Home)',
             away: '@(Lang.Away)',
             draw: '@(Lang.Draw)',
-            over: '@(Lang.Over)',
-            under: '@(Lang.Under)',
+            over: '@Html.Raw(Lang.Over)',
+            under: '@Html.Raw(Lang.Under)',
             handicap: '@(Lang.Handicap)',
-            overUnder: '@Lang.OverUnder',
+            overUnder: '@Html.Raw(Lang.OverUnder)',
             chartUnavai: '@Lang.ChartUnavailable'
         };
     var BROWSER = {
