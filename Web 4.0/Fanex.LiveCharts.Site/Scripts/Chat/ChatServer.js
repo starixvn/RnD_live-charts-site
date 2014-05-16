@@ -26,6 +26,12 @@ function ChatServer(chatAdapter, chatClient, chatUser, chatRoom, chatUserInRoom 
 
     me.sendMessage = function () {
         var currentMessage = me.$txtMessageInput.val();
+
+        if (me.chatClient.isMute()) {
+            LIVECHARTS.alertMessage(LIVECHARTS.messageType.error, LANGUAGE.sorryRoomNotAvailableForSendingMessage);
+            return;
+        }
+
         if (!(!currentMessage || /^\s*$/.test(currentMessage))) {
 
             if (currentMessage.length > DEFAULT_OBJECT.maxMessageLength) {

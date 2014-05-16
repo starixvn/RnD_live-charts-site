@@ -493,4 +493,7 @@ Please be considered and do not use any offensive nickname.</value>
   <data name="Odd" xml:space="preserve">
     <value>Odd</value>
   </data>
+  <data name="SorryRoomNotAvailableForSendingMessage" xml:space="preserve">
+    <value>Sorry, this room is not available for sending message.</value>
+  </data>
 </root>

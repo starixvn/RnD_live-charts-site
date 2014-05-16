@@ -540,7 +540,6 @@ function ChatMonitor() {
                                     + '"></span>';
                        }, MergeHeaderColNumber: 3
                    },
-                   { HeaderText: '', Width: 340, Name: 'ChatMessage', CellCssClass: 'message-content' },
                    {
                        HeaderText: '', Width: 40, Name: 'ChatMessageAction', CellAlign: 'center', CustomCellRender: function (cell) {
                            var iconHtml = '<span class="edit-action open-menu-remove-message"'
@@ -550,7 +549,8 @@ function ChatMonitor() {
                                             + '></span>';
                            return iconHtml;
                        }
-                   }
+                   },
+                   { HeaderText: '', Width: 340, Name: 'ChatMessage', CellCssClass: 'message-content' }
         ],
         gridExpandHeight: 195,
         showPager: true,
@@ -601,16 +601,16 @@ function ChatMonitor() {
                { Name: "ChatName", Value: currentMessage.ChatUser.ChatName },
                { Name: "ChatMessageStatus", Value: currentMessage.IsDeleted },
                {
-                   Name: "ChatMessage",
-                   Value: currentMessage.Content.replace(/\r\n/g, "<br />").replace(/\n/g, "<br />")
-               },
-               {
                    Name: 'ChatMessageAction', Value: {
                        chatMessageId: currentMessage.ChatMessageId,
                        isDeleted: currentMessage.IsDeleted,
                        chatUserId: currentMessage.ChatUser.ChatUserId,
                        memberName: currentMessage.ChatUser.ChatName
                    }
+               },
+               {
+                   Name: "ChatMessage",
+                   Value: currentMessage.Content.replace(/\r\n/g, "<br />").replace(/\n/g, "<br />")
                }
                 ],
                 CustomAttr: 'data-chat-message-id="' + currentMessage.ChatMessageId + '"'
@@ -663,13 +663,15 @@ function ChatMonitor() {
     me.renderMuteButton = function () {
         //'<input type="button" id="muteButton" class="btn-mute" />'
         // me.chatMonitorDefault.
-
+        var buttonHtml = '<input type="button" id="muteButton" ';
         if (me.chatMonitorDefault.isRoomMuted) {
-            return '<input type="button" id="muteButton" class="btn-un-mute" />';
+            buttonHtml += 'class="btn-un-mute" title="' + LANGUAGE.clickToUnMute + '"';
         }
         else {
-            return '<input type="button" id="muteButton" class="btn-mute" />';
+            buttonHtml += 'class="btn-mute" title="' + LANGUAGE.clickToMute + '"';
         }
+
+        return buttonHtml + ' />';
     };
 
     me.buildMemberOption = function (currentMember, currentSelectedMemberId) {

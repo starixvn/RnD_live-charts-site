@@ -241,6 +241,24 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Click this button to mute all users in room..
+        /// </summary>
+        public static string ClickToMute {
+            get {
+                return ResourceManager.GetString("ClickToMute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click this button to un mute all users in room..
+        /// </summary>
+        public static string ClickToUnMute {
+            get {
+                return ResourceManager.GetString("ClickToUnMute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Completed.
         /// </summary>
         public static string Completed {

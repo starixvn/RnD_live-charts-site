@@ -1007,6 +1007,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sorry, this room is not available for sending message..
+        /// </summary>
+        public static string SorryRoomNotAvailableForSendingMessage {
+            get {
+                return ResourceManager.GetString("SorryRoomNotAvailableForSendingMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sport.
         /// </summary>
         public static string Sport {

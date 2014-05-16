@@ -231,7 +231,8 @@ namespace Fanex.LiveCharts.Chat.Services
                 CommandResult = (CommandResult)updateResult,
                 ChatUserId = criteria.ChatUserId,
                 ChatRoomId = criteria.ChatRoomId,
-                ChatRoomName = criteria.ChatRoomName
+                ChatRoomName = criteria.ChatRoomName,
+                Muted = criteria.IsMute
             };
 
             if (updateResult.IsSuccessful)
@@ -255,7 +256,8 @@ namespace Fanex.LiveCharts.Chat.Services
             {
                 CommandResult = (CommandResult)updateResult,
                 ChatRoomId = criteria.ChatRoomId,
-                ChatRoomName = criteria.ChatRoomName
+                ChatRoomName = criteria.ChatRoomName,
+                Muted = criteria.IsMute
             };
 
             if (updateResult.IsSuccessful)
@@ -648,7 +650,7 @@ namespace Fanex.LiveCharts.Chat.Services
 
                 if (chatHub != null)
                 {
-                    chatHub.Clients.Group(muteChatRoom.ChatRoomName).updateMuteChatRoom(muteChatRoom.Muted);
+                    chatHub.Clients.Group(muteChatRoom.ChatRoomName).updateMuteChatRoom(muteChatRoom.ChatRoomId, muteChatRoom.Muted);
                 }
             }
             catch (Exception ex)

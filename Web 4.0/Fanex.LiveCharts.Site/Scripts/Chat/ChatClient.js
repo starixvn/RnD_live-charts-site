@@ -4,7 +4,7 @@
 /*global moment, CURRENT_TIME_FORMAT, DEFAULT_OBJECT, swearWords, LIVECHARTS, LANGUAGE*/
 /*exported ChatClient*/
 
-function ChatClient(chatUser, chatRoom) {
+function ChatClient(chatUser, chatRoom, chatUserInRoom) {
     'use strict';
     var me = this;
 
@@ -29,6 +29,8 @@ function ChatClient(chatUser, chatRoom) {
     me.newestTime = null;
     me.oldestTime = null;
     me.userColor = '#f00';
+    me.isRoomMute = chatRoom.muted;
+    me.isUserMute = chatUserInRoom.muted;
     
 
     me.cachedDomElement = function () {
@@ -41,8 +43,8 @@ function ChatClient(chatUser, chatRoom) {
     };
 
     me.init = function () {
-        
         me.cachedDomElement();
+        me.updateUIForMute();
     };
 
     me.joinRoom = function () {
@@ -348,13 +350,36 @@ function ChatClient(chatUser, chatRoom) {
         }, 5000);
     };
 
-//    me.updateMuteChatUser = function (chatUserId, isMute) { 
-//    
-//    };
+    me.updateMuteChatUser = function (chatUserId, isMute) {
+        if (me.chatUser.chatUserId === chatUserId) {
+            me.isUserMute = isMute;
+            me.updateUIForMute();
+        }
+    };
 
-//    me.updateMuteChatRoom = function (isMute) {
-//    
-//    };
+    me.updateMuteChatRoom = function (chatRoomId, isMute) {
+        if (me.chatRoom.chatRoomId === chatRoomId) {
+            me.isRoomMute = isMute;
+            me.updateUIForMute();
+        }
+    };
+
+    me.updateUIForMute = function () {
+        if (me.isRoomMute || me.isUserMute) {
+            me.$txtMessageInput.attr('disabled', 'disabled');
+            me.$btnSubmitMessage.attr('disabled', 'disabled');
+            me.$txtMessageInput.val(LANGUAGE.sorryRoomNotAvailableForSendingMessage);
+        }
+        else {
+            me.$txtMessageInput.removeAttr('disabled');
+            me.$btnSubmitMessage.removeAttr('disabled');
+            me.$txtMessageInput.val('');
+        }
+    };
+
+    me.isMute = function () {
+        return me.isRoomMute || me.isUserMute;
+    };
 
     me.renderUserNotification = function (chatUser, messageText, isJoin) {
         var message = '<span class="notification-name">' + chatUser.ChatName + '</span>'

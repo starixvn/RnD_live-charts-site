@@ -26,7 +26,7 @@ function ChatWindow() {
     me.chatRoom = CURRENT_CHAT_ROOM;
     me.chatUserInRoom = CURRENT_CHAT_USER_IN_ROOM;
     me.chatAdapter = new ChatSignalRAdapter();
-    me.chatClient = new ChatClient(me.chatUser, me.chatRoom);
+    me.chatClient = new ChatClient(me.chatUser, me.chatRoom, me.chatUserInRoom);
     me.chatServer = new ChatServer(me.chatAdapter, me.chatClient, me.chatUser, me.chatRoom, me.chatUserInRoom);
     me.formatTimer = CURRENT_TIME_FORMAT;
     me.isMultiline = false;
@@ -228,6 +228,10 @@ function ChatWindow() {
                         "</div>");
         tooltip.emoticons(DEFAULT_OBJECT.emoticonsFolder);
         tooltip.find('.emoticon-img').on('click', function () {
+            if (me.chatClient.isMute()) {
+                return;
+            }
+
             var $this = $(this);
             me.$txtMessageInput.focus().val(me.$txtMessageInput.val() + ' ' + $this.attr('alt'));
         });
@@ -243,6 +247,10 @@ function ChatWindow() {
     };
 
     me.multilineHandle = function () {
+        if (me.chatClient.isMute()) {
+            return;
+        }
+
         var $this = $(this),
             currentStatus = $this.attr('data-multiline-status'),
             currentTitle = '';

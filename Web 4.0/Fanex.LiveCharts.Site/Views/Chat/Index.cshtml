@@ -140,6 +140,7 @@
             matchId: @(Model.ChatRoom.MatchId),
             chatRoomId: @(Model.ChatRoom.ChatRoomId),
             chatRoomName: '@(Model.ChatRoom.ChatRoomName)',
+            muted: @(Model.ChatRoom.Muted ? "true" : "false"),
             welcomeMessage: '@(Model.ChatRoom.WelcomeMessage)',
             termConditionDisabled: @(Model.AnnoucementMessage.Disabled ? "true" : "false")
         }
@@ -147,7 +148,8 @@
         var CURRENT_CHAT_USER_IN_ROOM = 
             {
                 chatUserInRoomId: @(Model.ChatUserInRoom.ChatUserInRoomId),
-                kickedOut: @(Model.ChatUserInRoom.KickedOut ? "true" : "false")
+                kickedOut: @(Model.ChatUserInRoom.KickedOut ? "true" : "false"),
+                muted: @(Model.ChatUserInRoom.Muted ? "true" : "false")
             };
 
         var CURRENT_CHAT_USER = 
@@ -188,7 +190,8 @@
             hasLeft: '@Lang.HasLeft',
             joinedRoom: '@Lang.JoinedRoom',
             maxLengthChatName: '@Lang.MaxLengthChatNameMessage',
-            maxLengthMessage: '@(string.Format(Lang.MessageMaxLengthMessage, maxMessageLength))'
+            maxLengthMessage: '@(string.Format(Lang.MessageMaxLengthMessage, maxMessageLength))',
+            sorryRoomNotAvailableForSendingMessage: '@Lang.SorryRoomNotAvailableForSendingMessage'
         }
 
     </script>

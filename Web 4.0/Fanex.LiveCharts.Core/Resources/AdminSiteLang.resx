@@ -423,4 +423,10 @@
   <data name="UnMuteThisUser" xml:space="preserve">
     <value>Unmute this user</value>
   </data>
+  <data name="ClickToMute" xml:space="preserve">
+    <value>Click this button to mute all users in room.</value>
+  </data>
+  <data name="ClickToUnMute" xml:space="preserve">
+    <value>Click this button to un mute all users in room.</value>
+  </data>
 </root>
