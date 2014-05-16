@@ -496,4 +496,14 @@ Please be considered and do not use any offensive nickname.</value>
   <data name="SorryRoomNotAvailableForSendingMessage" xml:space="preserve">
     <value>Sorry, this room is not available for sending message.</value>
   </data>
+  <data name="TermsConditionMessage" xml:space="preserve">
+    <value>A breach of any of the below rules and regulations will result in either chat room suspension or permanent ban &lt;br/&gt;
+1. No foul language - Please advoid using obscene words or phrases&lt;br/&gt;
+2. No flooding or excessive spam - Do no flood the chat room with repetitive messsages&lt;br/&gt;
+3. No advertising - Do not advertise or promote any services of any kind&lt;br/&gt;
+4. Do not harass or insult - Please maintain proper behavior and etiquette</value>
+  </data>
+  <data name="WelcomeMessage" xml:space="preserve">
+    <value>Welcome {0} join this room.</value>
+  </data>
 </root>

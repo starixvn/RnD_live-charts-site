@@ -9,54 +9,6 @@
         <span class="title">@ViewBag.Title</span></h1>
 }
 
-<div class="setting-container">
-    <div class="form dummy-prediction-container ">
-        <div class="form-row">
-            <div class="lbl-field">@AdminSiteLang.TermCondition:</div>
-            <div class="edit-field">
-                <textarea name="SettingValue" id="txtTermCondition" class="term-condition-setting" >@(Model.TermCondition.SettingValue.Replace("{br}", "\n"))</textarea>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="lbl-field">@AdminSiteLang.Disable:</div>
-            <div class="edit-field">
-                <input class="chk-disable" type="checkbox" @(Model.TermCondition.Disabled ? "checked" : string.Empty) id="cbTermConditionDisabled" />
-            </div>
-        </div>
-         <div class="form-row">
-            <div class="lbl-field"></div>
-            <div class="edit-field">
-                <input id="btnUpdateTermCondition" type="submit" value="@Lang.Submit" />
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="setting-container">
-    <div class="form dummy-prediction-container ">
-        <div class="form-row">
-            <div class="lbl-field">@AdminSiteLang.WelcomeMessage:</div>
-            <div class="edit-field">
-                <textarea name="SettingValue" id="txtWelcomeMessage" class="term-condition-setting" >@(Model.WelcomeMessage.SettingValue)</textarea>
-                <div class="setting-warning">*@AdminSiteLang.WarningUpdateWelcomeMessage</div>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="lbl-field">@AdminSiteLang.Disable:</div>
-            <div class="edit-field">
-                <input  class="chk-disable" type="checkbox" @(Model.WelcomeMessage.Disabled ? "checked" : string.Empty) id="cbWelcomeMessageDisabled" />
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="lbl-field"></div>
-            <div class="edit-field">
-                <input id="btnUpdateWelcomeMessage" type="submit" value="@Lang.Submit" />
-            </div>
-        </div>
-    </div>
-</div>
 
 
 <div class="setting-container">
@@ -77,6 +29,55 @@
     </div>
 </div>
 
+
+<div class="setting-container">
+    <div class="form dummy-prediction-container ">
+      @*  <div class="form-row">
+            <div class="lbl-field">@AdminSiteLang.TermCondition:</div>
+            <div class="edit-field">
+                <textarea name="SettingValue" id="txtTermCondition" class="term-condition-setting" >@(Model.TermCondition.SettingValue.Replace("{br}", "\n"))</textarea>
+            </div>
+        </div>*@
+        <div class="form-row">
+            <div class="lbl-field">@AdminSiteLang.TermCondition @AdminSiteLang.Disable:</div>
+            <div class="edit-field">
+                <input class="chk-disable" type="checkbox" @(Model.TermCondition.Disabled ? "checked" : string.Empty) id="cbTermConditionDisabled" />
+            </div>
+        </div>
+         <div class="form-row">
+            <div class="lbl-field"></div>
+            <div class="edit-field">
+                <input id="btnUpdateTermCondition" type="submit" value="@Lang.Submit" />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="setting-container">
+    <div class="form dummy-prediction-container ">
+        @*<div class="form-row">
+            <div class="lbl-field">@AdminSiteLang.WelcomeMessage:</div>
+            <div class="edit-field">
+                <textarea name="SettingValue" id="txtWelcomeMessage" class="term-condition-setting" >@(Model.WelcomeMessage.SettingValue)</textarea>
+                <div class="setting-warning">AdminSiteLang.WarningUpdateWelcomeMessage</div>
+            </div>
+        </div>*@
+        <div class="form-row">
+            <div class="lbl-field">@AdminSiteLang.WelcomeMessage @AdminSiteLang.Disable:</div>
+            <div class="edit-field">
+                <input  class="chk-disable" type="checkbox" @(Model.WelcomeMessage.Disabled ? "checked" : string.Empty) id="cbWelcomeMessageDisabled" />
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="lbl-field"></div>
+            <div class="edit-field">
+                <input id="btnUpdateWelcomeMessage" type="submit" value="@Lang.Submit" />
+            </div>
+        </div>
+    </div>
+</div>
 
 @section Foot {
     <script type="text/javascript"> 

@@ -86,11 +86,7 @@
         <div class="modal-body">
             <form class="bs-docs-example form-horizontal">
             <div class="control-group" id="termConditionMessage">
-                @foreach (var term in termArray)
-                {
-                    @term
-                    <br />
-                }
+                @Html.Raw(Lang.TermsConditionMessage)
             </div>
             </form>
         </div>

@@ -27,7 +27,7 @@ namespace Fanex.LiveCharts.Criterias.Chat
 
         public override bool IsValid()
         {
-            return !string.IsNullOrEmpty(WelcomeMessage);
+            return true;
         }
     }
 }

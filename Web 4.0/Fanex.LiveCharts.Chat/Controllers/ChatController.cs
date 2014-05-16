@@ -18,6 +18,7 @@ namespace Fanex.LiveCharts.Chat.Controllers
     using Fanex.LiveCharts.Controllers;
     using Fanex.LiveCharts.Criterias.Chat;
     using Fanex.LiveCharts.Models;
+    using Fanex.LiveCharts.Resources;
     using Fanex.LiveCharts.Services.Impl;
     using Fanex.LiveCharts.Services.Interface;
     using Fanex.LiveCharts.Web;
@@ -164,7 +165,7 @@ namespace Fanex.LiveCharts.Chat.Controllers
                 ChatRoomName = string.Format("{0}_en_US", matchId),
                 MatchId = matchId
             });
-            
+
             SettingItem annoucementMessage = _settingService.GetSetting(new GetTermConditionCriteria());
             SettingItem welcomeMessage = _settingService.GetSetting(new GetWelcomeMessageCriteria());
 
@@ -177,10 +178,11 @@ namespace Fanex.LiveCharts.Chat.Controllers
                     ChatRoomId = chatRoom.ChatRoomId
                 });
 
-                if (welcomeMessage.SettingValue.Contains("{ChatName}"))
-                {
-                    welcomeMessage.SettingValue = welcomeMessage.SettingValue.Replace("{ChatName}", chatUser.ChatName);
-                }
+                welcomeMessage.SettingValue = string.Format(Lang.WelcomeMessage, chatUser.ChatName);
+            }
+            else
+            {
+                welcomeMessage.SettingValue = Lang.WelcomeMessage;
             }
 
             return new ChatViewModel

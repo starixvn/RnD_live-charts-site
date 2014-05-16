@@ -25,18 +25,18 @@ function ChatSetting() {
 
 
     me.updateTermCondition = function () {
-        var termCondition = me.$txtTermCondition.val();
-        if (me.isNotValid(termCondition)) {
-            me.$txtTermCondition.focus();
-            LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.error, CHAT_SETTING.invalidInput);
-            return;
-        }
+//        var termCondition = me.$txtTermCondition.val();
+//        if (me.isNotValid(termCondition)) {
+//            me.$txtTermCondition.focus();
+//            LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.error, CHAT_SETTING.invalidInput);
+//            return;
+//        }
 
         LiveChartsAdmin.callAjax({
             url: CHAT_SETTING.updateTermConditionUrl,
             type: 'POST',
             data: {
-                termCondition: termCondition,
+                termCondition: '',
                 disabled: me.$cbTermConditionDisabled.prop('checked')
             },
             done: function (commandResult) {
@@ -52,18 +52,18 @@ function ChatSetting() {
     };
 
     me.updateWelcomeMessage = function () {
-        var welcomeMessage = me.$txtWelcomeMessage.val();
-        if (me.isNotValid(welcomeMessage)) {
-            me.$txtWelcomeMessage.focus();
-            LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.error, CHAT_SETTING.invalidInput);
-            return;
-        }
+//        var welcomeMessage = me.$txtWelcomeMessage.val();
+//        if (me.isNotValid(welcomeMessage)) {
+//            me.$txtWelcomeMessage.focus();
+//            LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.error, CHAT_SETTING.invalidInput);
+//            return;
+//        }
 
         LiveChartsAdmin.callAjax({
             url: CHAT_SETTING.updateWelcomeMessageUrl,
             type: 'POST',
             data: {
-                welcomeMessage: welcomeMessage,
+                welcomeMessage: '',
                 disabled: me.$cbWelcomeMessageDisabled.prop('checked')
             },
             done: function (commandResult) {

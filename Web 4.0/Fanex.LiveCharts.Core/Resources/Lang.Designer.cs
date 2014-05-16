@@ -1061,6 +1061,19 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A breach of any of the below rules and regulations will result in either chat room suspension or permanent ban &lt;br/&gt;
+        ///1. No foul language - Please advoid using obscene words or phrases&lt;br/&gt;
+        ///2. No flooding or excessive spam - Do no flood the chat room with repetitive messsages&lt;br/&gt;
+        ///3. No advertising - Do not advertise or promote any services of any kind&lt;br/&gt;
+        ///4. Do not harass or insult - Please maintain proper behavior and etiquette.
+        /// </summary>
+        public static string TermsConditionMessage {
+            get {
+                return ResourceManager.GetString("TermsConditionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to text.
         /// </summary>
         public static string Text {
@@ -1165,6 +1178,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string WantToJoinRoom {
             get {
                 return ResourceManager.GetString("WantToJoinRoom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome {0} join this room..
+        /// </summary>
+        public static string WelcomeMessage {
+            get {
+                return ResourceManager.GetString("WelcomeMessage", resourceCulture);
             }
         }
         
