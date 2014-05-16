@@ -121,6 +121,8 @@ function ChatMonitor() {
                         break;
                     case 'muted':
                         items.unmute = { name: LANGUAGE.unmuteThisUser, icon: 'un-mute' };
+                        items.kickout = { name: LANGUAGE.kickOutThisUser, icon: 'kick-out' };
+                        items.ban = { name: LANGUAGE.banThisUser, icon: 'ban' };
                         break;
                     case 'kickedOut':
                         items.recover = { name: LANGUAGE.reAddThisUser, icon: 'add' };
