@@ -38,6 +38,12 @@ namespace Fanex.LiveCharts.Chat.Services
 
         IEnumerable<ChatUserInRoom> AdminGetChatRoomUsers(AdminGetChatRoomUsersCriteria getChatRoomUsersCriteria);
 
+        IEnumerable<ChatUser> SearchChatUser(SearchChatUserCriteria criteria);
+
+        IEnumerable<MemberInfo> SearchMember(SearchMemberCriteria criteria);
+
+        ICommandResult InsertMemberBanned(InsertMemberBannedCriteria criteria);
+
         ChatUser GetChatUser(GetChatUserCriteria getChatUserCriteria);
 
         ChatUserInRoom GetChatUserInRoom(GetChatUserInRoomCriteria getChatUserInRoomCriteria);
@@ -58,6 +64,8 @@ namespace Fanex.LiveCharts.Chat.Services
 
         ICommandResult UpdateChatMessageByChatUser(UpdateChatMessageOfChatUserCriteria criteria);
 
+        UpdateBanListUserViewModel UpdateBanChatUsersOnAdminSite(UpdateBanChatUsersCriteria criteria);
+
         UpdateMuteChatUserViewModel UpdateMuteChatUserOnAdminSite(UpdateMuteChatUserCriteria criteria);
 
         UpdateMuteChatRoomViewModel UpdateMuteChatRoomOnAdminSite(UpdateMuteChatRoomCriteria criteria);
@@ -77,6 +85,8 @@ namespace Fanex.LiveCharts.Chat.Services
         ICommandResult UpdateChatMessageOnMemberSite(UpdateChatMessageViewModel deleteChatMessageViewModel);
 
         ICommandResult BanChatUserOnMemberSite(BanChatUserViewModel banChatUser);
+
+        ICommandResult UpdateBanListUsersOnMemberSite(UpdateBanListUserViewModel banListUser);
 
         ICommandResult UpdateChatMessageByChatUserIdOnMemberSite(UpdateChatMessageByChatUserViewModel deleteMessageByChatUser);
 

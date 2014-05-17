@@ -120,6 +120,12 @@ namespace Fanex.LiveCharts.Chat.Controllers
         }
 
         [HttpPost]
+        public JsonResult BanListUsers(UpdateBanListUserViewModel banViewModel)
+        {
+            return Json(_chatService.UpdateBanListUsersOnMemberSite(banViewModel));
+        }
+
+        [HttpPost]
         public JsonResult UpdateChatMessage(UpdateChatMessageViewModel deleteChatMessageViewModel)
         {
             return Json(_chatService.UpdateChatMessageOnMemberSite(deleteChatMessageViewModel));

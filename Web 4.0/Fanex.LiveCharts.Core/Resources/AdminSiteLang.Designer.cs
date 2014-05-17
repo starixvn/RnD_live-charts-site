@@ -88,6 +88,24 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All.
+        /// </summary>
+        public static string All {
+            get {
+                return ResourceManager.GetString("All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All chat users.
+        /// </summary>
+        public static string AllChatUsers {
+            get {
+                return ResourceManager.GetString("AllChatUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to -------- All --------.
         /// </summary>
         public static string AllLeagues {
@@ -129,6 +147,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string BanChatUserSuccessMessage {
             get {
                 return ResourceManager.GetString("BanChatUserSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Banned.
+        /// </summary>
+        public static string Banned {
+            get {
+                return ResourceManager.GetString("Banned", resourceCulture);
             }
         }
         
@@ -228,6 +255,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string ChatSetting {
             get {
                 return ResourceManager.GetString("ChatSetting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chat User Banned Management.
+        /// </summary>
+        public static string ChatUserBannedManagement {
+            get {
+                return ResourceManager.GetString("ChatUserBannedManagement", resourceCulture);
             }
         }
         
@@ -520,6 +556,24 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to List online user.
+        /// </summary>
+        public static string ListOnlineUsers {
+            get {
+                return ResourceManager.GetString("ListOnlineUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to List chat user has been banned.
+        /// </summary>
+        public static string ListUserBanned {
+            get {
+                return ResourceManager.GetString("ListUserBanned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Live Indicator.
         /// </summary>
         public static string LiveIndicator {
@@ -678,6 +732,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string NumberOfPrediction {
             get {
                 return ResourceManager.GetString("NumberOfPrediction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Online.
+        /// </summary>
+        public static string Online {
+            get {
+                return ResourceManager.GetString("Online", resourceCulture);
             }
         }
         

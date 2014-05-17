@@ -14,6 +14,7 @@ namespace Fanex.LiveCharts.Chat.Services
     using System.IO;
     using System.Linq;
     using System.Web;
+    using Fanex.Common;
     using Fanex.LiveCharts.Chat.Criteria;
     using Fanex.LiveCharts.Chat.Hubs;
     using Fanex.LiveCharts.Chat.Models;
@@ -35,6 +36,7 @@ namespace Fanex.LiveCharts.Chat.Services
     public class ChatService : IChatService
     {
         private const string KickOutCommandCacheKey = "Chat.Services.ChatService.KickOutCommandCacheKey";
+        private const string UpdateBanListUserCacheKey = "Chat.Services.ChatService.UpdateBanListUserCacheKey";
         private const string UpdateMessageCommandCacheKey = "Chat.Services.ChatService.DeleteMessageCommandCacheKey";
         private const string BanChatUserCacheKey = "Chat.Services.ChatService.BanChatUserCacheKey";
         private const string UpdateMessageByUserCommandCacheKey = "Chat.Services.ChatService.DeleteMessageByUserCommandCacheKey";
@@ -52,6 +54,8 @@ namespace Fanex.LiveCharts.Chat.Services
         {
             _chatRepository = chatRepository ?? new ChatRepository();
         }
+
+        #region Get Data
 
         public IEnumerable<ChatMessage> GetChatMessagesByTime(GetChatMessageByTimeCriteria getChatMessageCriteria)
         {
@@ -86,93 +90,6 @@ namespace Fanex.LiveCharts.Chat.Services
             return chatUser;
         }
 
-        /// <summary>
-        /// Insert chat message to database.
-        /// </summary>
-        /// <param name="insertChatMessageCriteria">Insert chat message criteria.</param>
-        /// <returns>Status of insert command.</returns>
-        public InsertResult InsertChatMessage(InsertChatMessageCriteria insertChatMessageCriteria)
-        {
-            ////insertChatMessageCriteria.CreateTime = DateTime.Now;
-
-            var insertResult = _chatRepository.ModifyData(insertChatMessageCriteria, "ChatMessageId");
-
-            return insertResult;
-        }
-
-        public InsertResult InsertChatRoom(InsertChatRoomCriteria insertChatRoomCriteria)
-        {
-            ////insertChatRoomCriteria.CreateTime = DateTime.Now;
-            var insertResult = _chatRepository.ModifyData(insertChatRoomCriteria, "ChatRoomId");
-
-            return insertResult;
-        }
-
-        /// <summary>
-        /// Insert chat user.
-        /// </summary>
-        /// <param name="insertchatUserCriteria">Data for insert.</param>
-        /// <param name="chatNameDenyList">Chat name deny list.</param>
-        /// <returns>Insert command result.</returns>
-        public InsertResult InsertChatUser(InsertChatUserCriteria insertchatUserCriteria, string chatNameDenyList)
-        {
-            if (CheckChatNameViolateRule(insertchatUserCriteria.ChatName, chatNameDenyList))
-            {
-                return new InsertResult
-                {
-                    CommandResult = new CommandResult
-                    {
-                        Code = CodeFail,
-                        Message = Lang.ChatNameViolateMessage
-                    }
-                };
-            }
-
-            ////insertchatUserCriteria.CreateTime = DateTime.Now;
-            if (!string.IsNullOrEmpty(insertchatUserCriteria.ChatName))
-            {
-                insertchatUserCriteria.ChatName = HttpUtility.HtmlEncode(insertchatUserCriteria.ChatName);
-            }
-
-            var insertResult = _chatRepository.ModifyData(insertchatUserCriteria, "ChatUserId");
-
-            return insertResult;
-        }
-
-        public ICommandResult UpdateChatMessage(UpdateChatMessageCriteria updateChatMessageCriteria)
-        {
-            var updateResult = _chatRepository.ModifyData(updateChatMessageCriteria);
-
-            return updateResult;
-        }
-
-        public ICommandResult UpdateChatMessageByChatUser(UpdateChatMessageOfChatUserCriteria criteria)
-        {
-            var updateResult = _chatRepository.ModifyData(criteria);
-
-            return updateResult;
-        }
-
-        public ICommandResult UpdateChatRoom(UpdateChatRoomCriteria updateChatRoomCriteria)
-        {
-            if (!string.IsNullOrEmpty(updateChatRoomCriteria.WelcomeMessage))
-            {
-                updateChatRoomCriteria.WelcomeMessage = HttpUtility.HtmlEncode(updateChatRoomCriteria.WelcomeMessage);
-            }
-
-            var updateResult = _chatRepository.ModifyData(updateChatRoomCriteria);
-
-            return updateResult;
-        }
-
-        public ICommandResult UpdateChatUser(UpdateChatUserCriteria updateChatUserCriteria)
-        {
-            ////updateChatUserCriteria.ModifiedTime = DateTime.Now;
-            var updateResult = _chatRepository.ModifyData(updateChatUserCriteria);
-
-            return updateResult;
-        }
-
         public ChatRoom GetChatRoomByName(GetChatRoomByNameCriteria getChatRoomByName)
         {
             var chatRoom = _chatRepository.Get<ChatRoom>(getChatRoomByName);
@@ -192,80 +109,6 @@ namespace Fanex.LiveCharts.Chat.Services
             var chatUsers = _chatRepository.GetUsersInRoom(adminGetChatRoomUsersCriteria);
 
             return chatUsers;
-        }
-
-        public InsertResult InsertChatUserInRoom(InsertChatUserInRoomCriteria insertChatUserInRoomCriteria)
-        {
-            ////insertChatUserInRoomCriteria.LastOnlineTime = DateTime.Now;
-            var insertResult = _chatRepository.ModifyData(insertChatUserInRoomCriteria, "ChatUserInRoomId");
-
-            return insertResult;
-        }
-
-        public ICommandResult UpdateChatUserInRoom(UpdateChatUserInRoomCriteria updateChatUserInRoomCriteria)
-        {
-            ////updateChatUserInRoomCriteria.LastOnlineTime = DateTime.Now;
-            var updateResult = _chatRepository.ModifyData(updateChatUserInRoomCriteria);
-
-            return updateResult;
-        }
-
-        public ICommandResult UpdateKickOutChatUser(UpdateKickOutChatUserCriteria updateKickOutChatUserCriteria)
-        {
-            var updateResult = _chatRepository.ModifyData(updateKickOutChatUserCriteria);
-
-            return updateResult;
-        }
-
-        /// <summary>
-        /// Update Mute Chat user.
-        /// </summary>
-        /// <param name="criteria">Mute information.</param>
-        /// <returns>Update mute information for using in member site.</returns>
-        public UpdateMuteChatUserViewModel UpdateMuteChatUserOnAdminSite(UpdateMuteChatUserCriteria criteria)
-        {
-            var updateResult = _chatRepository.ModifyData(criteria);
-
-            var updateMuteChatUserViewModel = new UpdateMuteChatUserViewModel
-            {
-                CommandResult = (CommandResult)updateResult,
-                ChatUserId = criteria.ChatUserId,
-                ChatRoomId = criteria.ChatRoomId,
-                ChatRoomName = criteria.ChatRoomName,
-                Muted = criteria.IsMute
-            };
-
-            if (updateResult.IsSuccessful)
-            {
-                SetUpdateMuteChatUserToken(updateMuteChatUserViewModel);
-            }
-
-            return updateMuteChatUserViewModel;
-        }
-
-        /// <summary>
-        /// Update mute chat room information.
-        /// </summary>
-        /// <param name="criteria">Mute information.</param>
-        /// <returns>Mute information for using in member site.</returns>
-        public UpdateMuteChatRoomViewModel UpdateMuteChatRoomOnAdminSite(UpdateMuteChatRoomCriteria criteria)
-        {
-            var updateResult = _chatRepository.ModifyData(criteria);
-
-            var updateMuteChatRoomViewModel = new UpdateMuteChatRoomViewModel
-            {
-                CommandResult = (CommandResult)updateResult,
-                ChatRoomId = criteria.ChatRoomId,
-                ChatRoomName = criteria.ChatRoomName,
-                Muted = criteria.IsMute
-            };
-
-            if (updateResult.IsSuccessful)
-            {
-                SetUpdateMuteChatRoomToken(updateMuteChatRoomViewModel);
-            }
-
-            return updateMuteChatRoomViewModel;
         }
 
         /// <summary>
@@ -302,6 +145,20 @@ namespace Fanex.LiveCharts.Chat.Services
             return chatUserInRoom;
         }
 
+        public IEnumerable<ChatUser> SearchChatUser(SearchChatUserCriteria criteria)
+        {
+            var chatUsers = _chatRepository.Fetch<ChatUser>(criteria);
+
+            return chatUsers;
+        }
+
+        public IEnumerable<MemberInfo> SearchMember(SearchMemberCriteria criteria)
+        {
+            var members = _chatRepository.Fetch<MemberInfo>(criteria);
+
+            return members;
+        }
+
         public IEnumerable<ChatMessage> GetChatMessageByRoom(GetChatMessageByRoomCriteria getChatMessageByRoomCriteria)
         {
             var chatMessages = _chatRepository.GetChatMessages(getChatMessageByRoomCriteria);
@@ -315,6 +172,10 @@ namespace Fanex.LiveCharts.Chat.Services
 
             return chatRooms;
         }
+
+        #endregion Get Data
+
+        #region Modify Data
 
         /// <summary>
         /// Kick out chat user online on member site.
@@ -343,7 +204,7 @@ namespace Fanex.LiveCharts.Chat.Services
                 ServiceBase.ExceptionHandler(ex);
                 return new CommandResult
                 {
-                    Code = 11,
+                    Code = CodeFail,
                     Message = ex.Message
                 };
             }
@@ -382,7 +243,7 @@ namespace Fanex.LiveCharts.Chat.Services
                 ServiceBase.ExceptionHandler(ex);
                 return new CommandResult
                 {
-                    Code = 11,
+                    Code = CodeFail,
                     Message = ex.Message
                 };
             }
@@ -424,7 +285,7 @@ namespace Fanex.LiveCharts.Chat.Services
                 ServiceBase.ExceptionHandler(ex);
                 return new CommandResult
                 {
-                    Code = 11,
+                    Code = CodeFail,
                     Message = ex.Message
                 };
             }
@@ -553,6 +414,18 @@ namespace Fanex.LiveCharts.Chat.Services
             return banChatUserViewModel;
         }
 
+        public IEnumerable<ChatMessage> SearchChatMessage(SearchChatMessageCriteria criteria)
+        {
+            if (criteria.SearchText == null)
+            {
+                criteria.SearchText = string.Empty;
+            }
+
+            var chatMessages = _chatRepository.GetChatMessages(criteria);
+
+            return chatMessages;
+        }
+
         /// <summary>
         /// Kick out chat user after banned in member site.
         /// </summary>
@@ -580,7 +453,7 @@ namespace Fanex.LiveCharts.Chat.Services
                 ServiceBase.ExceptionHandler(ex);
                 return new CommandResult
                 {
-                    Code = 11,
+                    Code = CodeFail,
                     Message = ex.Message
                 };
             }
@@ -619,7 +492,7 @@ namespace Fanex.LiveCharts.Chat.Services
                 ServiceBase.ExceptionHandler(ex);
                 return new CommandResult
                 {
-                    Code = 11,
+                    Code = CodeFail,
                     Message = ex.Message
                 };
             }
@@ -658,7 +531,7 @@ namespace Fanex.LiveCharts.Chat.Services
                 ServiceBase.ExceptionHandler(ex);
                 return new CommandResult
                 {
-                    Code = 11,
+                    Code = CodeFail,
                     Message = ex.Message
                 };
             }
@@ -670,16 +543,125 @@ namespace Fanex.LiveCharts.Chat.Services
             };
         }
 
-        public IEnumerable<ChatMessage> SearchChatMessage(SearchChatMessageCriteria criteria)
+        /// <summary>
+        /// Update kick out user banned on member site.
+        /// </summary>
+        /// <param name="banListUser">View model contains information.</param>
+        /// <returns>Result of command.</returns>
+        public ICommandResult UpdateBanListUsersOnMemberSite(UpdateBanListUserViewModel banListUser)
         {
-            if (criteria.SearchText == null)
+            try
             {
-                criteria.SearchText = string.Empty;
+                ICommandResult invalidTokenResult = CheckChatCommandTokenInValid(UpdateBanListUserCacheKey + "_" + banListUser.TokenName, banListUser.TokenKey);
+                if (invalidTokenResult != null)
+                {
+                    return invalidTokenResult;
+                }
+
+                IHubContext chatHub = GlobalHost.ConnectionManager.GetHubContext<ChatHub>();
+
+                if (chatHub != null)
+                {
+                    var userList = banListUser.ChatUserIds.Split(new char[] { ',' });
+                    foreach (var userIdString in userList)
+                    {
+                        var userId = Converter.ToInt(userIdString, 0);
+                        if (userId != 0)
+                        {
+                            chatHub.Clients.All.kickOutChatUser(userId);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ServiceBase.ExceptionHandler(ex);
+                return new CommandResult
+                {
+                    Code = CodeFail,
+                    Message = ex.Message
+                };
             }
 
-            var chatMessages = _chatRepository.GetChatMessages(criteria);
+            return new CommandResult
+            {
+                Code = 0,
+                Message = string.Empty
+            };
+        }
 
-            return chatMessages;
+        public InsertResult InsertChatUserInRoom(InsertChatUserInRoomCriteria insertChatUserInRoomCriteria)
+        {
+            ////insertChatUserInRoomCriteria.LastOnlineTime = DateTime.Now;
+            var insertResult = _chatRepository.ModifyData(insertChatUserInRoomCriteria, "ChatUserInRoomId");
+
+            return insertResult;
+        }
+
+        public ICommandResult UpdateChatUserInRoom(UpdateChatUserInRoomCriteria updateChatUserInRoomCriteria)
+        {
+            ////updateChatUserInRoomCriteria.LastOnlineTime = DateTime.Now;
+            var updateResult = _chatRepository.ModifyData(updateChatUserInRoomCriteria);
+
+            return updateResult;
+        }
+
+        public ICommandResult UpdateKickOutChatUser(UpdateKickOutChatUserCriteria updateKickOutChatUserCriteria)
+        {
+            var updateResult = _chatRepository.ModifyData(updateKickOutChatUserCriteria);
+
+            return updateResult;
+        }
+
+        /// <summary>
+        /// Update Mute Chat user.
+        /// </summary>
+        /// <param name="criteria">Mute information.</param>
+        /// <returns>Update mute information for using in member site.</returns>
+        public UpdateMuteChatUserViewModel UpdateMuteChatUserOnAdminSite(UpdateMuteChatUserCriteria criteria)
+        {
+            var updateResult = _chatRepository.ModifyData(criteria);
+
+            var updateMuteChatUserViewModel = new UpdateMuteChatUserViewModel
+            {
+                CommandResult = (CommandResult)updateResult,
+                ChatUserId = criteria.ChatUserId,
+                ChatRoomId = criteria.ChatRoomId,
+                ChatRoomName = criteria.ChatRoomName,
+                Muted = criteria.IsMute
+            };
+
+            if (updateResult.IsSuccessful)
+            {
+                SetUpdateMuteChatUserToken(updateMuteChatUserViewModel);
+            }
+
+            return updateMuteChatUserViewModel;
+        }
+
+        /// <summary>
+        /// Update mute chat room information.
+        /// </summary>
+        /// <param name="criteria">Mute information.</param>
+        /// <returns>Mute information for using in member site.</returns>
+        public UpdateMuteChatRoomViewModel UpdateMuteChatRoomOnAdminSite(UpdateMuteChatRoomCriteria criteria)
+        {
+            var updateResult = _chatRepository.ModifyData(criteria);
+
+            var updateMuteChatRoomViewModel = new UpdateMuteChatRoomViewModel
+            {
+                CommandResult = (CommandResult)updateResult,
+                ChatRoomId = criteria.ChatRoomId,
+                ChatRoomName = criteria.ChatRoomName,
+                Muted = criteria.IsMute
+            };
+
+            if (updateResult.IsSuccessful)
+            {
+                SetUpdateMuteChatRoomToken(updateMuteChatRoomViewModel);
+            }
+
+            return updateMuteChatRoomViewModel;
         }
 
         public ICommandResult UpdateChatUserAgreedTerms(UpdateChatUserAgreeTermsCriteria criteria)
@@ -688,6 +670,125 @@ namespace Fanex.LiveCharts.Chat.Services
 
             return updateResult;
         }
+
+        /// <summary>
+        /// Insert chat message to database.
+        /// </summary>
+        /// <param name="insertChatMessageCriteria">Insert chat message criteria.</param>
+        /// <returns>Status of insert command.</returns>
+        public InsertResult InsertChatMessage(InsertChatMessageCriteria insertChatMessageCriteria)
+        {
+            ////insertChatMessageCriteria.CreateTime = DateTime.Now;
+
+            var insertResult = _chatRepository.ModifyData(insertChatMessageCriteria, "ChatMessageId");
+
+            return insertResult;
+        }
+
+        public InsertResult InsertChatRoom(InsertChatRoomCriteria insertChatRoomCriteria)
+        {
+            ////insertChatRoomCriteria.CreateTime = DateTime.Now;
+            var insertResult = _chatRepository.ModifyData(insertChatRoomCriteria, "ChatRoomId");
+
+            return insertResult;
+        }
+
+        /// <summary>
+        /// Insert chat user.
+        /// </summary>
+        /// <param name="insertchatUserCriteria">Data for insert.</param>
+        /// <param name="chatNameDenyList">Chat name deny list.</param>
+        /// <returns>Insert command result.</returns>
+        public InsertResult InsertChatUser(InsertChatUserCriteria insertchatUserCriteria, string chatNameDenyList)
+        {
+            if (CheckChatNameViolateRule(insertchatUserCriteria.ChatName, chatNameDenyList))
+            {
+                return new InsertResult
+                {
+                    CommandResult = new CommandResult
+                    {
+                        Code = CodeFail,
+                        Message = Lang.ChatNameViolateMessage
+                    }
+                };
+            }
+
+            ////insertchatUserCriteria.CreateTime = DateTime.Now;
+            if (!string.IsNullOrEmpty(insertchatUserCriteria.ChatName))
+            {
+                insertchatUserCriteria.ChatName = HttpUtility.HtmlEncode(insertchatUserCriteria.ChatName);
+            }
+
+            var insertResult = _chatRepository.ModifyData(insertchatUserCriteria, "ChatUserId");
+
+            return insertResult;
+        }
+
+        public ICommandResult UpdateChatMessage(UpdateChatMessageCriteria updateChatMessageCriteria)
+        {
+            var updateResult = _chatRepository.ModifyData(updateChatMessageCriteria);
+
+            return updateResult;
+        }
+
+        public ICommandResult UpdateChatMessageByChatUser(UpdateChatMessageOfChatUserCriteria criteria)
+        {
+            var updateResult = _chatRepository.ModifyData(criteria);
+
+            return updateResult;
+        }
+
+        public ICommandResult UpdateChatRoom(UpdateChatRoomCriteria updateChatRoomCriteria)
+        {
+            if (!string.IsNullOrEmpty(updateChatRoomCriteria.WelcomeMessage))
+            {
+                updateChatRoomCriteria.WelcomeMessage = HttpUtility.HtmlEncode(updateChatRoomCriteria.WelcomeMessage);
+            }
+
+            var updateResult = _chatRepository.ModifyData(updateChatRoomCriteria);
+
+            return updateResult;
+        }
+
+        public ICommandResult UpdateChatUser(UpdateChatUserCriteria updateChatUserCriteria)
+        {
+            ////updateChatUserCriteria.ModifiedTime = DateTime.Now;
+            var updateResult = _chatRepository.ModifyData(updateChatUserCriteria);
+
+            return updateResult;
+        }
+
+        public ICommandResult InsertMemberBanned(InsertMemberBannedCriteria criteria)
+        {
+            var result = _chatRepository.ModifyData(criteria);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Update list users banned on admin site.
+        /// </summary>
+        /// <param name="criteria">Criteria for update banned.</param>
+        /// <returns>View model contains information for member site use.</returns>
+        public UpdateBanListUserViewModel UpdateBanChatUsersOnAdminSite(UpdateBanChatUsersCriteria criteria)
+        {
+            var result = _chatRepository.ModifyData(criteria);
+
+            var updateBanListUserViewModel = new UpdateBanListUserViewModel
+            {
+                CommandResult = (CommandResult)result,
+                ChatUserIds = criteria.ChatUserIds
+            };
+
+            if (result.IsSuccessful)
+            {
+                SetUpdateBanListUserToken(updateBanListUserViewModel);
+            }
+
+            return updateBanListUserViewModel;
+        }
+
+        #endregion Modify Data
 
         #region Export Excel
 
@@ -870,6 +971,17 @@ namespace Fanex.LiveCharts.Chat.Services
             CacheManager.Instance.Set<string>(
                 UpdateMuteChatRoomCommandCacheKey + "_" + updateMuteChatRoom.TokenName,
                 updateMuteChatRoom.TokenKey,
+                new TimeSpan(0, AppSettings.CachingTimeOutMinute, 0));
+        }
+
+        private void SetUpdateBanListUserToken(UpdateBanListUserViewModel updateBanListUserViewModel)
+        {
+            updateBanListUserViewModel.TokenName = string.Format("{0}", updateBanListUserViewModel.ChatUserIds);
+            updateBanListUserViewModel.TokenKey = Guid.NewGuid().ToString();
+
+            CacheManager.Instance.Set<string>(
+                UpdateBanListUserCacheKey + "_" + updateBanListUserViewModel.TokenName,
+                updateBanListUserViewModel.TokenKey,
                 new TimeSpan(0, AppSettings.CachingTimeOutMinute, 0));
         }
 

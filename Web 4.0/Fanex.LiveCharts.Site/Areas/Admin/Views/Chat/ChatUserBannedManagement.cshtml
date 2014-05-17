@@ -1,0 +1,84 @@
+﻿@using Fanex.LiveCharts.Core;
+@{
+    ViewBag.Title = AdminSiteLang.ChatUserBannedManagement;
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@section Head {
+    <link type="text/css" rel="Stylesheet" href="~/Areas/Admin/Content/Chat.less" />
+}
+@section Headline {
+    <h1>
+        <span class="title">@AdminSiteLang.ChatUserBannedManagement</span>
+    </h1>
+}
+
+<section id="filter-bar">
+    <div class="filter-form">
+        <div class="lbl-field width-auto">
+            <label>@AdminSiteLang.Member</label>
+		</div>
+        <div class="edit-field width-180">
+            <input type="text" class="width-160" id="txtMemberSearch" maxlength="50" />
+		</div>
+        <div class="lbl-field width-auto">
+            <label>@AdminSiteLang.ChatName</label>
+		</div>
+        <div class="edit-field width-180">
+           <input type="text" class="width-160" id="txtChatNameSearch" maxlength="50" />
+		</div>
+        <div class="lbl-field width-auto">
+            <label>@AdminSiteLang.ChatUserStatus</label>
+		</div>
+        <div class="edit-field width-140">
+			<select id="ddlChatUserStatus" class="width-120">
+                <option value="0">@AdminSiteLang.All</option>
+                <option value="1">@AdminSiteLang.Banned</option>
+                <option value="2">@AdminSiteLang.Online</option>
+            </select>
+		</div>
+        <div class="submit btn-submit">
+			<input type="submit" value="@ViewResources.Submit" id="btnSearchChatUser" />
+		</div>
+    </div>
+</section>
+
+<div class="chat-member-search-result" style="display:none;">
+  @*  <div id="messageGrid-grid-title" class="grid-title">
+        <div class="grid-title-label" id="reporttile">@(gridTitle)</div>
+        <div class="grid-toolbox">
+            @if (!Model.IsMatchCompleted)
+            {
+                <label for="stopAutoRefresh" class="stop-auto-refresh">
+                    @AdminSiteLang.StopAutoRefresh
+                <input type="checkbox" id="stopAutoRefresh" />
+                </label>
+                <div class="refresh-button">
+                    <div id="resultRefreshCountDown">
+                    </div>
+                </div>
+            }
+            <input type="button" id="btnExportmessageGrid" class="btnExcel" title="@AdminSiteLang.ExportExcel" /></div>
+    </div>*@
+    <div id="chatUserGrid" class="freegrid">
+    </div>
+</div>
+@section Foot {
+    <script type="text/javascript">
+        var CHAT_USER_BANNED_MANAGEMENT_DEFAULT = 
+        {
+            searchChatUserUrl: "@(Url.Action("SearchChatUser", "ChatUserBannedManagement"))",
+            updateBanChatUsersUrl: "@(Url.Action("UpdateBanChatUsers", "ChatUserBannedManagement"))",
+            memberChartSiteUrl: "@(AppSettings.MemberChartSiteUrl)"
+            
+        };
+
+        var LANGUAGE = 
+        {
+            listUserBanned: '@AdminSiteLang.ListUserBanned',
+            listOnlineUsers: '@AdminSiteLang.ListOnlineUsers',
+            allChatUsers: '@AdminSiteLang.AllChatUsers',
+            updateSuccess: '@(AdminSiteLang.UpdateSuccessfully)'
+        };
+    </script>
+    @Scripts.Render("~/areas/admin/chatuserbannedmanagementjs")
+}

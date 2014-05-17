@@ -53,6 +53,14 @@ namespace Fanex.LiveCharts.Site.Areas.Admin.Area_Start
                 "~/Scripts/Libs/Chosen/chosen.jquery.js",
                 "~/Areas/Admin/Scripts/Chat/chat-monitor.js"));
 
+            bundles.Add(new ScriptBundle("~/areas/admin/chatuserbannedmanagementjs").Include(
+                "~/Scripts/Libs/Moment/moment.js",
+                "~/Scripts/Libs/Fanex.Grid/Fanex.Pagination.js",
+                "~/Scripts/Libs/Fanex.Grid/Fanex.Grid.js",
+                "~/Scripts/Libs/ContextMenu/jquery.ui.position.js",
+                "~/Scripts/Libs/ContextMenu/jquery.contextMenu.js",
+                "~/Areas/Admin/Scripts/Chat/chat-user-banned-management.js"));
+
             bundles.Add(new ScriptBundle("~/areas/admin/chatsettingconfigjs").Include(
                 "~/Areas/Admin/Scripts/Setting/chat-setting.js"));
 

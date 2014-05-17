@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Fanex.Common, Version=1.0.404.97, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_Dependencies\Fanex.Common.dll</HintPath>
+    </Reference>
     <Reference Include="Fanex.Data, Version=0.5.404.59, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_Dependencies\Fanex.Data.dll</HintPath>
@@ -74,6 +78,7 @@
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="Controllers\ChatController.cs" />
+    <Compile Include="Controllers\ChatUserBannedManagementController.cs" />
     <Compile Include="Criteria\AdminGetChatRoomUsersCriteria.cs" />
     <Compile Include="Criteria\GetChatMessageByRoomCriteria.cs" />
     <Compile Include="Criteria\GetChatMessageByTimeCriteria.cs" />
@@ -88,8 +93,12 @@
     <Compile Include="Criteria\InsertChatRoomCriteria.cs" />
     <Compile Include="Criteria\InsertChatUserCriteria.cs" />
     <Compile Include="Criteria\InsertChatUserInRoomCriteria.cs" />
+    <Compile Include="Criteria\InsertMemberBannedCriteria.cs" />
     <Compile Include="Criteria\InsertUpdateChatMessageSpamCriteria.cs" />
     <Compile Include="Criteria\SearchChatMessageCriteria.cs" />
+    <Compile Include="Criteria\SearchChatUserCriteria.cs" />
+    <Compile Include="Criteria\SearchMemberCriteria.cs" />
+    <Compile Include="Criteria\UpdateBanChatUsersCriteria.cs" />
     <Compile Include="Criteria\UpdateChatMessageOfChatUserCriteria.cs" />
     <Compile Include="Criteria\UpdateChatUserAgreeTermsCriteria.cs" />
     <Compile Include="Criteria\UpdateKickOutChatUserCriteria.cs" />
@@ -106,12 +115,14 @@
     <Compile Include="Models\ChatRoom.cs" />
     <Compile Include="Models\ChatUser.cs" />
     <Compile Include="Models\ChatUserInRoom.cs" />
+    <Compile Include="Models\MemberInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ChatRepository.cs" />
     <Compile Include="Repositories\IChatRepository.cs" />
     <Compile Include="Services\ChatService.cs" />
     <Compile Include="Services\IChatService.cs" />
     <Compile Include="ViewModels\BanChatUserViewModel.cs" />
+    <Compile Include="ViewModels\UpdateBanListUserViewModel.cs" />
     <Compile Include="ViewModels\ChatMonitorViewModel.cs" />
     <Compile Include="ViewModels\ChatViewModel.cs" />
     <Compile Include="ViewModels\UpdateMuteChatRoomViewModel.cs" />

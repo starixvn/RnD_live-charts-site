@@ -21,6 +21,7 @@ namespace Fanex.LiveCharts.Site.Areas.Admin.Area_Start
             Justification = "Reviewed. Suppression is OK here.")]
     [SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1000:KeywordsMustBeSpacedCorrectly", Justification = "Reviewed.")]
     [SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1008:OpeningParenthesisMustBeSpacedCorrectly", Justification = "Reviewed.")]
+    [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1118:ParameterMustNotSpanMultipleLines", Justification = "Reviewed.")]
     public class RouteConfig
     {
         public static void RegisterRoutes(string areaName, AreaRegistrationContext context)
@@ -33,8 +34,12 @@ namespace Fanex.LiveCharts.Site.Areas.Admin.Area_Start
                     controller = "Match",
                     action = "GetEnableCharts",
                     id = UrlParameter.Optional
-                },
-                new[] { typeof (Fanex.LiveCharts.Controllers.Admin.MatchController).Namespace });
+                }, 
+                new[] 
+                    {
+                        typeof (Fanex.LiveCharts.Controllers.Admin.MatchController).Namespace,
+                        typeof (Fanex.LiveCharts.Chat.Controllers.ChatUserBannedManagementController).Namespace
+                    });
         }
     }
 }

@@ -429,4 +429,25 @@
   <data name="ClickToUnMute" xml:space="preserve">
     <value>Click this button to un mute all users in room.</value>
   </data>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="AllChatUsers" xml:space="preserve">
+    <value>All chat users</value>
+  </data>
+  <data name="Banned" xml:space="preserve">
+    <value>Banned</value>
+  </data>
+  <data name="ChatUserBannedManagement" xml:space="preserve">
+    <value>Chat User Banned Management</value>
+  </data>
+  <data name="ListOnlineUsers" xml:space="preserve">
+    <value>List online user</value>
+  </data>
+  <data name="ListUserBanned" xml:space="preserve">
+    <value>List chat user has been banned</value>
+  </data>
+  <data name="Online" xml:space="preserve">
+    <value>Online</value>
+  </data>
 </root>
