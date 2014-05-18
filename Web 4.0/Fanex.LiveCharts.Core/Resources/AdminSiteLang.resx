@@ -450,4 +450,16 @@
   <data name="Online" xml:space="preserve">
     <value>Online</value>
   </data>
+  <data name="MemberBanByDefault" xml:space="preserve">
+    <value>Member Ban By Default Page</value>
+  </data>
+  <data name="LccDatabase" xml:space="preserve">
+    <value>LCC Database</value>
+  </data>
+  <data name="MainDatabase" xml:space="preserve">
+    <value>Main Database</value>
+  </data>
+  <data name="SearchDatabase" xml:space="preserve">
+    <value>Search In Database</value>
+  </data>
 </root>

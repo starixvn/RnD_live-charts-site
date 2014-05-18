@@ -42,7 +42,22 @@ namespace Fanex.LiveCharts.Site.Areas.Admin.Area_Start
                 "~/Scripts/Libs/Spinner/jquery.stepper.js",
                 "~/Areas/Admin/Scripts/ScorePrediction/score-prediction-config.js",
                 "~/Areas/Admin/Scripts/ScorePrediction/score-prediction-config-view.js"));
+            
+            bundles.Add(new ScriptBundle("~/areas/admin/chatsettingconfigjs").Include(
+                "~/Areas/Admin/Scripts/Setting/chat-setting.js"));
 
+            bundles.Add(new ScriptBundle("~/areas/admin/scorepredictionconfigsettingjs").Include(
+                "~/Areas/Admin/Scripts/Setting/score-prediction-setting.js"));
+
+            RegisterAdminChatBundles(bundles);
+        }
+
+        /// <summary>
+        /// Register chat bundles.
+        /// </summary>
+        /// <param name="bundles">Bundle collection.</param>
+        public static void RegisterAdminChatBundles(BundleCollection bundles)
+        {
             bundles.Add(new ScriptBundle("~/areas/admin/chatmonitorjs").Include(
                 "~/Scripts/Libs/Moment/moment.js",
                 "~/Scripts/Libs/RefreshCountDown/RefreshCountDown.js",
@@ -61,11 +76,13 @@ namespace Fanex.LiveCharts.Site.Areas.Admin.Area_Start
                 "~/Scripts/Libs/ContextMenu/jquery.contextMenu.js",
                 "~/Areas/Admin/Scripts/Chat/chat-user-banned-management.js"));
 
-            bundles.Add(new ScriptBundle("~/areas/admin/chatsettingconfigjs").Include(
-                "~/Areas/Admin/Scripts/Setting/chat-setting.js"));
-
-            bundles.Add(new ScriptBundle("~/areas/admin/scorepredictionconfigsettingjs").Include(
-                "~/Areas/Admin/Scripts/Setting/score-prediction-setting.js"));
+            bundles.Add(new ScriptBundle("~/areas/admin/memberbanbydefaultjs").Include(
+                "~/Scripts/Libs/Moment/moment.js",
+                "~/Scripts/Libs/Fanex.Grid/Fanex.Pagination.js",
+                "~/Scripts/Libs/Fanex.Grid/Fanex.Grid.js",
+                "~/Scripts/Libs/ContextMenu/jquery.ui.position.js",
+                "~/Scripts/Libs/ContextMenu/jquery.contextMenu.js",
+                "~/Areas/Admin/Scripts/Chat/member-ban-by-default.js"));
         }
     }
 }

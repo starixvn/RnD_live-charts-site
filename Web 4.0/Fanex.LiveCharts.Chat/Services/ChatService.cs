@@ -86,6 +86,10 @@ namespace Fanex.LiveCharts.Chat.Services
                     MemberId = getChatUserCriteria.MemberId
                 };
             }
+            else
+            {
+                chatUser.ChatName = HttpUtility.HtmlDecode(chatUser.ChatName);
+            }
 
             return chatUser;
         }

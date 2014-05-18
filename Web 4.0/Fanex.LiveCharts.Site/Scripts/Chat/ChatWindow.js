@@ -41,7 +41,7 @@ function ChatWindow() {
 
     //// Innitial all information
     me.init = function () {
-        me.chatUser.chatName = LIVECHARTS.htmlDecode(me.chatUser.chatName);
+        //me.chatUser.chatName = LIVECHARTS.htmlDecode(me.chatUser.chatName);
         me.cacheDOMElements();
         me.chatClient.init();
         me.chatServer.init();

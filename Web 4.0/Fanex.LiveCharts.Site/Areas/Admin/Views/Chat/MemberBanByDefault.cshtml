@@ -1,0 +1,55 @@
+﻿@using Fanex.LiveCharts.Core;
+@{
+    ViewBag.Title = AdminSiteLang.MemberBanByDefault;
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section Head {
+    <link type="text/css" rel="Stylesheet" href="~/Areas/Admin/Content/Chat.less" />
+}
+
+@section Headline {
+    <h1>
+        <span class="title">@AdminSiteLang.ChatUserBannedManagement</span>
+    </h1>
+}
+
+<section id="filter-bar">
+    <div class="filter-form">
+        <div class="lbl-field width-auto">
+            <label>@AdminSiteLang.Member</label>
+		</div>
+        <div class="edit-field width-180">
+            <input type="text" class="width-160" id="txtMemberSearch" maxlength="50" />
+		</div>
+        <div class="lbl-field width-auto">
+            <label>@AdminSiteLang.SearchDatabase</label>
+		</div>
+        <div class="edit-field width-140">
+			<select id="ddlChatUserStatus" class="width-120">
+                <option value="0">@AdminSiteLang.All</option>
+                <option value="1">@AdminSiteLang.MainDatabase</option>
+                <option value="2">@AdminSiteLang.LccDatabase</option>
+            </select>
+		</div>
+        <div class="submit btn-submit">
+			<input type="submit" value="@ViewResources.Submit" id="btnSearchMember" />
+		</div>
+    </div>
+</section>
+
+<div class="chat-member-search-result" style="display:none;">
+    <div id="memberGrid" class="freegrid">
+    </div>
+</div>
+
+@section Foot {
+    <script type="text/javascript">
+        var MEMBER_BAN_BY_DEFAULT =
+        {
+            searchMemberUrl: "@(Url.Action("SearchMember", "ChatUserBannedManagement"))"
+        };
+    </script>
+    @Scripts.Render("~/areas/admin/memberbanbydefaultjs")
+}
+

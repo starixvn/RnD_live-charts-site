@@ -547,6 +547,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to LCC Database.
+        /// </summary>
+        public static string LccDatabase {
+            get {
+                return ResourceManager.GetString("LccDatabase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to League.
         /// </summary>
         public static string League {
@@ -579,6 +588,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string LiveIndicator {
             get {
                 return ResourceManager.GetString("LiveIndicator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Main Database.
+        /// </summary>
+        public static string MainDatabase {
+            get {
+                return ResourceManager.GetString("MainDatabase", resourceCulture);
             }
         }
         
@@ -633,6 +651,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string Member {
             get {
                 return ResourceManager.GetString("Member", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Member Ban By Default Page.
+        /// </summary>
+        public static string MemberBanByDefault {
+            get {
+                return ResourceManager.GetString("MemberBanByDefault", resourceCulture);
             }
         }
         
@@ -876,6 +903,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string ScorePredictionSetting {
             get {
                 return ResourceManager.GetString("ScorePredictionSetting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search In Database.
+        /// </summary>
+        public static string SearchDatabase {
+            get {
+                return ResourceManager.GetString("SearchDatabase", resourceCulture);
             }
         }
         

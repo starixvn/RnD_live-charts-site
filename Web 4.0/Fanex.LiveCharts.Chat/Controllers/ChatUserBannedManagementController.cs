@@ -38,11 +38,21 @@ namespace Fanex.LiveCharts.Chat.Controllers
             return View("~/Areas/Admin/Views/Chat/ChatUserBannedManagement.cshtml");
         }
 
+        public ActionResult MemberBanByDefault()
+        {
+            return View("~/Areas/Admin/Views/Chat/MemberBanByDefault.cshtml");
+        }
+
+        [HttpPost]
+        public JsonResult SearchMember(SearchMemberCriteria criteria)
+        {
+            return Json(_chatService.SearchMember(criteria));
+        }
+
         [HttpPost]
         public JsonResult SearchChatUser(SearchChatUserCriteria criteria)
         {
             criteria.ChatName = HttpUtility.HtmlEncode(criteria.ChatName);
-            criteria.MemberName = HttpUtility.HtmlEncode(criteria.MemberName);
             return Json(_chatService.SearchChatUser(criteria));
         }
 
