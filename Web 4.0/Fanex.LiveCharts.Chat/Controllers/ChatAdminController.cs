@@ -17,6 +17,7 @@ namespace Fanex.LiveCharts.Chat.Controllers
     using Fanex.LiveCharts.Chat.Models;
     using Fanex.LiveCharts.Chat.Services;
     using Fanex.LiveCharts.Chat.ViewModels;
+    using Fanex.LiveCharts.Controllers;
     using Fanex.LiveCharts.Criterias;
     using Fanex.LiveCharts.Services.Impl;
     using Fanex.LiveCharts.Services.Interface;
@@ -28,7 +29,7 @@ namespace Fanex.LiveCharts.Chat.Controllers
     /// Chat Admin Controller.
     /// </summary>
     [NapSuperAuth]
-    public class ChatAdminController : Controller
+    public class ChatAdminController : BaseController
     {
         private const string ChatMonitorSessionKey = "Chat.Controllers.ChatAdminController.ChatMonitorSessionKey_{0}";
         private readonly IChatService _chatService;
@@ -212,7 +213,7 @@ namespace Fanex.LiveCharts.Chat.Controllers
                 ChatRoom = chatRoom,
                 IsMatchCompleted = _matchService.IsMatchCompleted(new GetMatchStatusCriteria
                 {
-                   MatchId = matchId
+                    MatchId = matchId
                 })
             };
         }

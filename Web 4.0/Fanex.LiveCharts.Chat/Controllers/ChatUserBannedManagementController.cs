@@ -13,13 +13,14 @@ namespace Fanex.LiveCharts.Chat.Controllers
     using System.Web.Mvc;
     using Fanex.LiveCharts.Chat.Criteria;
     using Fanex.LiveCharts.Chat.Services;
+    using Fanex.LiveCharts.Controllers;
     using Fanex.NAP.Core.Web.Attribute;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
     [NapSuperAuth]
-    public class ChatUserBannedManagementController : Controller
+    public class ChatUserBannedManagementController : BaseController
     {
         private readonly IChatService _chatService;
 
