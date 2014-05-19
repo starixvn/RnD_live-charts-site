@@ -1,43 +1,186 @@
 ﻿/* File Created: May 18, 2014 */
-/*global MEMBER_BAN_BY_DEFAULT, LiveChartsAdmin*/
+/*global MEMBER_BAN_BY_DEFAULT, LANGUAGE, LiveChartsAdmin*/
 function MemberBanByDefault() {
     'use strict';
     var me = this;
 
     me.defaultValue = MEMBER_BAN_BY_DEFAULT;
+    me.database = 
+    {
+        all: 0,
+        mainDb: 1,
+        lcc: 2
+    };
 
     me.cachedElements = function () {
         me.$txtMemberSearch = $('#txtMemberSearch');
         me.$btnSearchMember = $('#btnSearchMember');
+        me.$dllSearchDb = $('#dllSearchDb');
         me.$memberGrid = $('#memberGrid');
+    };
+
+    me.cacheGridElements = function () {
+        me.$cbBanAll = $('#cbBanAll');
+        me.$cbBan = $('#memberGrid .banned-action');
     };
 
     me.registerEvents = function () {
         me.$btnSearchMember.unbind('click').click(me.searchMember);
     };
 
-//    me.registerGridEvents = function () { 
-//    };
+
+
+    me.registerMenuAction = function () {
+        $.contextMenu({
+            selector: '#cbBanAll',
+            trigger: 'left',
+            autoHide: true,
+            items: {
+                "ban": { name: "Ban All", icon: "ban" },
+                "unban": { name: "Un Ban All", icon: "un-ban" }
+            },
+            callback: function (key) {
+                me.updateBanAllMemberss(key === 'ban');
+            }
+        });
+    };
+
+    me.updateBanAllMemberss = function (isBanned) {
+        var memberIds = [],
+            memberLength = me.members.length;
+        for (var i = 0; i < memberLength; i++) {
+            memberIds.push(me.members[i].MemberId);
+        }
+
+        me.banMembers(memberIds.join(','), isBanned);
+    };
+
+    me.updateBanMember = function () {
+        var $this = $(this);
+
+        var memberId = $this.parent().parent().parent().attr('data-member-id');
+
+        me.banMembers(memberId, $this.prop('checked'));
+    };
+
+    me.registerGridEvents = function () {
+        me.registerMenuAction();
+        me.$cbBan.unbind('click').click(me.updateBanMember);
+    };
 
     me.init = function () {
         me.cachedElements();
         me.registerEvents();
     };
 
+    me.banMembers = function (memberIds, isBanned) {
+        LiveChartsAdmin.callAjax({
+            url: me.defaultValue.updateBanMemberUrl,
+            type: 'POST',
+            data: {
+                memberIds: memberIds,
+                isBanned: isBanned,
+                inDatabase: me.currentDb
+            },
+            done: function (commandResult) {
+                if (commandResult.IsSuccessful) {
+                    me.searchMember();
+                    LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.success, LANGUAGE.updateSuccess);
+                }
+                else {
+                    LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.error, commandResult.Message);
+                }
+               
+            }
+        });
+    };
+
     me.searchMember = function () {
+        me.currentDb = parseInt(me.$dllSearchDb.val());
+        me.currentMemberName = me.$txtMemberSearch.val();
+
+        if (me.currentMemberName === '' && me.currentDb === me.database.mainDb) {
+            LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.error, LANGUAGE.searchInMainDbWarning);
+            return;
+        }
+
         LiveChartsAdmin.callAjax({
             url: me.defaultValue.searchMemberUrl,
             type: 'POST',
             data: {
                 memberName: me.$txtMemberSearch.val(),
-                chatName: me.$txtChatNameSearch.val(),
-                chatUserStatus: me.$ddlChatUserStatus.val()
+                inDatabase: me.currentDb
             },
             done: function (members) {
                 me.members = members;
                 me.renderMemberGrid(members);
             }
         });
+    };
+
+    me.getMemberGridBodyRows = function (members) {
+        var memberLength = members.length,
+            bodyRows = [];
+        for (var i = 0; i < memberLength; i++) {
+            var currentMember = members[i];
+            bodyRows.push({
+                Columns: [
+               { Name: "MemberName", Value: currentMember.MemberName },
+               {
+                   Name: "MemberAction",
+                   Value: currentMember.IsBanned
+               }
+                ],
+                CustomAttr: 'data-member-id="' + currentMember.MemberId + '"'
+            });
+        }
+
+        return bodyRows;
+    };
+
+    me.renderChatNameAction = function (cell) {
+        return '<input type="checkbox" class="banned-action" '
+            + (cell.Value ? 'checked' : '')
+            + ' />';
+    };
+
+    me.memberBannedGridOption = {
+        columns: [
+            {
+                HeaderText: 'MemberName', Width: 500, Name: 'MemberName', CellAlign: 'center', AllowTruncate: true, CellCssClass: 'user-status'
+            },
+            {
+                HeaderText: 'Banned',
+                Width: 200,
+                Name: 'MemberAction',
+                CellAlign: 'center',
+                CustomCellRender: me.renderChatNameAction
+            }
+        ],
+        gridExpandHeight: 195,
+        showPager: true,
+        pagerOption: {
+            itemsPerPage: 50,
+            currentPage: 0,
+            itemsPerPageArray: [50, 100, 500],
+            showDetail: true,
+            afterPagedFunction: me.registerGridEvents
+        },
+        showTitle: true,
+        titleInfo: {
+            text: 'Member List'
+        }
+    };
+
+    me.renderMemberGrid = function (members) {
+        var bodyRows = me.getMemberGridBodyRows(members);
+        me.memberBannedGridOption.bodyRows = bodyRows;
+
+        me.memberBannedGridOption.pagerOption.currentPage = 0;
+        me.memberBannedGridOption.titleInfo.customButtons = '<span class="edit-action" id="cbBanAll"></span>';
+        me.$memberGrid.show().fanexGrid(me.memberBannedGridOption);
+        me.cacheGridElements();
+        me.registerGridEvents();
     };
 }
 

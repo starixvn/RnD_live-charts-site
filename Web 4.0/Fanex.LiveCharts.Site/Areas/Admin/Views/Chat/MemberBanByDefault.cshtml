@@ -10,7 +10,7 @@
 
 @section Headline {
     <h1>
-        <span class="title">@AdminSiteLang.ChatUserBannedManagement</span>
+        <span class="title">@AdminSiteLang.MemberBanByDefault</span>
     </h1>
 }
 
@@ -26,8 +26,8 @@
             <label>@AdminSiteLang.SearchDatabase</label>
 		</div>
         <div class="edit-field width-140">
-			<select id="ddlChatUserStatus" class="width-120">
-                <option value="0">@AdminSiteLang.All</option>
+			<select id="dllSearchDb" class="width-120">
+                @*<option value="0">@AdminSiteLang.All</option>*@
                 <option value="1">@AdminSiteLang.MainDatabase</option>
                 <option value="2">@AdminSiteLang.LccDatabase</option>
             </select>
@@ -47,7 +47,14 @@
     <script type="text/javascript">
         var MEMBER_BAN_BY_DEFAULT =
         {
-            searchMemberUrl: "@(Url.Action("SearchMember", "ChatUserBannedManagement"))"
+            searchMemberUrl: "@(Url.Action("SearchMember", "ChatUserBannedManagement"))",
+            updateBanMemberUrl: "@(Url.Action("UpdateBanMembers", "ChatUserBannedManagement"))"
+        };
+
+        var LANGUAGE = 
+        {
+            searchInMainDbWarning: '@AdminSiteLang.SearchInMainDbWarning',
+            updateSuccess: '@AdminSiteLang.UpdateSuccessfully'
         };
     </script>
     @Scripts.Render("~/areas/admin/memberbanbydefaultjs")

@@ -655,7 +655,7 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Member Ban By Default Page.
+        ///   Looks up a localized string similar to Member Ban By Default Management.
         /// </summary>
         public static string MemberBanByDefault {
             get {
@@ -912,6 +912,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string SearchDatabase {
             get {
                 return ResourceManager.GetString("SearchDatabase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to With search in Main DB, Member name cannot be emptied..
+        /// </summary>
+        public static string SearchInMainDbWarning {
+            get {
+                return ResourceManager.GetString("SearchInMainDbWarning", resourceCulture);
             }
         }
         

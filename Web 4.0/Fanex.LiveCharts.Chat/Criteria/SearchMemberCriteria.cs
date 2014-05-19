@@ -18,6 +18,8 @@ namespace Fanex.LiveCharts.Chat.Criteria
     {
         public string MemberName { get; set; }
 
+        public int InDatabase { get; set; }
+
         public override string GetSettingKey()
         {
             return "Chart_Chat_Search_Member";
@@ -25,7 +27,7 @@ namespace Fanex.LiveCharts.Chat.Criteria
 
         public override bool IsValid()
         {
-            return !string.IsNullOrEmpty(MemberName);
+            return !string.IsNullOrEmpty(MemberName) && InDatabase >= 0;
         }
     }
 }

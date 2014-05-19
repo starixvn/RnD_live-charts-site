@@ -89,6 +89,7 @@
     <Compile Include="Criteria\GetChatUserCriteria.cs" />
     <Compile Include="Criteria\GetChatUserInRoomByConnectionIdCriteria.cs" />
     <Compile Include="Criteria\GetChatUserInRoomCriteria.cs" />
+    <Compile Include="Criteria\GetMemberBannedCriteria.cs" />
     <Compile Include="Criteria\InsertChatMessageCriteria.cs" />
     <Compile Include="Criteria\InsertChatRoomCriteria.cs" />
     <Compile Include="Criteria\InsertChatUserCriteria.cs" />
@@ -99,6 +100,7 @@
     <Compile Include="Criteria\SearchChatUserCriteria.cs" />
     <Compile Include="Criteria\SearchMemberCriteria.cs" />
     <Compile Include="Criteria\UpdateBanChatUsersCriteria.cs" />
+    <Compile Include="Criteria\UpdateBanMembersCriteria.cs" />
     <Compile Include="Criteria\UpdateChatMessageOfChatUserCriteria.cs" />
     <Compile Include="Criteria\UpdateChatUserAgreeTermsCriteria.cs" />
     <Compile Include="Criteria\UpdateKickOutChatUserCriteria.cs" />

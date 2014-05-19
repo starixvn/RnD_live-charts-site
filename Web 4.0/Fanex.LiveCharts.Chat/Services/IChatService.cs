@@ -50,6 +50,8 @@ namespace Fanex.LiveCharts.Chat.Services
 
         ChatUserInRoom GetChatUserInRoomByConnectionId(GetChatUserInRoomByConnectionIdCriteria getChatUserInRoomByConnectionIdCriteria);
 
+        MemberInfo GetMemberBannedInformation(GetMemberBannedCriteria criteria);
+
         InsertResult InsertChatMessage(InsertChatMessageCriteria insertChatMessageCriteria);
 
         InsertResult InsertChatRoom(InsertChatRoomCriteria insertChatRoomCriteria);
@@ -69,6 +71,8 @@ namespace Fanex.LiveCharts.Chat.Services
         UpdateMuteChatUserViewModel UpdateMuteChatUserOnAdminSite(UpdateMuteChatUserCriteria criteria);
 
         UpdateMuteChatRoomViewModel UpdateMuteChatRoomOnAdminSite(UpdateMuteChatRoomCriteria criteria);
+
+        ICommandResult UpdateMembersBanned(UpdateBanMembersCriteria criteria);
 
         ICommandResult UpdateChatRoom(UpdateChatRoomCriteria updateChatRoomCriteria);
 

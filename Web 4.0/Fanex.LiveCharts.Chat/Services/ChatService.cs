@@ -177,6 +177,12 @@ namespace Fanex.LiveCharts.Chat.Services
             return chatRooms;
         }
 
+        public MemberInfo GetMemberBannedInformation(GetMemberBannedCriteria criteria)
+        {
+            var memberInfo = _chatRepository.Get<MemberInfo>(criteria);
+            return memberInfo;
+        }
+
         #endregion Get Data
 
         #region Modify Data
@@ -767,6 +773,13 @@ namespace Fanex.LiveCharts.Chat.Services
             var result = _chatRepository.ModifyData(criteria);
 
             return result;
+        }
+
+        public ICommandResult UpdateMembersBanned(UpdateBanMembersCriteria criteria)
+        {
+            var updateResult = _chatRepository.ModifyData(criteria);
+
+            return updateResult;
         }
 
         /// <summary>

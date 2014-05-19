@@ -44,16 +44,46 @@ namespace Fanex.LiveCharts.Chat.Controllers
             _settingService = settingService ?? new SettingService();
         }
 
+        /// <summary>
+        /// Default page for chat.
+        /// </summary>
+        /// <param name="matchId">Match id for get chat room.</param>
+        /// <returns>Chat page.</returns>
         [LiveChartAuthentication]
         public ActionResult Index(int matchId)
         {
-            var chatViewModel = GetChatViewModel(matchId);
-            if (chatViewModel.ChatUser.IsBanned || chatViewModel.ChatUserInRoom.KickedOut)
+            ChatUser chatUser = _chatService.GetChatUser(new GetChatUserCriteria
+            {
+                MemberId = SessionManager.CurrentSession.MemberId
+            });
+            //// Check User ban by default or not.
+            if (chatUser.ChatUserId <= 0)
+            {
+                var memberInfo = _chatService.GetMemberBannedInformation(new GetMemberBannedCriteria
+                {
+                    MemberId = chatUser.MemberId
+                });
+
+                if (memberInfo != null && memberInfo.IsBanned)
+                {
+                    return RedirectToAction("KickedOut");
+                }
+            }
+            else
+            {
+                if (chatUser.IsBanned)
+                {
+                    return RedirectToAction("KickedOut");
+                }
+            }
+
+            var chatViewModel = GetChatRoomInformation(matchId, chatUser);
+            if (chatViewModel.ChatUserInRoom.KickedOut)
             {
                 return RedirectToAction("KickedOut");
             }
 
-            return View(GetChatViewModel(matchId));
+            return View(chatViewModel);
         }
 
         public ActionResult YouAreDisconnect()
@@ -157,14 +187,10 @@ namespace Fanex.LiveCharts.Chat.Controllers
         /// Get chat view model from match id.
         /// </summary>
         /// <param name="matchId">Current match id.</param>
+        /// <param name="chatUser">Chat user information.</param>
         /// <returns>Chat view model.</returns>
-        private ChatViewModel GetChatViewModel(int matchId)
+        private ChatViewModel GetChatRoomInformation(int matchId, ChatUser chatUser)
         {
-            ChatUser chatUser = _chatService.GetChatUser(new GetChatUserCriteria
-            {
-                MemberId = SessionManager.CurrentSession.MemberId
-            });
-
             ChatRoom chatRoom = _chatService.GetChatRoomByName(new GetChatRoomByNameCriteria
             {
                 ////SessionManager.CurrentSession.Language.Replace('-', '_').Trim()

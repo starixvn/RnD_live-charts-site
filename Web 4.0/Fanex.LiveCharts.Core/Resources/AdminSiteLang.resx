@@ -451,7 +451,7 @@
     <value>Online</value>
   </data>
   <data name="MemberBanByDefault" xml:space="preserve">
-    <value>Member Ban By Default Page</value>
+    <value>Member Ban By Default Management</value>
   </data>
   <data name="LccDatabase" xml:space="preserve">
     <value>LCC Database</value>
@@ -461,5 +461,8 @@
   </data>
   <data name="SearchDatabase" xml:space="preserve">
     <value>Search In Database</value>
+  </data>
+  <data name="SearchInMainDbWarning" xml:space="preserve">
+    <value>With search in Main DB, Member name cannot be emptied.</value>
   </data>
 </root>

@@ -203,7 +203,7 @@ function ChatClient(chatUser, chatRoom, chatUserInRoom) {
         me.scrollTop();
         if (!DEFAULT_OBJECT.disabledWelcomeMessage) {
             me.lastMessageBelongToChatUserId = 0;
-            me.appendUserNotification(LIVECHARTS.htmlDecode(DEFAULT_OBJECT.welcomeMessage), 'welcome-message');
+            me.appendUserNotification(DEFAULT_OBJECT.welcomeMessage, 'welcome-message');
         }
     };
 

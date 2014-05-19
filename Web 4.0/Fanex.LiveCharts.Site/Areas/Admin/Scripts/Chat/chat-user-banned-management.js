@@ -199,6 +199,7 @@ function ChatUserBannedManagement() {
         var bodyRows = me.getChatUserGridBodyRows(chatUsers);
         me.chatUserBannedGridOption.bodyRows = bodyRows;
         var currentStatus = parseInt(me.$ddlChatUserStatus.val());
+        me.chatUserBannedGridOption.pagerOption.currentPage = 0;
         me.chatUserBannedGridOption.titleInfo.text = me.buildGridTitle(currentStatus);
         me.chatUserBannedGridOption.titleInfo.customButtons = '<span class="edit-action" id="cbBanAll"></span>';
         me.$chatUserGrid.show().fanexGrid(me.chatUserBannedGridOption);
