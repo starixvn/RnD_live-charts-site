@@ -33,6 +33,7 @@ function ChatWindow() {
     me.maxRowsInput = 12;
     me.checkMatchCompletedInterval = null;
     me.alreadyInsertCode = 1002;
+    me.memberBannedByDefaultCode = 1003;
     me.url = {
         getGetChatMessageByTimeUrl: LIVECHARTS.resolveUrl('Chat/GetGetChatMessageByTime'),
         getChatMessageByUserUrl: LIVECHARTS.resolveUrl('Chat/GetChatMessageByUser'),
@@ -305,6 +306,11 @@ function ChatWindow() {
                                 window.location.href = window.location.href;
                             }, 3000);
                         }
+
+                        if (result && result.CommandResult.Code === me.memberBannedByDefaultCode) {
+                            location.href = DEFAULT_OBJECT.kickedOutPage;
+                        }
+
                         LIVECHARTS.alertMessage(LIVECHARTS.messageType.error, result.CommandResult.Message);
                     }
                 }
