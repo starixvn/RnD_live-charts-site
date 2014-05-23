@@ -754,6 +754,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to *Note: With Members already entered LiveChart, please use {0} for banning/unbanning Chat Users. This page just only affect to Members who have not entered LiveChart site yet. .
+        /// </summary>
+        public static string NoteEditMemberByDefault {
+            get {
+                return ResourceManager.GetString("NoteEditMemberByDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Number of Predictions.
         /// </summary>
         public static string NumberOfPrediction {

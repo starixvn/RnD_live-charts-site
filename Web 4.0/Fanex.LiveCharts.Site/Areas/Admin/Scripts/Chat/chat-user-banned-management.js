@@ -110,6 +110,9 @@ function ChatUserBannedManagement() {
                 }
             });
         }
+        else {
+            LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.success, LANGUAGE.updateSuccess);
+        }
     };
 
     me.searchChatUser = function () {
@@ -137,13 +140,14 @@ function ChatUserBannedManagement() {
 
     me.chatUserBannedGridOption = {
         columns: [
+            { HeaderText: "#", Width: 60, Name: "No", CellAlign: 'center' },
             {
-                HeaderText: 'MemberName', Width: 305, Name: 'MemberName', CellAlign: 'center', AllowTruncate: true, CellCssClass: 'user-status'
+                HeaderText: 'MemberName', Width: 300, Name: 'MemberName', CellAlign: 'center', AllowTruncate: true, CellCssClass: 'user-status'
             },
-            { HeaderText: 'ChatName', Width: 400, Name: 'ChatName', CellAlign: 'center', AllowTruncate: true, CellCssClass: 'user-status-click-search' },
+            { HeaderText: 'ChatName', Width: 370, Name: 'ChatName', CellAlign: 'center', AllowTruncate: true, CellCssClass: 'user-status-click-search' },
             {
                 HeaderText: 'Banned',
-                Width: 115,
+                Width: 80,
                 Name: 'ChatUserAction', 
                 CellAlign: 'center',
                 CustomCellRender: me.renderChatNameAction
@@ -159,6 +163,7 @@ function ChatUserBannedManagement() {
             afterPagedFunction: me.registerGridEvents
         },
         showTitle: true,
+        showNumberColumn: true,
         titleInfo: {}
     };
 
@@ -169,6 +174,7 @@ function ChatUserBannedManagement() {
             var currentChatUser = chatUsers[i];
             bodyRows.push({
                 Columns: [
+                { Name: "No", Value: '' },
                { Name: "MemberName", Value: currentChatUser.MemberName },
 
                { Name: "ChatName", Value: currentChatUser.ChatName },

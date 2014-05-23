@@ -125,11 +125,14 @@ function MemberBanByDefault() {
             var currentMember = members[i];
             bodyRows.push({
                 Columns: [
+                { Name: "No", Value: '' },
                { Name: "MemberName", Value: currentMember.MemberName },
                {
                    Name: "MemberAction",
                    Value: currentMember.IsBanned
-               }
+               },
+               { Name: "EnteredChatRoom", Value: currentMember.ChatUserId },
+               { Name: "BannedInLiveChartSite", Value: currentMember.IsBannedLccStatus }
                 ],
                 CustomAttr: 'data-member-id="' + currentMember.MemberId + '"'
             });
@@ -138,26 +141,49 @@ function MemberBanByDefault() {
         return bodyRows;
     };
 
-    me.renderChatNameAction = function (cell) {
+    me.renderMemberNameAction = function (cell) {
         return '<input type="checkbox" class="banned-action" '
             + (cell.Value ? 'checked' : '')
             + ' />';
     };
 
+    me.renderChatUserEntered = function (cell) {
+        return '<span '
+            + (cell.Value > 0 ? 'class="ico-tick"' : '')
+            + '></span>';
+    };
+
+    me.renderBannedInLcc = function (cell) {
+        return '<span '
+            + (cell.Value ? 'class="ico-tick"' : '')
+            + '></span>';
+    };
+
     me.memberBannedGridOption = {
         columns: [
+            { HeaderText: "#", Width: 60, Name: "No", CellAlign: 'center' },
             {
-                HeaderText: 'MemberName', Width: 500, Name: 'MemberName', CellAlign: 'center', AllowTruncate: true, CellCssClass: 'user-status'
+                HeaderText: 'MemberName', Width: 400, Name: 'MemberName', CellAlign: 'center', AllowTruncate: true, CellCssClass: 'user-status'
             },
             {
-                HeaderText: 'Banned',
-                Width: 200,
+                HeaderText: 'Banned Default',
+                Width: 100,
                 Name: 'MemberAction',
                 CellAlign: 'center',
-                CustomCellRender: me.renderChatNameAction
+                CustomCellRender: me.renderMemberNameAction
+            },
+            {
+                HeaderText: 'Already Entered LiveChart Site',
+                Width: 100,
+                Name: 'EnteredChatRoom',
+                CellAlign: 'center', 
+                CustomCellRender: me.renderChatUserEntered
+            },
+            {
+                HeaderText: 'Banned In LiveChart Site', Width: 100, Name: 'BannedInLiveChartSite', CellAlign: 'center', CustomCellRender: me.renderBannedInLcc
             }
         ],
-        gridExpandHeight: 195,
+        gridExpandHeight: 215,
         showPager: true,
         pagerOption: {
             itemsPerPage: 50,
@@ -169,7 +195,8 @@ function MemberBanByDefault() {
         showTitle: true,
         titleInfo: {
             text: 'Member List'
-        }
+        },
+        showNumberColumn: true
     };
 
     me.renderMemberGrid = function (members) {

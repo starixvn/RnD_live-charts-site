@@ -465,4 +465,7 @@
   <data name="SearchInMainDbWarning" xml:space="preserve">
     <value>With search in Main DB, Member name cannot be emptied.</value>
   </data>
+  <data name="NoteEditMemberByDefault" xml:space="preserve">
+    <value>*Note: With Members already entered LiveChart, please use {0} for banning/unbanning Chat Users. This page just only affect to Members who have not entered LiveChart site yet. </value>
+  </data>
 </root>

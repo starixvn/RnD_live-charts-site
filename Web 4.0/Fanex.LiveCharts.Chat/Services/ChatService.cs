@@ -797,7 +797,7 @@ namespace Fanex.LiveCharts.Chat.Services
                 ChatUserIds = criteria.ChatUserIds
             };
 
-            if (result.IsSuccessful)
+            if (result.IsSuccessful && criteria.IsBanned)
             {
                 SetUpdateBanListUserToken(updateBanListUserViewModel);
             }

@@ -16,6 +16,7 @@ namespace Fanex.LiveCharts.Site
     using System.Web.Mvc;
     using System.Web.Optimization;
     using System.Web.Routing;
+    using Fanex.Data;
     using Fanex.Data.Configuration;
     using Fanex.LiveCharts.Core;
     using Fanex.Logging;
@@ -66,18 +67,7 @@ namespace Fanex.LiveCharts.Site
 
                     if (Request != null && !Request.IsLocal)
                     {
-                        string message = ex.Message +
-                            "\r\nSource: " + ex.Source +
-                            "\r\nDomain: " + Request.Headers["Host"] +
-                            "\r\nREFERRER: " + Request.UrlReferrer +
-                            "\r\nIP: " + Request.UserHostAddress +
-                            "\r\nUSERAGENT: " + Request.UserAgent +
-                            "\r\nForm: " + Request.Form +
-                            "\r\nPath: " + Request.Url.AbsoluteUri +
-                            "\r\nQueryString: " + Request.QueryString.ToString() +
-                            "\r\nTargetSite: " + ex.TargetSite +
-                            "\r\nStackTrace: " + ex.ToString();
-                        Logger.Log.Error(message);
+                        Logger.Log.Error(GetErrorInformation(ex));
                     }
 
                     // Redirect to Error pages
@@ -104,6 +94,31 @@ namespace Fanex.LiveCharts.Site
             {
                 Logger.Log.Error(ex.Message, ex);
             }
+        }
+
+        private string GetErrorInformation(Exception ex)
+        {
+            string message = ex.Message +
+                            "\r\nSource: " + ex.Source +
+                            "\r\nDomain: " + Request.Headers["Host"] +
+                            "\r\nREFERRER: " + Request.UrlReferrer +
+                            "\r\nIP: " + Request.UserHostAddress +
+                            "\r\nUSERAGENT: " + Request.UserAgent +
+                            "\r\nForm: " + Request.Form +
+                            "\r\nPath: " + Request.Url.AbsoluteUri +
+                            "\r\nQueryString: " + Request.QueryString.ToString() +
+                            "\r\nTargetSite: " + ex.TargetSite +
+                            "\r\nStackTrace: " + ex.ToString();
+
+            if (ex is ObjectDbException)
+            {
+                var sqlException = (ObjectDbException)ex;
+                message += "\r\nDB Name: " + sqlException.DbSetting.DbName +
+                            "\r\nConnection String: " + sqlException.DbSetting.ConnectionString +
+                            "\r\nSp Name: " + sqlException.DbSetting.SpName;
+            }
+
+            return message;
         }
     }
 }

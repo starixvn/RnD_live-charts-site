@@ -37,7 +37,9 @@
 		</div>
     </div>
 </section>
-
+<div class="note-information">
+    @Html.Raw(string.Format(AdminSiteLang.NoteEditMemberByDefault,  "<a href='" + Url.Action("Index", "ChatUserBannedManagement") + "'>Chat User Banned Management</a>"))
+</div>
 <div class="chat-member-search-result" style="display:none;">
     <div id="memberGrid" class="freegrid">
     </div>

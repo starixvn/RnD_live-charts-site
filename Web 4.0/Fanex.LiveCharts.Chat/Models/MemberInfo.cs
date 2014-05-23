@@ -19,5 +19,9 @@ namespace Fanex.LiveCharts.Chat.Models
         public string MemberName { get; set; }
 
         public bool IsBanned { get; set; }
+
+        public int ChatUserId { get; set; }
+
+        public bool IsBannedLccStatus { get; set; }
     }
 }

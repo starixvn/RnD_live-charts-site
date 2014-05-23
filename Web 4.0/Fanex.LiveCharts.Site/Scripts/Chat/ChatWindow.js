@@ -309,6 +309,7 @@ function ChatWindow() {
 
                         if (result && result.CommandResult.Code === me.memberBannedByDefaultCode) {
                             location.href = DEFAULT_OBJECT.kickedOutPage;
+                            return;
                         }
 
                         LIVECHARTS.alertMessage(LIVECHARTS.messageType.error, result.CommandResult.Message);
