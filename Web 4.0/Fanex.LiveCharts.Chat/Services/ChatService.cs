@@ -991,9 +991,17 @@ namespace Fanex.LiveCharts.Chat.Services
                 new TimeSpan(0, AppSettings.CachingTimeOutMinute, 0));
         }
 
+        /// <summary>
+        /// Set Token for performance action in member site.
+        /// </summary>
+        /// <param name="updateBanListUserViewModel">Model contains information for ban list users.</param>
         private void SetUpdateBanListUserToken(UpdateBanListUserViewModel updateBanListUserViewModel)
         {
-            updateBanListUserViewModel.TokenName = string.Format("{0}", updateBanListUserViewModel.ChatUserIds);
+            var chatUserIds = updateBanListUserViewModel.ChatUserIds.Length > 20
+                                ? updateBanListUserViewModel.ChatUserIds.Substring(0, 20)
+                                : updateBanListUserViewModel.ChatUserIds;
+
+            updateBanListUserViewModel.TokenName = string.Format("{0}", chatUserIds);
             updateBanListUserViewModel.TokenKey = Guid.NewGuid().ToString();
 
             CacheManager.Instance.Set<string>(

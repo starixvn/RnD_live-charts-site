@@ -56,8 +56,13 @@ function ChatUserBannedManagement() {
         });
     };
 
-    me.updateBanChatUser = function () {
+    me.updateBanChatUser = function (event) {
+       
         var $this = $(this);
+        if ($this.prop('checked'))
+        {
+            event.preventDefault();
+        }
 
         var chatUserId = $this.parent().parent().parent().attr('data-chat-user-id');
 
@@ -75,6 +80,10 @@ function ChatUserBannedManagement() {
     };
 
     me.banChatUsers = function (chatUserIds, isBanned) {
+        if (isBanned && !LiveChartsAdmin.confirmUpdateAction()) {
+            return;
+        }
+
         LiveChartsAdmin.callAjax({
             url: me.defaultValue.updateBanChatUsersUrl,
             type: 'POST',

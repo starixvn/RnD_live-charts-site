@@ -187,6 +187,10 @@ if (typeof jQuery !== 'undefined') {
 
                     iframe.attr('src', downloadUrl);
                 }
+            },
+            confirmUpdateAction: function () {
+                var ok = confirm('Do you really want to do this action?');
+                return ok;
             }
         };
     })(jQuery);

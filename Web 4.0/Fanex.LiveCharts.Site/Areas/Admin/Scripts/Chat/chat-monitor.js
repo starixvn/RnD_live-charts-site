@@ -208,6 +208,9 @@ function ChatMonitor() {
 
     ///// Chat User Action
     me.updateBanChatUser = function (currentChatUserId, isBan) {
+        if (isBan && !LiveChartsAdmin.confirmUpdateAction()) {
+            return;
+        }
         //banChatUserUrl
         LiveChartsAdmin.callAjax({
             url: isBan ? me.chatMonitorDefault.banChatUser : me.chatMonitorDefault.recoverBannedChatUserUrl,

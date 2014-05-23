@@ -55,8 +55,12 @@ function MemberBanByDefault() {
         me.banMembers(memberIds.join(','), isBanned);
     };
 
-    me.updateBanMember = function () {
+    me.updateBanMember = function (event) {
+        
         var $this = $(this);
+        if ($this.prop('checked')) {
+            event.preventDefault();
+        }
 
         var memberId = $this.parent().parent().parent().attr('data-member-id');
 
@@ -74,6 +78,10 @@ function MemberBanByDefault() {
     };
 
     me.banMembers = function (memberIds, isBanned) {
+        if (isBanned && !LiveChartsAdmin.confirmUpdateAction()) {
+            return;
+        }
+
         LiveChartsAdmin.callAjax({
             url: me.defaultValue.updateBanMemberUrl,
             type: 'POST',
