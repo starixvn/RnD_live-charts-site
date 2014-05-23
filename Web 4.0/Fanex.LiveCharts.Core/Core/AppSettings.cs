@@ -34,7 +34,7 @@ namespace Fanex.LiveCharts.Core
                 EnableLogAuthentication = Converter.ToInt(GetValue("EnableLogAuthentication")) > 0;
                 ScorePredictionCacheTimeOutSeconds = Converter.ToInt(GetValue("ScorePredictionCacheTimeOutSeconds"), 0);
                 MemberChartSiteUrl = GetValue("MemberChartSiteUrl").TrimEnd('/');
-                SupportFeatures = Converter.ToInt("SupportFeatures", 0);
+                ////SupportFeatures = Converter.ToInt("SupportFeatures", 0);
             }
             catch (Exception ex)
             {
