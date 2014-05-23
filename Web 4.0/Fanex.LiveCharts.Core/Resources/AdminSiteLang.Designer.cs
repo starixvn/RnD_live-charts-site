@@ -916,6 +916,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Characters for searching is invalid!.
+        /// </summary>
+        public static string SearchCharacterIsNotValid {
+            get {
+                return ResourceManager.GetString("SearchCharacterIsNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search In Database.
         /// </summary>
         public static string SearchDatabase {

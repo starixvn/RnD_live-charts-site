@@ -107,9 +107,16 @@ function MemberBanByDefault() {
         me.currentDb = parseInt(me.$dllSearchDb.val());
         me.currentMemberName = me.$txtMemberSearch.val();
 
-        if (me.currentMemberName === '' && me.currentDb === me.database.mainDb) {
-            LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.error, LANGUAGE.searchInMainDbWarning);
-            return;
+        if (me.currentDb === me.database.mainDb) {
+            if (me.currentMemberName === '') {
+                LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.error, LANGUAGE.searchInMainDbWarning);
+                return;
+            }
+
+            if (me.currentMemberName === '%') {
+                LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.error, LANGUAGE.searchCharacterIsNotValid);
+                return;
+            }
         }
 
         LiveChartsAdmin.callAjax({
