@@ -10,6 +10,7 @@ GO
 -- Create date: 03/17/2014
 -- Description: Insert new chat user.	
 -- Revision:
+			--+ 05/20/2014: Update Get Member Banned by default
 -- =============================================
 
 ALTER PROCEDURE [dbo].[Chart_Chat_Insert_Chat_User]
@@ -26,21 +27,21 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-	IF(EXISTS(SELECT TOP 1 * FROM ChatUser WHERE ChatName = @ChatName))
+	IF(EXISTS(SELECT TOP 1 * FROM ChatUser (NOLOCK) WHERE ChatName = @ChatName))
 		BEGIN
 			SET @ErrCode = 1001
 			SET @ErrMsg = 'This Chat Name does not available, please choose another one.'
 			RETURN
 		END
 
-	IF(EXISTS(SELECT TOP 1 * FROM ChatUser WHERE MemberId = @MemberId))
+	IF(EXISTS(SELECT TOP 1 * FROM ChatUser (NOLOCK) WHERE MemberId = @MemberId))
 		BEGIN
 			SET @ErrCode = 1002
 			SET @ErrMsg = 'You already have Chat Name.'
 			RETURN
 		END
 		
-	IF(EXISTS(SELECT TOP 1 * FROM MemberBanned WHERE MemberId = @MemberId AND IsBanned = 1))
+	IF(EXISTS(SELECT TOP 1 * FROM MemberBanned (NOLOCK) WHERE MemberId = @MemberId AND IsBanned = 1))
 		BEGIN
 			SET @ErrCode = 1003
 			SET @ErrMsg = 'Sorry, this room is not available.'
