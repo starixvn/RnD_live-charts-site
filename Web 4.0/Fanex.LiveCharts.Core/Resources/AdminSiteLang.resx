@@ -471,4 +471,7 @@
   <data name="SearchCharacterIsNotValid" xml:space="preserve">
     <value>Characters for searching is invalid!</value>
   </data>
+  <data name="SearchInMainDBCannot" xml:space="preserve">
+    <value>Member name search in Main Database cannot less than 3 characters.</value>
+  </data>
 </root>

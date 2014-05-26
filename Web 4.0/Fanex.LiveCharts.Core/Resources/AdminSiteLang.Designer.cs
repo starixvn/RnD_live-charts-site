@@ -934,6 +934,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Member name search in Main Database cannot less than 3 characters..
+        /// </summary>
+        public static string SearchInMainDBCannot {
+            get {
+                return ResourceManager.GetString("SearchInMainDBCannot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to With search in Main DB, Member name cannot be emptied..
         /// </summary>
         public static string SearchInMainDbWarning {

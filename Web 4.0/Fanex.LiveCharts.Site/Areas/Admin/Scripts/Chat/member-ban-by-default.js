@@ -113,7 +113,12 @@ function MemberBanByDefault() {
                 return;
             }
 
-            if (me.currentMemberName === '%') {
+            if (me.currentMemberName && me.currentMemberName.length < 3) {
+                LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.error, LANGUAGE.searchInMainDBCannot);
+                return;
+            }
+
+            if (me.currentMemberName.indexOf('%') !== -1 && me.currentMemberName.indexOf('%') < 3) {
                 LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.error, LANGUAGE.searchCharacterIsNotValid);
                 return;
             }
