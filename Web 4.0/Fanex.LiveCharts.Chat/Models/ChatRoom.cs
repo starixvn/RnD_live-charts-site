@@ -29,5 +29,7 @@ namespace Fanex.LiveCharts.Chat.Models
         public string WelcomeMessage { get; set; }
 
         public bool Muted { get; set; }
+
+        public bool Disabled { get; set; }
     }
 }

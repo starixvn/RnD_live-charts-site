@@ -805,6 +805,31 @@ namespace Fanex.LiveCharts.Chat.Services
             return updateBanListUserViewModel;
         }
 
+        /// <summary>
+        /// Update Chat Room Status by match id.
+        /// </summary>
+        /// <param name="criteria">Update match status information.</param>
+        /// <returns>Result of update command.</returns>
+        public ICommandResult UpdateChatRoomStatusByMatchId(UpdateChatRoomStatusByMatchIdCriteria criteria)
+        {
+            var currentMatchInfo = GetChatRoomByName(new GetChatRoomByNameCriteria
+            {
+                ChatRoomName = criteria.ChatRoomName,
+                MatchId = criteria.MatchId
+            });
+
+            if (currentMatchInfo != null)
+            {
+                return _chatRepository.ModifyData(criteria);
+            }
+
+            return new CommandResult
+            {
+                Code = CodeFail,
+                Message = AdminSiteLang.InvalidInput
+            };
+        }
+
         #endregion Modify Data
 
         #region Export Excel

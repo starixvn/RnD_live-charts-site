@@ -32,6 +32,7 @@ namespace Fanex.LiveCharts.Chat.Controllers
     public class ChatAdminController : BaseController
     {
         private const string ChatMonitorSessionKey = "Chat.Controllers.ChatAdminController.ChatMonitorSessionKey_{0}";
+        private const string DefaultLanguage = "en-US";
         private readonly IChatService _chatService;
         private readonly IChartService _chartService;
         private readonly IMatchService _matchService;
@@ -142,6 +143,13 @@ namespace Fanex.LiveCharts.Chat.Controllers
         public JsonResult UpdateMuteChatUser(UpdateMuteChatUserCriteria updateMuteChatUserCriteria)
         {
             return Json(_chatService.UpdateMuteChatUserOnAdminSite(updateMuteChatUserCriteria));
+        }
+
+        [HttpPost]
+        public JsonResult UpdateChatRoomStatusByMatchId(UpdateChatRoomStatusByMatchIdCriteria criteria)
+        {
+            criteria.ChatRoomName = string.Format("{0}_{1}", criteria.MatchId, DefaultLanguage.Replace('-', '_'));
+            return Json(_chatService.UpdateChatRoomStatusByMatchId(criteria));
         }
 
         [HttpPost]

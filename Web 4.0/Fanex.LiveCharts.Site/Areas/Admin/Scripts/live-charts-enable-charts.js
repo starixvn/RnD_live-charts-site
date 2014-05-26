@@ -1,4 +1,4 @@
-﻿/*global LiveChartsAdmin*/
+﻿/*global LiveChartsAdmin, LANGUAGE*/
 var EnableCharts = (function ($) {
     'use strict';
     return {
@@ -52,6 +52,27 @@ var EnableCharts = (function ($) {
                     //                            .delay(15000).fadeOut();
                 }).always(function () {
                     try { $.unblockUI(); } catch (e) { }
+                });
+            });
+
+            $('input.cb-disable-chat').click(function () {
+                var $this = $(this);
+
+                LiveChartsAdmin.callAjax({
+                    url: LiveChartsAdmin.resolveUrl('ChatAdmin/UpdateChatRoomStatusByMatchId'),
+                    type: 'POST',
+                    data: {
+                        matchId: $this.attr('data-match-id'),
+                        disable: $this.prop('checked')
+                    },
+                    done: function (commandResult) {
+                        if (commandResult.IsSuccessful) {
+                            LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.success, LANGUAGE.successMessage);
+                        }
+                        else {
+                            LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.error, commandResult.Message);
+                        }
+                    }
                 });
             });
         },

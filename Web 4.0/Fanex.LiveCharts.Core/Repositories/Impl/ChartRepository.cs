@@ -129,6 +129,7 @@ namespace Fanex.LiveCharts.Repositories.Impl
                                 currentMatch.KickOffTime = reader.ToDateTime("kickofftime");
                                 currentMatch.ChartShowingStatus = reader.To<byte>("chartshowingstatus");
                                 matchId = currentMatchId;
+                                currentMatch.DisabledChat = reader.ToBool("disabledchat");
                             }
 
                             var currentOddsId = reader.ToInt("oddsid");

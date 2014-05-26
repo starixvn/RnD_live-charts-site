@@ -78,7 +78,7 @@ namespace Fanex.LiveCharts.Chat.Controllers
             }
 
             var chatViewModel = GetChatRoomInformation(matchId, chatUser);
-            if (chatViewModel.ChatUserInRoom.KickedOut)
+            if (chatViewModel.ChatUserInRoom.KickedOut || chatViewModel.ChatRoom.Disabled)
             {
                 return RedirectToAction("KickedOut");
             }

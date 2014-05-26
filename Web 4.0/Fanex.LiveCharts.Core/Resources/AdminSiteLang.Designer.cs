@@ -340,6 +340,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Disabled Chat.
+        /// </summary>
+        public static string DisabledChat {
+            get {
+                return ResourceManager.GetString("DisabledChat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dummy Predictions.
         /// </summary>
         public static string DummyPredictions {

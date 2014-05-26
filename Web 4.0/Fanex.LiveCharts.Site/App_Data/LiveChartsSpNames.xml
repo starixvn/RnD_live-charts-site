@@ -166,7 +166,8 @@
     <Setting Key="Chart_Chat_Update_Ban_Chat_Users" SpName="Chart_Chat_Update_Ban_Chat_Users" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
     <Setting Key="Chart_Chat_Update_Ban_Members" SpName="Chart_Chat_Update_Ban_Members" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
     <Setting Key="Chart_Chat_Get_Member_Banned" SpName="Chart_Chat_Get_Member_Banned" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
-
+    <Setting Key="Chart_Chat_Update_Chat_Room_Status_By_MatchId" SpName="Chart_Chat_Update_Chat_Room_Status_By_MatchId" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
     
+
   </Function>
 </Functions>

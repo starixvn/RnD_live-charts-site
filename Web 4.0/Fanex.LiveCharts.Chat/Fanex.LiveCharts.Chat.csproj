@@ -102,6 +102,7 @@
     <Compile Include="Criteria\UpdateBanChatUsersCriteria.cs" />
     <Compile Include="Criteria\UpdateBanMembersCriteria.cs" />
     <Compile Include="Criteria\UpdateChatMessageOfChatUserCriteria.cs" />
+    <Compile Include="Criteria\UpdateChatRoomStatusByMatchIdCriteria.cs" />
     <Compile Include="Criteria\UpdateChatUserAgreeTermsCriteria.cs" />
     <Compile Include="Criteria\UpdateKickOutChatUserCriteria.cs" />
     <Compile Include="Criteria\UpdateChatMessageCriteria.cs" />

@@ -80,6 +80,8 @@ namespace Fanex.LiveCharts.Chat.Services
 
         ICommandResult UpdateChatUserInRoom(UpdateChatUserInRoomCriteria updateChatUserInRoomCriteria);
 
+        ICommandResult UpdateChatRoomStatusByMatchId(UpdateChatRoomStatusByMatchIdCriteria criteria);
+
         ICommandResult UpdateKickOutChatUser(UpdateKickOutChatUserCriteria updateKickOutChatUserCriteria);
 
         HSSFWorkbook ExportChatConversation(IEnumerable<ChatMessage> chatMessages, Match match, SearchChatMessageCriteria criteria, string templeteFilePath);

@@ -81,5 +81,7 @@ namespace Fanex.LiveCharts.Models
         public byte ChartShowingStatus { get; set; }
 
         public List<Odds> OddsList { get; set; }
+
+        public bool DisabledChat { get; set; }
     }
 }

@@ -120,6 +120,17 @@
                     <a href="~/ScorePrediction/AdminPage?matchId=@(item.Id)&homeName=@(HttpUtility.UrlEncode(item.HomeName))&awayName=@(HttpUtility.UrlEncode(item.AwayName))" 
                     class="score-prediction-link" title="@(AdminSiteLang.MonitorScorePrediction)"></a>
                     <a href="~/ChatAdmin/ChatMonitor?matchId=@(item.Id)" class="chat-monitor-link" title="@(AdminSiteLang.MonitorChatConversation)"></a>
+                    @if(isRunning)
+                    {
+                        <label for="cbkDisbaleChat@(item.Id)">
+                            @AdminSiteLang.DisabledChat
+                            <input type="checkbox" id="cbkDisbaleChat@(item.Id)" @(item.DisabledChat ? "checked" : string.Empty) class="cb-disable-chat" data-match-id="@(item.Id)" />
+                        </label>
+                    }
+                    else
+                    {
+                        <span>@(item.DisabledChat ? AdminSiteLang.DisabledChat : string.Empty)</span>
+                    }
                 </td>
             </tr>
                     i++;
@@ -138,5 +149,11 @@
 </table>
 @Html.Hidden("dateImagePath", (string)Url.Content("~/Content/Images/calendar.gif"))
 @section Foot {
+    <script type="text/javascript">
+        var LANGUAGE = {
+            successMessage: '@AdminSiteLang.UpdateSuccessfully' 
+        };
+    </script>
+    
     @Scripts.Render("~/areas/admin/getenablechartjs")
 }
