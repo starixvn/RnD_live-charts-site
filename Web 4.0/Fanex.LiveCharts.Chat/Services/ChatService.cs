@@ -42,6 +42,7 @@ namespace Fanex.LiveCharts.Chat.Services
         private const string UpdateMessageByUserCommandCacheKey = "Chat.Services.ChatService.DeleteMessageByUserCommandCacheKey";
         private const string UpdateMuteChatUserCommandCacheKey = "Chat.Services.ChatService.UpdateMuteChatUserCommandCacheKey";
         private const string UpdateMuteChatRoomCommandCacheKey = "Chat.Services.ChatService.UpdateMuteChatRoomCommandCacheKey";
+        private const string UpdateChatRoomStatusCommandCacheKey = "Chat.Services.ChatService.UpdateChatRoomStatusCommandCacheKey";
         private const int CodeFail = 10;
         private readonly IChatRepository _chatRepository;
 
@@ -600,6 +601,45 @@ namespace Fanex.LiveCharts.Chat.Services
             };
         }
 
+        /// <summary>
+        /// Update Chat Room status on member site.
+        /// </summary>
+        /// <param name="chatRoomStatus">Current update status.</param>
+        /// <returns>Command Status.</returns>
+        public ICommandResult UpdateChatRoomStatusOnMemberSite(UpdateChatRoomStatusViewModel chatRoomStatus)
+        {
+            try
+            {
+                ICommandResult invalidTokenResult = CheckChatCommandTokenInValid(UpdateBanListUserCacheKey + "_" + chatRoomStatus.TokenName, chatRoomStatus.TokenKey);
+                if (invalidTokenResult != null)
+                {
+                    return invalidTokenResult;
+                }
+
+                IHubContext chatHub = GlobalHost.ConnectionManager.GetHubContext<ChatHub>();
+
+                if (chatHub != null && chatRoomStatus.Disabled)
+                {
+                    chatHub.Clients.Group(chatRoomStatus.ChatRoomName).disableChatRoom(chatRoomStatus.ChatRoomId);
+                }
+            }
+            catch (Exception ex)
+            {
+                ServiceBase.ExceptionHandler(ex);
+                return new CommandResult
+                {
+                    Code = CodeFail,
+                    Message = ex.Message
+                };
+            }
+
+            return new CommandResult
+            {
+                Code = 0,
+                Message = string.Empty
+            };
+        }
+
         public InsertResult InsertChatUserInRoom(InsertChatUserInRoomCriteria insertChatUserInRoomCriteria)
         {
             ////insertChatUserInRoomCriteria.LastOnlineTime = DateTime.Now;
@@ -810,24 +850,42 @@ namespace Fanex.LiveCharts.Chat.Services
         /// </summary>
         /// <param name="criteria">Update match status information.</param>
         /// <returns>Result of update command.</returns>
-        public ICommandResult UpdateChatRoomStatusByMatchId(UpdateChatRoomStatusByMatchIdCriteria criteria)
+        public UpdateChatRoomStatusViewModel UpdateChatRoomStatusByMatchIdOnAdminSite(UpdateChatRoomStatusByMatchIdCriteria criteria)
         {
             var currentMatchInfo = GetChatRoomByName(new GetChatRoomByNameCriteria
             {
                 ChatRoomName = criteria.ChatRoomName,
                 MatchId = criteria.MatchId
             });
+            var updateChatRoomStatusViewModel = new UpdateChatRoomStatusViewModel
+                {
+                    CommandResult = new CommandResult
+                    {
+                        Code = CodeFail,
+                        Message = AdminSiteLang.InvalidInput
+                    }
+                };
 
             if (currentMatchInfo != null)
             {
-                return _chatRepository.ModifyData(criteria);
+                var updateResult = _chatRepository.ModifyData(criteria);
+
+                updateChatRoomStatusViewModel = new UpdateChatRoomStatusViewModel
+                {
+                    CommandResult = (CommandResult)updateResult,
+                    ChatRoomName = criteria.ChatRoomName,
+                    Disabled = criteria.Disable
+                };
+
+                if (updateResult.IsSuccessful)
+                {
+                    SetUpdateChatRoomStatusToken(updateChatRoomStatusViewModel);
+                }
+
+                return updateChatRoomStatusViewModel;
             }
 
-            return new CommandResult
-            {
-                Code = CodeFail,
-                Message = AdminSiteLang.InvalidInput
-            };
+            return updateChatRoomStatusViewModel;
         }
 
         #endregion Modify Data
@@ -1013,6 +1071,17 @@ namespace Fanex.LiveCharts.Chat.Services
             CacheManager.Instance.Set<string>(
                 UpdateMuteChatRoomCommandCacheKey + "_" + updateMuteChatRoom.TokenName,
                 updateMuteChatRoom.TokenKey,
+                new TimeSpan(0, AppSettings.CachingTimeOutMinute, 0));
+        }
+
+        private void SetUpdateChatRoomStatusToken(UpdateChatRoomStatusViewModel updateChatRoomStatus)
+        {
+            updateChatRoomStatus.TokenName = string.Format("{0}", updateChatRoomStatus.ChatRoomId);
+            updateChatRoomStatus.TokenKey = Guid.NewGuid().ToString();
+
+            CacheManager.Instance.Set<string>(
+                UpdateChatRoomStatusCommandCacheKey + "_" + updateChatRoomStatus.TokenName,
+                updateChatRoomStatus.TokenKey,
                 new TimeSpan(0, AppSettings.CachingTimeOutMinute, 0));
         }
 

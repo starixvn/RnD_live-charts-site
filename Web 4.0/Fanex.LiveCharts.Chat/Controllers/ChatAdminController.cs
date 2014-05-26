@@ -149,7 +149,7 @@ namespace Fanex.LiveCharts.Chat.Controllers
         public JsonResult UpdateChatRoomStatusByMatchId(UpdateChatRoomStatusByMatchIdCriteria criteria)
         {
             criteria.ChatRoomName = string.Format("{0}_{1}", criteria.MatchId, DefaultLanguage.Replace('-', '_'));
-            return Json(_chatService.UpdateChatRoomStatusByMatchId(criteria));
+            return Json(_chatService.UpdateChatRoomStatusByMatchIdOnAdminSite(criteria));
         }
 
         [HttpPost]

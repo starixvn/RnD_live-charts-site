@@ -128,6 +128,7 @@
     <Compile Include="ViewModels\UpdateBanListUserViewModel.cs" />
     <Compile Include="ViewModels\ChatMonitorViewModel.cs" />
     <Compile Include="ViewModels\ChatViewModel.cs" />
+    <Compile Include="ViewModels\UpdateChatRoomStatusViewModel.cs" />
     <Compile Include="ViewModels\UpdateMuteChatRoomViewModel.cs" />
     <Compile Include="ViewModels\UpdateMuteChatUserViewModel.cs" />
     <Compile Include="ViewModels\UpdateChatMessageByChatUserViewModel.cs" />
