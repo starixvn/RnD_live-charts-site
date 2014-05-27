@@ -73,6 +73,9 @@
              <th>
                 @AdminSiteLang.Monitor
             </th>
+            <th>
+                @AdminSiteLang.DisabledChat
+            </th>
         </tr>
     </thead>
     <tbody id="grid-user">
@@ -120,16 +123,16 @@
                     <a href="~/ScorePrediction/AdminPage?matchId=@(item.Id)&homeName=@(HttpUtility.UrlEncode(item.HomeName))&awayName=@(HttpUtility.UrlEncode(item.AwayName))" 
                     class="score-prediction-link" title="@(AdminSiteLang.MonitorScorePrediction)"></a>
                     <a href="~/ChatAdmin/ChatMonitor?matchId=@(item.Id)" class="chat-monitor-link" title="@(AdminSiteLang.MonitorChatConversation)"></a>
+                    
+                </td>
+                <td class="align-center">
                     @if(isRunning)
                     {
-                        <label for="cbkDisbaleChat@(item.Id)">
-                            @AdminSiteLang.DisabledChat
-                            <input type="checkbox" id="cbkDisbaleChat@(item.Id)" @(item.DisabledChat ? "checked" : string.Empty) class="cb-disable-chat" data-match-id="@(item.Id)" />
-                        </label>
+                        <input type="checkbox" id="cbkDisbaleChat@(item.Id)" @(item.DisabledChat ? "checked" : string.Empty) class="cb-disable-chat" data-match-id="@(item.Id)" />
                     }
                     else
                     {
-                        <span>@(item.DisabledChat ? AdminSiteLang.DisabledChat : string.Empty)</span>
+                        <span @(item.DisabledChat ? "class=ico-tick" : string.Empty)></span>
                     }
                 </td>
             </tr>
@@ -139,7 +142,7 @@
             else
             {
             <tr class="no-info">
-                <td colspan="@(isRunning? 7 : 6)" class="align-center">
+                <td colspan="@(isRunning? 8 : 7)" class="align-center">
                     @AdminSiteLang.NoInfoAvailable
                 </td>
             </tr>
