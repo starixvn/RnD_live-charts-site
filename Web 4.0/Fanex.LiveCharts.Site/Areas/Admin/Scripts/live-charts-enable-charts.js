@@ -55,13 +55,21 @@ var EnableCharts = (function ($) {
                 });
             });
 
-            $('input.cb-disable-chat').click(function () {
-                var $this = $(this);
-                EnableCharts.updateChatRoomStatusInAdminSite($this.attr('data-match-id'), $this.prop('checked'));
+            $('input.cb-disable-chat').click(function (event) {
+                var $this = $(this),
+                    disable = $this.prop('checked');
+
+                if (disable && !LiveChartsAdmin.confirmUpdateAction()) {
+                    event.preventDefault();
+                    return;
+                }
+
+                EnableCharts.updateChatRoomStatusInAdminSite($this.attr('data-match-id'), disable);
 
             });
         },
         updateChatRoomStatusInAdminSite: function (matchId, disable) {
+
             LiveChartsAdmin.callAjax({
                 url: LiveChartsAdmin.resolveUrl('ChatAdmin/UpdateChatRoomStatusByMatchId'),
                 type: 'POST',
