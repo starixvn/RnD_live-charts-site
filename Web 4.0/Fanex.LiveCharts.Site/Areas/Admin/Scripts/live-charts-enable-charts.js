@@ -1,4 +1,4 @@
-﻿/*global LiveChartsAdmin, LANGUAGE*/
+﻿/*global LiveChartsAdmin, LANGUAGE,GET_ENABLE_CHAT_DEFAULT*/
 var EnableCharts = (function ($) {
     'use strict';
     return {
@@ -57,23 +57,46 @@ var EnableCharts = (function ($) {
 
             $('input.cb-disable-chat').click(function () {
                 var $this = $(this);
+                EnableCharts.updateChatRoomStatusInAdminSite($this.attr('data-match-id'), $this.prop('checked'));
 
-                LiveChartsAdmin.callAjax({
-                    url: LiveChartsAdmin.resolveUrl('ChatAdmin/UpdateChatRoomStatusByMatchId'),
-                    type: 'POST',
-                    data: {
-                        matchId: $this.attr('data-match-id'),
-                        disable: $this.prop('checked')
-                    },
-                    done: function (commandResult) {
-                        if (commandResult.IsSuccessful) {
-                            LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.success, LANGUAGE.successMessage);
+            });
+        },
+        updateChatRoomStatusInAdminSite: function (matchId, disable) {
+            LiveChartsAdmin.callAjax({
+                url: LiveChartsAdmin.resolveUrl('ChatAdmin/UpdateChatRoomStatusByMatchId'),
+                type: 'POST',
+                data: {
+                    matchId: matchId,
+                    disable: disable
+                },
+                done: function (updateChatRoomStatusViewModel) {
+                    if (updateChatRoomStatusViewModel.CommandResult.IsSuccessful) {
+                        if (disable) {
+                            EnableCharts.kickOutChatUserWhenDisableRoom(updateChatRoomStatusViewModel);
                         }
                         else {
-                            LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.error, commandResult.Message);
+                            LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.success, LANGUAGE.successMessage);
                         }
                     }
-                });
+                    else {
+                        LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.error, updateChatRoomStatusViewModel.CommandResult.Message);
+                    }
+                }
+            });
+        },
+        kickOutChatUserWhenDisableRoom: function (updateChatRoomStatusViewModel) {
+            LiveChartsAdmin.callAjax({
+                url: GET_ENABLE_CHAT_DEFAULT.memberChartSiteUrl + '/Chat/DisableChatRoom',
+                type: 'POST',
+                data: updateChatRoomStatusViewModel,
+                done: function (result) {
+                    if (result.IsSuccessful) {
+                        LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.success, LANGUAGE.successMessage);
+                    }
+                    else {
+                        LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.error, result.Message);
+                    }
+                }
             });
         },
         initDateTimePicker: function () {
@@ -105,7 +128,7 @@ var EnableCharts = (function ($) {
             }
         }
     };
-}) (jQuery);
+})(jQuery);
 
 $(document).ready(function () {
     'use strict';

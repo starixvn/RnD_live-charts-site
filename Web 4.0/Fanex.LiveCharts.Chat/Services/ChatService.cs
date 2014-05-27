@@ -610,7 +610,7 @@ namespace Fanex.LiveCharts.Chat.Services
         {
             try
             {
-                ICommandResult invalidTokenResult = CheckChatCommandTokenInValid(UpdateBanListUserCacheKey + "_" + chatRoomStatus.TokenName, chatRoomStatus.TokenKey);
+                ICommandResult invalidTokenResult = CheckChatCommandTokenInValid(UpdateChatRoomStatusCommandCacheKey + "_" + chatRoomStatus.TokenName, chatRoomStatus.TokenKey);
                 if (invalidTokenResult != null)
                 {
                     return invalidTokenResult;
@@ -881,8 +881,6 @@ namespace Fanex.LiveCharts.Chat.Services
                 {
                     SetUpdateChatRoomStatusToken(updateChatRoomStatusViewModel);
                 }
-
-                return updateChatRoomStatusViewModel;
             }
 
             return updateChatRoomStatusViewModel;

@@ -150,6 +150,10 @@
 @Html.Hidden("dateImagePath", (string)Url.Content("~/Content/Images/calendar.gif"))
 @section Foot {
     <script type="text/javascript">
+        var GET_ENABLE_CHAT_DEFAULT =
+        {
+            memberChartSiteUrl: "@(AppSettings.MemberChartSiteUrl)"
+        };
         var LANGUAGE = {
             successMessage: '@AdminSiteLang.UpdateSuccessfully' 
         };

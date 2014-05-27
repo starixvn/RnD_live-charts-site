@@ -291,10 +291,8 @@ function ChatClient(chatUser, chatRoom, chatUserInRoom) {
         }
     };
 
-    me.disableChatRoom = function (chatRoomId) {
-        if (chatRoomId === me.chatRoom.chatRoomId) {
-            location.href = DEFAULT_OBJECT.kickedOutPage;
-        }
+    me.disableChatRoom = function () {
+        location.href = DEFAULT_OBJECT.kickedOutPage;
     };
 
     me.leftRoom = function () {

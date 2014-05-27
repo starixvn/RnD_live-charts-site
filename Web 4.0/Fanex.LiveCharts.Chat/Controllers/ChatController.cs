@@ -179,6 +179,12 @@ namespace Fanex.LiveCharts.Chat.Controllers
             return Json(_chatService.UpdateMuteChatRoomOnMemberSite(updateMuteChatRoomViewModel));
         }
 
+        [HttpPost]
+        public JsonResult DisableChatRoom(UpdateChatRoomStatusViewModel updateChatRoomStatus)
+        {
+            return Json(_chatService.UpdateChatRoomStatusOnMemberSite(updateChatRoomStatus));
+        }
+
         #endregion Actions for Admin Site access
 
         #region Private Actions
