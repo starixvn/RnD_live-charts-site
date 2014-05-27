@@ -88,11 +88,13 @@ function ChatWindow() {
     };
 
     me.initChatRoom = function () {
-        // me.$roomContainer.resizable();
-        
+        //// Check Current Room Status
         me.startTimer();
         me.handleBrowserStatus();
         me.joinRoom();
+        
+
+
     };
 
     me.cacheDOMElements = function () {
@@ -334,9 +336,26 @@ function ChatWindow() {
     };
 
     me.joinRoom = function () {
-        me.chatClient.joinRoom();
-        me.registerEvents();
-        me.chatServer.joinRoom();
+        LIVECHARTS.callAjax({
+            url: DEFAULT_OBJECT.getCurrentRoom,
+            type: 'POST',
+            data: {
+                matchId: me.chatRoom.matchId
+            },
+            done: function (chatRoom) {
+                if (chatRoom.Disabled) {
+                    me.chatClient.disableChatRoom();
+                }
+                else {
+                    me.chatClient.isRoomMute = chatRoom.Muted;
+                    me.chatClient.updateUIForMute();
+                    me.chatClient.joinRoom();
+                    me.registerEvents();
+                    me.chatServer.joinRoom();
+                }
+            }
+        });
+
     };
 
     me.handleBrowserStatus = function () {

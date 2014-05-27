@@ -30,6 +30,7 @@ namespace Fanex.LiveCharts.Chat.Controllers
     ////[LiveChartAuthentication]
     public class ChatController : BaseController
     {
+        private const string DefaultLanguage = "en_US";
         private readonly IChatService _chatService;
         private readonly ISettingService _settingService;
 
@@ -185,6 +186,13 @@ namespace Fanex.LiveCharts.Chat.Controllers
             return Json(_chatService.UpdateChatRoomStatusOnMemberSite(updateChatRoomStatus));
         }
 
+        [HttpPost]
+        public JsonResult GetCurrentRoom(GetChatRoomByNameCriteria criteria)
+        {
+            criteria.ChatRoomName = string.Format("{0}_" + DefaultLanguage, criteria.MatchId);
+            return Json(_chatService.GetChatRoomByName(criteria));
+        }
+
         #endregion Actions for Admin Site access
 
         #region Private Actions
@@ -200,7 +208,7 @@ namespace Fanex.LiveCharts.Chat.Controllers
             ChatRoom chatRoom = _chatService.GetChatRoomByName(new GetChatRoomByNameCriteria
             {
                 ////SessionManager.CurrentSession.Language.Replace('-', '_').Trim()
-                ChatRoomName = string.Format("{0}_en_US", matchId),
+                ChatRoomName = string.Format("{0}_" + DefaultLanguage, matchId),
                 MatchId = matchId
             });
 
