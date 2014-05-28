@@ -97,7 +97,7 @@ namespace Fanex.LiveCharts.Chat.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpPost, LiveChartAuthentication]
         public JsonResult GetChatMessageByTime(int chatRoomId, DateTime? latestTime)
         {
             var result = _chatService.GetChatMessagesByTime(new GetChatMessageByTimeCriteria
@@ -109,7 +109,7 @@ namespace Fanex.LiveCharts.Chat.Controllers
             return Json(result);
         }
 
-        [HttpPost]
+        [HttpPost, LiveChartAuthentication]
         public JsonResult GetChatMessageByUser(GetChatMessageByUserIdCriteria getChatMessageByUserCriteria)
         {
             var result = _chatService.GetChatMessagesByUser(getChatMessageByUserCriteria);
@@ -117,7 +117,7 @@ namespace Fanex.LiveCharts.Chat.Controllers
             return Json(result);
         }
 
-        [HttpPost]
+        [HttpPost, LiveChartAuthentication]
         public JsonResult UpdateAgreeTerms(UpdateChatUserAgreeTermsCriteria criteria)
         {
             criteria.AgreedTerms = true;
@@ -126,7 +126,7 @@ namespace Fanex.LiveCharts.Chat.Controllers
             return Json(result);
         }
 
-        [HttpPost]
+        [HttpPost, LiveChartAuthentication]
         public JsonResult InsertChatUser(InsertChatUserCriteria insertChatUserCriteria)
         {
             var chatNameDenyList = _settingService.GetSetting(new GetChatNameDenyListCriteria());

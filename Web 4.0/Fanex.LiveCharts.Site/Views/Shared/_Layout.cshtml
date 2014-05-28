@@ -38,6 +38,7 @@
     @RenderBody()
     
     @Html.Hidden("LiveChartRoot", Url.Content("~/"))
+    @Html.Hidden("KickOutPage", Url.Action("Unauthorized", "User"))
     
     @Scripts.Render("~/bundles/jquery")
     @RenderSection("Scripts", false)

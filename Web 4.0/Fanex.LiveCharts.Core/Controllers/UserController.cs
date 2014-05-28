@@ -174,10 +174,10 @@ namespace Fanex.LiveCharts.Controllers
                     MemberId = SessionManager.CurrentSession.MemberId
                 });
 
-                if (!isKickOut)
-                {
-                    isViewTwoChart = matchId != SessionManager.CurrentSession.MatchId;
-                }
+                ////if (!isKickOut)
+                ////{
+                ////    isViewTwoChart = matchId != SessionManager.CurrentSession.MatchId;
+                ////}
             }
 
             return Json(new

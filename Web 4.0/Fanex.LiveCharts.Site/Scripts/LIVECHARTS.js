@@ -70,7 +70,7 @@ var LIVECHARTS = {
                 timeOut = 5000;
                 break;
         }
-       
+
         $message.empty().html(messageText).show();
         $message.css({
             left: ($body.width() / 2) - ($message.width() / 2 + 30) + 'px'
@@ -174,6 +174,11 @@ var LIVECHARTS = {
                 try { $.unblockUI(); } catch (e) { }
             }
         }).fail(function (jqXHR, textStatus, errorThrown) {
+            var $kickOut = $('#KickOutPage');
+            if (jqXHR.status === 401 && $kickOut.length > 0) {
+                window.location.href = $kickOut.val();
+            }
+
             if (typeof (ajaxOption.fail) !== 'undefined') {
                 ajaxOption.fail(jqXHR, textStatus, errorThrown);
             }

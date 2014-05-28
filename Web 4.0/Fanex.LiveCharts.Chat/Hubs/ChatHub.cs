@@ -40,6 +40,7 @@ namespace Fanex.LiveCharts.Chat.Hubs
         /// Send a message to a group.
         /// </summary>
         /// <param name="chatMessage">Current message need be sent.</param>
+        [Authorize]
         public void SendMessage(ChatMessage chatMessage)
         {
             chatMessage.Content = HttpUtility.HtmlEncode(chatMessage.Content);
@@ -60,6 +61,7 @@ namespace Fanex.LiveCharts.Chat.Hubs
             Clients.Group(chatMessage.ChatRoom.ChatRoomName).addMessage(chatMessage);
         }
 
+        [Authorize]
         public IEnumerable<ChatUserInRoom> GetUserList(ChatRoom chatRoom)
         {
             var chatUsers = _chatService.GetChatRoomUsers(new GetChatRoomUsersCriteria
@@ -76,6 +78,7 @@ namespace Fanex.LiveCharts.Chat.Hubs
         /// <param name="chatUser">Current user need join room.</param>
         /// <param name="chatRoom">Current room.</param>
         /// <returns>Notify other user in room.</returns>
+        [Authorize]
         public Task JoinRoom(ChatUser chatUser, ChatRoom chatRoom)
         {
             var currentChatUserInRoom = _chatService.GetChatUserInRoom(new GetChatUserInRoomCriteria
@@ -114,6 +117,7 @@ namespace Fanex.LiveCharts.Chat.Hubs
             return Groups.Add(Context.ConnectionId, chatRoom.ChatRoomName);
         }
 
+        [Authorize]
         public void NotifyUserLeftRoom(ChatUser chatUser, ChatRoom chatRoom)
         {
             try
@@ -131,6 +135,7 @@ namespace Fanex.LiveCharts.Chat.Hubs
         /// </summary>
         /// <param name="chatUser">Current chat user information.</param>
         /// <param name="chatRoom">Current chat room information.</param>
+        [Authorize]
         public void NotifyUserJoinedRoom(ChatUser chatUser, ChatRoom chatRoom)
         {
             try
@@ -203,6 +208,7 @@ namespace Fanex.LiveCharts.Chat.Hubs
         /// <param name="chatRoomId">Current chat room.</param>
         /// <param name="latestTime">Latest time for getting data.</param>
         /// <returns>History messages.</returns>
+        [Authorize]
         public IEnumerable<ChatMessage> GetChatMessageHistory(int chatRoomId, DateTime? latestTime)
         {
             try
@@ -231,6 +237,7 @@ namespace Fanex.LiveCharts.Chat.Hubs
         /// <param name="chatRoomId">Chat room for get user list.</param>
         /// <param name="isLeft">Get user left or not.</param>
         /// <returns>User list.</returns>
+        [Authorize]
         private IEnumerable<ChatUserInRoom> GetCurrentUserList(int chatRoomId, bool isLeft = false)
         {
             try

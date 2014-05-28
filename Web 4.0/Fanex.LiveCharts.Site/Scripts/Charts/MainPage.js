@@ -1,5 +1,5 @@
 ﻿/* File Created: March 28, 2014 */
-
+/*global MAIN_PAGE_DEFAULT,LIVECHARTS*/
 function MainPage() {
     'use strict';
     var me = this;
@@ -32,6 +32,7 @@ function MainPage() {
 
 
         me.$btnCollapseExpand.unbind('click').click(me.collapseExpand);
+        me.reCheckIn();
     };
 
     me.collapseExpand = function () {
@@ -55,6 +56,24 @@ function MainPage() {
             me.$FrmChatPage.contents().find('#chatConversation').removeClass('expand').height(262);
             document.getElementById('frmChatPage').contentWindow.$('#roomContainer').height(286).trigger('resizableChatBox', [285, 170]);
         }
+    };
+
+    me.reCheckIn = function () {
+        setInterval(function () {
+            LIVECHARTS.callAjax({
+                url: MAIN_PAGE_DEFAULT.reCheckIn,
+                type: 'POST',
+                useBlockUI: false,
+                data: {},
+                done: function () {
+                },
+                fail: function (jqXHR) {
+                    if (jqXHR.status === 401) {
+                        window.location.href = MAIN_PAGE_DEFAULT.unAuthorizePage;
+                    }
+                }
+            });
+        }, 30000);
     };
 }
 

@@ -42,5 +42,12 @@
 
 @section Scripts
 {
+    <script type="text/javascript">
+        var MAIN_PAGE_DEFAULT =
+        {
+            reCheckIn: '@Url.Action("ReCheckIn", "Charts")',
+            unAuthorizePage: '@Url.Action("Unauthorized", "User")'
+        };
+    </script>
     @Scripts.Render("~/bundles/chartmainpagejs")
 }

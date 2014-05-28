@@ -271,6 +271,16 @@ namespace Fanex.LiveCharts.Controllers
             return Json(string.Empty, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost, LiveChartAuthentication]
+        public ActionResult ReCheckIn()
+        {
+            return Json(
+            new
+                {
+                    Code = 0
+                });
+        }
+
         /// <summary>
         /// Get Information for showing Handicap or Over Under.
         /// </summary>
