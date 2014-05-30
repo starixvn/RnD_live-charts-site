@@ -477,4 +477,16 @@
   <data name="SearchInMainDBCannot" xml:space="preserve">
     <value>Member name search in Main Database cannot less than 3 characters.</value>
   </data>
+  <data name="BannedWordManagement" xml:space="preserve">
+    <value>Ban Word Management</value>
+  </data>
+  <data name="BanWord" xml:space="preserve">
+    <value>Ban Word</value>
+  </data>
+  <data name="Group" xml:space="preserve">
+    <value>Group</value>
+  </data>
+  <data name="StartWith" xml:space="preserve">
+    <value>Start With</value>
+  </data>
 </root>

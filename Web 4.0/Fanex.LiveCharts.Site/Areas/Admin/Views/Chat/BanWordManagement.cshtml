@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.Title = AdminSiteLang.BannedWordManagement;
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@section Head {
+    <link type="text/css" rel="Stylesheet" href="~/Areas/Admin/Content/Chat.less" />
+}
+@section Headline {
+    <h1>
+        <span class="title">@AdminSiteLang.BannedWordManagement</span>
+    </h1>
+}
+<section id="filter-bar">
+    <div class="filter-form">
+        <div class="lbl-field width-auto">
+            <label>@AdminSiteLang.StartWith</label>
+		</div>
+        <div class="edit-field width-120">
+           <select id="ddlStartWithGroups" class="width-100">
+                <option value="all">@AdminSiteLang.All</option>
+                @for (int i = 65; i <= 90; i++)
+                {
+                    <option value="@((char)i)">@((char)i)</option>
+                }
+            </select>
+		</div>
+        <div class="lbl-field width-auto">
+            <label>@AdminSiteLang.BanWord</label>
+		</div>
+        <div class="edit-field width-180">
+           <input type="text" class="width-160" id="txtBanWord" maxlength="50" />
+		</div>
+        <div class="submit btn-submit">
+			<input type="submit" value="@ViewResources.Submit" id="btnSearchBanWord" />
+		</div>
+    </div>
+</section>
+
+<div class="chat-member-search-result" style="display:none;">
+    <div id="banWordGrid" class="freegrid">
+    </div>
+</div>
+
+@section Foot {
+    <script type="text/javascript">
+        var BAN_WORD_MANAGEMENT =
+        {
+            getBanWordsUrl: "@(Url.Action("GetBanWords", "ChatAdmin"))",
+            insertBanWordsUrl: "@(Url.Action("InsertBanWords", "ChatAdmin"))",
+            updateBanWordTextUrl: "@(Url.Action("UpdateBanWordText", "ChatAdmin"))",
+            updateBanWordStatusUrl: "@(Url.Action("UpdateBanWordStatus", "ChatAdmin"))"
+        };
+
+        var LANGUAGE = 
+        {
+            updateSuccess: '@AdminSiteLang.UpdateSuccessfully'
+        };
+    </script>
+    @Scripts.Render("~/areas/admin/banwordmanagementjs")
+}

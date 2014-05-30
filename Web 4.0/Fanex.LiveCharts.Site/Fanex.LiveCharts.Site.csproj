@@ -186,6 +186,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Areas\Admin\Scripts\Chat\ban-word-managment.js" />
     <Content Include="Areas\Admin\Scripts\Chat\member-ban-by-default.js" />
     <Content Include="Areas\Admin\Scripts\Chat\chat-user-banned-management.js" />
     <Content Include="Areas\Admin\Scripts\Chat\chat-monitor.js" />
@@ -628,6 +629,7 @@
     <Content Include="Areas\Admin\Views\Setting\Chat.cshtml" />
     <Content Include="Areas\Admin\Views\Chat\ChatUserBannedManagement.cshtml" />
     <Content Include="Areas\Admin\Views\Chat\MemberBanByDefault.cshtml" />
+    <Content Include="Areas\Admin\Views\Chat\BanWordManagement.cshtml" />
     <None Include="Areas\UserLogin\themes\fonts\Abel.woff" />
     <None Include="Areas\UserLogin\themes\select-site.less" />
     <Content Include="Areas\UserLogin\Views\Common\Offline.cshtml" />

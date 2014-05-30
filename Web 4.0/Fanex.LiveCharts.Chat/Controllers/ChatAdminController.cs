@@ -61,6 +61,11 @@ namespace Fanex.LiveCharts.Chat.Controllers
             return View("~/Areas/Admin/Views/Chat/ChatMonitor.cshtml", chatMonitorViewModel);
         }
 
+        public ActionResult BanWordManagement()
+        {
+            return View("~/Areas/Admin/Views/Chat/BanWordManagement.cshtml");
+        }
+
         /// <summary>
         /// Search chat messages.
         /// </summary>
@@ -192,6 +197,30 @@ namespace Fanex.LiveCharts.Chat.Controllers
                 IsKickOut = false
             });
             return Json(updateResult);
+        }
+
+        [HttpPost]
+        public JsonResult GetBanWords(GetBanWordsCriteria criteria)
+        {
+            return Json(_chatService.GetBanWords(criteria));
+        }
+
+        [HttpPost]
+        public JsonResult InsertBanWords(InsertBanWordsCriteria criteria)
+        {
+            return Json(_chatService.InsertBanWords(criteria));
+        }
+
+        [HttpPost]
+        public JsonResult UpdateBanWordText(UpdateBanWordTextCriteria criteria)
+        {
+            return Json(_chatService.UpdateBanWordText(criteria));
+        }
+
+        [HttpPost]
+        public JsonResult UpdateBanWordStatus(UpdateBanWordStatusCriteria criteria)
+        {
+            return Json(_chatService.UpdateBanWordStatus(criteria));
         }
 
         #region Private actions

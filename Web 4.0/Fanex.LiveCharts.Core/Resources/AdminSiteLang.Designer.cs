@@ -160,11 +160,29 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ban Word Management.
+        /// </summary>
+        public static string BannedWordManagement {
+            get {
+                return ResourceManager.GetString("BannedWordManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ban this User..
         /// </summary>
         public static string BanThisUser {
             get {
                 return ResourceManager.GetString("BanThisUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ban Word.
+        /// </summary>
+        public static string BanWord {
+            get {
+                return ResourceManager.GetString("BanWord", resourceCulture);
             }
         }
         
@@ -462,6 +480,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string GetMatchTitle {
             get {
                 return ResourceManager.GetString("GetMatchTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Group.
+        /// </summary>
+        public static string Group {
+            get {
+                return ResourceManager.GetString("Group", resourceCulture);
             }
         }
         
@@ -975,6 +1002,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string Sport {
             get {
                 return ResourceManager.GetString("Sport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start With.
+        /// </summary>
+        public static string StartWith {
+            get {
+                return ResourceManager.GetString("StartWith", resourceCulture);
             }
         }
         

@@ -80,6 +80,7 @@
     <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\ChatUserBannedManagementController.cs" />
     <Compile Include="Criteria\AdminGetChatRoomUsersCriteria.cs" />
+    <Compile Include="Criteria\GetBanWordsCriteria.cs" />
     <Compile Include="Criteria\GetChatMessageByRoomCriteria.cs" />
     <Compile Include="Criteria\GetChatMessageByTimeCriteria.cs" />
     <Compile Include="Criteria\GetChatMessageByUserIdCriteria.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Criteria\GetChatUserInRoomByConnectionIdCriteria.cs" />
     <Compile Include="Criteria\GetChatUserInRoomCriteria.cs" />
     <Compile Include="Criteria\GetMemberBannedCriteria.cs" />
+    <Compile Include="Criteria\InsertBanWordsCriteria.cs" />
     <Compile Include="Criteria\InsertChatMessageCriteria.cs" />
     <Compile Include="Criteria\InsertChatRoomCriteria.cs" />
     <Compile Include="Criteria\InsertChatUserCriteria.cs" />
@@ -101,6 +103,8 @@
     <Compile Include="Criteria\SearchMemberCriteria.cs" />
     <Compile Include="Criteria\UpdateBanChatUsersCriteria.cs" />
     <Compile Include="Criteria\UpdateBanMembersCriteria.cs" />
+    <Compile Include="Criteria\UpdateBanWordStatusCriteria.cs" />
+    <Compile Include="Criteria\UpdateBanWordTextCriteria.cs" />
     <Compile Include="Criteria\UpdateChatMessageOfChatUserCriteria.cs" />
     <Compile Include="Criteria\UpdateChatRoomStatusByMatchIdCriteria.cs" />
     <Compile Include="Criteria\UpdateChatUserAgreeTermsCriteria.cs" />
@@ -113,6 +117,7 @@
     <Compile Include="Criteria\UpdateMuteChatUserCriteria.cs" />
     <Compile Include="Hubs\ChatHub.cs" />
     <Compile Include="Hubs\IChatHub.cs" />
+    <Compile Include="Models\BanWord.cs" />
     <Compile Include="Models\ChatMessage.cs" />
     <Compile Include="Models\ChatMessageSpam.cs" />
     <Compile Include="Models\ChatRoom.cs" />

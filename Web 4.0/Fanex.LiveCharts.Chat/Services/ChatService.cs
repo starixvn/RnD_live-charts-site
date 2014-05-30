@@ -888,6 +888,38 @@ namespace Fanex.LiveCharts.Chat.Services
 
         #endregion Modify Data
 
+        #region Ban Words Management
+
+        public ICommandResult UpdateBanWordText(UpdateBanWordTextCriteria criteria)
+        {
+            var updateResult = _chatRepository.ModifyData(criteria);
+
+            return updateResult;
+        }
+
+        public ICommandResult UpdateBanWordStatus(UpdateBanWordStatusCriteria criteria)
+        {
+            var updateResult = _chatRepository.ModifyData(criteria);
+
+            return updateResult;
+        }
+
+        public ICommandResult InsertBanWords(InsertBanWordsCriteria criteria)
+        {
+            var updateResult = _chatRepository.ModifyData(criteria);
+
+            return updateResult;
+        }
+
+        public IEnumerable<BanWord> GetBanWords(GetBanWordsCriteria criteria)
+        {
+            var banWords = _chatRepository.Fetch<BanWord>(criteria);
+
+            return banWords;
+        }
+
+        #endregion
+
         #region Export Excel
 
         /// <summary>

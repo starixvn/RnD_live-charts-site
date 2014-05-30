@@ -83,6 +83,14 @@ namespace Fanex.LiveCharts.Site.Areas.Admin.Area_Start
                 "~/Scripts/Libs/ContextMenu/jquery.ui.position.js",
                 "~/Scripts/Libs/ContextMenu/jquery.contextMenu.js",
                 "~/Areas/Admin/Scripts/Chat/member-ban-by-default.js"));
+
+            bundles.Add(new ScriptBundle("~/areas/admin/banwordmanagementjs").Include(
+                "~/Scripts/Libs/Moment/moment.js",
+                "~/Scripts/Libs/Fanex.Grid/Fanex.Pagination.js",
+                "~/Scripts/Libs/Fanex.Grid/Fanex.Grid.js",
+                "~/Scripts/Libs/ContextMenu/jquery.ui.position.js",
+                "~/Scripts/Libs/ContextMenu/jquery.contextMenu.js",
+                "~/Areas/Admin/Scripts/Chat/ban-word-management.js"));
         }
     }
 }
