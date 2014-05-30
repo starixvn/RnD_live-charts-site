@@ -77,6 +77,12 @@ namespace Fanex.LiveCharts.Site
                 .Include("~/Scripts/Chat/ChatServer.js")
                 .Include("~/Scripts/Chat/ChatClient.js")
                 .Include("~/Scripts/Chat/ChatWindow.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/kickoutpagejs")
+                .Include("~/Scripts/Libs/jquery-1.9.1.js")
+                .Include("~/Scripts/Libs/BlockUI/jquery.blockUI.js")
+                .Include("~/Scripts/LIVECHARTS.js")
+                .Include("~/Scripts/Chat/KickOutPage.js"));
         }
 
         public static void RegisterScorePredictionBundles(BundleCollection bundles)

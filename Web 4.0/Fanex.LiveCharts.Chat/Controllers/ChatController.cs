@@ -53,6 +53,7 @@ namespace Fanex.LiveCharts.Chat.Controllers
         [LiveChartAuthentication]
         public ActionResult Index(int matchId)
         {
+            ViewBag.MatchId = matchId;
             ChatUser chatUser = _chatService.GetChatUser(new GetChatUserCriteria
             {
                 MemberId = SessionManager.CurrentSession.MemberId
@@ -67,21 +68,21 @@ namespace Fanex.LiveCharts.Chat.Controllers
 
                 if (memberInfo != null && memberInfo.IsBanned)
                 {
-                    return RedirectToAction("KickedOut");
+                    return RedirectToAction("KickedOut", new { matchId = matchId });
                 }
             }
             else
             {
                 if (chatUser.IsBanned)
                 {
-                    return RedirectToAction("KickedOut");
+                    return RedirectToAction("KickedOut", new { matchId = matchId });
                 }
             }
 
             var chatViewModel = GetChatRoomInformation(matchId, chatUser);
             if (chatViewModel.ChatUserInRoom.KickedOut || chatViewModel.ChatRoom.Disabled)
             {
-                return RedirectToAction("KickedOut");
+                return RedirectToAction("KickedOut", new { matchId = matchId });
             }
 
             return View(chatViewModel);
@@ -92,9 +93,9 @@ namespace Fanex.LiveCharts.Chat.Controllers
             return View();
         }
 
-        public ActionResult KickedOut()
+        public ActionResult KickedOut(int matchId)
         {
-            return View();
+            return View(matchId);
         }
 
         [HttpPost, LiveChartAuthentication]
@@ -134,6 +135,26 @@ namespace Fanex.LiveCharts.Chat.Controllers
             var commandResult = _chatService.InsertChatUser(insertChatUserCriteria, chatNameDenyList.SettingValue);
 
             return Json(commandResult);
+        }
+
+        /// <summary>
+        /// Get information for chat user can re-enter page.
+        /// </summary>
+        /// <returns>Re-enter information.</returns>
+        [HttpPost, LiveChartAuthentication]
+        public JsonResult GetInformationForReEnterPage()
+        {
+            ChatUser chatUser = _chatService.GetChatUser(new GetChatUserCriteria
+            {
+                MemberId = SessionManager.CurrentSession.MemberId
+            });
+            chatUser.MemberId = SessionManager.CurrentSession.MemberId;
+            if (!IsValidChatUser(chatUser) || !IsRoomValidForUserEnter(chatUser.ChatUserId, SessionManager.CurrentSession.MatchId))
+            {
+                return Json(false);
+            }
+
+            return Json(true);
         }
 
         #region Actions for Admin Site access
@@ -239,6 +260,66 @@ namespace Fanex.LiveCharts.Chat.Controllers
                     AnnoucementMessage = annoucementMessage,
                     WelcomeMessage = welcomeMessage
                 };
+        }
+
+        /// <summary>
+        /// Check valid chat user or not.
+        /// </summary>
+        /// <param name="chatUser">Chat user information.</param>
+        /// <returns>Is chat user valid join room or not.</returns>
+        private bool IsValidChatUser(ChatUser chatUser)
+        {
+            if (chatUser == null)
+            {
+                return false;
+            }
+            else if (chatUser.IsBanned)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Check room valid for user enter.
+        /// </summary>
+        /// <param name="chatUserId">Current chat user id need enter room.</param>
+        /// <param name="matchId">Current match for get room information.</param>
+        /// <returns>User can enter room or not.</returns>
+        private bool IsRoomValidForUserEnter(int chatUserId, int matchId)
+        {
+            var chatRoom = GetChatRoomByName(matchId);
+
+            if (chatRoom == null || chatRoom.Disabled)
+            {
+                return false;
+            }
+
+            var chatUserInRoom = _chatService.GetChatUserInRoom(new GetChatUserInRoomCriteria
+            {
+                ChatUserId = chatUserId,
+                ChatRoomId = chatRoom.ChatRoomId
+            });
+
+            if (chatUserInRoom == null || chatUserInRoom.KickedOut)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private ChatRoom GetChatRoomByName(int matchId)
+        {
+            ChatRoom chatRoom = _chatService.GetChatRoomByName(new GetChatRoomByNameCriteria
+            {
+                ////SessionManager.CurrentSession.Language.Replace('-', '_').Trim()
+                ChatRoomName = string.Format("{0}_" + DefaultLanguage, matchId),
+                MatchId = matchId
+            });
+
+            return chatRoom;
         }
 
         #endregion Private Actions

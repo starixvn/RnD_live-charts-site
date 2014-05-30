@@ -169,7 +169,7 @@
             emoticonsFolder: '@Url.Content("~/Scripts/Libs/Emoticon/Images")',
             notificationSound: '@Url.Content("~/Content/Sounds/chat")',
             disconnectPage: '@Url.Action("YouAreDisconnect", "Chat")',
-            kickedOutPage: '@Url.Action("KickedOut", "Chat")',
+            kickedOutPage: '@(Url.Action("KickedOut", "Chat"))?matchId=@(ViewBag.MatchId)',
             welcomeMessage: '@(Model.WelcomeMessage.SettingValue)',
             disabledWelcomeMessage: @(Model.WelcomeMessage.Disabled ? "true" : "false"),
             getHistoryMessageUrl: '@Url.Action("GetChatMessageByTime", "Chat")',

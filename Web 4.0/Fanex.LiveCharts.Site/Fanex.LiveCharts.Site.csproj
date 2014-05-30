@@ -207,6 +207,7 @@
     <Content Include="Content\Sounds\chat.mp3" />
     <Content Include="Content\Sounds\chat.wav" />
     <Content Include="Scripts\Charts\MainPage.js" />
+    <Content Include="Scripts\Chat\KickOutPage.js" />
     <Content Include="Scripts\Chat\ChatClient.js" />
     <Content Include="Scripts\Chat\ChatServer.js" />
     <Content Include="Scripts\Chat\ChatSignalRAdapter.js" />

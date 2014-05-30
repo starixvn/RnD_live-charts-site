@@ -1,4 +1,18 @@
-﻿@{
+﻿@model int
+@{
     Layout = "~/Views/Shared/_AnnouncementLayout.cshtml";
     ViewBag.Title = Lang.SorrryChatUnavailable;
+}
+
+
+@section Scripts
+{
+    <script type="text/javascript">
+        var KICK_OUT_DEFUALT = 
+        {
+            getInformationForReEnterUrl: '@(Url.Action("GetInformationForReEnterPage", "Chat"))',
+            chatPage: '@(Url.Action("Index", "Chat"))?matchId=@(Model)'
+        };
+    </script>
+    @Scripts.Render("~/bundles/kickoutpagejs")
 }
