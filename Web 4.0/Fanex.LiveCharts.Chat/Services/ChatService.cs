@@ -771,6 +771,24 @@ namespace Fanex.LiveCharts.Chat.Services
 
             var insertResult = _chatRepository.ModifyData(insertchatUserCriteria, "ChatUserId");
 
+            switch ((int)insertResult.CommandResult.Code)
+            {
+                case 1001: //// Chat Name is not available.
+                    insertResult.CommandResult = new CommandResult
+                    {
+                        Code = CodeFail,
+                        Message = Lang.InsertUserErrorMessage1001
+                    };
+                    break;
+                case 1002: //// Already have chat name.
+                    new CommandResult
+                    {
+                        Code = CodeFail,
+                        Message = Lang.InsertUserErrorMessage1002
+                    };
+                    break;
+            }
+
             return insertResult;
         }
 

@@ -20,6 +20,8 @@ namespace Fanex.LiveCharts.Chat.Criteria
 
         public string BanWordText { get; set; }
 
+        public bool Deleted { get; set; }
+
         public override string GetSettingKey()
         {
             return "Chart_Chat_Get_Ban_Words";

@@ -458,6 +458,33 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Insert failed!.
+        /// </summary>
+        public static string InsertFailed {
+            get {
+                return ResourceManager.GetString("InsertFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This Chat Name does not available, please choose another one..
+        /// </summary>
+        public static string InsertUserErrorMessage1001 {
+            get {
+                return ResourceManager.GetString("InsertUserErrorMessage1001", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You already have Chat Name..
+        /// </summary>
+        public static string InsertUserErrorMessage1002 {
+            get {
+                return ResourceManager.GetString("InsertUserErrorMessage1002", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Interval.
         /// </summary>
         public static string Interval {
@@ -1124,6 +1151,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string Underdog {
             get {
                 return ResourceManager.GetString("Underdog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update failed!.
+        /// </summary>
+        public static string UpdateFailed {
+            get {
+                return ResourceManager.GetString("UpdateFailed", resourceCulture);
             }
         }
         

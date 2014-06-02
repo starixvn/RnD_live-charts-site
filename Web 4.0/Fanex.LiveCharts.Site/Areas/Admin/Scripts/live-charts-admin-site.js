@@ -191,6 +191,22 @@ if (typeof jQuery !== 'undefined') {
             confirmUpdateAction: function () {
                 var ok = confirm('Do you really want to do this action?');
                 return ok;
+            },
+            popup: function (title, html) {
+                if (!LiveChartsAdmin.dialogPopup) {
+                    LiveChartsAdmin.dialogPopup = $('<div id="dialog-popup"></div>').appendTo('body');
+                }
+
+                LiveChartsAdmin.dialogPopup.html(html).dialog({
+                    width: 'auto',
+                    modal: true,
+                    position: ['center', 160]
+                });
+
+                LiveChartsAdmin.dialogPopup.dialog('option', { title: title });
+            },
+            closePopup: function () {
+                LiveChartsAdmin.dialogPopup.dialog('close');
             }
         };
     })(jQuery);

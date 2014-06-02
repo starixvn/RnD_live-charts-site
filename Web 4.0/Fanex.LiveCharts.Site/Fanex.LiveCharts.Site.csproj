@@ -186,7 +186,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Content Include="Areas\Admin\Scripts\Chat\ban-word-managment.js" />
+    <Content Include="Areas\Admin\Scripts\Chat\ban-word-management.js" />
     <Content Include="Areas\Admin\Scripts\Chat\member-ban-by-default.js" />
     <Content Include="Areas\Admin\Scripts\Chat\chat-user-banned-management.js" />
     <Content Include="Areas\Admin\Scripts\Chat\chat-monitor.js" />

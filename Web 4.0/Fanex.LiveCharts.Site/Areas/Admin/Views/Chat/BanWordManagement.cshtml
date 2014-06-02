@@ -8,6 +8,7 @@
 @section Headline {
     <h1>
         <span class="title">@AdminSiteLang.BannedWordManagement</span>
+        <a class="lnk" href="javascript:void(0);" id="btnAddNewBanWord">+ @ViewResources.Add_New</a>
     </h1>
 }
 <section id="filter-bar">
@@ -17,7 +18,7 @@
 		</div>
         <div class="edit-field width-120">
            <select id="ddlStartWithGroups" class="width-100">
-                <option value="all">@AdminSiteLang.All</option>
+                <option value="">@AdminSiteLang.All</option>
                 @for (int i = 65; i <= 90; i++)
                 {
                     <option value="@((char)i)">@((char)i)</option>
@@ -30,6 +31,15 @@
         <div class="edit-field width-180">
            <input type="text" class="width-160" id="txtBanWord" maxlength="50" />
 		</div>
+        <div class="lbl-field width-auto">
+            <label>@AdminSiteLang.Status</label>
+		</div>
+        <div class="edit-field width-120">
+           <select id="ddlWordStatus" class="width-100">
+                <option value="false">All</option>
+                <option value="true">Delete</option>
+           </select>
+		</div>
         <div class="submit btn-submit">
 			<input type="submit" value="@ViewResources.Submit" id="btnSearchBanWord" />
 		</div>
@@ -38,6 +48,35 @@
 
 <div class="chat-member-search-result" style="display:none;">
     <div id="banWordGrid" class="freegrid">
+    </div>
+</div>
+
+<div id="addNewBanWordPopUp" class="ban-word-popup" style="display:none;">
+    <div class="filter-form">
+        <div class="lbl-field width-auto">
+            <label>@(AdminSiteLang.BanWord)(s)</label>
+		</div>
+        <div class="edit-field ban-word-texts-container">
+           <textarea id="banWordTextsAddNew" class="ban-word-texts"></textarea>
+		</div>
+        <div class="submit btn-submit">
+			<input type="submit" value="@ViewResources.Submit" id="btnSubmitAddNew" />
+		</div>
+    </div>
+</div>
+
+<div id="editBanWordPopUp"  class="ban-word-popup" style="display:none;">
+    <div class="filter-form">
+        <div class="lbl-field width-auto">
+            <label>@(AdminSiteLang.BanWord)</label>
+		</div>
+        <div class="edit-field width-220">
+           <input type="text" class="width-200" id="banWordTextsUpdate" />
+		</div>
+        <input type="hidden" id="banWordIdForUpdate" />
+        <div class="submit btn-submit">
+			<input type="submit" value="@ViewResources.Submit" id="btnSubmitEdit" />
+		</div>
     </div>
 </div>
 
@@ -53,7 +92,10 @@
 
         var LANGUAGE = 
         {
-            updateSuccess: '@AdminSiteLang.UpdateSuccessfully'
+            updateSuccess: '@AdminSiteLang.UpdateSuccessfully',
+            recoverBannedWord: '@AdminSiteLang.RecoverBanWord',
+            deleteBannedWord: '@AdminSiteLang.DeleteBanWord',
+            updateBannedWord: '@AdminSiteLang.UpdateBanWord'
         };
     </script>
     @Scripts.Render("~/areas/admin/banwordmanagementjs")

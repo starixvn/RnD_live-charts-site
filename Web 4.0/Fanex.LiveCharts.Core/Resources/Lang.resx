@@ -506,4 +506,16 @@ Please be considered and do not use any offensive nickname.</value>
   <data name="WelcomeMessage" xml:space="preserve">
     <value>Welcome {0} join this room.</value>
   </data>
+  <data name="InsertFailed" xml:space="preserve">
+    <value>Insert failed!</value>
+  </data>
+  <data name="InsertUserErrorMessage1001" xml:space="preserve">
+    <value>This Chat Name does not available, please choose another one.</value>
+  </data>
+  <data name="InsertUserErrorMessage1002" xml:space="preserve">
+    <value>You already have Chat Name.</value>
+  </data>
+  <data name="UpdateFailed" xml:space="preserve">
+    <value>Update failed!</value>
+  </data>
 </root>

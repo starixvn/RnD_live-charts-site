@@ -160,7 +160,7 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ban Word Management.
+        ///   Looks up a localized string similar to Banned Word Management.
         /// </summary>
         public static string BannedWordManagement {
             get {
@@ -178,7 +178,7 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ban Word.
+        ///   Looks up a localized string similar to Banned Word.
         /// </summary>
         public static string BanWord {
             get {
@@ -327,6 +327,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string Delete {
             get {
                 return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete this word.
+        /// </summary>
+        public static string DeleteBanWord {
+            get {
+                return ResourceManager.GetString("DeleteBanWord", resourceCulture);
             }
         }
         
@@ -853,6 +862,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Recover this word.
+        /// </summary>
+        public static string RecoverBanWord {
+            get {
+                return ResourceManager.GetString("RecoverBanWord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Recover chat message successfully!.
         /// </summary>
         public static string RecoverChatSuccess {
@@ -1015,6 +1033,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string Status {
+            get {
+                return ResourceManager.GetString("Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Stop auto refresh.
         /// </summary>
         public static string StopAutoRefresh {
@@ -1119,6 +1146,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string UnMuteThisUser {
             get {
                 return ResourceManager.GetString("UnMuteThisUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update this word.
+        /// </summary>
+        public static string UpdateBanWord {
+            get {
+                return ResourceManager.GetString("UpdateBanWord", resourceCulture);
             }
         }
         
