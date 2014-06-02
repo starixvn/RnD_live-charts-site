@@ -35,6 +35,19 @@ function BanWordManagement() {
         });
     };
 
+//    me.getBodyRows = function (banWords) {
+//        var length = banWords.length,
+//            bodyRows = [];
+
+//        for (var i = 0; i < length; i++) {
+//            var currentWord = banWords[i];
+//            bodyRows.push({
+//                Columns: []
+//            });
+//        }
+
+//    };
+
     me.banWordGridOption =
     {
         columns: [

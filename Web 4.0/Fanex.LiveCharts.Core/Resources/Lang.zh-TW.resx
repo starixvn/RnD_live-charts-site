@@ -132,11 +132,17 @@
   <data name="ChatNameCannotEmpty" xml:space="preserve">
     <value>聊天名稱不能為空！</value>
   </data>
+  <data name="ChatNameViolateMessage" xml:space="preserve">
+    <value>聊天名違反了命名條規, 請重新選擇!</value>
+  </data>
   <data name="ChatNameWarning" xml:space="preserve">
     <value>聊天名稱僅是只創建一次，和您將使用它的所有房室，請考慮名稱的聊天名稱.</value>
   </data>
   <data name="ChatRoom" xml:space="preserve">
     <value>聊天室</value>
+  </data>
+  <data name="CollapseExpandScorePrediction" xml:space="preserve">
+    <value>折疊/展開比分預測功能</value>
   </data>
   <data name="CorrectScore" xml:space="preserve">
     <value>波膽</value>
@@ -177,6 +183,9 @@
   <data name="JoinedRoom" xml:space="preserve">
     <value>加入聊天室</value>
   </data>
+  <data name="MatchCompletedPageNotAvai" xml:space="preserve">
+    <value>賽事已結束此頁面不存在.</value>
+  </data>
   <data name="MaxLengthChatNameMessage" xml:space="preserve">
     <value>聊天名稱的長度不能超過50個字符</value>
   </data>
@@ -210,6 +219,9 @@
   <data name="OddEven" xml:space="preserve">
     <value>單雙盤</value>
   </data>
+  <data name="OpenSoon" xml:space="preserve">
+    <value>圖表將在 {0} 天 {1} 小時 {2} 分鐘後即將開始.</value>
+  </data>
   <data name="OpenSoonMessage" xml:space="preserve">
     <value>此圖表即將開放，請稍候再來：</value>
   </data>
@@ -224,6 +236,9 @@
   </data>
   <data name="OverUnder" xml:space="preserve">
     <value>大小盤</value>
+  </data>
+  <data name="PleaseLoginToViewMoreDetail" xml:space="preserve">
+    <value>請登入享用新功能 - 比分預測與即時聊天室!</value>
   </data>
   <data name="Price" xml:space="preserve">
     <value>赔率</value>
@@ -243,6 +258,9 @@
   <data name="SorrryChatUnavailable" xml:space="preserve">
     <value>此聊天室不可用</value>
   </data>
+  <data name="SorryRoomNotAvailableForSendingMessage" xml:space="preserve">
+    <value>此聊天室無法轉送訊息</value>
+  </data>
   <data name="Submit" xml:space="preserve">
     <value>提交</value>
   </data>
@@ -251,6 +269,13 @@
   </data>
   <data name="TermsCondition" xml:space="preserve">
     <value>條件</value>
+  </data>
+  <data name="TermsConditionMessage" xml:space="preserve">
+    <value>違反下列規則將會被暫時性驅離聊天室或永久性禁止使用聊天室.&lt;br/&gt;
+1) 禁止粗言穢語 - 請避免使用猥褻的字眼或詞句&lt;br/&gt;
+2) 禁止灌水回復 - 請勿重復訊息淹沒聊天室&lt;br/&gt;
+3) 禁止打廣告 - 謝絕推廣或推銷任何產品或服務&lt;br/&gt;
+4) 禁止騷擾或侮辱 - 請保持適當的行為和禮儀</value>
   </data>
   <data name="Text" xml:space="preserve">
     <value>文本</value>
@@ -272,6 +297,9 @@
   </data>
   <data name="WantToJoinRoom" xml:space="preserve">
     <value>請點擊“加入”按鈕（如果您想要加入此聊天室)</value>
+  </data>
+  <data name="WelcomeMessage" xml:space="preserve">
+    <value>歡迎 {0} 加入此聊天室</value>
   </data>
   <data name="YouAreDisconnect" xml:space="preserve">
     <value>您強迫中斷連接因為另一個會話加入本室</value>

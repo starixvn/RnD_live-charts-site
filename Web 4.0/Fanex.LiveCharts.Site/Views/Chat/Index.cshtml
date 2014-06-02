@@ -137,7 +137,7 @@
             chatRoomId: @(Model.ChatRoom.ChatRoomId),
             chatRoomName: '@(Model.ChatRoom.ChatRoomName)',
             muted: @(Model.ChatRoom.Muted ? "true" : "false"),
-            welcomeMessage: '@(Model.ChatRoom.WelcomeMessage)',
+            welcomeMessage: '@Html.Raw(Model.ChatRoom.WelcomeMessage)',
             termConditionDisabled: @(Model.AnnoucementMessage.Disabled ? "true" : "false")
         }
 
@@ -170,7 +170,7 @@
             notificationSound: '@Url.Content("~/Content/Sounds/chat")',
             disconnectPage: '@Url.Action("YouAreDisconnect", "Chat")',
             kickedOutPage: '@(Url.Action("KickedOut", "Chat"))?matchId=@(ViewBag.MatchId)',
-            welcomeMessage: '@(Model.WelcomeMessage.SettingValue)',
+            welcomeMessage: '@Html.Raw(Model.WelcomeMessage.SettingValue)',
             disabledWelcomeMessage: @(Model.WelcomeMessage.Disabled ? "true" : "false"),
             getHistoryMessageUrl: '@Url.Action("GetChatMessageByTime", "Chat")',
             updateAgreeTerms: '@(Url.Action("UpdateAgreeTerms","Chat"))',
@@ -188,7 +188,7 @@
             joinedRoom: '@Lang.JoinedRoom',
             maxLengthChatName: '@Lang.MaxLengthChatNameMessage',
             maxLengthMessage: '@(string.Format(Lang.MessageMaxLengthMessage, maxMessageLength))',
-            sorryRoomNotAvailableForSendingMessage: '@Lang.SorryRoomNotAvailableForSendingMessage'
+            sorryRoomNotAvailableForSendingMessage: '@Html.Raw(Lang.SorryRoomNotAvailableForSendingMessage)'
         }
 
     </script>

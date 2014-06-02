@@ -132,12 +132,18 @@
   <data name="ChatNameCannotEmpty" xml:space="preserve">
     <value>聊天名称不能为空！</value>
   </data>
+  <data name="ChatNameViolateMessage" xml:space="preserve">
+    <value>聊天名违反了命名条规, 请重新选择!</value>
+  </data>
   <data name="ChatNameWarning" xml:space="preserve">
     <value>聊天名称仅是只创建一次，和您将使用它的所有房室, 请考虑名称的聊天名称
 聊天名称仅是只创建一次，和您将使用它的所有房室, 请考虑名称的聊天名称</value>
   </data>
   <data name="ChatRoom" xml:space="preserve">
     <value>聊天室</value>
+  </data>
+  <data name="CollapseExpandScorePrediction" xml:space="preserve">
+    <value>折叠/展开比分预测功能</value>
   </data>
   <data name="CorrectScore" xml:space="preserve">
     <value>波胆</value>
@@ -178,6 +184,9 @@
   <data name="JoinedRoom" xml:space="preserve">
     <value>加入聊天室</value>
   </data>
+  <data name="MatchCompletedPageNotAvai" xml:space="preserve">
+    <value>赛事已结束此页面不存在.</value>
+  </data>
   <data name="MaxLengthChatNameMessage" xml:space="preserve">
     <value>聊天名称的长度不能超过50个字符</value>
   </data>
@@ -211,6 +220,9 @@
   <data name="OddEven" xml:space="preserve">
     <value>单双盘</value>
   </data>
+  <data name="OpenSoon" xml:space="preserve">
+    <value>图表将在 {0} 天 {1} 小时 {2} 分钟后即将开始.</value>
+  </data>
   <data name="OpenSoonMessage" xml:space="preserve">
     <value>此图表即将开放，请稍候再来：</value>
   </data>
@@ -225,6 +237,9 @@
   </data>
   <data name="OverUnder" xml:space="preserve">
     <value>大小盘</value>
+  </data>
+  <data name="PleaseLoginToViewMoreDetail" xml:space="preserve">
+    <value>请登入享用新功能 - 比分预测与即时聊天室!</value>
   </data>
   <data name="Price" xml:space="preserve">
     <value>赔率</value>
@@ -244,6 +259,9 @@
   <data name="SorrryChatUnavailable" xml:space="preserve">
     <value>此聊天室不可用</value>
   </data>
+  <data name="SorryRoomNotAvailableForSendingMessage" xml:space="preserve">
+    <value>此聊天室无法转送讯息</value>
+  </data>
   <data name="Submit" xml:space="preserve">
     <value>提交</value>
   </data>
@@ -252,6 +270,13 @@
   </data>
   <data name="TermsCondition" xml:space="preserve">
     <value>条件</value>
+  </data>
+  <data name="TermsConditionMessage" xml:space="preserve">
+    <value>违反下列规则将会被暂时性驱离聊天室或永久性禁止使用聊天室.&lt;br/&gt;
+1) 禁止粗言秽语 - 请避免使用猥亵的字眼或词句&lt;br/&gt;
+2) 禁止灌水回复 - 请勿重复讯息淹没聊天室
+&lt;br/&gt;3) 禁止打广告 - 谢绝推广或推销任何产品或服务&lt;br/&gt;
+4) 禁止骚扰或侮辱 - 请保持适当的行为和礼仪</value>
   </data>
   <data name="Text" xml:space="preserve">
     <value>文本</value>
@@ -273,6 +298,9 @@
   </data>
   <data name="WantToJoinRoom" xml:space="preserve">
     <value>请点击“加入”按钮（如果您想要加入此聊天室)</value>
+  </data>
+  <data name="WelcomeMessage" xml:space="preserve">
+    <value>欢迎 {0} 加入此聊天室</value>
   </data>
   <data name="YouAreDisconnect" xml:space="preserve">
     <value>您强迫中断连接因为另一个会话加入本室</value>

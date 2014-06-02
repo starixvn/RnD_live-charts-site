@@ -132,11 +132,17 @@
   <data name="ChatNameCannotEmpty" xml:space="preserve">
     <value>Tên hội thoại không được để trống.</value>
   </data>
+  <data name="ChatNameViolateMessage" xml:space="preserve">
+    <value>Tên Trò chuyện đặt đã vi phạm quy định, xin vui lòng chọn lại!</value>
+  </data>
   <data name="ChatNameWarning" xml:space="preserve">
     <value>Tên hội thoại chỉ tạo được một lần, bạn sẽ sử dụng nó cho tất cả các cuộc hội thoại, vui lòng lưu ý khi đặt tên.</value>
   </data>
   <data name="ChatRoom" xml:space="preserve">
     <value>Phòng hội thoại</value>
+  </data>
+  <data name="CollapseExpandScorePrediction" xml:space="preserve">
+    <value>Thu nhỏ / Mở rộng chức năng dự đoán số điểm</value>
   </data>
   <data name="CorrectScore" xml:space="preserve">
     <value>Điểm số chính xác</value>
@@ -177,6 +183,9 @@
   <data name="JoinedRoom" xml:space="preserve">
     <value>Đã tham gia vào nhóm hội thoại</value>
   </data>
+  <data name="MatchCompletedPageNotAvai" xml:space="preserve">
+    <value>Xin lỗi, trận đấu này được hoàn thành nên trang này không có sẵn!</value>
+  </data>
   <data name="MaxLengthChatNameMessage" xml:space="preserve">
     <value>Tên hội thoại không được dài quá 50 chữ</value>
   </data>
@@ -210,6 +219,9 @@
   <data name="OddEven" xml:space="preserve">
     <value>Lẻ/Chẵn</value>
   </data>
+  <data name="OpenSoon" xml:space="preserve">
+    <value>Biểu đồ sẽ bắt đầu lúc {0} ngày {1} tiếng {2} phút sau.</value>
+  </data>
   <data name="OpenSoonMessage" xml:space="preserve">
     <value>Biểu đồ này sẽ được mở sớm. Vui lòng quay lại sau.</value>
   </data>
@@ -224,6 +236,9 @@
   </data>
   <data name="OverUnder" xml:space="preserve">
     <value>Trên/Dưới</value>
+  </data>
+  <data name="PleaseLoginToViewMoreDetail" xml:space="preserve">
+    <value>Vui lòng đăng nhập để trải nghiệm các tính năng mới, Dự đoán tỉ số và Trò chuyện trực tuyến !</value>
   </data>
   <data name="Price" xml:space="preserve">
     <value>Giá</value>
@@ -243,6 +258,9 @@
   <data name="SorrryChatUnavailable" xml:space="preserve">
     <value>Xin lỗi, nhóm hội thoại này không có sẵn.</value>
   </data>
+  <data name="SorryRoomNotAvailableForSendingMessage" xml:space="preserve">
+    <value>Xin lỗi, nhóm hội thoại này không thể gửi tin nhắn.</value>
+  </data>
   <data name="Submit" xml:space="preserve">
     <value>Gửi</value>
   </data>
@@ -251,6 +269,13 @@
   </data>
   <data name="TermsCondition" xml:space="preserve">
     <value>Điều kiện</value>
+  </data>
+  <data name="TermsConditionMessage" xml:space="preserve">
+    <value>Sẽ tạm ngưng phòng chat hoặc vĩnh viễn cấm sử được dụng phòng chat với những quy định vi phạm sau đây&lt;br/&gt; 
+1) Cấm dùng những ngôn ngữ thô tục- Vui lòng không dùng những ngôn ngữ biểu hiện khiêu dâm&lt;br/&gt;
+2) Vui lòng không truyền đạt thông điệp tràn ngập phòng chat&lt;br/&gt;
+3) Cấm quảng cáo -Tuyệt đối cấm quảng cáo hoặc rao bán các sản phẩm hoặc các dịch vụ&lt;br/&gt;
+4) Cấm quấy rối hoặc sỉ nhục- Vui lòng duy trì hành vi hợp đáng và lễ nghĩa</value>
   </data>
   <data name="Text" xml:space="preserve">
     <value>Văn bản</value>
@@ -272,6 +297,9 @@
   </data>
   <data name="WantToJoinRoom" xml:space="preserve">
     <value>Vui lòng chọn "Tham gia"  nếu bạn muốn tham gia phòng hội thoại này.</value>
+  </data>
+  <data name="WelcomeMessage" xml:space="preserve">
+    <value>Chào mừng {0} tham gia nhóm hội thoại này.</value>
   </data>
   <data name="YouAreDisconnect" xml:space="preserve">
     <value>Bạn bị mất kết nối do một phiên khác đăng nhập</value>

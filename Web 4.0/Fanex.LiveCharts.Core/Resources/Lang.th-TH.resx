@@ -132,11 +132,17 @@
   <data name="ChatNameCannotEmpty" xml:space="preserve">
     <value>ชื่อผู้สนทนาเว้นว่างไม่ได้</value>
   </data>
+  <data name="ChatNameViolateMessage" xml:space="preserve">
+    <value>การตั้งชื่อการแชทนี้ผิดกฎ โปรดเลือกอย่างอื่น</value>
+  </data>
   <data name="ChatNameWarning" xml:space="preserve">
     <value>ชื่อจะสร้างได้เพียงครั้งเดียวสำหรับทุกห้อง โปรดพิจารณาชื่อที่จะตั้งใช้ในการสนทนา</value>
   </data>
   <data name="ChatRoom" xml:space="preserve">
     <value>ห้องสนทนา</value>
+  </data>
+  <data name="CollapseExpandScorePrediction" xml:space="preserve">
+    <value>ยุบ / ขยายการทำนายคะแนน</value>
   </data>
   <data name="CorrectScore" xml:space="preserve">
     <value>ทายผลสกอร์</value>
@@ -177,6 +183,9 @@
   <data name="JoinedRoom" xml:space="preserve">
     <value>ข้าร่วมห้อง</value>
   </data>
+  <data name="MatchCompletedPageNotAvai" xml:space="preserve">
+    <value>ขออภัย, การแข่งขันจบลงแล้สดังนั้นหน้านี้ไม่สามารถใช้ได้!</value>
+  </data>
   <data name="MaxLengthChatNameMessage" xml:space="preserve">
     <value>ชื่อผู้สนทนาไม่มากกว่า 50ตัวอักษร</value>
   </data>
@@ -210,6 +219,9 @@
   <data name="OddEven" xml:space="preserve">
     <value>คู่/คี่</value>
   </data>
+  <data name="OpenSoon" xml:space="preserve">
+    <value>แผนภูมิจะเริ่มต้นใน{0} วันที่ (s) {1} เวลา(s) {2} นาที(s) อีกสักครู่</value>
+  </data>
   <data name="OpenSoonMessage" xml:space="preserve">
     <value>แผนภูมินี้จะเปิดให้บริการในเร็ว ๆ นี้ กรุณาตรวจสอบหลังจาก :</value>
   </data>
@@ -224,6 +236,9 @@
   </data>
   <data name="OverUnder" xml:space="preserve">
     <value>สูง/ต่ำ</value>
+  </data>
+  <data name="PleaseLoginToViewMoreDetail" xml:space="preserve">
+    <value>กรุณาเข้าสู่ระบบเพื่อสัมผัสกับปรากฎการณ์ใหม่ใหม่ คะแนนการทำนายและห้องแชท!</value>
   </data>
   <data name="Price" xml:space="preserve">
     <value>ราคา</value>
@@ -243,6 +258,9 @@
   <data name="SorrryChatUnavailable" xml:space="preserve">
     <value>ขออภัย, ห้องนี้ไม่สามารถใช้ได้!</value>
   </data>
+  <data name="SorryRoomNotAvailableForSendingMessage" xml:space="preserve">
+    <value>ขออภัย, ห้องนี้ไม่สามารถส่งข้อความได้</value>
+  </data>
   <data name="Submit" xml:space="preserve">
     <value>ตกลง</value>
   </data>
@@ -251,6 +269,14 @@
   </data>
   <data name="TermsCondition" xml:space="preserve">
     <value>เงื่อนไข</value>
+  </data>
+  <data name="TermsConditionMessage" xml:space="preserve">
+    <value>การกฎระเบียบข้อใดข้อนึงของะกฎระเบียบด้านล่าง คุณจะถูกระงับเข้าห้องสนทนาหรือ ห้ามเข้าถาวร&lt;br/&gt;
+
+1. ไม่ใช้ภาษาหยาบคาย -  กรุณาหลีกเลี่ยงการใช้คำหยาบคายหรือคำลามกอนาจาร &lt;br/&gt;
+2. ไม่ส่งข้อความซ้ำหรือสแปมมากเกินไป -  ไม่พิมพ์ข้อความซ้ำซากในห้องสนทนา &lt;br/&gt;
+3. ห้ามโฆษณา - ห้ามลงโฆษณา หรือบริการ หรือ โปรโมท &lt;br/&gt;
+4. ห้ามข่มขู่หรือดูถูก - กรุณาใช้พฤติกรรมและมารยาทเหมาะสม</value>
   </data>
   <data name="Text" xml:space="preserve">
     <value>ข้อความ</value>
@@ -272,6 +298,9 @@
   </data>
   <data name="WantToJoinRoom" xml:space="preserve">
     <value>กรุณาคลิกปุ่ม "เข้าร่วม" ถ้าคุณต้องการที่จะเข้าร่วมในห้องนี้</value>
+  </data>
+  <data name="WelcomeMessage" xml:space="preserve">
+    <value>ยินดีต้อนรับ {0} เข้าร่วมในห้องนี้</value>
   </data>
   <data name="YouAreDisconnect" xml:space="preserve">
     <value>คุณถูกบังคับให้ออกจากห้องนี้เนื่องจากเซสชั่นอื่นร่วมห้องนี้</value>

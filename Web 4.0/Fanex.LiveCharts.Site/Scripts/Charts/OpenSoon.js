@@ -2,8 +2,9 @@
 $(function () {
     'use strict';
     var note = $('#note'),
-		ts = (new Date()).getTime() + totalMiliSecond;
-    var startMatch = false;
+		ts = (new Date()).getTime() + totalMiliSecond,
+        timeMessage = $('#OpenSoonTime').val(),
+        startMatch = false;
 
     $('#countdown').countdown({
         timestamp: ts,
@@ -12,12 +13,14 @@ $(function () {
                 return;
             }
 
-            var message = "";
-
-            message += days + " day" + (days === 1 ? '' : 's') + ", ";
-            message += hours + " hour" + (hours === 1 ? '' : 's') + ", ";
-            message += minutes + " minute" + (minutes === 1 ? '' : 's') + " and ";
-            message += seconds + " second" + (seconds === 1 ? '' : 's') + " <br />";
+            //var message = "";
+            //            message += days + " day" + (days === 1 ? '' : 's') + ", ";
+            //            message += hours + " hour" + (hours === 1 ? '' : 's') + ", ";
+            //            message += minutes + " minute" + (minutes === 1 ? '' : 's') + " and ";
+            //            message += seconds + " second" + (seconds === 1 ? '' : 's') + " <br />";
+            //var message = timeMessage.
+            var message = timeMessage.replace('{0}', days).replace('{1}', hours).replace('{2}', minutes);
+            
             note.html(message);
 
             if (days === 0 && hours === 0 && minutes === 0 && seconds === 0) {
