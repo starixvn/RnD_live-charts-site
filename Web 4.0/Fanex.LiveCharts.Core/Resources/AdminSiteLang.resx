@@ -501,4 +501,10 @@
   <data name="Status" xml:space="preserve">
     <value>Status</value>
   </data>
+  <data name="JustOnlyDeleted" xml:space="preserve">
+    <value>Just Only Deleted</value>
+  </data>
+  <data name="NotIncludeDeleted" xml:space="preserve">
+    <value>No Include Deleted</value>
+  </data>
 </root>

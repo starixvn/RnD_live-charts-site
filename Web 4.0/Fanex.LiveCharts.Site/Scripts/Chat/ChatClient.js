@@ -31,6 +31,11 @@ function ChatClient(chatUser, chatRoom, chatUserInRoom) {
     me.userColor = '#f00';
     me.isRoomMute = chatRoom.muted;
     me.isUserMute = chatUserInRoom.muted;
+    me.banWordOptions =
+    {
+        customSwears: swearWords,
+        bannedWords: []
+    };
     
 
     me.cachedDomElement = function () {
@@ -125,9 +130,7 @@ function ChatClient(chatUser, chatRoom, chatUserInRoom) {
         chatMessage.MessageTime =  me.formatTime(moment(chatMessage.CreateTime));
         chatMessage.Content = chatMessage.Content.replace(/\r\n/g, "<br />").replace(/\n/g, "<br />");
         var tempDiv = $('<div>' + chatMessage.Content + '</div>'),
-            chatMessageContent = tempDiv.emoticons(DEFAULT_OBJECT.emoticonsFolder).profanityFilter({
-                customSwears: swearWords
-            });
+            chatMessageContent = tempDiv.emoticons(DEFAULT_OBJECT.emoticonsFolder).profanityFilter(me.banWordOptions);
         chatMessage.Content = chatMessageContent.html();
         chatMessageContent = null;
 

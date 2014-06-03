@@ -66,6 +66,22 @@ function ChatWindow() {
             me.$roomContainer.resizable("option", "minHeight", newMinHeight);
             me.$roomContainer.resizable("option", "maxHeight", newMaxHeight);
         });
+
+        me.getBanWords();
+        setInterval(me.getBanWords, 60000 * 5);
+    };
+
+    me.getBanWords = function () {
+        LIVECHARTS.callAjax({
+            url: DEFAULT_OBJECT.getBanWordsUrl,
+            type: 'POST',
+            data: {},
+            done: function (banWords) {
+                if (banWords) {
+                    me.chatClient.banWordOptions.bannedWords = banWords;
+                }
+            }
+        });
     };
 
     me.checkMatchCompleted = function () {

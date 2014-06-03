@@ -10,6 +10,9 @@
 namespace Fanex.LiveCharts.Chat.Controllers
 {
     using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Mvc;
     using Fanex.LiveCharts.Chat.Criteria;
     using Fanex.LiveCharts.Chat.Models;
@@ -155,6 +158,24 @@ namespace Fanex.LiveCharts.Chat.Controllers
             }
 
             return Json(true);
+        }
+
+        /// <summary>
+        /// Get banned words for hiding it.
+        /// </summary>
+        /// <returns>Banned words array.</returns>
+        [HttpPost, LiveChartAuthentication]
+        public JsonResult GetBannedWords()
+        {
+            IEnumerable<BanWord> banWordObjects = _chatService.GetBanWords(new GetBanWordsCriteria
+            {
+                WordStatus = 1 //// Not Include Deleted
+            });
+
+            return Json(banWordObjects.Select<BanWord, string>(w =>
+            {
+                return w.BanWordText;
+            }));
         }
 
         #region Actions for Admin Site access

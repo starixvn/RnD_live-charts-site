@@ -34,10 +34,11 @@
         <div class="lbl-field width-auto">
             <label>@AdminSiteLang.Status</label>
 		</div>
-        <div class="edit-field width-120">
-           <select id="ddlWordStatus" class="width-100">
-                <option value="false">All</option>
-                <option value="true">Delete</option>
+        <div class="edit-field width-160">
+           <select id="ddlWordStatus" class="width-140">
+                <option value="0">@AdminSiteLang.All</option>
+                <option value="1">@AdminSiteLang.NotIncludeDeleted</option>
+                <option value="2">@AdminSiteLang.JustOnlyDeleted</option>
            </select>
 		</div>
         <div class="submit btn-submit">

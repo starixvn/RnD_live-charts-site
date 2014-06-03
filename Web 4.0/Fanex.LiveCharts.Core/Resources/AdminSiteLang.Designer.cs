@@ -556,6 +556,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Just Only Deleted.
+        /// </summary>
+        public static string JustOnlyDeleted {
+            get {
+                return ResourceManager.GetString("JustOnlyDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Keyword.
         /// </summary>
         public static string Keyword {
@@ -804,6 +813,15 @@ namespace Fanex.LiveCharts.Resources {
         public static string NoteEditMemberByDefault {
             get {
                 return ResourceManager.GetString("NoteEditMemberByDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Include Deleted.
+        /// </summary>
+        public static string NotIncludeDeleted {
+            get {
+                return ResourceManager.GetString("NotIncludeDeleted", resourceCulture);
             }
         }
         

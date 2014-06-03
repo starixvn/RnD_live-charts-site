@@ -144,6 +144,10 @@
                 }
             }
 
+            if (options.bannedWords !== null) {
+                badWords = badWords.concat(options.bannedWords).unique();
+            }
+
             // GET OUT, there are no Swears set either custom, external OR local.
             if (badWords === null) {
                 return;

@@ -171,7 +171,7 @@ function BanWordManagement() {
             {
                 startWith: me.$ddlStartWithGroups.val(),
                 banWordText: me.$txtBanWord.val(),
-                deleted: me.$ddlWordStatus.val()
+                wordStatus: me.$ddlWordStatus.val()
             },
             done: function (banWords) {
                 me.buildGrid(banWords);
@@ -255,7 +255,7 @@ function BanWordManagement() {
                 CustomCellRender: me.renderWordAction
             }
         ],
-        gridExpandHeight: 215,
+        gridExpandHeight: 180,
         showPager: true,
         pagerOption: {
             itemsPerPage: 50,
