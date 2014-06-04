@@ -538,6 +538,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Banned word list, you can input multiple words, each word separating by comma.
+        /// </summary>
+        public static string InsertBanWords {
+            get {
+                return ResourceManager.GetString("InsertBanWords", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid Input!.
         /// </summary>
         public static string InvalidInput {
@@ -1168,7 +1177,7 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Update this word.
+        ///   Looks up a localized string similar to Edit this word.
         /// </summary>
         public static string UpdateBanWord {
             get {

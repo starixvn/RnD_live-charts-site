@@ -496,7 +496,7 @@
     <value>Recover this word</value>
   </data>
   <data name="UpdateBanWord" xml:space="preserve">
-    <value>Update this word</value>
+    <value>Edit this word</value>
   </data>
   <data name="Status" xml:space="preserve">
     <value>Status</value>
@@ -506,5 +506,8 @@
   </data>
   <data name="NotIncludeDeleted" xml:space="preserve">
     <value>No Include Deleted</value>
+  </data>
+  <data name="InsertBanWords" xml:space="preserve">
+    <value>Banned word list, you can input multiple words, each word separating by comma</value>
   </data>
 </root>

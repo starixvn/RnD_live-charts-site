@@ -65,11 +65,11 @@ function BanWordManagement() {
                 switch (currentStatus) {
                     case 'deleted':
                         items.recoverThisWord = { name: LANGUAGE.recoverBannedWord, icon: "recover" };
-                        items.updateThisWord = { name: LANGUAGE.updateBannedWord, icon: "update" };
+                        items.updateThisWord = { name: LANGUAGE.updateBannedWord, icon: "edit" };
                         break;
                     case 'avail':
                         items.removeThisWord = { name: LANGUAGE.deleteBannedWord, icon: "delete" };
-                        items.updateThisWord = { name: LANGUAGE.updateBannedWord, icon: "update" };
+                        items.updateThisWord = { name: LANGUAGE.updateBannedWord, icon: "edit" };
                         break;
                 }
                 return {
