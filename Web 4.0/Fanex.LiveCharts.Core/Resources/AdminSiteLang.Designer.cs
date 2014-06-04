@@ -160,6 +160,33 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Banned word cannot be empty!.
+        /// </summary>
+        public static string BannedWordCannotEmpty {
+            get {
+                return ResourceManager.GetString("BannedWordCannotEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sorry, Banned word cannot contain these characters: (, ), *, |, \\, &quot;, $, +, ?.
+        /// </summary>
+        public static string BannedWordDoesNotContains {
+            get {
+                return ResourceManager.GetString("BannedWordDoesNotContains", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Note, Banned word cannot contain these characters: (, ), *, |, \, &quot;, $, +, ?.
+        /// </summary>
+        public static string BannedWordInputWarning {
+            get {
+                return ResourceManager.GetString("BannedWordInputWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Banned Word Management.
         /// </summary>
         public static string BannedWordManagement {

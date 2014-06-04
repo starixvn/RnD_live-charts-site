@@ -54,8 +54,10 @@
 
 <div id="addNewBanWordPopUp" class="ban-word-popup" style="display:none;">
     <div class="filter-form">
-        <div class="lbl-field  width-200">
+        <div class="lbl-field ban-word-label  width-200">
             <label>@AdminSiteLang.InsertBanWords</label>
+            <br />
+            <label class="word-warning">@(AdminSiteLang.BannedWordInputWarning)</label>
 		</div>
         <div class="edit-field ban-word-texts-container">
            <textarea id="banWordTextsAddNew" class="ban-word-texts"></textarea>
@@ -68,8 +70,10 @@
 
 <div id="editBanWordPopUp"  class="ban-word-popup" style="display:none;">
     <div class="filter-form">
-        <div class="lbl-field width-auto">
+        <div class="lbl-field ban-word-label width-200">
             <label>@(AdminSiteLang.BanWord)</label>
+            <br />
+            <label class="word-warning">@(AdminSiteLang.BannedWordInputWarning)</label>
 		</div>
         <div class="edit-field width-220">
            <input type="text" class="width-200" id="banWordTextsUpdate" />
@@ -96,7 +100,9 @@
             updateSuccess: '@AdminSiteLang.UpdateSuccessfully',
             recoverBannedWord: '@AdminSiteLang.RecoverBanWord',
             deleteBannedWord: '@AdminSiteLang.DeleteBanWord',
-            updateBannedWord: '@AdminSiteLang.UpdateBanWord'
+            updateBannedWord: '@AdminSiteLang.UpdateBanWord',
+            bannedWordDoesNotContains: '@AdminSiteLang.BannedWordDoesNotContains',
+            bannedWordCannotEmpty: '@AdminSiteLang.BannedWordCannotEmpty'
         };
     </script>
     @Scripts.Render("~/areas/admin/banwordmanagementjs")

@@ -17,7 +17,7 @@
         a = this.concat();
         for (i = 0; i < a.length; ++i) {
             for (j = i + 1; j < a.length; ++j) {
-                if (a[i] === a[j]){
+                if (a[i] === a[j]) {
                     a.splice(j, 1);
                 }
             }
@@ -30,7 +30,8 @@
     var defaults = {
         replaceWith: '*',
         customSwears: null,
-        externalSwears: null
+        externalSwears: null,
+        denyCharacters: ['(', ')', '*', '|', '\\', '"', '$', '?', '+']
     };
 
 
@@ -42,17 +43,17 @@
         var options = $.extend({}, defaults, settings),
             localStorageIsEnabled;
 
-        localStorageIsEnabled = function() {
-              var uid = new Date(),
+        localStorageIsEnabled = function () {
+            var uid = new Date(),
                   result;
 
-              try {
+            try {
                 localStorage.setItem("uid", uid);
                 result = localStorage.getItem("uid") === uid;
                 localStorage.removeItem("uid");
                 return result && localStorage;
-              } catch(e) {}
-        }();
+            } catch (e) { }
+        } ();
 
         function allTextNodes(parent) {
             function getChildNodes(parent) {
@@ -66,7 +67,7 @@
                 return out;
             }
 
-            var cursor, 
+            var cursor,
                 closed = [],
                 open = getChildNodes(parent);
 
@@ -96,24 +97,33 @@
 
         var lastRandomNumber = null;
         function generateRandomNumber(max) {
-          var randomNumber = Math.floor((Math.random()*(max)));
-          if (lastRandomNumber == null) {
-            lastRandomNumber = randomNumber;
-          } else {
-            if (randomNumber == lastRandomNumber && max !=0) {
-              randomNumber +=1;
+            var randomNumber = Math.floor((Math.random() * (max)));
+            if (lastRandomNumber == null) {
+                lastRandomNumber = randomNumber;
+            } else {
+                if (randomNumber == lastRandomNumber && max != 0) {
+                    randomNumber += 1;
+                }
             }
-          }
-          
-          if (randomNumber > max) {
-            //set it back to zero
-            randomNumber = 0;
-          }
-          
-          lastRandomNumber = randomNumber;
-          
-          return randomNumber;
+
+            if (randomNumber > max) {
+                //set it back to zero
+                randomNumber = 0;
+            }
+
+            lastRandomNumber = randomNumber;
+
+            return randomNumber;
         }
+
+        function isValidBanWords(banWords) {
+            for (var i = 0; i < defaults.denyCharacters.length; i++) {
+                if (banWords.indexOf(defaults.denyCharacters[i]) > -1) {
+                    return false;
+                }
+            }
+            return true;
+        };
 
 
         return this.each(function () {
@@ -153,16 +163,21 @@
                 return;
             }
 
+
             // We've got an array of swears, let's proceed with removing them from the element.
             for (x = 0; x < nodes.length; x += 1) {
                 for (i = 0; i < badWords.length; i += 1) {
-                    re = new RegExp('\\b' + badWords[i] + '\\b', 'gi');
-                    
-                    var rand = generateRandomNumber(options.replaceWith.length -1);
-                   
+                    //re = new RegExp('\\w' + badWords[i] + '\\w', 'gi');
+                    if (!isValidBanWords(badWords[i])) {
+                        continue;
+                    }
+
+                    re = new RegExp(badWords[i], 'gi');
+                    var rand = generateRandomNumber(options.replaceWith.length - 1);
+
                     rep = options.replaceWith[rand];
                     if (typeof options.replaceWith == 'string') {
-                      rep = options.replaceWith[rand].repeat(badWords[i].length);
+                        rep = options.replaceWith[rand].repeat(badWords[i].length);
                     }
                     if (re.test(nodes[x].nodeValue)) {
                         nodes[x].nodeValue = nodes[x].nodeValue.replace(re, rep);

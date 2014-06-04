@@ -910,6 +910,7 @@ namespace Fanex.LiveCharts.Chat.Services
 
         public ICommandResult UpdateBanWordText(UpdateBanWordTextCriteria criteria)
         {
+            criteria.BanWordText = RemoveUnUseSpace(criteria.BanWordText);
             var updateResult = _chatRepository.ModifyData(criteria);
 
             return updateResult;
@@ -924,6 +925,8 @@ namespace Fanex.LiveCharts.Chat.Services
 
         public ICommandResult InsertBanWords(InsertBanWordsCriteria criteria)
         {
+            criteria.BanWords = RemoveUnUseSpace(criteria.BanWords);
+
             var updateResult = _chatRepository.ModifyData(criteria);
 
             return updateResult;
@@ -1174,6 +1177,14 @@ namespace Fanex.LiveCharts.Chat.Services
             }
 
             return false;
+        }
+
+        private string RemoveUnUseSpace(string banWord)
+        {
+            return banWord.Trim()
+                                .Replace(" ,", ",")
+                                .Replace(", ", ",")
+                                .Replace("  ", " ");
         }
 
         #endregion Private Functions

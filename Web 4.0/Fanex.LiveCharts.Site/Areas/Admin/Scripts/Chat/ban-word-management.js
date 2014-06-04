@@ -5,6 +5,7 @@ function BanWordManagement() {
     var me = this;
 
     me.banWordDefault = BAN_WORD_MANAGEMENT;
+    me.denyInput = ['(', ')', '*', '|', '\\', '"', '$', '+', '?'];
 
     me.cachedElements = function () {
         me.$ddlStartWithGroups = $('#ddlStartWithGroups');
@@ -120,12 +121,17 @@ function BanWordManagement() {
     };
 
     me.updateBannedWord = function () {
+        var banWords = me.$banWordTextsUpdate.val();
+        if (!me.isBannedWordValid(banWords)) {
+            return;
+        }
+
         LiveChartsAdmin.callAjax({
             url: me.banWordDefault.updateBanWordTextUrl,
             type: 'POST',
             data:
             {
-                banWordText: me.$banWordTextsUpdate.val(),
+                banWordText: banWords,
                 banWordId: me.$banWordIdForUpdate.val()
             },
             done: function (result) {
@@ -142,12 +148,17 @@ function BanWordManagement() {
     };
 
     me.addNewBanWords = function () {
+        var banWords = me.$banWordTextsAddNew.val();
+        if (!me.isBannedWordValid(banWords)) {
+            return;
+        }
+
         LiveChartsAdmin.callAjax({
             url: me.banWordDefault.insertBanWordsUrl,
             type: 'POST',
             data:
             {
-                banWords: me.$banWordTextsAddNew.val()
+                banWords: banWords
             },
             done: function (result) {
                 if (result.IsSuccessful) {
@@ -162,6 +173,20 @@ function BanWordManagement() {
         });
     };
 
+    me.isBannedWordValid = function (banWords) {
+        if (/^\s*$/.test(banWords)) {
+            LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.error, LANGUAGE.bannedWordCannotEmpty);
+            return false;
+        }
+
+        for (var i = 0; i < me.denyInput.length; i++) {
+            if (banWords.indexOf(me.denyInput[i]) > -1) {
+                LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.error, LANGUAGE.bannedWordDoesNotContains);
+                return false;
+            }
+        }
+        return true;
+    };
 
     me.searchBanWords = function () {
         LiveChartsAdmin.callAjax({
@@ -197,6 +222,7 @@ function BanWordManagement() {
     me.buildGrid = function (banWords) {
         var bodyRows = me.getBodyRows(banWords);
 
+        me.banWordGridOption.pagerOption.currentPage = 0;
         me.banWordGridOption.bodyRows = bodyRows;
         me.$banWordGrid.show().fanexGrid(me.banWordGridOption);
         me.registerGridEvents();

@@ -510,4 +510,13 @@
   <data name="InsertBanWords" xml:space="preserve">
     <value>Banned word list, you can input multiple words, each word separating by comma</value>
   </data>
+  <data name="BannedWordDoesNotContains" xml:space="preserve">
+    <value>Sorry, Banned word cannot contain these characters: (, ), *, |, \\, ", $, +, ?</value>
+  </data>
+  <data name="BannedWordInputWarning" xml:space="preserve">
+    <value>Note, Banned word cannot contain these characters: (, ), *, |, \, ", $, +, ?</value>
+  </data>
+  <data name="BannedWordCannotEmpty" xml:space="preserve">
+    <value>Banned word cannot be empty!</value>
+  </data>
 </root>
