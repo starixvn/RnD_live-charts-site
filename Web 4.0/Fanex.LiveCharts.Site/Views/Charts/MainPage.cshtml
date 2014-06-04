@@ -30,7 +30,7 @@
         <div class="chat-page">
             @if(Model.IsMatchCompleted)
             {
-                <iframe id="frmChatPage" width="100%" height="100%" src="@Url.Action("KickedOut", "Chat")" frameborder="0"></iframe>
+                <iframe id="frmChatPage" width="100%" height="100%" src="@Url.Action("ChatRoomCompleted", "Chat")" frameborder="0"></iframe>
             }
             else
             {

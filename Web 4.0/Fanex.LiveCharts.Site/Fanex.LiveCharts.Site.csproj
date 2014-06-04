@@ -297,6 +297,7 @@
     <Content Include="Views\Shared\_AnnouncementLayout.cshtml" />
     <Content Include="Views\Chat\KickedOut.cshtml" />
     <Content Include="Views\Charts\AnonymousPage.cshtml" />
+    <Content Include="Views\Chat\ChatRoomCompleted.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />

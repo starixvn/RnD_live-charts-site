@@ -101,6 +101,11 @@ namespace Fanex.LiveCharts.Chat.Controllers
             return View(matchId);
         }
 
+        public ActionResult ChatRoomCompleted()
+        {
+            return View();
+        }
+
         [HttpPost, LiveChartAuthentication]
         public JsonResult GetChatMessageByTime(int chatRoomId, DateTime? latestTime)
         {
