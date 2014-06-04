@@ -118,7 +118,7 @@
 
         function isValidBanWords(banWords) {
             for (var i = 0; i < defaults.denyCharacters.length; i++) {
-                if (banWords.indexOf(defaults.denyCharacters[i]) > -1) {
+                if (banWords && banWords.indexOf(defaults.denyCharacters[i]) > -1) {
                     return false;
                 }
             }
@@ -154,9 +154,9 @@
                 }
             }
 
-            if (options.bannedWords !== null) {
-                badWords = badWords.concat(options.bannedWords).unique();
-            }
+//            if (options.bannedWords !== null) {
+//                badWords = badWords.concat(options.bannedWords).unique();
+//            }
 
             // GET OUT, there are no Swears set either custom, external OR local.
             if (badWords === null) {

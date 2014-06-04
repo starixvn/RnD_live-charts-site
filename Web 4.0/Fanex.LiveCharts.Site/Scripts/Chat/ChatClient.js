@@ -1,7 +1,7 @@
 ﻿/* File Created: March 20, 2014 */
 /// <reference path="ChatSignalRAdapter.js" />
 /*jshint maxstatements:false*/
-/*global moment, CURRENT_TIME_FORMAT, DEFAULT_OBJECT, swearWords, LIVECHARTS, LANGUAGE*/
+/*global moment, CURRENT_TIME_FORMAT, DEFAULT_OBJECT, LIVECHARTS, LANGUAGE*/
 /*exported ChatClient*/
 
 function ChatClient(chatUser, chatRoom, chatUserInRoom) {
@@ -33,8 +33,7 @@ function ChatClient(chatUser, chatRoom, chatUserInRoom) {
     me.isUserMute = chatUserInRoom.muted;
     me.banWordOptions =
     {
-        customSwears: swearWords,
-        bannedWords: []
+        customSwears: []
     };
     
 

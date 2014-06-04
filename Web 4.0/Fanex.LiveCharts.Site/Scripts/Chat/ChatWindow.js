@@ -78,7 +78,7 @@ function ChatWindow() {
             data: {},
             done: function (banWords) {
                 if (banWords) {
-                    me.chatClient.banWordOptions.bannedWords = banWords;
+                    me.chatClient.banWordOptions.customSwears = banWords;
                 }
             }
         });
