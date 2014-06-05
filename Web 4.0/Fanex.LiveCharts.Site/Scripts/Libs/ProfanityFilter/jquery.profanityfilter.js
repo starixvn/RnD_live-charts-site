@@ -154,9 +154,9 @@
                 }
             }
 
-//            if (options.bannedWords !== null) {
-//                badWords = badWords.concat(options.bannedWords).unique();
-//            }
+            //            if (options.bannedWords !== null) {
+            //                badWords = badWords.concat(options.bannedWords).unique();
+            //            }
 
             // GET OUT, there are no Swears set either custom, external OR local.
             if (badWords === null) {
@@ -172,15 +172,22 @@
                         continue;
                     }
 
-                    re = new RegExp(badWords[i], 'gi');
-                    var rand = generateRandomNumber(options.replaceWith.length - 1);
+                    try {
+                        re = new RegExp(badWords[i], 'gi');
+                        var rand = generateRandomNumber(options.replaceWith.length - 1);
 
-                    rep = options.replaceWith[rand];
-                    if (typeof options.replaceWith == 'string') {
-                        rep = options.replaceWith[rand].repeat(badWords[i].length);
+                        rep = options.replaceWith[rand];
+                        if (typeof options.replaceWith == 'string') {
+                            rep = options.replaceWith[rand].repeat(badWords[i].length);
+                        }
+                        if (re.test(nodes[x].nodeValue)) {
+                            nodes[x].nodeValue = nodes[x].nodeValue.replace(re, rep);
+                        }
                     }
-                    if (re.test(nodes[x].nodeValue)) {
-                        nodes[x].nodeValue = nodes[x].nodeValue.replace(re, rep);
+                    catch (err) {
+                        if (window.console && window.console.log) {
+                            window.console.log(err);
+                        }
                     }
                 }
             }

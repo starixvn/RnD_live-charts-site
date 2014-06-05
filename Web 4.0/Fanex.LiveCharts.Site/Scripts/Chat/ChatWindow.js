@@ -66,19 +66,20 @@ function ChatWindow() {
             me.$roomContainer.resizable("option", "minHeight", newMinHeight);
             me.$roomContainer.resizable("option", "maxHeight", newMaxHeight);
         });
-
-        me.getBanWords();
-        setInterval(me.getBanWords, 60000 * 5);
     };
 
-    me.getBanWords = function () {
+    me.getBanWords = function (doneFunction) {
         LIVECHARTS.callAjax({
             url: DEFAULT_OBJECT.getBanWordsUrl,
             type: 'POST',
             data: {},
+            useBlockUI: false,
             done: function (banWords) {
                 if (banWords) {
                     me.chatClient.banWordOptions.customSwears = banWords;
+                    if (doneFunction) {
+                        doneFunction();
+                    }
                 }
             }
         });
@@ -91,6 +92,7 @@ function ChatWindow() {
             data: {
                 MatchId: me.chatRoom.matchId
             },
+            useBlockUI: false,
             done: function (isCompleted) {
                 if (isCompleted) {
                     location.href = DEFAULT_OBJECT.kickedOutPage;
@@ -100,7 +102,7 @@ function ChatWindow() {
     };
 
     me.signalRConnectDone = function () {
-        me.checkValidUser();
+        me.getBanWords(me.checkValidUser);
     };
 
     me.initChatRoom = function () {
@@ -368,6 +370,7 @@ function ChatWindow() {
                     me.chatClient.joinRoom();
                     me.registerEvents();
                     me.chatServer.joinRoom();
+                    setInterval(me.getBanWords, 60000 * 5);
                 }
             }
         });
