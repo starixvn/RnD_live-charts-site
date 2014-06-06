@@ -171,6 +171,15 @@
   <data name="HasLeft" xml:space="preserve">
     <value>ออก</value>
   </data>
+  <data name="InsertFailed" xml:space="preserve">
+    <value>การแทรกล้มเหลว</value>
+  </data>
+  <data name="InsertUserErrorMessage1001" xml:space="preserve">
+    <value>ชื่อการสนทนานี้ไม่ได้ โปรดเลือกชื่ออื่น</value>
+  </data>
+  <data name="InsertUserErrorMessage1002" xml:space="preserve">
+    <value>คุณมีชื่อสนทนาอยู่แล้ว</value>
+  </data>
   <data name="InvalidInput" xml:space="preserve">
     <value>โมฆะ</value>
   </data>
@@ -286,6 +295,9 @@
   </data>
   <data name="Under" xml:space="preserve">
     <value>น้อยกว่า</value>
+  </data>
+  <data name="UpdateFailed" xml:space="preserve">
+    <value>อัพเดทล้มเหลว!</value>
   </data>
   <data name="UpdateSuccessfullyMessage" xml:space="preserve">
     <value>การทายผลคะแนนของคุณได้อัพเดทเรียบร้อยแล้ว</value>

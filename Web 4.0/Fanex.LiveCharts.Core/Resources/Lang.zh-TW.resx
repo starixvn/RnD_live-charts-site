@@ -171,6 +171,15 @@
   <data name="HasLeft" xml:space="preserve">
     <value>已離開</value>
   </data>
+  <data name="InsertFailed" xml:space="preserve">
+    <value>輸入失敗！</value>
+  </data>
+  <data name="InsertUserErrorMessage1001" xml:space="preserve">
+    <value>這個聊天名稱無法使用, 請選擇另外一個</value>
+  </data>
+  <data name="InsertUserErrorMessage1002" xml:space="preserve">
+    <value>你已經擁有聊天名稱</value>
+  </data>
   <data name="InvalidInput" xml:space="preserve">
     <value>無效輸入</value>
   </data>
@@ -285,6 +294,9 @@
   </data>
   <data name="Under" xml:space="preserve">
     <value>小</value>
+  </data>
+  <data name="UpdateFailed" xml:space="preserve">
+    <value>更新失敗！</value>
   </data>
   <data name="UpdateSuccessfullyMessage" xml:space="preserve">
     <value>你提交已成功更新！</value>

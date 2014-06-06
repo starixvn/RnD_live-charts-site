@@ -171,6 +171,15 @@
   <data name="HasLeft" xml:space="preserve">
     <value>Đã thoát</value>
   </data>
+  <data name="InsertFailed" xml:space="preserve">
+    <value>Lưu không thành công!</value>
+  </data>
+  <data name="InsertUserErrorMessage1001" xml:space="preserve">
+    <value>Tên hội thoại này đã có người sử dụng, xin vui lòng chọn lại tên khác!</value>
+  </data>
+  <data name="InsertUserErrorMessage1002" xml:space="preserve">
+    <value>Bạn đã có tên hội thoại.</value>
+  </data>
   <data name="InvalidInput" xml:space="preserve">
     <value>Không hợp lệ</value>
   </data>
@@ -285,6 +294,9 @@
   </data>
   <data name="Under" xml:space="preserve">
     <value>Dưới</value>
+  </data>
+  <data name="UpdateFailed" xml:space="preserve">
+    <value>Cập nhật không thành công!</value>
   </data>
   <data name="UpdateSuccessfullyMessage" xml:space="preserve">
     <value>Cập nhật thành công.</value>
