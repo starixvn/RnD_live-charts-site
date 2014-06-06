@@ -1180,7 +1180,7 @@ namespace Fanex.LiveCharts.Chat.Services
         }
 
         /// <summary>
-        /// Remove unuse space in banned word list.
+        /// Remove un-use space in banned word list.
         /// </summary>
         /// <param name="banWord">Banned word list.</param>
         /// <returns>String is removed spaces.</returns>
@@ -1191,14 +1191,14 @@ namespace Fanex.LiveCharts.Chat.Services
             var banWords = banWord.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
             var removeSpace = string.Empty;
             for (int i = 0; i < banWords.Length; i++)
-			{
-			    removeSpace += banWords[i].Trim();
+            {
+                removeSpace += banWords[i].Trim();
 
                 if (i < banWords.Length - 1)
                 {
                     removeSpace += ",";
                 }
-			}
+            }
 
             return removeSpace;
         }
