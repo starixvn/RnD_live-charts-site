@@ -781,7 +781,7 @@ namespace Fanex.LiveCharts.Chat.Services
                     };
                     break;
                 case 1002: //// Already have chat name.
-                    new CommandResult
+                    insertResult.CommandResult = new CommandResult
                     {
                         Code = CodeFail,
                         Message = Lang.InsertUserErrorMessage1002
@@ -1179,12 +1179,28 @@ namespace Fanex.LiveCharts.Chat.Services
             return false;
         }
 
+        /// <summary>
+        /// Remove unuse space in banned word list.
+        /// </summary>
+        /// <param name="banWord">Banned word list.</param>
+        /// <returns>String is removed spaces.</returns>
         private string RemoveUnUseSpace(string banWord)
         {
-            return banWord.Trim()
-                                .Replace(" ,", ",")
-                                .Replace(", ", ",")
-                                .Replace("  ", " ");
+            banWord = banWord.Trim().Replace("\n", string.Empty)
+                                .Replace("\r", string.Empty);
+            var banWords = banWord.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            var removeSpace = string.Empty;
+            for (int i = 0; i < banWords.Length; i++)
+			{
+			    removeSpace += banWords[i].Trim();
+
+                if (i < banWords.Length - 1)
+                {
+                    removeSpace += ",";
+                }
+			}
+
+            return removeSpace;
         }
 
         #endregion Private Functions
