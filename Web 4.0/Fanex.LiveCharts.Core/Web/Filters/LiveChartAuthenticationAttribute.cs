@@ -11,6 +11,7 @@ namespace Fanex.LiveCharts.Web.Filters
 {
     using System;
     using System.Web.Mvc;
+    using Fanex.LiveCharts.Core;
     using Fanex.LiveCharts.Resources;
     using Fanex.Logging;
 
@@ -52,7 +53,14 @@ namespace Fanex.LiveCharts.Web.Filters
                     }
                     else
                     {
-                        filterContext.Result = new RedirectResult("~/User/Unauthorized");
+                        if (AppSettings.IsAdminSite)
+                        {
+                            filterContext.Result = new RedirectResult("~/UserLogin/Login");
+                        }
+                        else
+                        {
+                            filterContext.Result = new RedirectResult("~/User/Unauthorized");
+                        }
                     }
 
                     return;
