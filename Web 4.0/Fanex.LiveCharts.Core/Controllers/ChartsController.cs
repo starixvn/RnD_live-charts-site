@@ -75,15 +75,26 @@ namespace Fanex.LiveCharts.Controllers
             return View();
         }
 
-        [NapSuperAuth]
+        /// <summary>
+        /// Index page.
+        /// </summary>
+        /// <returns>Return to admin page or un-authorized depend on current site is admin or not.</returns>
+        [LiveChartAuthentication]
         public ActionResult Index()
         {
-            return RedirectToRoute(new
+            if (AppSettings.IsAdminSite)
             {
-                Area = "Admin",
-                Controller = "Match",
-                Action = "GetEnableCharts"
-            });
+                return RedirectToRoute(new
+                {
+                    Area = "Admin",
+                    Controller = "Match",
+                    Action = "GetEnableCharts"
+                });
+            }
+            else
+            {
+                return View("~/Views/User/Unauthorized.cshtml");
+            }
         }
 
         /// <summary>
