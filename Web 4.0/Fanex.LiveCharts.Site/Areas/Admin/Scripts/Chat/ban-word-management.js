@@ -257,7 +257,7 @@ function BanWordManagement() {
                 Width: 350,
                 Name: 'BanWordText',
                 CellAlign: 'center',
-                CellCssClass: 'user-status'
+                CellCssClass: 'banned-word-text'
             },
             {
                 HeaderText: 'Update Time (GMT+8)',
