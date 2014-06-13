@@ -95,7 +95,8 @@ function ChatWindow() {
             useBlockUI: false,
             done: function (isCompleted) {
                 if (isCompleted) {
-                    location.href = DEFAULT_OBJECT.kickedOutPage;
+                    //location.href = DEFAULT_OBJECT.kickedOutPage;
+                    location.href = DEFAULT_OBJECT.chatCompletedPage;
                 }
             }
         });
