@@ -1,7 +1,7 @@
 USE [bodb_LCC]
 GO
 
-/****** Object:  Table [dbo].[ChatMessage]    Script Date: 06/12/2014 12:51:20 ******/
+/****** Object:  Table [dbo].[ChatMessageHistory]    Script Date: 06/13/2014 13:10:34 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -9,7 +9,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [dbo].[ChatMessageHistory](
-	[ChatMessageId] [int] IDENTITY(1,1) NOT NULL,
+	[ChatMessageId] [int] NOT NULL,
 	[ChatUserId] [int] NOT NULL,
 	[Content] [nvarchar](max) NOT NULL,
 	[ChatRoomId] [int] NOT NULL,
