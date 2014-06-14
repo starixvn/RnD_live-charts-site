@@ -7,7 +7,7 @@
 }
 @section Styles
 {
-    <link rel="stylesheet" href="~/Content/MovementCharts/Chat.less" type="text/css" />
+    <link rel="stylesheet" href="~/Content/MovementCharts/Chat.less?v=1" type="text/css" />
 }
 <div class="chat-room-container">
     <div class="chat-room-title">
@@ -29,6 +29,7 @@
                     id="memberOnline">0</span>
             </div>
             <div class="timer-container">
+                <span id="matchCompletedMessage" class="match-completed-message" style="display:none;">The room will be closed in <span id="minuteToCompletedRoom">10</span> minute(s).</span>
                 <span class="timer-text">@(Lang.GMTPlus8):</span> <span class="gmt-8-timer" id="gmt8Timer">
                 </span>
             </div>

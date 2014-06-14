@@ -34,6 +34,9 @@ function ChatWindow() {
     me.checkMatchCompletedInterval = null;
     me.alreadyInsertCode = 1002;
     me.memberBannedByDefaultCode = 1003;
+    me.intervalWhenKickOutMatchCompleted = 5000; // 1 minutes
+    me.curentMinuteForCompletedRoom = 10; 
+    me.isMatchCompleted = false;
     me.url = {
         getGetChatMessageByTimeUrl: LIVECHARTS.resolveUrl('Chat/GetGetChatMessageByTime'),
         getChatMessageByUserUrl: LIVECHARTS.resolveUrl('Chat/GetChatMessageByUser'),
@@ -94,12 +97,26 @@ function ChatWindow() {
             },
             useBlockUI: false,
             done: function (isCompleted) {
-                if (isCompleted) {
+                if (isCompleted && !me.isMatchCompleted) {
+                    me.isMatchCompleted = true;
                     //location.href = DEFAULT_OBJECT.kickedOutPage;
-                    location.href = DEFAULT_OBJECT.chatCompletedPage;
+                    //location.href = DEFAULT_OBJECT.chatCompletedPage;
+                    me.$matchCompletedMessage.show();
+                    me.actWhenMatchCompletedInterval = setInterval(me.actWhenMatchCompleted, me.intervalWhenKickOutMatchCompleted);
+                    clearInterval(me.checkMatchCompletedInterval);
                 }
             }
         });
+    };
+
+    me.actWhenMatchCompleted = function () {
+        if (me.curentMinuteForCompletedRoom === 1) {
+            clearInterval(me.actWhenMatchCompletedInterval);
+            location.href = DEFAULT_OBJECT.chatCompletedPage;
+            return;
+        }
+        me.curentMinuteForCompletedRoom--;
+        me.$minuteToCompletedRoom.text(me.curentMinuteForCompletedRoom);
     };
 
     me.signalRConnectDone = function () {
@@ -111,9 +128,6 @@ function ChatWindow() {
         me.startTimer();
         me.handleBrowserStatus();
         me.joinRoom();
-        
-
-
     };
 
     me.cacheDOMElements = function () {
@@ -139,6 +153,8 @@ function ChatWindow() {
         me.$roomContainer = $('#roomContainer');
         me.$roomInput = $('#roomInput');
         me.$chatConversation = $('#chatConversation');
+        me.$minuteToCompletedRoom = $('#minuteToCompletedRoom');
+        me.$matchCompletedMessage = $('#matchCompletedMessage');
     };
 
     me.registerEvents = function () {

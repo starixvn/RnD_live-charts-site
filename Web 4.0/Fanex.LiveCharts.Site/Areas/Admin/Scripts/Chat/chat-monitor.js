@@ -250,8 +250,7 @@ function ChatMonitor() {
                     if (kickOutViewModel.NeedToSendRequestKickOut) {
                         me.kickOutChatUserOnMemberSite(kickOutViewModel);
                     }
-                    else
-                    {
+                    else {
                         LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.success, LANGUAGE.kickedOutChatUserSuccess);
                     }
                     me.initMessageGrid();
@@ -446,7 +445,7 @@ function ChatMonitor() {
             }
         });
     };
-    
+
     //// Grid
     me.initMessageGrid = function () {
         var chatUserId = parseInt(me.$ddlChatName.val()),
@@ -485,45 +484,52 @@ function ChatMonitor() {
         var currentUser = me.usersStatus[cell.Value],
             userStatusClass = 'user-online',
             statusTooltip = 'Online';
-
-        if (currentUser.ChatUser.IsBanned) {
-            userStatusClass = 'user-disabled';
-            statusTooltip = 'Banned';
+        if (currentUser) {
+            if (currentUser.ChatUser.IsBanned) {
+                userStatusClass = 'user-disabled';
+                statusTooltip = 'Banned';
+            }
+            else if (currentUser.KickedOut) {
+                userStatusClass = 'user-kickedout';
+                statusTooltip = 'KickedOut';
+            }
+            else if (currentUser.Muted) {
+                userStatusClass = 'user-muted';
+                statusTooltip = 'Muted';
+            }
+            else if (currentUser.IsLeft) {
+                userStatusClass = 'user-offline';
+                statusTooltip = 'OffLine';
+            }
+            return '<span title="' + statusTooltip + '" class="' + userStatusClass + '"></span>';
         }
-        else if (currentUser.KickedOut) {
-            userStatusClass = 'user-kickedout';
-            statusTooltip = 'KickedOut';
+        else {
+            return '<span></span>';
         }
-        else if (currentUser.Muted) {
-            userStatusClass = 'user-muted';
-            statusTooltip = 'Muted';
-        }
-        else if (currentUser.IsLeft) {
-            userStatusClass = 'user-offline';
-            statusTooltip = 'OffLine';
-        }
-        return '<span title="' + statusTooltip + '" class="' + userStatusClass + '"></span>';
     };
 
     me.renderChatNameAction = function (cell) {
         var currentUser = me.usersStatus[cell.Value],
                                currentStatus = 'active';
-        if (currentUser.ChatUser.IsBanned) {
-            currentStatus = 'banned';
-        }
-        else if (currentUser.KickedOut) {
-            currentStatus = 'kickedOut';
-        }
-        else if (currentUser.Muted) {
-            currentStatus = 'muted';
-        }
+        if (currentUser) {
+            if (currentUser.ChatUser.IsBanned) {
+                currentStatus = 'banned';
+            }
+            else if (currentUser.KickedOut) {
+                currentStatus = 'kickedOut';
+            }
+            else if (currentUser.Muted) {
+                currentStatus = 'muted';
+            }
 
-        var iconHtml = '<span class="edit-action open-menu-remove-user"'
-                                            + ' data-user-status="' + currentStatus + '"'
-                                            + ' data-member-id="' + currentUser.ChatUser.MemberId + '"'
-                                            + ' data-chat-user-id="' + currentUser.ChatUser.ChatUserId + '"'
-                                            + '></span>';
-        return iconHtml;
+            var iconHtml = '<span class="edit-action open-menu-remove-user"'
+												+ ' data-user-status="' + currentStatus + '"'
+												+ ' data-member-id="' + currentUser.ChatUser.MemberId + '"'
+												+ ' data-chat-user-id="' + currentUser.ChatUser.ChatUserId + '"'
+												+ '></span>';
+            return iconHtml;
+        }
+        return '';
     };
 
     me.messageGridOptions = {
@@ -541,7 +547,7 @@ function ChatMonitor() {
                            return '<span '
                                     + 'title="' + (cell.Value ? 'Deleted' : 'Available') + '"'
                                     + ' class="'
-                                    + (cell.Value ? 'deleted-message' : 'avai-message') 
+                                    + (cell.Value ? 'deleted-message' : 'avai-message')
                                     + '"></span>';
                        }, MergeHeaderColNumber: 3
                    },
@@ -601,7 +607,7 @@ function ChatMonitor() {
                { Name: "ChatUserStatus", Value: currentMessage.ChatUser.MemberId },
                {
                    Name: "UserName",
-                   Value:  me.usersStatus[currentMessage.ChatUser.MemberId].ChatUser.MemberName
+                   Value: me.usersStatus[currentMessage.ChatUser.MemberId] != null ? me.usersStatus[currentMessage.ChatUser.MemberId].ChatUser.MemberName : ''
                },
                { Name: "ChatName", Value: currentMessage.ChatUser.ChatName },
                { Name: "ChatMessageStatus", Value: currentMessage.IsDeleted },
@@ -698,7 +704,7 @@ function ChatMonitor() {
                { Name: "ChatName", Value: currentChatUserStatus.ChatUser.ChatName,
                    CustomAttr: 'data-chat-user-id="' + currentChatUserStatus.ChatUser.ChatUserId + '"' +
                                 'data-member-id="' + currentChatUserStatus.ChatUser.MemberId + '"'
-                   
+
                },
                { Name: "ChatNameAction", Value: currentChatUserStatus.ChatUser.MemberId }
                ]
@@ -706,8 +712,8 @@ function ChatMonitor() {
     };
     me.getSortedUsers = function (usersInRoom) {
         var memberArray = usersInRoom.slice(0).sort(function (userA, userB) {
-                return userA.ChatUser.MemberName > userB.ChatUser.MemberName;
-            }),
+            return userA.ChatUser.MemberName > userB.ChatUser.MemberName;
+        }),
             chatUserArray = usersInRoom.slice(0).sort(function (userA, userB) {
                 return userA.ChatUser.ChatName > userB.ChatUser.ChatName;
             }),
@@ -772,7 +778,7 @@ function ChatMonitor() {
         var currentChatMemberSelected = me.$ddlMemberName.find('option:selected');
         me.$ddlChatName.val(currentChatMemberSelected.attr('data-chat-user-id')).trigger("chosen:updated");
     };
-    
+
     me.init = function () {
         me.cacheDomElements();
         me.registerEvents();
