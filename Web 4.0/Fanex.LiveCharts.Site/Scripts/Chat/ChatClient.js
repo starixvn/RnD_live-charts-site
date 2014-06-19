@@ -16,8 +16,8 @@ function ChatClient(chatUser, chatRoom, chatUserInRoom) {
     me.lastMessageBelongToChatUserId = 0;
     me.firstMessageBelongToChatUserId = 0;
     me.isNextMessageFromSameUser = false;
-    me.numberOfHistoryMessagesShowing = 12;
-    me.numberOfHistoryMessagesPaging = 100;
+    me.numberOfHistoryMessagesShowing = 2;
+    me.numberOfHistoryMessagesPaging = 3;
     me.currentHistoryIndex = 0;
     me.currentHistoryTime = null;
     me.stillHaveHistoryMessage = false;
@@ -31,6 +31,10 @@ function ChatClient(chatUser, chatRoom, chatUserInRoom) {
     me.userColor = '#f00';
     me.isRoomMute = chatRoom.muted;
     me.isUserMute = chatUserInRoom.muted;
+    me.thresholdMessageForHinding = 1;
+    me.startedAutoHideMessage = false;
+    me.currentMessageIndex = 0;
+    me.currentMessages = [];
     me.banWordOptions =
     {
         customSwears: []
@@ -56,7 +60,7 @@ function ChatClient(chatUser, chatRoom, chatUserInRoom) {
         me.getChatMessageHistory(true);
     };
 
-    me.addMessage = function (chatMessage, stopScrollTop) {
+    me.addMessage = function (chatMessage, isLoadingHisotryMessage) {
         me.isNextMessageFromSameUser = me.lastMessageBelongToChatUserId === chatMessage.ChatUser.ChatUserId;
         chatMessage = me.preProcessMessage(chatMessage);
         if (typeof me.userList[chatMessage.ChatUser.ChatUserId] === 'undefined') {
@@ -67,15 +71,44 @@ function ChatClient(chatUser, chatRoom, chatUserInRoom) {
 
         var messageText = me.buildMessage(chatMessage, me.isNextMessageFromSameUser);
 
-        me.lastMessageBelongToChatUserId = chatMessage.IsDeleted ? Math.floor((Math.random()*10000)+1) : chatMessage.ChatUser.ChatUserId;
+        me.lastMessageBelongToChatUserId = chatMessage.IsDeleted ? Math.floor((Math.random() * 10000) + 1) : chatMessage.ChatUser.ChatUserId;
 
         me.$mainChatRoom.append(messageText);
-        if (!stopScrollTop) {
+        if (!isLoadingHisotryMessage) {
             me.scrollTop();
+            me.currentMessages.push(chatMessage);
+            if (me.currentMessages.length > me.thresholdMessageForHinding) {
+                me.startedAutoHideMessage = true;
+            }
         }
 
         if (me.isBrowserHidden) {
             me.playSound(DEFAULT_OBJECT.notificationSound);
+        }
+
+        me.checkAndAutoHideMessage();
+    };
+
+    me.checkAndAutoHideMessage = function () {
+        if (me.startedAutoHideMessage) {
+            var lastMessage = me.$mainChatRoom.find('li:first-child');
+
+            while (lastMessage.hasClass('notification-container')) {
+                lastMessage.remove();
+                lastMessage = me.$mainChatRoom.find('li:first-child');
+            }
+
+            if (lastMessage.length > 0) {
+                me.currentHistoryTime = lastMessage.attr('data-chat-time');
+                lastMessage.next().find('.message-chat-name').show();
+                lastMessage.remove();
+                if (me.currentHistoryIndex > 0) {
+                    me.currentHistoryIndex--;
+                }
+                else {
+                    me.historyMessages.unshift(me.currentMessages.shift());
+                }
+            }
         }
     };
 
@@ -112,7 +145,8 @@ function ChatClient(chatUser, chatRoom, chatUserInRoom) {
         return '<li class="chat-message"'
                     + ' data-message-id="' + chatMessage.ChatMessageId + '"'
                     + ' data-chat-user-id="' + chatMessage.ChatUser.ChatUserId + '"'
-                    + ( chatMessage.IsDeleted ? ' style="display:none;"' : '')
+                    + (chatMessage.IsDeleted ? ' style="display:none;"' : '')
+                    + ' data-chat-time="' + chatMessage.CreateTime + '"'
                     + '>'
                     + '<div class="message-chat-name" style="color:' + me.userList[chatMessage.ChatUser.ChatUserId] + ';' 
                             + (isNextMessageFromSameUser ? 'display:none;' : '') + '">'
@@ -397,7 +431,7 @@ function ChatClient(chatUser, chatRoom, chatUserInRoom) {
     };
 
     me.appendUserNotification = function (htmlMessage, messageClass) {
-        me.$mainChatRoom.append('<li class="chat-message">'
+        me.$mainChatRoom.append('<li class="chat-message notification-container">'
                     + '<div class="message-content notification-content">'
                         + '<div class="message-content-main ' + messageClass + '">'
                                 + htmlMessage
