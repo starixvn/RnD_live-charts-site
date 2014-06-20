@@ -355,10 +355,36 @@ function ChatClient(chatUser, chatRoom, chatUserInRoom) {
                     me.lastMessageBelongToChatUserId = 0;
                 }
                 deleteMessageElement.hide();
-
             }
             else {
                 deleteMessageElement.show();
+            }
+
+            me.updateChatMessageLocalCache(chatMessageId, isDeleted);
+        }
+    };
+
+    me.updateChatMessageLocalCache = function (chatMessageId, isDeleted) {
+        var combineMessage = me.historyMessages.concat(me.currentMessages),
+            messageLength = combineMessage.length;
+
+        for (var i = 0; i < messageLength; i++) {
+            var currentMessage = combineMessage[i];
+            if (currentMessage.ChatMessageId === chatMessageId) {
+                currentMessage.IsDeleted = isDeleted;
+                return;
+            }
+        }
+    };
+
+    me.updateChatMessageLocalCacheByChatUser = function (chatUserId, isDeleted) {
+        var combineMessage = me.historyMessages.concat(me.currentMessages),
+            messageLength = combineMessage.length;
+
+        for (var i = 0; i < messageLength; i++) {
+            var currentMessage = combineMessage[i];
+            if (currentMessage.ChatUser.ChatUserId === chatUserId) {
+                currentMessage.IsDeleted = isDeleted;
             }
         }
     };
@@ -373,6 +399,8 @@ function ChatClient(chatUser, chatRoom, chatUserInRoom) {
             else {
                 deleteMessageElement.show();
             }
+
+            me.updateChatMessageLocalCacheByChatUser(chatUserId, isDeleted);
         }
     };
 
