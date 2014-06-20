@@ -103,9 +103,18 @@ function ChatClient(chatUser, chatRoom, chatUserInRoom) {
                 lastMessage.next().find('.message-chat-name').show();
                 lastMessage.remove();
                 if (me.currentHistoryIndex > 0) {
+                    if (me.currentHistoryIndex === me.historyMessages.length) {
+                        me.$btnShowHistoryMessage.unbind('click').click(me.showPreviousMessagesNew).show();
+                    }
+
                     me.currentHistoryIndex--;
                 }
                 else {
+                    if (me.historyMessages.length === 0) {
+                        me.$btnShowHistoryMessage.unbind('click').click(me.showPreviousMessagesNew).show();
+                        me.newestTime = moment().zone(me.formatTimer.timeZone);
+                        me.oldestTime = moment().zone(me.formatTimer.timeZone);
+                    }
                     me.historyMessages.unshift(me.currentMessages.shift());
                 }
             }
@@ -153,7 +162,7 @@ function ChatClient(chatUser, chatRoom, chatUserInRoom) {
                             + chatMessage.ChatUser.ChatName
                         + ':</div>'
                     + '<div class="message-content">'
-                        + '<div class="message-content-main">' + chatMessage.Content + '</div>'
+                        + '<div class="message-content-main">' + chatMessage.ContentBeProcessed + '</div>'
                         + '<div class="message-content-time">' + chatMessage.MessageTime + '</div>'
                     + '</div>'
                 + '</li>';
@@ -164,7 +173,7 @@ function ChatClient(chatUser, chatRoom, chatUserInRoom) {
         chatMessage.Content = chatMessage.Content.replace(/\r\n/g, "<br />").replace(/\n/g, "<br />");
         var tempDiv = $('<div>' + chatMessage.Content + '</div>'),
             chatMessageContent = tempDiv.emoticons(DEFAULT_OBJECT.emoticonsFolder).profanityFilter(me.banWordOptions);
-        chatMessage.Content = chatMessageContent.html();
+        chatMessage.ContentBeProcessed = chatMessageContent.html();
         chatMessageContent = null;
 
         return chatMessage;
@@ -244,7 +253,7 @@ function ChatClient(chatUser, chatRoom, chatUserInRoom) {
     };
 
     me.addDistinguishLine = function (currentChatMessageTime, isHistory) {
-        var timeLineHtml = '<li class="chat-message">'
+        var timeLineHtml = '<li class="chat-message notification-container">'
                     + '<div class="message-content time-content">'
                         + '<div class="message-content-main">----- '
                                 + currentChatMessageTime.format(me.formatTimer.timeLine)
