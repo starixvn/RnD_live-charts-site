@@ -28,6 +28,10 @@ namespace Fanex.LiveCharts.Chat.Models
 
         public bool Muted { get; set; }
 
+        public int MutePeriod { get; set; }
+
+        public int CurrentMuteMinutes { get; set; }
+
         public ChatUser ChatUser { get; set; }
 
         public ChatRoom ChatRoom { get; set; }

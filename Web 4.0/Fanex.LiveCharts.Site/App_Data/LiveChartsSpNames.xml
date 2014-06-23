@@ -172,5 +172,10 @@
     <Setting Key="Chart_Chat_Insert_Ban_Words" SpName="Chart_Chat_Insert_Ban_Words" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
     <Setting Key="Chart_Chat_Update_Ban_Word_Status" SpName="Chart_Chat_Update_Ban_Word_Status" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
     <Setting Key="Chart_Chat_Update_Ban_Word_Text" SpName="Chart_Chat_Update_Ban_Word_Text" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
+
+    <Setting Key="Chart_Chat_Update_Reset_Chat_Name" SpName="Chart_Chat_Update_Reset_Chat_Name" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Update_Chat_Name" SpName="Chart_Chat_Update_Chat_Name" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
+    
+    
   </Function>
 </Functions>

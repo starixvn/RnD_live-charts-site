@@ -106,6 +106,7 @@
     <Compile Include="Criteria\UpdateBanWordStatusCriteria.cs" />
     <Compile Include="Criteria\UpdateBanWordTextCriteria.cs" />
     <Compile Include="Criteria\UpdateChatMessageOfChatUserCriteria.cs" />
+    <Compile Include="Criteria\UpdateChatNameCriteria.cs" />
     <Compile Include="Criteria\UpdateChatRoomStatusByMatchIdCriteria.cs" />
     <Compile Include="Criteria\UpdateChatUserAgreeTermsCriteria.cs" />
     <Compile Include="Criteria\UpdateKickOutChatUserCriteria.cs" />
@@ -115,6 +116,7 @@
     <Compile Include="Criteria\UpdateChatUserInRoomCriteria.cs" />
     <Compile Include="Criteria\UpdateMuteChatRoomCriteria.cs" />
     <Compile Include="Criteria\UpdateMuteChatUserCriteria.cs" />
+    <Compile Include="Criteria\UpdateResetChatNameCriteria.cs" />
     <Compile Include="Hubs\ChatHub.cs" />
     <Compile Include="Hubs\IChatHub.cs" />
     <Compile Include="Models\BanWord.cs" />
