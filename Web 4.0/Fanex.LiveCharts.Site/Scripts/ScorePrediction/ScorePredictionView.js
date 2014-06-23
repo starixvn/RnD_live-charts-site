@@ -65,6 +65,8 @@ function ScorePredictionView(defaultValue) {
                     });
                 }
                 else {
+                    result.HomeScore = '';
+                    result.AwayScore = '';
                     me.$messageNoVotingInfo.show();
                 }
 
@@ -80,18 +82,16 @@ function ScorePredictionView(defaultValue) {
                 LIVECHARTS.alertMessage(LIVECHARTS.messageType.error, LANGUAGE.scorePredictionStopMessage);
             }
             else {
-                if (!me.isFreezeSubmit) {
-                    me.isFreezeSubmit = true;
-                    me.$btnSubmitPrediction.addClass('disabled');
-                    var freezeSubmitTimeOutId = setTimeout(function () {
-                        me.isFreezeSubmit = false;
-                        me.$btnSubmitPrediction.removeClass('disabled');
-                        clearTimeout(freezeSubmitTimeOutId);
-                    }, 5000);
+                var homeScore = me.$txtHomeScore.val(),
+                    awayScore = me.$txtAwayScore.val();
 
+                if (!me.isValidInput(homeScore, awayScore)) {
+                    return;
+                }
+
+                if (!me.isFreezeSubmit) {
+                    me.disableSubmitInput();
                     //// Get Data and submit prediction.
-                    var homeScore = me.$txtHomeScore.val();
-                    var awayScore = me.$txtAwayScore.val();
                     me.insertOrUpdateScorePrediction({
                         memberId: me.memberId,
                         matchId: defaultValue.matchId,
@@ -101,6 +101,31 @@ function ScorePredictionView(defaultValue) {
                 }
             }
         });
+
+        me.isValidInput = function (homeScore, awayScore) {
+            if (homeScore === '') {
+                LIVECHARTS.alertMessage(LIVECHARTS.messageType.error, LANGUAGE.invalidInput);
+                me.$txtHomeScore.focus();
+                return false;
+            }
+            else if (awayScore === '') {
+                LIVECHARTS.alertMessage(LIVECHARTS.messageType.error, LANGUAGE.invalidInput);
+                me.$txtAwayScore.focus();
+                return false;
+            }
+
+            return true;
+        };
+
+        me.disableSubmitInput = function () {
+            me.isFreezeSubmit = true;
+            me.$btnSubmitPrediction.addClass('disabled');
+            var freezeSubmitTimeOutId = setTimeout(function () {
+                me.isFreezeSubmit = false;
+                me.$btnSubmitPrediction.removeClass('disabled');
+                clearTimeout(freezeSubmitTimeOutId);
+            }, 5000);
+        };
 
         me.$fullResultLink.unbind('click').click(function () {
             window.open(me.url.resultPage
@@ -152,7 +177,7 @@ function ScorePredictionView(defaultValue) {
             data: params,
             useBlockUI: false,
             done: function (result) {
-                
+
                 var resultArray = me.scorePrediction.getCorrectScoreResult(result);
                 var scoreOption = me.scorePrediction.getScoreOption(resultArray, LANGUAGE.correctScore);
                 me.resultChart = me.$smallContainerResult.highcharts(scoreOption);
@@ -209,6 +234,6 @@ function ScorePredictionView(defaultValue) {
 
 
 $(function () {
-        var scorePredictionView = new ScorePredictionView(SCORE_PREDICTION);
-        scorePredictionView.init();
+    var scorePredictionView = new ScorePredictionView(SCORE_PREDICTION);
+    scorePredictionView.init();
 });

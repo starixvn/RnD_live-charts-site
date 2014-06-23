@@ -757,7 +757,7 @@ function ChatMonitor() {
             }
         }
 
-        return onlineUsers.concat(offLineUser).concat(mutedUsers).concat(kickedOutUsers).concat(bannedUsers);
+        return mutedUsers.concat(onlineUsers).concat(offLineUser).concat(kickedOutUsers).concat(bannedUsers);
     };
 
     me.searchByChatUserEvent = function () {

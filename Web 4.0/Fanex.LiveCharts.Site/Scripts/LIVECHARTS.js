@@ -55,31 +55,36 @@ var LIVECHARTS = {
     },
     alertMessage: function (messageType, messageText, timeOut) {
         'use strict';
+        if (LIVECHARTS.messageTimeOutId) {
+            clearTimeout(LIVECHARTS.messageTimeOutId);
+        }
+
         var $message = $('#messageNotification');
+        $message.hide();
         var $body = $('body');
         if ($message.length === 0) {
             $message = $('<div id="messageNotification" style="display:none;"></div>').appendTo($body);
         }
+        $message.empty();
         timeOut = timeOut || 3000;
         switch (messageType) {
             case LIVECHARTS.messageType.success:
-                $message.addClass('valid-message').removeClass('error-message');
+                $message.removeClass('error-message').addClass('valid-message');
                 break;
             case LIVECHARTS.messageType.error:
-                $message.addClass('error-message').removeClass('valid-message');
+                $message.removeClass('valid-message').addClass('error-message');
                 timeOut = 5000;
                 break;
         }
 
-        $message.empty().html(messageText).show();
-        $message.css({
+        $message.html(messageText).show().css({
             left: ($body.width() / 2) - ($message.width() / 2 + 30) + 'px'
         });
 
 
-        var timeOutId = setTimeout(function () {
+        LIVECHARTS.messageTimeOutId = setTimeout(function () {
             $message.hide();
-            clearTimeout(timeOutId);
+            clearTimeout(LIVECHARTS.messageTimeOutId);
         }, timeOut);
     },
     parseJSON: function (value) {
