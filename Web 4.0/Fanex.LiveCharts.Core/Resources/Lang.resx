@@ -518,4 +518,25 @@ Please be considered and do not use any offensive nickname.</value>
   <data name="UpdateFailed" xml:space="preserve">
     <value>Update failed!</value>
   </data>
+  <data name="TheRoomWillBeClosed" xml:space="preserve">
+    <value>The room will be closed in {0} minute(s).</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="UpdateChatName" xml:space="preserve">
+    <value>Update Chat Name</value>
+  </data>
+  <data name="YouHaveBeenBanned" xml:space="preserve">
+    <value>You have been banned from chat room service!</value>
+  </data>
+  <data name="YouHaveBeenKicked" xml:space="preserve">
+    <value>You have been kicked out from this chat room!</value>
+  </data>
+  <data name="YouHaveBeenMuted" xml:space="preserve">
+    <value>You have been muted.</value>
+  </data>
+  <data name="YouHaveBeenMutedIn" xml:space="preserve">
+    <value>You have been muted in {0} seconds.</value>
+  </data>
 </root>

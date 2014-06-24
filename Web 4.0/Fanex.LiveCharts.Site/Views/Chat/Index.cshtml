@@ -29,7 +29,9 @@
                     id="memberOnline">0</span>
             </div>
             <div class="timer-container">
-                <span id="matchCompletedMessage" class="match-completed-message" style="display:none;">The room will be closed in <span id="minuteToCompletedRoom">10</span> minute(s).</span>
+                <span id="matchCompletedMessage" class="match-completed-message" style="display:none;">
+                    @Html.Raw(string.Format(Lang.TheRoomWillBeClosed, "<span id='minuteToCompletedRoom'>10</span>"))
+                </span>
                 <span class="timer-text">@(Lang.GMTPlus8):</span> <span class="gmt-8-timer" id="gmt8Timer">
                 </span>
             </div>
@@ -52,12 +54,13 @@
     </div>
 </div>
 <!-- Modal -->
-@if(string.IsNullOrEmpty(Model.ChatUser.ChatName))
-{ 
-    <div id="popupCreateChatName" class="modal hide fade" tabindex="-1" role="dialog"
+@if(string.IsNullOrEmpty(Model.ChatUser.ChatName) || Model.ChatUser.IsResetChatName)
+{
+    var isReset = Model.ChatUser.IsResetChatName;
+    <div id="popupCreateOrEditChatName" class="modal hide fade" tabindex="-1" role="dialog"
         aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-header">
-            <h3>@Lang.CreateChatName</h3>
+            <h3>@(isReset ? Lang.UpdateChatName : Lang.CreateChatName)</h3>
         </div>
         <div class="modal-body">
             <form class="bs-docs-example form-horizontal">
@@ -67,13 +70,13 @@
             <div class="control-group">
                 <label class="control-label" for="txtChatName">@Lang.ChatName:</label>
                 <div class="controls">
-                    <input type="text" id="txtChatName" placeholder="@Lang.ChatName"/>
+                    <input type="text" id="txtChatName" placeholder="@Lang.ChatName" value="@(isReset ? Model.ChatUser.ChatName : string.Empty)" />
                 </div>
             </div>
             </form>
         </div>
         <div class="modal-footer">
-            <button class="btn" id="btnCreateChatName">@Lang.Create</button>
+            <button class="btn" id="btnCreateOrUpdateChatName">@(isReset ? Lang.Update : Lang.Create)</button>
         </div>
     </div>
 }
@@ -155,7 +158,8 @@
             chatUserId: @(Model.ChatUser.ChatUserId),
             chatName: '@(Model.ChatUser.ChatName)',
             isBanned: '@(Model.ChatUser.IsBanned)',
-            agreedTerms: @(Model.ChatUser.AgreedTerms ? "true" : "false")
+            agreedTerms: @(Model.ChatUser.AgreedTerms ? "true" : "false"),
+            isResetChatName: @(Model.ChatUser.IsResetChatName ? "true" : "false")
         }
 
         var CURRENT_TIME_FORMAT = 
@@ -179,7 +183,7 @@
             getCurrentRoom: '@(Url.Action("GetCurrentRoom","Chat"))',
             getBanWordsUrl: '@(Url.Action("GetBannedWords","Chat"))',
             chatCompletedPage: '@(Url.Action("ChatRoomCompleted","Chat"))',
-            updateChatName: '@(Url.Action("UpdateChatName","Chat"))',
+            updateChatNameUrl: '@(Url.Action("UpdateChatName","Chat"))',
             maxMessageLength: @(maxMessageLength)
         }
 

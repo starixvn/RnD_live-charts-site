@@ -139,8 +139,8 @@ function ChatWindow() {
         me.$btnEmotiocons = $('#emobitonButton');
         me.$gmt8Timer = $('#gmt8Timer');
         me.$btnEmoticon = $('#btnEmoticon');
-        me.$btnCreateChatName = $('#btnCreateChatName');
-        me.$popupCreateChatName = $('#popupCreateChatName');
+        me.$btnCreateOrUpdateChatName = $('#btnCreateOrUpdateChatName');
+        me.$popupCreateOrEditChatName = $('#popupCreateOrEditChatName');
         me.$txtChatName = $('#txtChatName');
         me.$btnMultiline = $('#btnMultiline');
         me.$btnAgreeTerms = $('#btnAgreeTerms');
@@ -169,11 +169,11 @@ function ChatWindow() {
     };
 
     me.checkValidUser = function () {
-        if (me.chatUser.chatName === '') {
-            me.$popupCreateChatName.modal({
+        if (me.chatUser.chatName === '' || me.chatUser.isResetChatName) {
+            me.$popupCreateOrEditChatName.modal({
                 backdrop: 'static'
             });
-            me.$btnCreateChatName.unbind('click').click(me.insertChatUser);
+            me.$btnCreateOrUpdateChatName.unbind('click').click(me.insertOrUpdateChatUser);
             me.$txtChatName.unbind('keypress').keypress(me.onKeyPressForInsertingChatUser);
         }
         else {
@@ -254,7 +254,7 @@ function ChatWindow() {
     me.onKeyPressForInsertingChatUser = function (event) {
         if (event.which === 13) {
             event.preventDefault();
-            me.insertChatUser();
+            me.insertOrUpdateChatUser();
         }
     };
 
@@ -318,42 +318,73 @@ function ChatWindow() {
 
     //// Connect and Ajax
 
-    me.insertChatUser = function () {
-        var chatName = me.$txtChatName.val();
+    me.insertOrUpdateChatUser = function () {
+        var chatName = me.$txtChatName.val(),
+            url = '',
+            data = null,
+            resultHandler = null;
         if (me.validateChatName(chatName)) {
-            LIVECHARTS.callAjax({
-                url: me.url.insertChatUserUrl,
-                type: 'POST',
-                data: {
+            if (me.chatUser.isResetChatName) {
+                url = DEFAULT_OBJECT.updateChatNameUrl;
+                resultHandler = me.handleUpdateChatNameResult;
+                data = {
+                    chatUserId: me.chatUser.chatUserId,
+                    chatName: chatName
+                };
+            }
+            else {
+                url = me.url.insertChatUserUrl;
+                resultHandler = me.handleInsertChatUserCommandResult;
+                data = {
                     memberId: me.chatUser.memberId,
                     chatName: chatName
-                },
+                };
+            }
+
+            LIVECHARTS.callAjax({
+                url: url,
+                type: 'POST',
+                data: data,
                 useBlockUI: false,
                 done: function (result) {
-                    if (result && result.CommandResult.IsSuccessful) {
-                        me.$popupCreateChatName.modal('hide');
-                        me.chatUser.chatUserId = result.InsertedId;
-                        me.chatUser.chatName = LIVECHARTS.htmlEncode(chatName);
-                        DEFAULT_OBJECT.welcomeMessage = LIVECHARTS.htmlEncode(DEFAULT_OBJECT.welcomeMessage.split('{0}').join(me.chatUser.chatName));
-                        me.askJoinRoom(true);
-                    }
-                    else {
-                        if (result && result.CommandResult.Code === me.alreadyInsertCode) {
-                            setTimeout(function () {
-                                window.location.href = window.location.href;
-                            }, 3000);
-                        }
-
-                        if (result && result.CommandResult.Code === me.memberBannedByDefaultCode) {
-                            location.href = DEFAULT_OBJECT.kickedOutPage;
-                            return;
-                        }
-
-                        LIVECHARTS.alertMessage(LIVECHARTS.messageType.error, result.CommandResult.Message);
-                    }
+                    resultHandler(result, chatName);
                 }
             });
         }
+    };
+
+    me.handleInsertChatUserCommandResult = function (result, chatName) {
+        if (result && result.CommandResult.IsSuccessful) {
+            me.chatUser.chatUserId = result.InsertedId;
+            me.actionAfterModifiedSuccess(chatName);
+        }
+        else {
+            if (result && result.CommandResult.Code === me.alreadyInsertCode) {
+                setTimeout(function () {
+                    window.location.href = window.location.href;
+                }, 3000);
+            }
+
+            if (result && result.CommandResult.Code === me.memberBannedByDefaultCode) {
+                location.href = DEFAULT_OBJECT.kickedOutPage;
+                return;
+            }
+
+            LIVECHARTS.alertMessage(LIVECHARTS.messageType.error, result.CommandResult.Message);
+        }
+    };
+
+    me.handleUpdateChatNameResult = function (result, chatName) {
+        if (result && result.IsSuccessful) {
+            me.actionAfterModifiedSuccess(chatName);
+        }
+    };
+
+    me.actionAfterModifiedSuccess = function (chatName) {
+        me.chatUser.chatName = LIVECHARTS.htmlEncode(chatName);
+        me.$popupCreateOrEditChatName.modal('hide');
+        DEFAULT_OBJECT.welcomeMessage = LIVECHARTS.htmlEncode(DEFAULT_OBJECT.welcomeMessage.split('{0}').join(me.chatUser.chatName));
+        me.askJoinRoom(true);
     };
 
     me.validateChatName = function (chatName) {

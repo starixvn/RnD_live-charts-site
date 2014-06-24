@@ -1110,6 +1110,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The room will be closed in {0} minute(s)..
+        /// </summary>
+        public static string TheRoomWillBeClosed {
+            get {
+                return ResourceManager.GetString("TheRoomWillBeClosed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Time:.
         /// </summary>
         public static string Time {
@@ -1151,6 +1160,24 @@ namespace Fanex.LiveCharts.Resources {
         public static string Underdog {
             get {
                 return ResourceManager.GetString("Underdog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update.
+        /// </summary>
+        public static string Update {
+            get {
+                return ResourceManager.GetString("Update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Chat Name.
+        /// </summary>
+        public static string UpdateChatName {
+            get {
+                return ResourceManager.GetString("UpdateChatName", resourceCulture);
             }
         }
         
@@ -1232,6 +1259,42 @@ namespace Fanex.LiveCharts.Resources {
         public static string YouAreDisconnect {
             get {
                 return ResourceManager.GetString("YouAreDisconnect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have been banned from chat room service!.
+        /// </summary>
+        public static string YouHaveBeenBanned {
+            get {
+                return ResourceManager.GetString("YouHaveBeenBanned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have been kicked out from this chat room!.
+        /// </summary>
+        public static string YouHaveBeenKicked {
+            get {
+                return ResourceManager.GetString("YouHaveBeenKicked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have been muted..
+        /// </summary>
+        public static string YouHaveBeenMuted {
+            get {
+                return ResourceManager.GetString("YouHaveBeenMuted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have been muted in {0} seconds..
+        /// </summary>
+        public static string YouHaveBeenMutedIn {
+            get {
+                return ResourceManager.GetString("YouHaveBeenMutedIn", resourceCulture);
             }
         }
         

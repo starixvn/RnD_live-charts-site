@@ -125,6 +125,7 @@
     <Compile Include="Models\ChatRoom.cs" />
     <Compile Include="Models\ChatUser.cs" />
     <Compile Include="Models\ChatUserInRoom.cs" />
+    <Compile Include="Models\ChatUserStatus.cs" />
     <Compile Include="Models\MemberInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ChatRepository.cs" />
@@ -132,6 +133,7 @@
     <Compile Include="Services\ChatService.cs" />
     <Compile Include="Services\IChatService.cs" />
     <Compile Include="ViewModels\BanChatUserViewModel.cs" />
+    <Compile Include="ViewModels\KickedOutViewModel.cs" />
     <Compile Include="ViewModels\UpdateBanListUserViewModel.cs" />
     <Compile Include="ViewModels\ChatMonitorViewModel.cs" />
     <Compile Include="ViewModels\ChatViewModel.cs" />

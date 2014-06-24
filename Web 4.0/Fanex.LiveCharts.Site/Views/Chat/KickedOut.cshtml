@@ -1,7 +1,20 @@
-﻿@model int
+﻿@using Fanex.LiveCharts.Chat.ViewModels
+@using Fanex.LiveCharts.Chat.Models
+@model KickedOutViewModel
 @{
     Layout = "~/Views/Shared/_AnnouncementLayout.cshtml";
-    ViewBag.Title = Lang.SorrryChatUnavailable;
+    switch(Model.ChatUserStatus)
+    {
+        case ChatUserStatus.KickedOut:
+            ViewBag.Title = Lang.YouHaveBeenKicked;
+            break;
+        case ChatUserStatus.Banned:
+            ViewBag.Title = Lang.YouHaveBeenBanned;
+            break;
+        default:
+            ViewBag.Title = Lang.SorrryChatUnavailable;
+            break;
+    }
 }
 
 
@@ -11,7 +24,7 @@
         var KICK_OUT_DEFUALT = 
         {
             getInformationForReEnterUrl: '@(Url.Action("GetInformationForReEnterPage", "Chat"))',
-            chatPage: '@(Url.Action("Index", "Chat"))?matchId=@(Model)'
+            chatPage: '@(Url.Action("Index", "Chat"))?matchId=@(Model.MatchId)'
         };
     </script>
     @Scripts.Render("~/bundles/kickoutpagejs")

@@ -71,21 +71,21 @@ namespace Fanex.LiveCharts.Chat.Controllers
 
                 if (memberInfo != null && memberInfo.IsBanned)
                 {
-                    return RedirectToAction("KickedOut", new { matchId = matchId });
+                    return RedirectToAction("KickedOut", new { matchId = matchId, chatUserStatus = (int)ChatUserStatus.Banned });
                 }
             }
             else
             {
                 if (chatUser.IsBanned)
                 {
-                    return RedirectToAction("KickedOut", new { matchId = matchId });
+                    return RedirectToAction("KickedOut", new { matchId = matchId, chatUserStatus = (int)ChatUserStatus.Banned });
                 }
             }
 
             var chatViewModel = GetChatRoomInformation(matchId, chatUser);
             if (chatViewModel.ChatUserInRoom.KickedOut || chatViewModel.ChatRoom.Disabled)
             {
-                return RedirectToAction("KickedOut", new { matchId = matchId });
+                return RedirectToAction("KickedOut", new { matchId = matchId, chatUserStatus = (int)ChatUserStatus.KickedOut });
             }
 
             return View(chatViewModel);
@@ -96,9 +96,13 @@ namespace Fanex.LiveCharts.Chat.Controllers
             return View();
         }
 
-        public ActionResult KickedOut(int matchId)
+        public ActionResult KickedOut(int matchId, int chatUserStatus = (int)ChatUserStatus.KickedOut)
         {
-            return View(matchId);
+            return View(new KickedOutViewModel
+                {
+                    MatchId = matchId,
+                    ChatUserStatus = (ChatUserStatus)chatUserStatus
+                });
         }
 
         public ActionResult ChatRoomCompleted()
@@ -278,8 +282,14 @@ namespace Fanex.LiveCharts.Chat.Controllers
                     ChatUserId = chatUser.ChatUserId,
                     ChatRoomId = chatRoom.ChatRoomId
                 });
-
-                welcomeMessage.SettingValue = string.Format(Lang.WelcomeMessage, chatUser.ChatName);
+                if (chatUser.IsResetChatName)
+                {
+                    welcomeMessage.SettingValue = Lang.WelcomeMessage;
+                }
+                else
+                {
+                    welcomeMessage.SettingValue = string.Format(Lang.WelcomeMessage, chatUser.ChatName);
+                }
             }
             else
             {
