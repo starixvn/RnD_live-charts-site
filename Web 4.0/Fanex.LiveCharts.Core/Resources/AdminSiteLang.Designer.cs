@@ -304,7 +304,7 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Chat User Banned Management.
+        ///   Looks up a localized string similar to Chat User Management.
         /// </summary>
         public static string ChatUserBannedManagement {
             get {

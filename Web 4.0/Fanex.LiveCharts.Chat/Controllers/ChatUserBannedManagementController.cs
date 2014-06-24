@@ -68,5 +68,11 @@ namespace Fanex.LiveCharts.Chat.Controllers
         {
             return Json(_chatService.UpdateMembersBanned(criteria));
         }
+
+        [HttpPost]
+        public JsonResult ResetChatName(UpdateResetChatNameStatusCriteria criteria)
+        {
+            return Json(_chatService.ResetChatName(criteria));
+        }
     }
 }

@@ -25,6 +25,8 @@ namespace Fanex.LiveCharts.Chat.Criteria
 
         public bool IsMute { get; set; }
 
+        public int MutePeriod { get; set; }
+
         public override string GetSettingKey()
         {
             return "Chart_Chat_Update_Mute_Chat_User";

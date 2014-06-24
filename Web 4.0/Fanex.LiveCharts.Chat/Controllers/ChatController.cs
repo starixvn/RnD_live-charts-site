@@ -145,6 +145,14 @@ namespace Fanex.LiveCharts.Chat.Controllers
             return Json(commandResult);
         }
 
+        [HttpPost, LiveChartAuthentication]
+        public JsonResult UpdateChatName(UpdateChatNameCriteria criteria)
+        {
+            var commandResult = _chatService.UpdateChatName(criteria);
+
+            return Json(commandResult);
+        }
+
         /// <summary>
         /// Get information for chat user can re-enter page.
         /// </summary>

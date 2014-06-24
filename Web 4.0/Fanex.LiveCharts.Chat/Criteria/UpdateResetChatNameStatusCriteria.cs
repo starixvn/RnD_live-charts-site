@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="UpdateResetChatNameCriteria.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="UpdateResetChatNameStatusCriteria.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -15,20 +15,20 @@ namespace Fanex.LiveCharts.Chat.Criteria
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class UpdateResetChatNameCriteria : CriteriaBase
+    public class UpdateResetChatNameStatusCriteria : CriteriaBase
     {
-        public int ChatUserId { get; set; }
+        public string ChatUserIds { get; set; }
 
         public bool IsResetChatName { get; set; }
 
         public override string GetSettingKey()
         {
-            return "Chart_Chat_Update_Reset_Chat_Name";
+            return "Chart_Chat_Update_Reset_Chat_Name_Status";
         }
 
         public override bool IsValid()
         {
-            return ChatUserId > 0;
+            return !string.IsNullOrEmpty(ChatUserIds);
         }
     }
 }

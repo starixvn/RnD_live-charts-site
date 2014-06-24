@@ -116,7 +116,7 @@
     <Compile Include="Criteria\UpdateChatUserInRoomCriteria.cs" />
     <Compile Include="Criteria\UpdateMuteChatRoomCriteria.cs" />
     <Compile Include="Criteria\UpdateMuteChatUserCriteria.cs" />
-    <Compile Include="Criteria\UpdateResetChatNameCriteria.cs" />
+    <Compile Include="Criteria\UpdateResetChatNameStatusCriteria.cs" />
     <Compile Include="Hubs\ChatHub.cs" />
     <Compile Include="Hubs\IChatHub.cs" />
     <Compile Include="Models\BanWord.cs" />

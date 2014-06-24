@@ -439,7 +439,7 @@
     <value>Banned</value>
   </data>
   <data name="ChatUserBannedManagement" xml:space="preserve">
-    <value>Chat User Banned Management</value>
+    <value>Chat User Management</value>
   </data>
   <data name="ListOnlineUsers" xml:space="preserve">
     <value>List online user</value>

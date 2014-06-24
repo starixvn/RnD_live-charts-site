@@ -780,6 +780,7 @@ namespace Fanex.LiveCharts.Chat.Services
                         Message = Lang.InsertUserErrorMessage1001
                     };
                     break;
+
                 case 1002: //// Already have chat name.
                     insertResult.CommandResult = new CommandResult
                     {
@@ -939,7 +940,21 @@ namespace Fanex.LiveCharts.Chat.Services
             return banWords;
         }
 
-        #endregion
+        public ICommandResult ResetChatName(UpdateResetChatNameStatusCriteria criteria)
+        {
+            var updateResult = _chatRepository.ModifyData(criteria);
+
+            return updateResult;
+        }
+
+        public ICommandResult UpdateChatName(UpdateChatNameCriteria criteria)
+        {
+            var updateResult = _chatRepository.ModifyData(criteria);
+
+            return updateResult;
+        }
+
+        #endregion Ban Words Management
 
         #region Export Excel
 

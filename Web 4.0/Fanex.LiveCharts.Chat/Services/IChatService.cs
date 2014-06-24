@@ -110,6 +110,10 @@ namespace Fanex.LiveCharts.Chat.Services
 
         ICommandResult UpdateMuteChatUserOnMemberSite(UpdateMuteChatUserViewModel muteChatUser);
 
+        ICommandResult ResetChatName(UpdateResetChatNameStatusCriteria criteria);
+
+        ICommandResult UpdateChatName(UpdateChatNameCriteria criteria);
+
         #region Ban Words Management
 
         ICommandResult UpdateBanWordText(UpdateBanWordTextCriteria criteria);

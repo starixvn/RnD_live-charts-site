@@ -23,6 +23,8 @@ namespace Fanex.LiveCharts.Chat.Criteria
         [SpParam(Ignored = true)]
         public string ChatRoomName { get; set; }
 
+        public int MutePeriod { get; set; }
+
         public override string GetSettingKey()
         {
             return "Chart_Chat_Update_Mute_Chat_Room";

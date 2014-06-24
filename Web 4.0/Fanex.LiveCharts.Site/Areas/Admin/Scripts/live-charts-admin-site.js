@@ -188,8 +188,8 @@ if (typeof jQuery !== 'undefined') {
                     iframe.attr('src', downloadUrl);
                 }
             },
-            confirmUpdateAction: function () {
-                var ok = confirm('Do you really want to do this action?');
+            confirmUpdateAction: function (message) {
+                var ok = confirm(message || 'Do you really want to do this action?');
                 return ok;
             },
             popup: function (title, html) {

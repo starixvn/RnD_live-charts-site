@@ -29,6 +29,7 @@ function ChatUserBannedManagement() {
     me.cacheGridElements = function () {
         me.$cbBanAll = $('#cbBanAll');
         me.$cbBan = $('#chatUserGrid .banned-action');
+        me.$cbReset = $('#chatUserGrid .reset-chat-name-action');
     };
 
     me.registerEvents = function () {
@@ -39,6 +40,8 @@ function ChatUserBannedManagement() {
         //me.$cbBanAll.unbind('click').click(me.updateBanAllChatUsers);
         me.registerMenuAction();
         me.$cbBan.unbind('click').click(me.updateBanChatUser);
+        me.$cbReset.unbind('click').click(me.updateResetChatNameStatus);
+
     };
 
     me.registerMenuAction = function () {
@@ -48,35 +51,33 @@ function ChatUserBannedManagement() {
             autoHide: true,
             items: {
                 "ban": { name: "Ban All", icon: "ban" },
-                "unban": { name: "Un Ban All", icon: "un-ban" }
+                "unban": { name: "Un Ban All", icon: "un-ban" },
+                "reset": { name: "Reset Chat Name All", icon: "edit" },
+                "unreset": { name: "Un-reset Chat Name All", icon: "un-reset" }
             },
             callback: function (key) {
-                me.updateBanAllChatUsers(key === 'ban');
+                switch (key) {
+                    case 'ban':
+                    case 'unban':
+                        me.updateBanAllChatUsers(key === 'ban');
+                        break;
+                    case 'reset':
+                    case 'unreset':
+                        me.updateResetAllChatNameStatus(key === 'reset');
+                        break;
+                }
+
             }
         });
     };
 
     me.updateBanChatUser = function (event) {
-       
         var $this = $(this);
-        if ($this.prop('checked'))
-        {
-            event.preventDefault();
-        }
-
-        var chatUserId = $this.parent().parent().parent().attr('data-chat-user-id');
-
-        me.banChatUsers(chatUserId, $this.prop('checked'));
+        me.banChatUsers(me.getChatUserId($this, event), $this.prop('checked'));
     };
 
     me.updateBanAllChatUsers = function (isBanned) {
-        var chatUserIds = [],
-            chatUserLength = me.chatUsers.length;
-        for (var i = 0; i < chatUserLength; i++) {
-            chatUserIds.push(me.chatUsers[i].ChatUserId);
-        }
-
-        me.banChatUsers(chatUserIds.join(','), isBanned);
+        me.banChatUsers(me.getAllChatUserIds().join(','), isBanned);
     };
 
     me.banChatUsers = function (chatUserIds, isBanned) {
@@ -94,6 +95,57 @@ function ChatUserBannedManagement() {
             done: function (commandResult) {
                 if (commandResult.CommandResult.IsSuccessful) {
                     me.banChatUsersOnMemberSite(commandResult, isBanned);
+                    me.searchChatUser();
+                }
+                else {
+                    LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.error, commandResult.Message);
+                }
+            }
+        });
+    };
+
+    me.getChatUserId = function ($element, event) {
+        if ($element.prop('checked')) {
+            event.preventDefault();
+        }
+
+        return $element.parent().parent().parent().attr('data-chat-user-id');
+    };
+
+    me.getAllChatUserIds = function () {
+        var chatUserIds = [],
+            chatUserLength = me.chatUsers.length;
+        for (var i = 0; i < chatUserLength; i++) {
+            chatUserIds.push(me.chatUsers[i].ChatUserId);
+        }
+
+        return chatUserIds;
+    };
+
+    me.updateResetChatNameStatus = function (event) {
+        var $this = $(this);
+        me.resetChatNames(me.getChatUserId($this, event), $this.prop('checked'));
+    };
+
+    me.updateResetAllChatNameStatus = function (isReset) {
+        me.resetChatNames(me.getAllChatUserIds().join(','), isReset);
+    };
+
+    me.resetChatNames = function (chatUserIds, isReset) {
+        if (isReset && !LiveChartsAdmin.confirmUpdateAction()) {
+            return;
+        }
+
+        LiveChartsAdmin.callAjax({
+            url: me.defaultValue.resetChatNameUrl,
+            type: 'POST',
+            data: {
+                chatUserIds: chatUserIds,
+                isResetChatName: isReset
+            },
+            done: function (commandResult) {
+                if (commandResult.IsSuccessful) {
+                    LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.success, LANGUAGE.updateSuccess);
                     me.searchChatUser();
                 }
                 else {
@@ -146,20 +198,32 @@ function ChatUserBannedManagement() {
             + ' />';
     };
 
+    me.renderResetChatNameAction = function (cell) {
+        return '<input type="checkbox" class="reset-chat-name-action" '
+            + (cell.Value ? 'checked' : '')
+            + ' />';
+    };
 
     me.chatUserBannedGridOption = {
         columns: [
             { HeaderText: "#", Width: 60, Name: "No", CellAlign: 'center' },
             {
-                HeaderText: 'MemberName', Width: 300, Name: 'MemberName', CellAlign: 'center', AllowTruncate: true, CellCssClass: 'user-status'
+                HeaderText: 'Member Name', Width: 300, Name: 'MemberName', CellAlign: 'center', AllowTruncate: true, CellCssClass: 'user-status'
             },
-            { HeaderText: 'ChatName', Width: 370, Name: 'ChatName', CellAlign: 'center', AllowTruncate: true, CellCssClass: 'user-status-click-search' },
+            { HeaderText: 'Chat Name', Width: 370, Name: 'ChatName', CellAlign: 'center', AllowTruncate: true, CellCssClass: 'user-status-click-search' },
             {
                 HeaderText: 'Banned',
                 Width: 80,
-                Name: 'ChatUserAction', 
+                Name: 'ChatUserAction',
                 CellAlign: 'center',
                 CustomCellRender: me.renderChatNameAction
+            },
+            { 
+                HeaderText: 'Reset Chat Name', 
+                Width: 80,
+                Name: 'ResetChatName',
+                CellAlign: 'center',
+                CustomCellRender: me.renderResetChatNameAction 
             }
         ],
         gridExpandHeight: 195,
@@ -183,14 +247,15 @@ function ChatUserBannedManagement() {
             var currentChatUser = chatUsers[i];
             bodyRows.push({
                 Columns: [
-                { Name: "No", Value: '' },
-               { Name: "MemberName", Value: currentChatUser.MemberName },
+                   { Name: "No", Value: '' },
+                   { Name: "MemberName", Value: currentChatUser.MemberName },
 
-               { Name: "ChatName", Value: currentChatUser.ChatName },
-               {
-                   Name: "ChatUserAction",
-                   Value: currentChatUser.IsBanned
-               }
+                   { Name: "ChatName", Value: currentChatUser.ChatName },
+                   {
+                       Name: "ChatUserAction",
+                       Value: currentChatUser.IsBanned
+                   },
+                   { Name: "ResetChatName", Value: currentChatUser.IsResetChatName }
                 ],
                 CustomAttr: 'data-chat-user-id="' + currentChatUser.ChatUserId + '"'
             });

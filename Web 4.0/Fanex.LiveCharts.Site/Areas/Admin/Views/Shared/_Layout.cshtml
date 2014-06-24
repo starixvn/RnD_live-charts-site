@@ -39,10 +39,10 @@
                      <a href="javascript:void(0);">Manage Global Banned User</a>
                       <ul>
                       <li>
-                            @Html.ActionLink("Chat User Banned Management", "Index", "ChatUserBannedManagement", new { Area = "Admin" }, new { })
+                            @Html.ActionLink(AdminSiteLang.ChatUserBannedManagement, "Index", "ChatUserBannedManagement", new { Area = "Admin" }, new { })
                         </li>
                         <li>
-                            @Html.ActionLink("Member Banned By Default Management", "MemberBanByDefault", "ChatUserBannedManagement", new { Area = "Admin" }, new { })
+                            @Html.ActionLink(AdminSiteLang.MemberBanByDefault, "MemberBanByDefault", "ChatUserBannedManagement", new { Area = "Admin" }, new { })
                         </li>
                         </ul>
                 </li>
@@ -56,7 +56,7 @@
                             @Html.ActionLink("Chat", "Chat", "Setting", new { Area = "Admin" }, new { })
                         </li>
                         <li>
-                            @Html.ActionLink("Banned Word Management", "BanWordManagement", "ChatAdmin", new { Area = "Admin" }, new { })
+                            @Html.ActionLink(AdminSiteLang.BannedWordManagement, "BanWordManagement", "ChatAdmin", new { Area = "Admin" }, new { })
                         </li>
                     </ul>
                 </li>

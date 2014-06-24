@@ -34,5 +34,7 @@ namespace Fanex.LiveCharts.Chat.Models
         public DateTime ModifiedTime { get; set; }
 
         public string ConnectionId { get; set; }
+
+        public bool IsResetChatName { get; set; }
     }
 }
