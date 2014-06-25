@@ -207,7 +207,7 @@ namespace Fanex.LiveCharts.Chat.Services
 
                 if (chatHub != null)
                 {
-                    chatHub.Clients.Client(kickOutChatUser.ConnectionId).kickOutChatUser(kickOutChatUser.ChatUserId);
+                    chatHub.Clients.Client(kickOutChatUser.ConnectionId).kickOutChatUser(kickOutChatUser.ChatUserId, false);
                 }
             }
             catch (Exception ex)
@@ -456,7 +456,7 @@ namespace Fanex.LiveCharts.Chat.Services
 
                 if (chatHub != null)
                 {
-                    chatHub.Clients.All.banChatUser(banChatUser.ChatUserId);
+                    chatHub.Clients.All.banChatUser(banChatUser.ChatUserId, true);
                 }
             }
             catch (Exception ex)

@@ -37,6 +37,11 @@ namespace Fanex.LiveCharts.Chat.Models
         /// <summary>
         /// Banned status.
         /// </summary>
-        Banned = 5
+        Banned = 5,
+
+        /// <summary>
+        /// Disable chat room.
+        /// </summary>
+        DisableChatRoom = 6
     }
 }

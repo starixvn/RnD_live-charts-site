@@ -826,11 +826,47 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mute this Room in {0} minutes..
+        /// </summary>
+        public static string MuteThisRoomInMinutes {
+            get {
+                return ResourceManager.GetString("MuteThisRoomInMinutes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mute this Room in whole match time..
+        /// </summary>
+        public static string MuteThisRoomInWholeTime {
+            get {
+                return ResourceManager.GetString("MuteThisRoomInWholeTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mute this user.
         /// </summary>
         public static string MuteThisUser {
             get {
                 return ResourceManager.GetString("MuteThisUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mute this User in {0} minutes..
+        /// </summary>
+        public static string MuteThisUserInMinutes {
+            get {
+                return ResourceManager.GetString("MuteThisUserInMinutes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mute this User in whole match time..
+        /// </summary>
+        public static string MuteThisUserInWholeMatchTime {
+            get {
+                return ResourceManager.GetString("MuteThisUserInWholeMatchTime", resourceCulture);
             }
         }
         

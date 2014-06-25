@@ -1,4 +1,6 @@
-﻿@model Fanex.LiveCharts.Chat.ViewModels.ChatViewModel
+﻿@using Fanex.LiveCharts.Chat.ViewModels
+@using Fanex.LiveCharts.Chat.Models
+@model ChatViewModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -174,7 +176,9 @@
             emoticonsFolder: '@Url.Content("~/Scripts/Libs/Emoticon/Images")',
             notificationSound: '@Url.Content("~/Content/Sounds/chat")',
             disconnectPage: '@Url.Action("YouAreDisconnect", "Chat")',
-            kickedOutPage: '@(Url.Action("KickedOut", "Chat"))?matchId=@(ViewBag.MatchId)',
+            kickedOutPage: '@(Url.Action("KickedOut", "Chat"))?matchId=@(ViewBag.MatchId)&chatUserStatus=@((int)ChatUserStatus.KickedOut)',
+            bannedPage: '@(Url.Action("KickedOut", "Chat"))?matchId=@(ViewBag.MatchId)&chatUserStatus=@((int)ChatUserStatus.Banned)',
+            disabledRoomPage: '@(Url.Action("KickedOut", "Chat"))?matchId=@(ViewBag.MatchId)&chatUserStatus=@((int)ChatUserStatus.DisableChatRoom)',
             welcomeMessage: '@Html.Raw(Model.WelcomeMessage.SettingValue)',
             disabledWelcomeMessage: @(Model.WelcomeMessage.Disabled ? "true" : "false"),
             getHistoryMessageUrl: '@Url.Action("GetChatMessageByTime", "Chat")',

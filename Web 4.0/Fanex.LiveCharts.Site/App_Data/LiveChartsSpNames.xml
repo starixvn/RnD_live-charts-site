@@ -175,7 +175,8 @@
 
     <Setting Key="Chart_Chat_Update_Reset_Chat_Name_Status" SpName="Chart_Chat_Update_Reset_Chat_Name_Status" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
     <Setting Key="Chart_Chat_Update_Chat_Name" SpName="Chart_Chat_Update_Chat_Name" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Update_UnMute_For_Expired_Mute" SpName="Chart_Chat_Update_UnMute_For_Expired_Mute" DbName="DBCHART.bodb_LCC.bodbChartNet" Plain="0" />
     
-    
+
   </Function>
 </Functions>

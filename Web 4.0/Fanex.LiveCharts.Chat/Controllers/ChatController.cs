@@ -83,9 +83,13 @@ namespace Fanex.LiveCharts.Chat.Controllers
             }
 
             var chatViewModel = GetChatRoomInformation(matchId, chatUser);
-            if (chatViewModel.ChatUserInRoom.KickedOut || chatViewModel.ChatRoom.Disabled)
+            if (chatViewModel.ChatUserInRoom.KickedOut)
             {
                 return RedirectToAction("KickedOut", new { matchId = matchId, chatUserStatus = (int)ChatUserStatus.KickedOut });
+            }
+            else if (chatViewModel.ChatRoom.Disabled)
+            {
+                return RedirectToAction("KickedOut", new { matchId = matchId, chatUserStatus = (int)ChatUserStatus.DisableChatRoom });
             }
 
             return View(chatViewModel);
@@ -96,7 +100,7 @@ namespace Fanex.LiveCharts.Chat.Controllers
             return View();
         }
 
-        public ActionResult KickedOut(int matchId, int chatUserStatus = (int)ChatUserStatus.KickedOut)
+        public ActionResult KickedOut(int matchId, int chatUserStatus = (int)ChatUserStatus.DisableChatRoom)
         {
             return View(new KickedOutViewModel
                 {

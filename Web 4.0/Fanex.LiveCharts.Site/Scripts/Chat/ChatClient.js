@@ -287,14 +287,19 @@ function ChatClient(chatUser, chatRoom, chatUserInRoom) {
         return userChatNameList.join(', ');
     };
 
-    me.kickOutChatUser = function (chatUserId) {
+    me.kickOutChatUser = function (chatUserId, isBanned) {
         if (chatUserId === me.chatUser.chatUserId) {
-            location.href = DEFAULT_OBJECT.kickedOutPage;
+            if (isBanned) {
+                location.href = DEFAULT_OBJECT.bannedPage;
+            }
+            else {
+                location.href = DEFAULT_OBJECT.kickedOutPage;
+            }
         }
     };
 
     me.disableChatRoom = function () {
-        location.href = DEFAULT_OBJECT.kickedOutPage;
+        location.href = DEFAULT_OBJECT.disabledRoomPage;
     };
 
     me.leftRoom = function () {

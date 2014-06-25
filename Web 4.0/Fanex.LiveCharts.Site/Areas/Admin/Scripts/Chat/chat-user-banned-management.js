@@ -53,7 +53,7 @@ function ChatUserBannedManagement() {
                 "ban": { name: "Ban All", icon: "ban" },
                 "unban": { name: "Un Ban All", icon: "un-ban" },
                 "reset": { name: "Reset Chat Name All", icon: "edit" },
-                "unreset": { name: "Un-reset Chat Name All", icon: "un-reset" }
+                "unreset": { name: "Un-reset Chat Name All", icon: "recover" }
             },
             callback: function (key) {
                 switch (key) {

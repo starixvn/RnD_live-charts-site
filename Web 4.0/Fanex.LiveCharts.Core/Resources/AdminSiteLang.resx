@@ -519,4 +519,16 @@
   <data name="BannedWordCannotEmpty" xml:space="preserve">
     <value>Banned word cannot be empty!</value>
   </data>
+  <data name="MuteThisUserInMinutes" xml:space="preserve">
+    <value>Mute this User in {0} minutes.</value>
+  </data>
+  <data name="MuteThisUserInWholeMatchTime" xml:space="preserve">
+    <value>Mute this User in whole match time.</value>
+  </data>
+  <data name="MuteThisRoomInMinutes" xml:space="preserve">
+    <value>Mute this Room in {0} minutes.</value>
+  </data>
+  <data name="MuteThisRoomInWholeTime" xml:space="preserve">
+    <value>Mute this Room in whole match time.</value>
+  </data>
 </root>
