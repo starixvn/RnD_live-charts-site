@@ -131,6 +131,7 @@
         <button class="btn" id="btnJoinRoom">@Lang.Join</button>
     </div>
 </div>
+
 @section Scripts
 {
     <script src="~/Scripts/Libs/jquery.signalR-1.2.1.min.js"></script>
@@ -143,6 +144,7 @@
             chatRoomId: @(Model.ChatRoom.ChatRoomId),
             chatRoomName: '@(Model.ChatRoom.ChatRoomName)',
             muted: @(Model.ChatRoom.Muted ? "true" : "false"),
+            continueMuteInMinutes: @(Model.ChatRoom.ContinueMuteInMinutes),
             welcomeMessage: '@Html.Raw(Model.ChatRoom.WelcomeMessage)',
             termConditionDisabled: @(Model.AnnoucementMessage.Disabled ? "true" : "false")
         }
@@ -151,7 +153,8 @@
             {
                 chatUserInRoomId: @(Model.ChatUserInRoom.ChatUserInRoomId),
                 kickedOut: @(Model.ChatUserInRoom.KickedOut ? "true" : "false"),
-                muted: @(Model.ChatUserInRoom.Muted ? "true" : "false")
+                muted: @(Model.ChatUserInRoom.Muted ? "true" : "false"),
+                continueMuteInMinutes: @(Model.ChatUserInRoom.ContinueMuteInMinutes),
             };
 
         var CURRENT_CHAT_USER = 
@@ -200,7 +203,11 @@
             joinedRoom: '@Lang.JoinedRoom',
             maxLengthChatName: '@Lang.MaxLengthChatNameMessage',
             maxLengthMessage: '@(string.Format(Lang.MessageMaxLengthMessage, maxMessageLength))',
-            sorryRoomNotAvailableForSendingMessage: '@Html.Raw(Lang.SorryRoomNotAvailableForSendingMessage)'
+            sorryRoomNotAvailableForSendingMessage: '@Html.Raw(Lang.SorryRoomNotAvailableForSendingMessage)',
+            youHaveBeenMuted: '@(Lang.YouHaveBeenMuted)',
+            youHaveBeenMutedIn: '@(Lang.YouHaveBeenMutedIn)',
+            thisRoomHasBeenMuted: '@(Lang.ThisRoomHasBeenMuted)',
+            thisRoomHasBeenMutedIn: '@(Lang.ThisRoomHasBeenMutedIn)'
         }
 
     </script>

@@ -10,7 +10,7 @@
 namespace Fanex.LiveCharts.Chat.Models
 {
     using System;
-    using System.Collections.Generic;
+    using Fanex.LiveCharts.Core;
 
     /// <summary>
     /// Chat Room.
@@ -35,5 +35,24 @@ namespace Fanex.LiveCharts.Chat.Models
         public int CurrentMuteMinutes { get; set; }
 
         public bool Disabled { get; set; }
+
+        public int ContinueMuteInMinutes
+        {
+            get
+            {
+                var continueMuteInMinutes = 0;
+                if (MutePeriod < Constants.MuteWholeMatchTimeMinute
+                    && MutePeriod > CurrentMuteMinutes)
+                {
+                    continueMuteInMinutes = MutePeriod - CurrentMuteMinutes;
+                }
+                else if (MutePeriod >= Constants.MuteWholeMatchTimeMinute)
+                {
+                    continueMuteInMinutes = -1;
+                }
+
+                return continueMuteInMinutes;
+            }
+        }
     }
 }

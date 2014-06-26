@@ -85,12 +85,19 @@ namespace Fanex.LiveCharts.Chat.Controllers
                 IncludingKickedOut = true
             });
 
+            ChatRoom chatRoomInformation = _chatService.GetChatRoomByName(new GetChatRoomByNameCriteria 
+            { 
+                ChatRoomName = criteria.ChatRoomName,
+                MatchId = criteria.MatchId
+            });
+
             var sessionKey = string.Format(ChatMonitorSessionKey, criteria.ChatRoomId);
             HttpContext.Session[sessionKey] = chatMessages;
             return Json(new
             {
                 ChatMessages = chatMessages,
-                ChatUsers = chatUsers
+                ChatUsers = chatUsers,
+                ChatRoom = chatRoomInformation
             });
         }
 

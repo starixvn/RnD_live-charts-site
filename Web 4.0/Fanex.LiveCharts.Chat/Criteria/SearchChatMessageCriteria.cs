@@ -24,6 +24,12 @@ namespace Fanex.LiveCharts.Chat.Criteria
 
         public bool IncludingDeleted { get; set; }
 
+        [SpParam(Ignored = true)]
+        public string ChatRoomName { get; set; }
+
+        [SpParam(Ignored = true)]
+        public int MatchId { get; set; }
+
         public override string GetSettingKey()
         {
             return "Chart_Chat_Search_Chat_Message";

@@ -6,7 +6,7 @@ function ChatMonitor() {
     me.chatMonitorDefault = CHAT_MONITOR_DEFAULT;
     me.usersStatus = {};
     me.createDllSearch = false;
-    me.usersAndMessageCached = {};
+    me.roomData = {};
     me.refreshMinutes = 1;
     me.stopCountDown = false;
 
@@ -94,33 +94,36 @@ function ChatMonitor() {
                 selector: '#muteButton',
                 trigger: 'left',
                 autoHide: true,
-                callback: function (key) {
-                    switch (key) {
-                        case 'muteall':
-                            me.updateMuteChatRoomOnAdminSite(true, 101);
-                            break;
-                        case 'mute5':
-                            me.updateMuteChatRoomOnAdminSite(true, 5);
-                            break;
-                        case 'mute10':
-                            me.updateMuteChatRoomOnAdminSite(true, 10);
-                            break;
-                        case 'mute15':
-                            me.updateMuteChatRoomOnAdminSite(true, 15);
-                            break;
-                    }
-                },
-                items: {
-                    "mute5": { name: LANGUAGE.muteThisRoom5Minutes, icon: "mute" },
-                    "mute10": { name: LANGUAGE.muteThisRoom10Minutes, icon: "mute" },
-                    "mute15": { name: LANGUAGE.muteThisRoom15Minutes, icon: "mute" },
-                    "muteall": { name: LANGUAGE.muteThisRoomInWholeMatchTime, icon: "mute" }
+                build: function () {
+                    return {
+                        callback: function (key) {
+                            switch (key) {
+                                case 'muteall':
+                                    me.updateMuteChatRoomOnAdminSite(true, 101);
+                                    break;
+                                case 'mute5':
+                                    me.updateMuteChatRoomOnAdminSite(true, 1);
+                                    break;
+                                case 'mute10':
+                                    me.updateMuteChatRoomOnAdminSite(true, 2);
+                                    break;
+                                case 'mute15':
+                                    me.updateMuteChatRoomOnAdminSite(true, 15);
+                                    break;
+                            }
+                        },
+                        items: {
+                            "mute5": { name: LANGUAGE.muteThisRoom5Minutes, icon: "mute" },
+                            "mute10": { name: LANGUAGE.muteThisRoom10Minutes, icon: "mute" },
+                            "mute15": { name: LANGUAGE.muteThisRoom15Minutes, icon: "mute" },
+                            "muteall": { name: LANGUAGE.muteThisRoomInWholeMatchTime, icon: "mute" }
+                        }
+                    };
                 }
             });
         }
         else {
             me.$btnMuteButton.unbind('click').click(function () { me.updateMuteChatRoomOnAdminSite(false, 0); });
-            me.$btnMuteButton.contextMenu(false);
         }
 
     };
@@ -132,7 +135,7 @@ function ChatMonitor() {
             selector: '#chatUserGrid .open-menu-remove-user',
             trigger: 'left',
             autoHide: true,
-            build: function ($trigger/*, e*/) {
+            build: function ($trigger) {
                 var items = {},
                     currentStatus = $trigger.attr('data-user-status');
                 switch (currentStatus) {
@@ -177,10 +180,10 @@ function ChatMonitor() {
                                 me.updateMuteChatUserOnAdminSite(currentChatUserId, true, 101);
                                 break;
                             case 'mute5':
-                                me.updateMuteChatUserOnAdminSite(currentChatUserId, true, 5);
+                                me.updateMuteChatUserOnAdminSite(currentChatUserId, true, 1);
                                 break;
                             case 'mute10':
-                                me.updateMuteChatUserOnAdminSite(currentChatUserId, true, 10);
+                                me.updateMuteChatUserOnAdminSite(currentChatUserId, true, 2);
                                 break;
                             case 'mute15':
                                 me.updateMuteChatUserOnAdminSite(currentChatUserId, true, 15);
@@ -199,7 +202,7 @@ function ChatMonitor() {
             selector: '#messageGrid .open-menu-remove-message',
             trigger: 'left',
             autoHide: true,
-            build: function ($trigger/*, e*/) {
+            build: function ($trigger) {
                 var items = {},
                     currentStatus = $trigger.attr('data-message-status');
                 switch (currentStatus) {
@@ -495,18 +498,20 @@ function ChatMonitor() {
             data: {
                 chatRoomId: me.chatMonitorDefault.chatRoomId,
                 chatUserId: chatUserId,
-                searchText: searchText
+                searchText: searchText,
+                chatRoomName: me.chatMonitorDefault.chatRoomName,
+                matchId: me.chatMonitorDefault.matchId
             },
             done: function (result) {
-                me.usersAndMessageCached = result;
-                me.updateUsersStatus(me.usersAndMessageCached.ChatUsers);
+                me.roomData = result;
+                me.updateUsersStatus(me.roomData.ChatUsers);
                 me.renderGrid();
             }
         });
     };
     me.renderGrid = function () {
         me.messageGridOptions.pagerOption.currentPage = 0;
-        me.messageGridOptions.bodyRows = me.buildMessageGridBody(me.usersAndMessageCached.ChatMessages);
+        me.messageGridOptions.bodyRows = me.buildMessageGridBody(me.roomData.ChatMessages);
         me.$messageGrid.fanexGrid(me.messageGridOptions);
         me.registerGridEvents();
     };
@@ -713,7 +718,7 @@ function ChatMonitor() {
         //'<input type="button" id="muteButton" class="btn-mute" />'
         // me.chatMonitorDefault.
         var buttonHtml = '<input type="button" id="muteButton" ';
-        if (me.chatMonitorDefault.isRoomMuted) {
+        if (me.roomData.ChatRoom.Muted) {
             buttonHtml += 'class="btn-un-mute" title="' + LANGUAGE.clickToUnMute + '"';
         }
         else {

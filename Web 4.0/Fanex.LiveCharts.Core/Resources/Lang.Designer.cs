@@ -1119,6 +1119,24 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This Room has been muted..
+        /// </summary>
+        public static string ThisRoomHasBeenMuted {
+            get {
+                return ResourceManager.GetString("ThisRoomHasBeenMuted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This Room has been muted in {0} minute(s)..
+        /// </summary>
+        public static string ThisRoomHasBeenMutedIn {
+            get {
+                return ResourceManager.GetString("ThisRoomHasBeenMutedIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Time:.
         /// </summary>
         public static string Time {
@@ -1290,7 +1308,7 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You have been muted in {0} seconds..
+        ///   Looks up a localized string similar to You have been muted in {0} minute(s)..
         /// </summary>
         public static string YouHaveBeenMutedIn {
             get {

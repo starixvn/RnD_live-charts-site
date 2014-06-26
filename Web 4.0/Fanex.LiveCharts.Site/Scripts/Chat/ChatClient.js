@@ -31,6 +31,12 @@ function ChatClient(chatUser, chatRoom, chatUserInRoom) {
     me.userColor = '#f00';
     me.isRoomMute = chatRoom.muted;
     me.isUserMute = chatUserInRoom.muted;
+    me.roomContinueMuteInMinutes = chatRoom.continueMuteInMinutes;
+    me.chatUserContinueMuteInMinutes = chatUserInRoom.continueMuteInMinutes;
+    me.muteRoomIntervalId = null;
+    me.muteChatUserIntervalId = null;
+    me.isInMuteChatUserInterval = false;
+    me.isInMuteRoomInterval = false;
     me.banWordOptions =
     {
         customSwears: []
@@ -48,7 +54,7 @@ function ChatClient(chatUser, chatRoom, chatUserInRoom) {
 
     me.init = function () {
         me.cachedDomElement();
-        me.updateUIForMute();
+        me.updateUIForMute(true, true);
     };
 
     me.joinRoom = function () {
@@ -361,30 +367,112 @@ function ChatClient(chatUser, chatRoom, chatUserInRoom) {
         }, 5000);
     };
 
-    me.updateMuteChatUser = function (chatUserId, isMute) {
+    me.updateMuteChatUser = function (chatUserId, isMute, continueMuteInMinutes) {
         if (me.chatUser.chatUserId === chatUserId) {
             me.isUserMute = isMute;
-            me.updateUIForMute();
+            if (isMute) {
+                me.chatUserContinueMuteInMinutes = continueMuteInMinutes;
+            }
+            if (me.intervalUpdateUIForMuteRoom) {
+                me.isInMuteRoomInterval = false;
+                clearInterval(me.intervalUpdateUIForMuteRoom);
+            }
+            me.updateUIForMute(false, true);
         }
     };
 
-    me.updateMuteChatRoom = function (chatRoomId, isMute) {
+    me.updateMuteChatRoom = function (chatRoomId, isMute, continueMuteInMinutes) {
         if (me.chatRoom.chatRoomId === chatRoomId) {
             me.isRoomMute = isMute;
-            me.updateUIForMute();
+            if (isMute) {
+                me.roomContinueMuteInMinutes = continueMuteInMinutes;
+            }
+            if (me.intervalUpdateUIForMuteChatUser) {
+                me.isInMuteChatUserInterval = false;
+                clearInterval(me.intervalUpdateUIForMuteChatUser);
+            }
+            me.updateUIForMute(true, false);
         }
     };
 
-    me.updateUIForMute = function () {
+    me.updateUIForMute = function (isUpdateMuteRoom, isUpdateMuteChatUser) {
         if (me.isRoomMute || me.isUserMute) {
             me.$txtMessageInput.attr('disabled', 'disabled');
             me.$btnSubmitMessage.attr('disabled', 'disabled');
-            me.$txtMessageInput.val(LANGUAGE.sorryRoomNotAvailableForSendingMessage);
+            if (me.isRoomMute
+                && !me.isInMuteRoomInterval
+                && isUpdateMuteRoom) {
+                me.intervalUpdateUIForMuteRoom();
+                if (me.roomContinueMuteInMinutes >= 0) {
+                    me.isInMuteRoomInterval = true;
+                    me.muteRoomIntervalId = setInterval(me.intervalUpdateUIForMuteRoom, 60 * 1000);
+                }
+            }
+
+            if (me.isUserMute
+                && !me.isInMuteChatUserInterval
+                && isUpdateMuteChatUser) {
+                me.intervalUpdateUIForMuteChatUser();
+                if (me.chatUserContinueMuteInMinutes >= 0) {
+                    me.isInMuteChatUserInterval = true;
+                    me.muteChatUserIntervalId = setInterval(me.intervalUpdateUIForMuteChatUser, 60 * 1000);
+                }
+            }
         }
         else {
             me.$txtMessageInput.removeAttr('disabled');
             me.$btnSubmitMessage.removeAttr('disabled');
             me.$txtMessageInput.val('');
+        }
+    };
+
+    me.intervalUpdateUIForMuteRoom = function () {
+        if (me.isRoomMute) {
+            if (me.roomContinueMuteInMinutes === 0) {
+                me.isRoomMute = false;
+                me.isInMuteRoomInterval = false;
+                if (me.isUserMute) {
+                    me.$txtMessageInput.val(me.$txtMessageInput.attr('mute-messsage-hidden'));
+                }
+                me.updateUIForMute(true, false);
+                clearInterval(me.muteRoomIntervalId);
+            }
+            else if (me.roomContinueMuteInMinutes > 0) {
+                me.$txtMessageInput.val(LANGUAGE.thisRoomHasBeenMutedIn.replace('{0}', me.roomContinueMuteInMinutes));
+                me.roomContinueMuteInMinutes--;
+            }
+            else if (me.roomContinueMuteInMinutes < 0) {
+                me.$txtMessageInput.val(LANGUAGE.thisRoomHasBeenMuted);
+            }
+        }
+    };
+
+    me.intervalUpdateUIForMuteChatUser = function () {
+        if (me.isUserMute) {
+            if (me.chatUserContinueMuteInMinutes === 0) {
+                me.isUserMute = false;
+                me.isInMuteChatUserInterval = false;
+                me.updateUIForMute(false, true);
+                clearInterval(me.muteChatUserIntervalId);
+            }
+            else if (me.chatUserContinueMuteInMinutes > 0) {
+                var chatUserMuteMessage = LANGUAGE.youHaveBeenMutedIn.replace('{0}', me.chatUserContinueMuteInMinutes);
+                if (!me.isRoomMute) {
+                    me.$txtMessageInput.val(chatUserMuteMessage);
+                }
+                else {
+                    me.$txtMessageInput.attr('mute-messsage-hidden', chatUserMuteMessage);
+                }
+                me.chatUserContinueMuteInMinutes--;
+            }
+            else if (me.chatUserContinueMuteInMinutes < 0) {
+                if (!me.isRoomMute) {
+                    me.$txtMessageInput.val(LANGUAGE.youHaveBeenMuted);
+                }
+                else {
+                    me.$txtMessageInput.attr(LANGUAGE.youHaveBeenMuted);
+                }
+            }
         }
     };
 

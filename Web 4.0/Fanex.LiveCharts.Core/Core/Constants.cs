@@ -22,6 +22,7 @@ namespace Fanex.LiveCharts.Core
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1401:FieldsMustBePrivate", Justification = "Reviewed.")]
     public class Constants
     {
+        public const int MuteWholeMatchTimeMinute = 100;
         public const int LIVE_MATCH_INTERVAL = 1;
         public const int DEAD_BALL_MATCH_INTERVAL = 15;
         public const int LIVE_START_MINUTE = -1;

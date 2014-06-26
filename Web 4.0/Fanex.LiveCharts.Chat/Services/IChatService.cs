@@ -114,6 +114,8 @@ namespace Fanex.LiveCharts.Chat.Services
 
         ICommandResult UpdateChatName(UpdateChatNameCriteria criteria);
 
+        ICommandResult UpdateUnMuteForExpiredMute(UpdateUnMuteForExpiredMuteCriteria criteria);
+
         #region Ban Words Management
 
         ICommandResult UpdateBanWordText(UpdateBanWordTextCriteria criteria);

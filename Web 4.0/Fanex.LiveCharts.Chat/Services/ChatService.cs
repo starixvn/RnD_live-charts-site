@@ -95,9 +95,26 @@ namespace Fanex.LiveCharts.Chat.Services
             return chatUser;
         }
 
+        /// <summary>
+        /// Get Chat room by name, and update un-mute for room when expired mute.
+        /// </summary>
+        /// <param name="getChatRoomByName">Criteria for get chat room information.</param>
+        /// <returns>Chat room information.</returns>
         public ChatRoom GetChatRoomByName(GetChatRoomByNameCriteria getChatRoomByName)
         {
             var chatRoom = _chatRepository.Get<ChatRoom>(getChatRoomByName);
+            
+            if (chatRoom != null
+                && chatRoom.Muted
+                && chatRoom.ContinueMuteInMinutes == 0)
+            {
+                UpdateUnMuteForExpiredMute(new UpdateUnMuteForExpiredMuteCriteria
+                {
+                     ChatRoomId = chatRoom.ChatRoomId,
+                     UpdateType = 1 //// Just Update Only for Chat Room
+                });
+                chatRoom.Muted = false;
+            }
 
             return chatRoom;
         }
@@ -138,6 +155,18 @@ namespace Fanex.LiveCharts.Chat.Services
                         ChatUserId = getChatUserInRoomCriteria.ChatUserId
                     }
                 };
+            }
+            else
+            {
+                if (chatUserInRoom.Muted && chatUserInRoom.ContinueMuteInMinutes == 0)
+                {
+                    UpdateUnMuteForExpiredMute(new UpdateUnMuteForExpiredMuteCriteria
+                    {
+                        ChatRoomId = getChatUserInRoomCriteria.ChatRoomId,
+                        UpdateType = 2 //// Just update for this chat user.
+                    });
+                    chatUserInRoom.Muted = false;
+                }
             }
 
             return chatUserInRoom;
@@ -495,7 +524,8 @@ namespace Fanex.LiveCharts.Chat.Services
 
                 if (chatHub != null)
                 {
-                    chatHub.Clients.Group(muteChatUser.ChatRoomName).updateMuteChatUser(muteChatUser.ChatUserId, muteChatUser.Muted);
+                    chatHub.Clients.Group(muteChatUser.ChatRoomName)
+                        .updateMuteChatUser(muteChatUser.ChatUserId, muteChatUser.Muted, muteChatUser.ContinueMuteInMinutes);
                 }
             }
             catch (Exception ex)
@@ -534,7 +564,8 @@ namespace Fanex.LiveCharts.Chat.Services
 
                 if (chatHub != null)
                 {
-                    chatHub.Clients.Group(muteChatRoom.ChatRoomName).updateMuteChatRoom(muteChatRoom.ChatRoomId, muteChatRoom.Muted);
+                    chatHub.Clients.Group(muteChatRoom.ChatRoomName)
+                        .updateMuteChatRoom(muteChatRoom.ChatRoomId, muteChatRoom.Muted, muteChatRoom.ContinueMuteInMinutes);
                 }
             }
             catch (Exception ex)
@@ -678,7 +709,8 @@ namespace Fanex.LiveCharts.Chat.Services
                 ChatUserId = criteria.ChatUserId,
                 ChatRoomId = criteria.ChatRoomId,
                 ChatRoomName = criteria.ChatRoomName,
-                Muted = criteria.IsMute
+                Muted = criteria.IsMute,
+                ContinueMuteInMinutes = criteria.MutePeriod > Constants.MuteWholeMatchTimeMinute ? -1 : criteria.MutePeriod
             };
 
             if (updateResult.IsSuccessful)
@@ -703,7 +735,8 @@ namespace Fanex.LiveCharts.Chat.Services
                 CommandResult = (CommandResult)updateResult,
                 ChatRoomId = criteria.ChatRoomId,
                 ChatRoomName = criteria.ChatRoomName,
-                Muted = criteria.IsMute
+                Muted = criteria.IsMute,
+                ContinueMuteInMinutes = criteria.MutePeriod > Constants.MuteWholeMatchTimeMinute ? -1 : criteria.MutePeriod
             };
 
             if (updateResult.IsSuccessful)
@@ -952,6 +985,30 @@ namespace Fanex.LiveCharts.Chat.Services
             var updateResult = _chatRepository.ModifyData(criteria);
 
             return updateResult;
+        }
+
+        /// <summary>
+        /// Update un mute for room or chat user were expired mute.
+        /// </summary>
+        /// <param name="criteria">Data for update.</param>
+        /// <returns>Status of command.</returns>
+        public ICommandResult UpdateUnMuteForExpiredMute(UpdateUnMuteForExpiredMuteCriteria criteria)
+        {
+            try
+            {
+                var updateResult = _chatRepository.ModifyData(criteria);
+
+                return updateResult;
+            }
+            catch (Exception ex)
+            {
+                ServiceBase.ExceptionHandler(ex);
+                return new CommandResult
+                {
+                    Code = CodeFail,
+                    Message = ex.Message
+                };
+            }
         }
 
         #endregion Ban Words Management

@@ -537,6 +537,12 @@ Please be considered and do not use any offensive nickname.</value>
     <value>You have been muted.</value>
   </data>
   <data name="YouHaveBeenMutedIn" xml:space="preserve">
-    <value>You have been muted in {0} seconds.</value>
+    <value>You have been muted in {0} minute(s).</value>
+  </data>
+  <data name="ThisRoomHasBeenMuted" xml:space="preserve">
+    <value>This Room has been muted.</value>
+  </data>
+  <data name="ThisRoomHasBeenMutedIn" xml:space="preserve">
+    <value>This Room has been muted in {0} minute(s).</value>
   </data>
 </root>
