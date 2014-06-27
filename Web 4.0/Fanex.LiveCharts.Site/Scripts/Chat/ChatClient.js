@@ -469,9 +469,7 @@ function ChatClient(chatUser, chatRoom, chatUserInRoom) {
                 if (!me.isRoomMute) {
                     me.$txtMessageInput.val(LANGUAGE.youHaveBeenMuted);
                 }
-                else {
-                    me.$txtMessageInput.attr(LANGUAGE.youHaveBeenMuted);
-                }
+                me.$txtMessageInput.attr('mute-messsage-hidden', LANGUAGE.youHaveBeenMuted);
             }
         }
     };
