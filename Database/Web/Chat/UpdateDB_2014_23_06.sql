@@ -9,7 +9,7 @@ ALTER TABLE [dbo].[ChatRoom] ADD  CONSTRAINT [DF_ChatRoom_MutePeriod]  DEFAULT (
 GO
 
 ALTER TABLE [dbo].[ChatRoom]
-ADD StartMuteTime SMALLDATETIME
+ADD StartMuteTime DATETIME
 GO
 
 ALTER TABLE [dbo].[ChatUserInRoom]
@@ -18,5 +18,5 @@ ALTER TABLE [dbo].[ChatUserInRoom] ADD  CONSTRAINT [DF_ChatUserInRoom_MutePeriod
 GO
 
 ALTER TABLE [dbo].[ChatUserInRoom]
-ADD StartMuteTime SMALLDATETIME
+ADD StartMuteTime DATETIME
 GO
