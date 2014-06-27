@@ -908,6 +908,15 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please input valid your score prediction!.
+        /// </summary>
+        public static string PleaseInputValidCorrectScore {
+            get {
+                return ResourceManager.GetString("PleaseInputValidCorrectScore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please log in to experience new features, Score Prediction and Live Chat!.
         /// </summary>
         public static string PleaseLoginToViewMoreDetail {

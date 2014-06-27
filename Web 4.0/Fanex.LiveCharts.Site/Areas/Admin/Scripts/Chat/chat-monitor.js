@@ -31,6 +31,7 @@ function ChatMonitor() {
         me.$btnSearchChatMessage.unbind('click').click(me.initMessageGrid);
         me.$btnExportmessageGrid.unbind('click').click(me.exportExcel);
         me.$stopAutoRefresh.unbind('click').click(me.handleRefreshCountDown);
+        setInterval(me.updateUnMuteForExpireMute, 300000);
         me.startCountDown();
 
     };
@@ -366,7 +367,6 @@ function ChatMonitor() {
             }
         });
     };
-
     me.updateMuteOnMemberSite = function (muteViewModel, isRoom) {
         LiveChartsAdmin.callAjax({
             url: me.chatMonitorDefault.memberChartSiteUrl + (isRoom ? '/Chat/UpdateMuteChatRoom' : '/Chat/UpdateMuteChatUser'),
@@ -382,7 +382,6 @@ function ChatMonitor() {
             }
         });
     };
-
     me.updateMuteChatRoomOnAdminSite = function (isMute, mutePeriod) {
         isMute = isMute || false;
         if (isMute && !LiveChartsAdmin.confirmUpdateAction()) {
@@ -487,6 +486,23 @@ function ChatMonitor() {
         });
     };
 
+    //// Chat Room Action
+    me.updateUnMuteForExpireMute = function () {
+        LiveChartsAdmin.callAjax({
+            url: me.chatMonitorDefault.updateUnMuteForExpiredMute,
+            type: 'POST',
+            data: {
+                chatRoomId: me.chatMonitorDefault.chatRoomId,
+                updateType: 0 //// Check both chat room muted and chat user muted
+            },
+            done: function (result) {
+                if (!result.IsSuccessful) {
+                    LiveChartsAdmin.alertMessage(LiveChartsAdmin.messageType.error, result.Message);
+                }
+            }
+        });
+    };
+
     //// Grid
     me.initMessageGrid = function () {
         var chatUserId = parseInt(me.$ddlChatName.val()),
@@ -522,7 +538,6 @@ function ChatMonitor() {
             searchText: me.$txtMessageSearch.val()
         });
     };
-
     me.renderColumnChatUserStatus = function (cell) {
         var currentUser = me.usersStatus[cell.Value],
             userStatusClass = 'user-online',
@@ -536,7 +551,7 @@ function ChatMonitor() {
                 userStatusClass = 'user-kickedout';
                 statusTooltip = 'KickedOut';
             }
-            else if (currentUser.Muted) {
+            else if (currentUser.Muted && currentUser.ContinueMuteInMinutes !== 0) {
                 userStatusClass = 'user-muted';
                 statusTooltip = 'Muted';
             }
@@ -550,7 +565,6 @@ function ChatMonitor() {
             return '<span></span>';
         }
     };
-
     me.renderChatNameAction = function (cell) {
         var currentUser = me.usersStatus[cell.Value],
                                currentStatus = 'active';
@@ -561,7 +575,7 @@ function ChatMonitor() {
             else if (currentUser.KickedOut) {
                 currentStatus = 'kickedOut';
             }
-            else if (currentUser.Muted) {
+            else if (currentUser.Muted && currentUser.ContinueMuteInMinutes !== 0) {
                 currentStatus = 'muted';
             }
 
@@ -574,7 +588,6 @@ function ChatMonitor() {
         }
         return '';
     };
-
     me.messageGridOptions = {
         columns: [
                    { HeaderText: LANGUAGE.timeGTM8, Width: 150, Name: 'Time', CellAlign: 'center', FormatDateTime: 'DD MMM, YYYY hh:mm A' },
@@ -618,7 +631,6 @@ function ChatMonitor() {
         showTitle: false,
         timeZone: '+08:00'
     };
-
     me.chatUserGridOptions = {
         columns: [
             {
@@ -635,7 +647,6 @@ function ChatMonitor() {
             text: ""
         }
     };
-
     me.buildMessageGridBody = function (chatMessages) {
         var messagesLength = chatMessages.length,
             bodyRows = [];
@@ -709,11 +720,10 @@ function ChatMonitor() {
 
         //// Render Chat Name Grid.
         me.chatUserGridOptions.bodyRows = me.chatUserGridBodyRows;
-        me.chatUserGridOptions.titleInfo.text = "Total Chat User: " + me.chatUserGridBodyRows.length;
+        me.chatUserGridOptions.titleInfo.text = me.buildTotalChatUserTitle();
         me.chatUserGridOptions.titleInfo.customButtons = me.renderMuteButton();
         me.$chatUserGrid.fanexGrid(me.chatUserGridOptions);
     };
-
     me.renderMuteButton = function () {
         //'<input type="button" id="muteButton" class="btn-mute" />'
         // me.chatMonitorDefault.
@@ -727,7 +737,6 @@ function ChatMonitor() {
 
         return buttonHtml + ' />';
     };
-
     me.buildMemberOption = function (currentMember, currentSelectedMemberId) {
         return '<option value="' + currentMember.ChatUser.MemberId + '" '
                                         + (currentSelectedMemberId === currentMember.ChatUser.MemberId ? 'selected ' : '')
@@ -752,7 +761,15 @@ function ChatMonitor() {
                { Name: "ChatNameAction", Value: currentChatUserStatus.ChatUser.MemberId }
                ]
         });
-    };
+       };
+       me.buildTotalChatUserTitle = function () {
+           return '<div class="title-status"><span>Total: ' + me.chatUserGridBodyRows.length + '&nbsp;(&nbsp;</span>'
+                + '<span class="user-online"></span><span>:' + me.totalUserInRoom.onlineUsers + ',&nbsp;</span>'
+                + '<span class="user-muted"></span><span>:' + me.totalUserInRoom.mutedUsers + ',&nbsp;</span>'
+                + '<span class="user-kickedout"></span><span>:' + me.totalUserInRoom.kickedOutUsers + ',&nbsp;</span>'
+                + '<span class="user-disabled"></span><span>: ' + me.totalUserInRoom.bannedUsers + '</span>'
+           + '<span>&nbsp;)</span></div>';
+       };
     me.getSortedUsers = function (usersInRoom) {
         var memberArray = usersInRoom.slice(0).sort(function (userA, userB) {
             return userA.ChatUser.MemberName > userB.ChatUser.MemberName;
@@ -768,11 +785,9 @@ function ChatMonitor() {
             chatUserStatusArray: chatUserStatusArray
         };
     };
-
     me.sortChatUserByChatName = function (userA, userB) {
         return userA.ChatUser.ChatName > userB.ChatUser.ChatName;
     };
-
     me.sortChatUserStatus = function (chatUsersInRoom) {
         var onlineUsers = [],
             offLineUser = [],
@@ -800,9 +815,17 @@ function ChatMonitor() {
             }
         }
 
+        me.totalUserInRoom =
+        {
+            onlineUsers: onlineUsers.length,
+            offLineUser: offLineUser.length,
+            kickedOutUsers: kickedOutUsers.length,
+            bannedUsers: bannedUsers.length,
+            mutedUsers: mutedUsers.length
+        };
+
         return mutedUsers.concat(onlineUsers).concat(offLineUser).concat(kickedOutUsers).concat(bannedUsers);
     };
-
     me.searchByChatUserEvent = function () {
         var $this = $(this),
             currentChatUserId = $this.attr('data-chat-user-id'),
@@ -811,24 +834,20 @@ function ChatMonitor() {
         me.$ddlMemberName.val(currentMemberId).trigger("chosen:updated");
         me.$btnSearchChatMessage.trigger('click');
     };
-
     me.chatNameChange = function () {
         var currentChatUserSelected = me.$ddlChatName.find('option:selected');
         me.$ddlMemberName.val(currentChatUserSelected.attr('data-member-id')).trigger("chosen:updated");
     };
-
     me.memberChange = function () {
         var currentChatMemberSelected = me.$ddlMemberName.find('option:selected');
         me.$ddlChatName.val(currentChatMemberSelected.attr('data-chat-user-id')).trigger("chosen:updated");
     };
-
     me.init = function () {
         me.cacheDomElements();
         me.registerEvents();
         me.autoAdjustWidth();
         me.initMessageGrid();
     };
-
     me.autoAdjustWidth = function () {
         var currentContentWidth = me.$content.width(),
             chatUserStatusWidth = 250,

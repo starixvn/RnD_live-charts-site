@@ -34,7 +34,7 @@ function ChatWindow() {
     me.checkMatchCompletedInterval = null;
     me.alreadyInsertCode = 1002;
     me.memberBannedByDefaultCode = 1003;
-    me.intervalWhenKickOutMatchCompleted = 5000; // 1 minutes
+    me.intervalWhenKickOutMatchCompleted = 60000; // 1 minutes
     me.curentMinuteForCompletedRoom = 10; 
     me.isMatchCompleted = false;
     me.url = {

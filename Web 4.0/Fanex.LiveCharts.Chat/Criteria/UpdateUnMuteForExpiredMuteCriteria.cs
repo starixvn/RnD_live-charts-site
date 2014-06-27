@@ -20,8 +20,6 @@ namespace Fanex.LiveCharts.Chat.Criteria
     /// </summary>
     public class UpdateUnMuteForExpiredMuteCriteria : CriteriaBase
     {
-        public int ChatRoomId { get; set; }
-
         public int UpdateType { get; set; }
 
         public override string GetSettingKey()
@@ -31,7 +29,7 @@ namespace Fanex.LiveCharts.Chat.Criteria
 
         public override bool IsValid()
         {
-            return ChatRoomId > 0;
+            return UpdateType >= 0;
         }
     }
 }

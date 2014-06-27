@@ -38,14 +38,17 @@ namespace Fanex.LiveCharts.Chat.Models
             get
             {
                 var continueMuteInMinutes = 0;
-                if (MutePeriod < Constants.MuteWholeMatchTimeMinute
-                    && MutePeriod > CurrentMuteMinutes)
+                if (Muted)
                 {
-                    continueMuteInMinutes = MutePeriod - CurrentMuteMinutes;
-                }
-                else if (MutePeriod >= Constants.MuteWholeMatchTimeMinute)
-                {
-                    continueMuteInMinutes = -1;
+                    if (MutePeriod < Constants.MuteWholeMatchTimeMinute
+                        && MutePeriod > CurrentMuteMinutes)
+                    {
+                        continueMuteInMinutes = MutePeriod - CurrentMuteMinutes;
+                    }
+                    else if (MutePeriod >= Constants.MuteWholeMatchTimeMinute || MutePeriod == 0)
+                    {
+                        continueMuteInMinutes = -1;
+                    }
                 }
 
                 return continueMuteInMinutes;

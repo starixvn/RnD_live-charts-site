@@ -110,7 +110,6 @@ namespace Fanex.LiveCharts.Chat.Services
             {
                 UpdateUnMuteForExpiredMute(new UpdateUnMuteForExpiredMuteCriteria
                 {
-                     ChatRoomId = chatRoom.ChatRoomId,
                      UpdateType = 1 //// Just Update Only for Chat Room
                 });
                 chatRoom.Muted = false;
@@ -162,7 +161,6 @@ namespace Fanex.LiveCharts.Chat.Services
                 {
                     UpdateUnMuteForExpiredMute(new UpdateUnMuteForExpiredMuteCriteria
                     {
-                        ChatRoomId = getChatUserInRoomCriteria.ChatRoomId,
                         UpdateType = 2 //// Just update for this chat user.
                     });
                     chatUserInRoom.Muted = false;

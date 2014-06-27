@@ -230,6 +230,12 @@ namespace Fanex.LiveCharts.Chat.Controllers
             return Json(_chatService.UpdateBanWordStatus(criteria));
         }
 
+        [HttpPost]
+        public JsonResult UpdateUnMuteForExpiredMute(UpdateUnMuteForExpiredMuteCriteria criteria)
+        {
+            return Json(_chatService.UpdateUnMuteForExpiredMute(criteria));
+        }
+
         #region Private actions
 
         /// <summary>

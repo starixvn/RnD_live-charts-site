@@ -545,4 +545,7 @@ Please be considered and do not use any offensive nickname.</value>
   <data name="ThisRoomHasBeenMutedIn" xml:space="preserve">
     <value>This Room has been muted in {0} minute(s).</value>
   </data>
+  <data name="PleaseInputValidCorrectScore" xml:space="preserve">
+    <value>Please input valid your score prediction!</value>
+  </data>
 </root>
