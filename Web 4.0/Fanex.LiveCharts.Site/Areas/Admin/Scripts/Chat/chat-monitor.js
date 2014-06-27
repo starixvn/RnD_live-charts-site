@@ -767,8 +767,8 @@ function ChatMonitor() {
                 + '<span class="user-online"></span><span>:' + me.totalUserInRoom.onlineUsers + ',&nbsp;</span>'
                 + '<span class="user-muted"></span><span>:' + me.totalUserInRoom.mutedUsers + ',&nbsp;</span>'
                 + '<span class="user-kickedout"></span><span>:' + me.totalUserInRoom.kickedOutUsers + ',&nbsp;</span>'
-                + '<span class="user-disabled"></span><span>: ' + me.totalUserInRoom.bannedUsers + '</span>'
-           + '<span>&nbsp;)</span></div>';
+                + '<span class="user-disabled"></span><span>:' + me.totalUserInRoom.bannedUsers + '&nbsp;)</span>'
+           + '</div>';
        };
     me.getSortedUsers = function (usersInRoom) {
         var memberArray = usersInRoom.slice(0).sort(function (userA, userB) {
@@ -804,7 +804,7 @@ function ChatMonitor() {
             else if (currentUser.KickedOut) {
                 kickedOutUsers.push(currentUser);
             }
-            else if (currentUser.Muted) {
+            else if (currentUser.Muted && currentUser.ContinueMuteInMinutes !== 0) {
                 mutedUsers.push(currentUser);
             }
             else if (!currentUser.IsLeft) {
