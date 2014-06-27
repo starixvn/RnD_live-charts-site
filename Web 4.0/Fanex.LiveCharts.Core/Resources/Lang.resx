@@ -537,15 +537,15 @@ Please be considered and do not use any offensive nickname.</value>
     <value>You have been muted.</value>
   </data>
   <data name="YouHaveBeenMutedIn" xml:space="preserve">
-    <value>You have been muted in {0} minute(s).</value>
+    <value>You have been muted in {0} second(s).</value>
   </data>
   <data name="ThisRoomHasBeenMuted" xml:space="preserve">
     <value>This Room has been muted.</value>
   </data>
   <data name="ThisRoomHasBeenMutedIn" xml:space="preserve">
-    <value>This Room has been muted in {0} minute(s).</value>
+    <value>This Room has been muted in {0} second(s).</value>
   </data>
   <data name="PleaseInputValidCorrectScore" xml:space="preserve">
-    <value>Please input valid your score prediction!</value>
+    <value>Please input valid score prediction!</value>
   </data>
 </root>

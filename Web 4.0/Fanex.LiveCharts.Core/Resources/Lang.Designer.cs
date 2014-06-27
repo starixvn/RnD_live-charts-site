@@ -908,7 +908,7 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please input valid your score prediction!.
+        ///   Looks up a localized string similar to Please input valid score prediction!.
         /// </summary>
         public static string PleaseInputValidCorrectScore {
             get {
@@ -1137,7 +1137,7 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This Room has been muted in {0} minute(s)..
+        ///   Looks up a localized string similar to This Room has been muted in {0} second(s)..
         /// </summary>
         public static string ThisRoomHasBeenMutedIn {
             get {
@@ -1317,7 +1317,7 @@ namespace Fanex.LiveCharts.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You have been muted in {0} minute(s)..
+        ///   Looks up a localized string similar to You have been muted in {0} second(s)..
         /// </summary>
         public static string YouHaveBeenMutedIn {
             get {

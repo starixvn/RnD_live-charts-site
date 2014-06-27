@@ -405,7 +405,7 @@ function ChatClient(chatUser, chatRoom, chatUserInRoom) {
                 me.intervalUpdateUIForMuteRoom();
                 if (me.roomContinueMuteInMinutes >= 0) {
                     me.isInMuteRoomInterval = true;
-                    me.muteRoomIntervalId = setInterval(me.intervalUpdateUIForMuteRoom, 60 * 1000);
+                    me.muteRoomIntervalId = setInterval(me.intervalUpdateUIForMuteRoom, 15 * 1000);
                 }
             }
 
@@ -415,7 +415,7 @@ function ChatClient(chatUser, chatRoom, chatUserInRoom) {
                 me.intervalUpdateUIForMuteChatUser();
                 if (me.chatUserContinueMuteInMinutes >= 0) {
                     me.isInMuteChatUserInterval = true;
-                    me.muteChatUserIntervalId = setInterval(me.intervalUpdateUIForMuteChatUser, 60 * 1000);
+                    me.muteChatUserIntervalId = setInterval(me.intervalUpdateUIForMuteChatUser, 15 * 1000);
                 }
             }
         }
@@ -438,8 +438,11 @@ function ChatClient(chatUser, chatRoom, chatUserInRoom) {
                 clearInterval(me.muteRoomIntervalId);
             }
             else if (me.roomContinueMuteInMinutes > 0) {
-                me.$txtMessageInput.val(LANGUAGE.thisRoomHasBeenMutedIn.replace('{0}', me.roomContinueMuteInMinutes));
-                me.roomContinueMuteInMinutes--;
+                var minutes = parseInt(me.roomContinueMuteInMinutes),
+                    seconds = me.roundNumber(me.roomContinueMuteInMinutes - minutes, 2) * 60,
+                    roomMuteMessage = LANGUAGE.thisRoomHasBeenMutedIn.replace('{0}', me.renderTime(minutes, seconds));
+                me.$txtMessageInput.val(('{0}', roomMuteMessage));
+                me.roomContinueMuteInMinutes -= 0.25;
             }
             else if (me.roomContinueMuteInMinutes < 0) {
                 me.$txtMessageInput.val(LANGUAGE.thisRoomHasBeenMuted);
@@ -456,14 +459,16 @@ function ChatClient(chatUser, chatRoom, chatUserInRoom) {
                 clearInterval(me.muteChatUserIntervalId);
             }
             else if (me.chatUserContinueMuteInMinutes > 0) {
-                var chatUserMuteMessage = LANGUAGE.youHaveBeenMutedIn.replace('{0}', me.chatUserContinueMuteInMinutes);
+                var minutes = parseInt(me.chatUserContinueMuteInMinutes),
+                    seconds = me.roundNumber(me.chatUserContinueMuteInMinutes - minutes, 2) * 60,
+                    chatUserMuteMessage = LANGUAGE.youHaveBeenMutedIn.replace('{0}', me.renderTime(minutes, seconds));
                 if (!me.isRoomMute) {
                     me.$txtMessageInput.val(chatUserMuteMessage);
                 }
                 else {
                     me.$txtMessageInput.attr('mute-messsage-hidden', chatUserMuteMessage);
                 }
-                me.chatUserContinueMuteInMinutes--;
+                me.chatUserContinueMuteInMinutes -= 0.25;
             }
             else if (me.chatUserContinueMuteInMinutes < 0) {
                 if (!me.isRoomMute) {
@@ -496,6 +501,12 @@ function ChatClient(chatUser, chatRoom, chatUserInRoom) {
                         + '<div class="message-content-time">' + me.formatTime(moment()) + '</div>'
                     + '</div>'
                + '</li>');
+    };
+
+    me.renderTime = function (minutes, seconds) {
+        var timeText = (minutes >= 10 ? minutes : '0' + minutes) + ':' + (seconds >= 10 ? seconds : '0' + seconds);
+
+        return timeText;
     };
 
     me.resetContinueMessage = function () {
@@ -531,5 +542,9 @@ function ChatClient(chatUser, chatRoom, chatUserInRoom) {
 
     me.formatTime = function (momentTime) {
         return momentTime.zone(me.formatTimer.timeZone).format(me.formatTimer.format);
+    };
+
+    me.roundNumber = function (number, decimal) {
+        return parseFloat(number.toFixed(decimal));
     };
 }
