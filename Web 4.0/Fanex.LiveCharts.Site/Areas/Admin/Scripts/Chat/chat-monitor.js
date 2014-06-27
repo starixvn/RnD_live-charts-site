@@ -103,10 +103,10 @@ function ChatMonitor() {
                                     me.updateMuteChatRoomOnAdminSite(true, 101);
                                     break;
                                 case 'mute5':
-                                    me.updateMuteChatRoomOnAdminSite(true, 1);
+                                    me.updateMuteChatRoomOnAdminSite(true, 5);
                                     break;
                                 case 'mute10':
-                                    me.updateMuteChatRoomOnAdminSite(true, 2);
+                                    me.updateMuteChatRoomOnAdminSite(true, 10);
                                     break;
                                 case 'mute15':
                                     me.updateMuteChatRoomOnAdminSite(true, 15);
@@ -181,10 +181,10 @@ function ChatMonitor() {
                                 me.updateMuteChatUserOnAdminSite(currentChatUserId, true, 101);
                                 break;
                             case 'mute5':
-                                me.updateMuteChatUserOnAdminSite(currentChatUserId, true, 1);
+                                me.updateMuteChatUserOnAdminSite(currentChatUserId, true, 5);
                                 break;
                             case 'mute10':
-                                me.updateMuteChatUserOnAdminSite(currentChatUserId, true, 2);
+                                me.updateMuteChatUserOnAdminSite(currentChatUserId, true, 10);
                                 break;
                             case 'mute15':
                                 me.updateMuteChatUserOnAdminSite(currentChatUserId, true, 15);
@@ -491,6 +491,7 @@ function ChatMonitor() {
         LiveChartsAdmin.callAjax({
             url: me.chatMonitorDefault.updateUnMuteForExpiredMute,
             type: 'POST',
+            useBlockUI: false,
             data: {
                 chatRoomId: me.chatMonitorDefault.chatRoomId,
                 updateType: 0 //// Check both chat room muted and chat user muted
