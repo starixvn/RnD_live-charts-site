@@ -156,7 +156,9 @@ namespace Fanex.LiveCharts.Chat.Controllers
         [HttpPost, LiveChartAuthentication]
         public JsonResult UpdateChatName(UpdateChatNameCriteria criteria)
         {
-            var commandResult = _chatService.UpdateChatName(criteria);
+            var chatNameDenyList = _settingService.GetSetting(new GetChatNameDenyListCriteria());
+
+            var commandResult = _chatService.UpdateChatName(criteria, chatNameDenyList.SettingValue);
 
             return Json(commandResult);
         }

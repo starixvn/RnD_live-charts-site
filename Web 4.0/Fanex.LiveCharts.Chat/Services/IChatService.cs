@@ -112,7 +112,7 @@ namespace Fanex.LiveCharts.Chat.Services
 
         ICommandResult ResetChatName(UpdateResetChatNameStatusCriteria criteria);
 
-        ICommandResult UpdateChatName(UpdateChatNameCriteria criteria);
+        ICommandResult UpdateChatName(UpdateChatNameCriteria criteria, string chatNameDenyList);
 
         ICommandResult UpdateUnMuteForExpiredMute(UpdateUnMuteForExpiredMuteCriteria criteria);
 

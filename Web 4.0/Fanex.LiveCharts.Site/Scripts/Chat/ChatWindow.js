@@ -378,6 +378,9 @@ function ChatWindow() {
         if (result && result.IsSuccessful) {
             me.actionAfterModifiedSuccess(chatName);
         }
+        else {
+            LIVECHARTS.alertMessage(LIVECHARTS.messageType.error, result.Message);
+        }
     };
 
     me.actionAfterModifiedSuccess = function (chatName) {

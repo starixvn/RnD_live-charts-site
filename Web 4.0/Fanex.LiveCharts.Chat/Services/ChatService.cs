@@ -978,9 +978,40 @@ namespace Fanex.LiveCharts.Chat.Services
             return updateResult;
         }
 
-        public ICommandResult UpdateChatName(UpdateChatNameCriteria criteria)
+        /// <summary>
+        /// Updated chat name, verify rules.
+        /// </summary>
+        /// <param name="criteria">Data for update chat name.</param>
+        /// <param name="chatNameDenyList">List chat name for verifying rules.</param>
+        /// <returns>Result status.</returns>
+        public ICommandResult UpdateChatName(UpdateChatNameCriteria criteria, string chatNameDenyList)
         {
+            if (CheckChatNameViolateRule(criteria.ChatName, chatNameDenyList))
+            {
+                return new CommandResult
+                {
+                    Code = CodeFail,
+                    Message = Lang.ChatNameViolateMessage
+                };
+            }
+
+            if (!string.IsNullOrEmpty(criteria.ChatName))
+            {
+                criteria.ChatName = HttpUtility.HtmlEncode(criteria.ChatName);
+            }
+            
             var updateResult = _chatRepository.ModifyData(criteria);
+
+            switch ((int)updateResult.Code)
+            {
+                case 1001: //// Chat Name is not available.
+                    updateResult = new CommandResult
+                    {
+                        Code = CodeFail,
+                        Message = Lang.InsertUserErrorMessage1001
+                    };
+                    break;
+            }
 
             return updateResult;
         }
