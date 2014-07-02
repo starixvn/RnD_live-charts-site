@@ -246,6 +246,9 @@
   <data name="OverUnder" xml:space="preserve">
     <value>Trên/Dưới</value>
   </data>
+  <data name="PleaseInputValidCorrectScore" xml:space="preserve">
+    <value>Vui lòng nhập dự đoán số điểm hợp lệ!</value>
+  </data>
   <data name="PleaseLoginToViewMoreDetail" xml:space="preserve">
     <value>Vui lòng đăng nhập để trải nghiệm các tính năng mới, Dự đoán tỉ số và Trò chuyện trực tuyến !</value>
   </data>
@@ -289,11 +292,26 @@
   <data name="Text" xml:space="preserve">
     <value>Văn bản</value>
   </data>
+  <data name="TheRoomWillBeClosed" xml:space="preserve">
+    <value>Phòng sẽ được đóng trong {0} phút.</value>
+  </data>
+  <data name="ThisRoomHasBeenMuted" xml:space="preserve">
+    <value>Phòng hội thoại này đã bị tắt tiếng.</value>
+  </data>
+  <data name="ThisRoomHasBeenMutedIn" xml:space="preserve">
+    <value>Phòng này đã được tắt trong {0} giây.</value>
+  </data>
   <data name="TotalPredictionResult" xml:space="preserve">
     <value>Tổng kết quả điểm dự đoán</value>
   </data>
   <data name="Under" xml:space="preserve">
     <value>Dưới</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Cập nhật</value>
+  </data>
+  <data name="UpdateChatName" xml:space="preserve">
+    <value>Cập nhật Tên hội thoại</value>
   </data>
   <data name="UpdateFailed" xml:space="preserve">
     <value>Cập nhật không thành công!</value>
@@ -315,6 +333,18 @@
   </data>
   <data name="YouAreDisconnect" xml:space="preserve">
     <value>Bạn bị mất kết nối do một phiên khác đăng nhập</value>
+  </data>
+  <data name="YouHaveBeenBanned" xml:space="preserve">
+    <value>Bạn đã bị cấm từ dịch vụ Phòng hội thoại!</value>
+  </data>
+  <data name="YouHaveBeenKicked" xml:space="preserve">
+    <value>Bạn đã bị đuổi ra khỏi phòng hội thoại này!</value>
+  </data>
+  <data name="YouHaveBeenMuted" xml:space="preserve">
+    <value>Bạn đã bị tắt tiếng.</value>
+  </data>
+  <data name="YouHaveBeenMutedIn" xml:space="preserve">
+    <value>Bạn đã bị tắt tiếng trong {0} giây.</value>
   </data>
   <data name="YourPrediction" xml:space="preserve">
     <value>Dự đoán của bạn</value>

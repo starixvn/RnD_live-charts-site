@@ -90,7 +90,7 @@ function ChatMonitor() {
         me.$chatUserGrid.find('.user-status-click-search').unbind('click').click(me.searchByChatUserEvent);
         //me.$chatUserList.find('.chat-user-status').unbind('click').click(me.searchByChatUserEvent);
 
-        if (me.$btnMuteButton.hasClass('btn-mute')) {
+        if (me.$btnMuteButton.hasClass('btn-mute') && !me.chatMonitorDefault.isRoomMuted) {
             $.contextMenu({
                 selector: '#muteButton',
                 trigger: 'left',
@@ -401,6 +401,9 @@ function ChatMonitor() {
                 if (result.CommandResult.IsSuccessful) {
                     me.updateMuteOnMemberSite(result, true);
                     me.chatMonitorDefault.isRoomMuted = isMute;
+                    if (isMute) {
+                        $.contextMenu('destroy', '#muteButton');
+                    }
                     me.initMessageGrid();
                 }
                 else {

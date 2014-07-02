@@ -247,6 +247,9 @@
   <data name="OverUnder" xml:space="preserve">
     <value>大小盘</value>
   </data>
+  <data name="PleaseInputValidCorrectScore" xml:space="preserve">
+    <value>请输入有效的比分预测!</value>
+  </data>
   <data name="PleaseLoginToViewMoreDetail" xml:space="preserve">
     <value>请登入享用新功能 - 比分预测与即时聊天室!</value>
   </data>
@@ -290,11 +293,26 @@
   <data name="Text" xml:space="preserve">
     <value>文本</value>
   </data>
+  <data name="TheRoomWillBeClosed" xml:space="preserve">
+    <value>此聊天室将于{0}分钟关闭.</value>
+  </data>
+  <data name="ThisRoomHasBeenMuted" xml:space="preserve">
+    <value>此聊天室已被静音.</value>
+  </data>
+  <data name="ThisRoomHasBeenMutedIn" xml:space="preserve">
+    <value>此聊天室已被静音{0}秒.</value>
+  </data>
   <data name="TotalPredictionResult" xml:space="preserve">
     <value>总预测结果</value>
   </data>
   <data name="Under" xml:space="preserve">
     <value>小</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="UpdateChatName" xml:space="preserve">
+    <value>更新聊天名称</value>
   </data>
   <data name="UpdateFailed" xml:space="preserve">
     <value>更新失败！</value>
@@ -316,6 +334,18 @@
   </data>
   <data name="YouAreDisconnect" xml:space="preserve">
     <value>您强迫中断连接因为另一个会话加入本室</value>
+  </data>
+  <data name="YouHaveBeenBanned" xml:space="preserve">
+    <value>您已被禁用聊天室服务!</value>
+  </data>
+  <data name="YouHaveBeenKicked" xml:space="preserve">
+    <value>您已被此聊天室驱离!</value>
+  </data>
+  <data name="YouHaveBeenMuted" xml:space="preserve">
+    <value>您已被静音.</value>
+  </data>
+  <data name="YouHaveBeenMutedIn" xml:space="preserve">
+    <value>您已被静音{0}秒.</value>
   </data>
   <data name="YourPrediction" xml:space="preserve">
     <value>您的预测</value>

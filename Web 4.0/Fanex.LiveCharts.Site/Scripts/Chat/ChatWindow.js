@@ -417,7 +417,8 @@ function ChatWindow() {
                 }
                 else {
                     me.chatClient.isRoomMute = chatRoom.Muted;
-                    me.chatClient.updateUIForMute();
+                    me.chatClient.roomContinueMuteInMinutes = chatRoom.ContinueMuteInMinutes;
+                    me.chatClient.updateUIForMute(true, false);
                     me.chatClient.joinRoom();
                     me.registerEvents();
                     me.chatServer.joinRoom();

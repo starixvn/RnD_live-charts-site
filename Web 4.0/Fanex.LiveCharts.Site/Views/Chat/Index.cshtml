@@ -196,18 +196,18 @@
 
         var LANGUAGE = 
         {
-            chatNameCannotEmpty: '@Lang.ChatNameCannotEmpty',
-            messageCannotEmpty: '@Lang.MessageCannotEmpty',
-            youAreDisconnect: '@Lang.YouAreDisconnect',
-            hasLeft: '@Lang.HasLeft',
-            joinedRoom: '@Lang.JoinedRoom',
-            maxLengthChatName: '@Lang.MaxLengthChatNameMessage',
-            maxLengthMessage: '@(string.Format(Lang.MessageMaxLengthMessage, maxMessageLength))',
+            chatNameCannotEmpty: '@Html.Raw(Lang.ChatNameCannotEmpty)',
+            messageCannotEmpty: '@Html.Raw(Lang.MessageCannotEmpty)',
+            youAreDisconnect: '@Html.Raw(Lang.YouAreDisconnect)',
+            hasLeft: '@Html.Raw(Lang.HasLeft)',
+            joinedRoom: '@Html.Raw(Lang.JoinedRoom)',
+            maxLengthChatName: '@Html.Raw(Lang.MaxLengthChatNameMessage)',
+            maxLengthMessage: '@Html.Raw(string.Format(Lang.MessageMaxLengthMessage, maxMessageLength))',
             sorryRoomNotAvailableForSendingMessage: '@Html.Raw(Lang.SorryRoomNotAvailableForSendingMessage)',
-            youHaveBeenMuted: '@(Lang.YouHaveBeenMuted)',
-            youHaveBeenMutedIn: '@(Lang.YouHaveBeenMutedIn)',
-            thisRoomHasBeenMuted: '@(Lang.ThisRoomHasBeenMuted)',
-            thisRoomHasBeenMutedIn: '@(Lang.ThisRoomHasBeenMutedIn)'
+            youHaveBeenMuted: '@Html.Raw(Lang.YouHaveBeenMuted)',
+            youHaveBeenMutedIn: '@Html.Raw(Lang.YouHaveBeenMutedIn)',
+            thisRoomHasBeenMuted: '@Html.Raw(Lang.ThisRoomHasBeenMuted)',
+            thisRoomHasBeenMutedIn: '@Html.Raw(Lang.ThisRoomHasBeenMutedIn)'
         }
 
     </script>
