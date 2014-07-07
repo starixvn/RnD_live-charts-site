@@ -373,10 +373,11 @@ function ChatClient(chatUser, chatRoom, chatUserInRoom) {
             if (isMute) {
                 me.chatUserContinueMuteInMinutes = continueMuteInMinutes;
             }
-            if (me.intervalUpdateUIForMuteRoom) {
-                me.isInMuteRoomInterval = false;
-                clearInterval(me.intervalUpdateUIForMuteRoom);
+            if (me.muteChatUserIntervalId) {
+                me.isInMuteChatUserInterval = false;
+                clearInterval(me.muteChatUserIntervalId);
             }
+            
             me.updateUIForMute(false, true);
         }
     };
@@ -387,9 +388,9 @@ function ChatClient(chatUser, chatRoom, chatUserInRoom) {
             if (isMute) {
                 me.roomContinueMuteInMinutes = continueMuteInMinutes;
             }
-            if (me.intervalUpdateUIForMuteChatUser) {
-                me.isInMuteChatUserInterval = false;
-                clearInterval(me.intervalUpdateUIForMuteChatUser);
+            if (me.muteRoomIntervalId) {
+                me.isInMuteRoomInterval = false;
+                clearInterval(me.muteRoomIntervalId);
             }
             me.updateUIForMute(true, false);
         }

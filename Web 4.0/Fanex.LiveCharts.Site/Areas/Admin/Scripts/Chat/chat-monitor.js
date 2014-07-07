@@ -90,7 +90,8 @@ function ChatMonitor() {
         me.$chatUserGrid.find('.user-status-click-search').unbind('click').click(me.searchByChatUserEvent);
         //me.$chatUserList.find('.chat-user-status').unbind('click').click(me.searchByChatUserEvent);
 
-        if (me.$btnMuteButton.hasClass('btn-mute') && !me.chatMonitorDefault.isRoomMuted) {
+        if (me.$btnMuteButton.hasClass('btn-mute') && !(me.roomData.ChatRoom.Muted && me.roomData.ChatRoom.ContinueMuteInMinutes !== 0)) {
+            me.$btnMuteButton.unbind('click');
             $.contextMenu({
                 selector: '#muteButton',
                 trigger: 'left',
@@ -124,6 +125,7 @@ function ChatMonitor() {
             });
         }
         else {
+            $.contextMenu('destroy', '#muteButton');
             me.$btnMuteButton.unbind('click').click(function () { me.updateMuteChatRoomOnAdminSite(false, 0); });
         }
 
@@ -401,9 +403,6 @@ function ChatMonitor() {
                 if (result.CommandResult.IsSuccessful) {
                     me.updateMuteOnMemberSite(result, true);
                     me.chatMonitorDefault.isRoomMuted = isMute;
-                    if (isMute) {
-                        $.contextMenu('destroy', '#muteButton');
-                    }
                     me.initMessageGrid();
                 }
                 else {
@@ -732,7 +731,7 @@ function ChatMonitor() {
         //'<input type="button" id="muteButton" class="btn-mute" />'
         // me.chatMonitorDefault.
         var buttonHtml = '<input type="button" id="muteButton" ';
-        if (me.roomData.ChatRoom.Muted) {
+        if (me.roomData.ChatRoom.Muted && me.roomData.ChatRoom.ContinueMuteInMinutes !== 0) {
             buttonHtml += 'class="btn-un-mute" title="' + LANGUAGE.clickToUnMute + '"';
         }
         else {
