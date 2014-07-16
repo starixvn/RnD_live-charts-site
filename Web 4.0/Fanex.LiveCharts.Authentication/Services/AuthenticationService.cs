@@ -74,6 +74,7 @@ namespace Fanex.LiveCharts.Authentication.Services
         /// <param name="timeZone">Current time zone to get chart.</param>
         /// <param name="matchStatus">Chart is running or completed.</param>
         /// <param name="chartShowingStatus">Chart status for showing on production.</param>
+        /// <param name="earlyDay">Early number for get early matches.</param>
         /// <returns>List chart information.</returns>
         [SuppressMessage(
             "StyleCop.CSharp.Nexcel.NexcelCustomRules",
@@ -84,19 +85,21 @@ namespace Fanex.LiveCharts.Authentication.Services
             int sportId = 0,
             int timeZone = -4,
             string matchStatus = "",
-            byte chartShowingStatus = 1)
+            byte chartShowingStatus = 1,
+            byte earlyDay = 0)
         {
             try
             {
                 kickOffDate = kickOffDate.AddHours(timeZone - GMTMinus4);
                 var getCachedChartsKey = string.Format(
-                    "{0}_{1}_{2}_{3}_{4}_{5}",
+                    "{0}_{1}_{2}_{3}_{4}_{5}_{6}",
                     CacheGetCharts,
                     kickOffDate.ToShortDateString(),
                     sportId,
                     timeZone,
                     matchStatus,
-                    chartShowingStatus);
+                    chartShowingStatus,
+                    earlyDay);
                 ChartInfo[] charts = CouchBaseCachingService.Get<ChartInfo[]>(getCachedChartsKey);
                 if (charts == null)
                 {
@@ -105,7 +108,8 @@ namespace Fanex.LiveCharts.Authentication.Services
                             MatchStatus = matchStatus.ToLower(),
                             KickOffDate = kickOffDate,
                             SportId = sportId,
-                            ChartShowingStatus = chartShowingStatus
+                            ChartShowingStatus = chartShowingStatus,
+                            EarlyDay = earlyDay
                         });
                     charts = chartFlats.GroupBy(c => new { c.MatchId, c.MatchStatus, c.KickOffTime })
                         .Select(g =>

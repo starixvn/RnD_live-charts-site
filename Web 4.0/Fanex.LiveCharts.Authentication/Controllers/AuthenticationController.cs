@@ -40,13 +40,15 @@ namespace Fanex.LiveCharts.Authentication.Controllers
         /// <param name="timeZone">Time zone of kick off date.</param>
         /// <param name="matchStatus">Match status for query.</param>
         /// <param name="chartShowingStatus">Chart can be show in production or both production and QA site.</param>
+        /// <param name="earlyDay">For get early match.</param>
         /// <returns>Array of Chart.</returns>
         public ChartInfo[] GetCharts(
             DateTime kickOffDate,
             int sportId = 0,
             int timeZone = -4,
             string matchStatus = "all",
-            byte chartShowingStatus = 1)
+            byte chartShowingStatus = 1,
+            byte earlyDay = 0)
         {
             try
             {
@@ -55,7 +57,8 @@ namespace Fanex.LiveCharts.Authentication.Controllers
                     sportId,
                     timeZone,
                     matchStatus,
-                    chartShowingStatus);
+                    chartShowingStatus,
+                    earlyDay);
 
                 return chart;
             }

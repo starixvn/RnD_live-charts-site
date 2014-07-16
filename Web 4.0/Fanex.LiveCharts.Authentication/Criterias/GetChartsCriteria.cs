@@ -25,7 +25,9 @@ namespace Fanex.LiveCharts.Authentication.Criterias
 
         public string MatchStatus { get; set; }
 
-        public short ChartShowingStatus { get; set; }
+        public byte ChartShowingStatus { get; set; }
+
+        public byte EarlyDay { get; set; }
 
         public override string GetSettingKey()
         {
