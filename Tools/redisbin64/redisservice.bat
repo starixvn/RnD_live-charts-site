@@ -1,1 +1,0 @@
-sc create Redis start= auto DisplayName= Redis binpath= "\"D:\GitLabProject\LCC\live-charts-site\Tools\redisbin64\redis-server.exe\" \"D:\GitLabProject\LCC\live-charts-site\Tools\redisbin64\redis.conf\""

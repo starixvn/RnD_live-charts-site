@@ -74,7 +74,7 @@ namespace Fanex.LiveCharts.Authentication.Services
         /// <param name="timeZone">Current time zone to get chart.</param>
         /// <param name="matchStatus">Chart is running or completed.</param>
         /// <param name="chartShowingStatus">Chart status for showing on production.</param>
-        /// <param name="earlyDay">Early number for get early matches.</param>
+        /// <param name="numOfEarlyDay">Early number for get early matches.</param>
         /// <returns>List chart information.</returns>
         [SuppressMessage(
             "StyleCop.CSharp.Nexcel.NexcelCustomRules",
@@ -86,7 +86,7 @@ namespace Fanex.LiveCharts.Authentication.Services
             int timeZone = -4,
             string matchStatus = "",
             byte chartShowingStatus = 1,
-            byte earlyDay = 0)
+            byte numOfEarlyDay = 0)
         {
             try
             {
@@ -99,7 +99,7 @@ namespace Fanex.LiveCharts.Authentication.Services
                     timeZone,
                     matchStatus,
                     chartShowingStatus,
-                    earlyDay);
+                    numOfEarlyDay);
                 ChartInfo[] charts = CouchBaseCachingService.Get<ChartInfo[]>(getCachedChartsKey);
                 if (charts == null)
                 {
@@ -109,7 +109,7 @@ namespace Fanex.LiveCharts.Authentication.Services
                             KickOffDate = kickOffDate,
                             SportId = sportId,
                             ChartShowingStatus = chartShowingStatus,
-                            EarlyDay = earlyDay
+                            NumOfEarlyDay = numOfEarlyDay
                         });
                     charts = chartFlats.GroupBy(c => new { c.MatchId, c.MatchStatus, c.KickOffTime })
                         .Select(g =>

@@ -83,7 +83,7 @@ namespace Fanex.LiveCharts.ClientAuthentication
         /// <param name="sportId">Sport Id information.</param>
         /// <param name="matchStatus">Match status for query.</param>
         /// <param name="chartShowingStatus">Chart can be show in production or both production and QA site.</param>
-        /// <param name="earlyDay">Number of next day for get early match.</param>
+        /// <param name="numOfEarlyDay">Number of next day for get early match.</param>
         /// <returns>List chart information.</returns>
         public static ChartInfo[] GetCharts(
             DateTime kickOffDate,
@@ -91,17 +91,17 @@ namespace Fanex.LiveCharts.ClientAuthentication
             int sportId = 0,
             string matchStatus = "all",
             ChartShowingType chartShowingStatus = ChartShowingType.ShowOnProAndQASite,
-            byte earlyDay = 0)
+            byte numOfEarlyDay = 0)
         {
             string getCharUrl = string.Format(
-                "{0}/api/authentication/getcharts?kickOffDate={1}&timeZone={2}&sportId={3}&matchStatus={4}&chartShowingStatus={5}&earlyDay={6}",
+                "{0}/api/authentication/getcharts?kickOffDate={1}&timeZone={2}&sportId={3}&matchStatus={4}&chartShowingStatus={5}&numOfEarlyDay={6}",
                 LiveChartServiceURL,
                 kickOffDate.ToShortDateString(),
                 timeZone,
                 sportId,
                 matchStatus,
                 (byte)chartShowingStatus,
-                earlyDay);
+                numOfEarlyDay);
 
             string chartsStream = GetStream(getCharUrl);
 

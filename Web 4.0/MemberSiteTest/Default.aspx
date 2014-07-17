@@ -12,11 +12,11 @@
     Kick Off Date: 
     <input type="text" id="txtKickOffDate" value="<%=DateTime.Now.ToShortDateString()%>" />
     In early day:
-    <select id="ddlEarlyDay">
+    <select id="ddlNumOfEarlyDay">
         <option value="0">Just In Kick Off Date</option>
-        <option value="3">Next 3 Days From Kick Off Date</option>
-        <option value="5">Next 5 Days From Kick Off Date</option>
-        <option value="7">Next 7 Days From Kick Off Date</option>
+        <option value="3">Next 3 Days</option>
+        <option value="5">Next 5 Days</option>
+        <option value="7">Next 7 Days</option>
     </select>
     Match Status: 
     <select id="ddlMatchStatus">
@@ -48,12 +48,12 @@
             var matchStatus = document.getElementById('ddlMatchStatus').value;
             var language = document.getElementById('ddlLanguage').value;
             var chartShowingStatus = document.getElementById('ddlShowingStatus').value;
-            var earlyDay = document.getElementById('ddlEarlyDay').value;
+            var numOfEarlyDay = document.getElementById('ddlNumOfEarlyDay').value;
             window.open('LoadChartsList.aspx?kickOffDate=' + kickOffDate
             + '&matchStatus=' + matchStatus
             + '&language=' + language
             + '&chartShowingStatus=' + chartShowingStatus
-            + '&earlyDay=' + earlyDay, 
+            + '&numOfEarlyDay=' + numOfEarlyDay, 
             'chartListPage');
         }
     </script>
