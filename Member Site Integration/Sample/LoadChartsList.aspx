@@ -4,7 +4,7 @@
     public Fanex.LiveCharts.ClientAuthentication.Models.ChartInfo[] Charts;
     public DateTime kickOffDate;
     public string Language;
-    public byte earlyDay = 0;
+    public byte numOfEarlyDay = 0;
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -28,9 +28,9 @@
         {
             chartShowingStatus = (Fanex.LiveCharts.ClientAuthentication.Core.ChartShowingType)Enum.Parse(typeof(Fanex.LiveCharts.ClientAuthentication.Core.ChartShowingType), Request["chartShowingStatus"].ToString());
         }
-        if (Request["earlyDay"] != null)
+        if (Request["numOfEarlyDay"] != null)
         {
-            earlyDay = byte.Parse(Request["earlyDay"]);
+            numOfEarlyDay = byte.Parse(Request["numOfEarlyDay"]);
         }
         Title = "Member Site Test";
         ////new DateTime(2013, 6, 17)
@@ -40,7 +40,7 @@
             0, 
             matchStatus,
             chartShowingStatus,
-            earlyDay);
+            numOfEarlyDay);
     }
 </script>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
