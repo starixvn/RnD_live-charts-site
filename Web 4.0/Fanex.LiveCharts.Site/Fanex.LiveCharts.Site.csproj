@@ -203,7 +203,6 @@
     <Content Include="Content\Images\readd.png" />
     <Content Include="Content\Images\recover.png" />
     <Content Include="Content\Images\score_prediction.png" />
-    <Content Include="Content\Images\write.png" />
     <Content Include="Content\MovementCharts\MainPage.less" />
     <Content Include="Content\MovementCharts\Chat.less" />
     <Content Include="Content\Sounds\chat.mp3" />
