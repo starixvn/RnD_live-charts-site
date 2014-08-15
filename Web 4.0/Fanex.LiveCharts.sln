@@ -37,6 +37,11 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "MemberSiteTest", "MemberSit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.LiveCharts.Chat", "Fanex.LiveCharts.Chat\Fanex.LiveCharts.Chat.csproj", "{8D35B1EE-B13E-45E7-A773-D86F1B029A4A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeAnalysis", "CodeAnalysis", "{9B947B11-2DC4-4E74-9121-BF0D0051A8C3}"
+	ProjectSection(SolutionItems) = preProject
+		CodeAnalysisConfiguration.xml = CodeAnalysisConfiguration.xml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
