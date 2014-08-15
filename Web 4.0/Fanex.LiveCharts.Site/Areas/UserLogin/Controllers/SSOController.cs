@@ -68,7 +68,7 @@ namespace Fanex.NAP.Hub.Areas.UserLogin.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public ActionResult Index(string userId, string onuserId, string time)
+        public ActionResult Index(string userId, string onuserId, string time, Uri redirectUrl = null)
         {
             userId = Cryptography.CfsDeCrypt(userId.Replace(" ", "+"));
             onuserId = Cryptography.CfsDeCrypt(onuserId.Replace(" ", "+"));
@@ -133,7 +133,9 @@ namespace Fanex.NAP.Hub.Areas.UserLogin.Controllers
 
                     #endregion
 
-                    return Redirect(FormsAuthentication.DefaultUrl);
+                    var redirectTo = redirectUrl != null ? redirectUrl.ToString() : FormsAuthentication.DefaultUrl;
+
+                    return Redirect(redirectTo);
                 }
             }
 
