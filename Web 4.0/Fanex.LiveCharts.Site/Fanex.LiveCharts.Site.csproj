@@ -193,6 +193,7 @@
     <Content Include="Areas\Admin\Scripts\Setting\score-prediction-setting.js" />
     <Content Include="Areas\Admin\Scripts\Setting\chat-setting.js" />
     <Content Include="Areas\UserLogin\scripts\lib\CryptoJS.js" />
+    <Content Include="CodeAnalysis\CodeAnalysisConfiguration.xml" />
     <Content Include="Content\Bootstrap\bootstrap-common.less" />
     <Content Include="Content\Images\chart-spite.png" />
     <Content Include="Content\Images\chat_monitor.png" />
