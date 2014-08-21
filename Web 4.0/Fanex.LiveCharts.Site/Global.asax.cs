@@ -67,6 +67,12 @@ namespace Fanex.LiveCharts.Site
 
                     if (Request != null && !Request.IsLocal)
                     {
+                        if (ex.Message == "Server cannot set status after HTTP headers have been sent."
+                            || ex.Message == "Cannot redirect after HTTP headers have been sent.")
+                        {
+                            return;
+                        }
+
                         Logger.Log.Error(GetErrorInformation(ex));
                     }
 

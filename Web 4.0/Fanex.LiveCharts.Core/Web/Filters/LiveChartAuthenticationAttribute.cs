@@ -49,7 +49,6 @@ namespace Fanex.LiveCharts.Web.Filters
                         filterContext.Result = new HttpUnauthorizedResult();
                         filterContext.Result.ExecuteResult(filterContext.Controller.ControllerContext);
                         response.End();
-                        SessionManager.ClearAll();
                     }
                     else
                     {
