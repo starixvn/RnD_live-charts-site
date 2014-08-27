@@ -14,13 +14,13 @@
 <section id="filter-bar">
     @using (Html.BeginForm())
     {
-        <div class="filter-form">
+        <div class="filter-form match-filter-form">
             <div class="lbl-field width-auto">
                 @Html.LabelFor(m => m.StatusId, AdminSiteLang.MatchStatus)
             </div>
             <div class="edit-field width-140">
                 @Html.DropDownListFor(m => m.StatusId, new List<SelectListItem>()
-                                                      {                                                            
+                                                      {
                                                           new SelectListItem { Text = AdminSiteLang.Running, Value = "false"},
                                                           new SelectListItem { Text = AdminSiteLang.Completed, Value = "true"}
                                                       })
