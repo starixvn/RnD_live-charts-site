@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Functions>
+  <Function Name="Admin">
+    <Setting Key="Chart_Admin_Get_Event_By_Match_Id" SpName="Chart_Admin_Get_Event_By_Match_Id" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" >
+      <Mapping DataField="EventType" ObjectProperty="EventTypeId" />
+      <Mapping DataField="Value" ObjectProperty="Detail"/>
+    </Setting>
+    <Setting Key="Chart_Admin_Get_Match_By_Id" SpName="Chart_Admin_Get_Match_By_Id" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" >
+      <Mapping DataField="MatchId" ObjectProperty="Id" />
+    </Setting>
+    <Setting Key="Chart_Admin_Insert_Event" SpName="Chart_Admin_Insert_Event" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" ></Setting>
+    <Setting Key="Chart_Admin_Update_Event" SpName="Chart_Admin_Update_Event" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" ></Setting>
+    <Setting Key="Chart_Admin_Get_Event_Types" SpName="Chart_Admin_Get_Event_Types" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" >
+      <Mapping DataField="TypeId" ObjectProperty="EventTypeId" />
+    </Setting>
+    <Setting Key="Chart_Admin_Get_Event_By_Id" SpName="Chart_Admin_Get_Event_By_Id" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" >
+      <Mapping DataField="EventType" ObjectProperty="EventTypeId" />
+      <Mapping DataField="Value" ObjectProperty="Detail"/>
+    </Setting>
+    <Setting Key="Chart_Admin_Delete_Event" SpName="Chart_Admin_Delete_Event" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" ></Setting>
+    <Setting Key="Chart_Admin_Get_Leagues" SpName="Chart_Admin_Get_Leagues" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0">
+      <Mapping DataField="leagueid" ObjectProperty="Id" />
+      <Mapping DataField="leaguename" ObjectProperty="Name" />
+    </Setting>
+    <Setting Key="Chart_Admin_Search_Matches" SpName="Chart_Admin_Search_Matches" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" >
+      <Mapping DataField="MatchId" ObjectProperty="Id" />
+    </Setting>
+    <Setting Key="Chart_Admin_Get_Enable_Charts" SpName="Chart_Admin_Get_Enable_Charts" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" >
+      <Mapping DataField="MatchId" ObjectProperty="Id" />
+    </Setting>
+    <Setting Key="Chart_Admin_Get_Events_By_Event_Type" SpName="Chart_Admin_Get_Events_By_Event_Type" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" >
+      <Mapping DataField="EventType" ObjectProperty="EventTypeId" />
+    </Setting>
+
+    <Setting Key="Chart_Admin_Match_Queue_Import" SpName="Chart_Admin_Match_Queue_Import" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Check_Token" SpName="Chart_Check_Token" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Insert_Token" SpName="Chart_Insert_Token" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_User_CheckIn" SpName="Chart_User_CheckIn" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_User_ReCheckIn" SpName="Chart_User_ReCheckIn" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+  </Function>
+  
+  <Function Name="LiveChart-Authentication">
+    <Setting Key="Chart_Insert_Token" SpName="Chart_Insert_Token" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Get_Charts" SpName="Chart_Get_Charts" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" >
+      <Mapping DataField="bettype" ObjectProperty="BetTypeId" />
+    </Setting>
+  </Function>
+  
+  <Function Name="Movement-Chart">
+    <Setting Key="Chart_Get_Leagues" SpName="Chart_Get_Leagues" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0">
+      <Mapping DataField="leagueid" ObjectProperty="Id" />
+      <Mapping DataField="leaguename" ObjectProperty="Name" />
+    </Setting>
+    <Setting Key="Chart_Get_Matches" SpName="Chart_Get_Matches" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" >
+      <Mapping DataField="matchid" ObjectProperty="Id" />
+      <Mapping DataField="homeid" ObjectProperty="HomeId" />
+      <Mapping DataField="awayid" ObjectProperty="AwayId" />
+      <Mapping DataField="kickofftime" ObjectProperty="KickOffTime" />
+    </Setting>
+    <Setting Key="Chart_Get_Odds" SpName="Chart_Get_Odds" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" >
+      <Mapping DataField="oddsid" ObjectProperty="Id" />
+      <Mapping DataField="bettype" ObjectProperty="BetTypeId" />
+      <Mapping DataField="liveindicator" ObjectProperty="IsLive" />
+      <Mapping DataField="changetime" ObjectProperty="ChangeTime" />
+      <Mapping DataField="hdp1" ObjectProperty="HomeHandicap" />
+      <Mapping DataField="hdp2" ObjectProperty="AwayHandicap" />
+      <Mapping DataField="chartstatus" ObjectProperty="ChartStatus" />
+    </Setting>
+
+    <Setting Key="Chart_Add_Odds_Data" SpName="Chart_Add_Odds_Data" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Add_Ticket_Data" SpName="Chart_Add_Ticket_Data" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Delete_Odds_Data" SpName="Chart_Delete_Odds_Data" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Delete_Ticket_Data" SpName="Chart_Delete_Ticket_Data" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+
+    <Setting Key="Chart_Get_Odds_Data" SpName="Chart_Get_Odds_Data" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" >
+      <Mapping DataField="Minute" ObjectProperty="TimeIndex" />
+      <Mapping DataField="recordtime" ObjectProperty="RecordTime" />
+      <Mapping DataField="hdp1" ObjectProperty="HomeHandicap" />
+      <Mapping DataField="hdp2" ObjectProperty="AwayHandicap" />
+      <Mapping DataField="bettype" ObjectProperty="BetTypeId" />
+    </Setting>
+
+    <Setting Key="Chart_Get_Tickets_Data" SpName="Chart_Get_Tickets_Data" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" >
+      <Mapping DataField="Minute" ObjectProperty="TimeIndex" />
+      <Mapping DataField="recordtime" ObjectProperty="RecordTime" />
+      <!--<Mapping DataField="hdp1" ObjectProperty="HomeHandicap" />
+      <Mapping DataField="hdp2" ObjectProperty="AwayHandicap" />-->
+      <Mapping DataField="homeTickets" ObjectProperty="HomeTickets" />
+      <Mapping DataField="awayTickets" ObjectProperty="AwayTickets" />
+      <Mapping DataField="drawTickets" ObjectProperty="DrawTickets" />
+      <Mapping DataField="bettype" ObjectProperty="BetTypeId" />
+    </Setting>
+
+    <Setting Key="Chart_Get_Max_Time" SpName="Chart_Get_Max_Time" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" ></Setting>
+    <Setting Key="Chart_Update_Max_Time" SpName="Chart_Update_Max_Time" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" ></Setting>
+
+    <Setting Key="Chart_Get_Events" SpName="Chart_Get_Events" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" >
+      <Mapping DataField="Minute" ObjectProperty="TimeIndex" />
+    </Setting>
+
+    <Setting Key="Chart_Get_MatchDetail" SpName="Chart_Get_MatchDetail" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" >
+      <Mapping DataField="matchid" ObjectProperty="Id" />
+    </Setting>
+
+    <Setting Key="Chart_Admin_Update_Odds_Status" SpName="Chart_Admin_Update_Odds_Status" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" ></Setting>
+
+    <Setting Key="Chart_Get_Current_Match_Data" SpName="Chart_Get_Current_Match_Data" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" ></Setting>
+    <Setting Key="Chart_Admin_Update_Chart_Showing_Status" SpName="Chart_Admin_Update_Chart_Showing_Status" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" ></Setting>
+    <Setting Key="Chart_Get_Match_Status" SpName="Chart_Get_Match_Status" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+  </Function>
+
+  <Function Name="Score-Prediction">
+    <Setting Key="Chart_Insert_Or_Update_Score_Prediction_Item" SpName="Chart_Insert_Or_Update_Score_Prediction_Item" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0">
+    </Setting>
+    <Setting Key="Chart_Get_User_Prediction" SpName="Chart_Get_User_Prediction" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0">
+    </Setting>
+    <Setting Key="Chart_Get_All_Score_Prediction" SpName="Chart_Get_All_Score_Prediction" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0">
+    </Setting>
+    <Setting Key="Chart_Admin_Get_Minute_For_Closing_Prediction" SpName="Chart_Admin_Get_Minute_For_Closing_Prediction" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0">
+    </Setting>
+    <Setting Key="Chart_Admin_Update_Minute_For_Closing_Prediction" SpName="Chart_Admin_Update_Minute_For_Closing_Prediction" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0">
+    </Setting>
+    <Setting Key="Chart_Admin_Insert_Update_Dummy_Prediction" SpName="Chart_Admin_Insert_Update_Dummy_Prediction" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0">
+    </Setting>
+    <Setting Key="Chart_Is_Match_Complete_Capture" SpName="Chart_Is_Match_Complete_Capture" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0">
+    </Setting>
+    <Setting Key="Chart_Get_Score_Prediction_Option" SpName="Chart_Get_Score_Prediction_Option" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0">
+    </Setting>
+    
+  </Function>
+
+  <Function Name="Chat">
+    <Setting Key="Chart_Chat_Get_Chat_Message_By_Time" SpName="Chart_Chat_Get_Chat_Message_By_Time" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Get_Chat_Message_By_User_Id" SpName="Chart_Chat_Get_Chat_Message_By_User_Id" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Get_Chat_User" SpName="Chart_Chat_Get_Chat_User_xtest" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Insert_Chat_Message" SpName="Chart_Chat_Insert_Chat_Message" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Insert_Chat_Room" SpName="Chart_Chat_Insert_Chat_Room" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Insert_Chat_User" SpName="Chart_Chat_Insert_Chat_User" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Update_Chat_Message" SpName="Chart_Chat_Update_Chat_Message" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Update_Chat_Room" SpName="Chart_Chat_Update_Chat_Room" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Update_Chat_User" SpName="Chart_Chat_Update_Chat_User" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Get_Chat_Room_By_Name" SpName="Chart_Chat_Get_Chat_Room_By_Name_xtest" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Get_Chat_Room_Users" SpName="Chart_Chat_Get_Chat_Room_Users_xtest" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Insert_Chat_User_In_Room" SpName="Chart_Chat_Insert_Chat_User_In_Room" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Update_Chat_User_In_Room" SpName="Chart_Chat_Update_Chat_User_In_Room" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Get_Chat_User_In_Room" SpName="Chart_Chat_Get_Chat_User_In_Room_xtest" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Get_Chat_User_In_Room_By_ConnectionId" SpName="Chart_Chat_Get_Chat_User_In_Room_By_ConnectionId" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Insert_Update_Chat_Message_Spam" SpName="Chart_Chat_Insert_Update_Chat_Message_Spam" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Get_Chat_Room_By_Match_Id" SpName="Chart_Chat_Get_Chat_Room_By_Match_Id" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Update_Kick_Out_Chat_User" SpName="Chart_Chat_Update_Kick_Out_Chat_User" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Get_Term_Condition" SpName="Chart_Chat_Get_Term_Condition" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Update_Term_Condition" SpName="Chart_Chat_Update_Term_Condition" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Get_Welcome_Message" SpName="Chart_Chat_Get_Welcome_Message" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Update_Welcome_Message" SpName="Chart_Chat_Update_Welcome_Message" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Search_Chat_Message" SpName="Chart_Chat_Search_Chat_Message" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Admin_Get_Chat_Room_Users" SpName="Chart_Chat_Admin_Get_Chat_Room_Users_xtest" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Get_Chat_Name_Deny_List" SpName="Chart_Chat_Get_Chat_Name_Deny_List" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Update_Chat_Name_Deny_List" SpName="Chart_Chat_Update_Chat_Name_Deny_List" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Update_Chat_Message_Of_Chat_User" SpName="Chart_Chat_Update_Chat_Message_Of_Chat_User" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Update_Chat_User_Agree_Terms" SpName="Chart_Chat_Update_Chat_User_Agree_Terms" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Update_Mute_Chat_Room" SpName="Chart_Chat_Update_Mute_Chat_Room_xtest" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Update_Mute_Chat_User" SpName="Chart_Chat_Update_Mute_Chat_User_xtest" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Insert_Member_Banned" SpName="Chart_Chat_Insert_Member_Banned" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Search_Chat_User" SpName="Chart_Chat_Search_Chat_User_xtest" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Search_Member" SpName="Chart_Chat_Search_Member" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Update_Ban_Chat_Users" SpName="Chart_Chat_Update_Ban_Chat_Users" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Update_Ban_Members" SpName="Chart_Chat_Update_Ban_Members" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Get_Member_Banned" SpName="Chart_Chat_Get_Member_Banned" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Update_Chat_Room_Status_By_MatchId" SpName="Chart_Chat_Update_Chat_Room_Status_By_MatchId" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+
+    <Setting Key="Chart_Chat_Get_Ban_Words" SpName="Chart_Chat_Get_Ban_Words" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Insert_Ban_Words" SpName="Chart_Chat_Insert_Ban_Words" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Update_Ban_Word_Status" SpName="Chart_Chat_Update_Ban_Word_Status" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Update_Ban_Word_Text" SpName="Chart_Chat_Update_Ban_Word_Text" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+
+    <Setting Key="Chart_Chat_Update_Reset_Chat_Name_Status" SpName="Chart_Chat_Update_Reset_Chat_Name_Status" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Update_Chat_Name" SpName="Chart_Chat_Update_Chat_Name" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    <Setting Key="Chart_Chat_Update_UnMute_For_Expired_Mute" SpName="Chart_Chat_Update_UnMute_For_Expired_Mute" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    
+
+  </Function>
+</Functions>

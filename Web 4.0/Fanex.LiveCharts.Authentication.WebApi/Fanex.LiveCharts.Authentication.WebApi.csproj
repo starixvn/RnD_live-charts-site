@@ -117,7 +117,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Content Include="App_Data\StoreProcedureName.xml" />
+    <Content Include="App_Data\LOCAL\StoreProcedureName.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_Data\PRO\StoreProcedureName.xml" />
+    <Content Include="App_Data\UAT\StoreProcedureName.xml" />
     <Content Include="CodeAnalysis\CodeAnalysisConfiguration.xml" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
@@ -128,6 +132,12 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
+    <Content Include="Web.uat.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.pro.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Index.cshtml" />
@@ -139,9 +149,21 @@
     <Content Include="Web.ConnectionString.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Web.ConnectionString.pro.config">
+      <DependentUpon>Web.ConnectionString.config</DependentUpon>
+    </Content>
+    <Content Include="Web.ConnectionString.uat.config">
+      <DependentUpon>Web.ConnectionString.config</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.AppSettings.config" />
+    <Content Include="Web.AppSettings.pro.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
+    <Content Include="Web.AppSettings.uat.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fanex.LiveCharts.Authentication\Fanex.LiveCharts.Authentication.csproj">
