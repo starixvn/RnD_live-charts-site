@@ -556,27 +556,21 @@
     </Content>
     <Content Include="Web.member-sit.config">
       <DependentUpon>Web.config</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Web.member-uat.config">
       <DependentUpon>Web.config</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Web.member-pro.config">
       <DependentUpon>Web.config</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Web.admin-pro.config">
       <DependentUpon>Web.config</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Web.admin-uat.config">
       <DependentUpon>Web.config</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Web.admin-sit.config">
       <DependentUpon>Web.config</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Scripts\Libs\RefreshCountDown\RefreshCountDown.less" />
@@ -585,54 +579,42 @@
     </Content>
     <Content Include="Web.AppSettings.member-sit.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Web.AppSettings.member-uat.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Web.AppSettings.member-pro.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Web.AppSettings.admin-pro.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Web.AppSettings.admin-uat.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Web.AppSettings.admin-sit.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Web.ConnectionString.config">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Web.ConnectionString.member-sit.config">
       <DependentUpon>Web.ConnectionString.config</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Web.ConnectionString.member-uat.config">
       <DependentUpon>Web.ConnectionString.config</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Web.ConnectionString.member-pro.config">
       <DependentUpon>Web.ConnectionString.config</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Web.ConnectionString.admin-pro.config">
       <DependentUpon>Web.ConnectionString.config</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Web.ConnectionString.admin-uat.config">
       <DependentUpon>Web.ConnectionString.config</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Web.ConnectionString.admin-sit.config">
       <DependentUpon>Web.ConnectionString.config</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\User\Unauthorized.cshtml" />
     <Content Include="Views\User\ShowOnlyOneMatch.cshtml" />

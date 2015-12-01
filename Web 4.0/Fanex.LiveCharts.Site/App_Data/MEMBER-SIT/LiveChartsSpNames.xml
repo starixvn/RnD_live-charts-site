@@ -158,7 +158,8 @@
     <Setting Key="Chart_Chat_Update_Chat_Name_Deny_List" SpName="Chart_Chat_Update_Chat_Name_Deny_List" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
     <Setting Key="Chart_Chat_Update_Chat_Message_Of_Chat_User" SpName="Chart_Chat_Update_Chat_Message_Of_Chat_User" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
     <Setting Key="Chart_Chat_Update_Chat_User_Agree_Terms" SpName="Chart_Chat_Update_Chat_User_Agree_Terms" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
-    <Setting Key="Chart_Chat_Update_Mute_Chat_Room" SpName="Chart_Chat_Update_Mute_Chat_Room" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+	
+	<Setting Key="Chart_Chat_Update_Mute_Chat_Room" SpName="Chart_Chat_Update_Mute_Chat_Room" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
     <Setting Key="Chart_Chat_Update_Mute_Chat_User" SpName="Chart_Chat_Update_Mute_Chat_User" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
     <Setting Key="Chart_Chat_Insert_Member_Banned" SpName="Chart_Chat_Insert_Member_Banned" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
     <Setting Key="Chart_Chat_Search_Chat_User" SpName="Chart_Chat_Search_Chat_User" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
@@ -166,17 +167,16 @@
     <Setting Key="Chart_Chat_Update_Ban_Chat_Users" SpName="Chart_Chat_Update_Ban_Chat_Users" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
     <Setting Key="Chart_Chat_Update_Ban_Members" SpName="Chart_Chat_Update_Ban_Members" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
     <Setting Key="Chart_Chat_Get_Member_Banned" SpName="Chart_Chat_Get_Member_Banned" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
-    <Setting Key="Chart_Chat_Update_Chat_Room_Status_By_MatchId" SpName="Chart_Chat_Update_Chat_Room_Status_By_MatchId" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
-
+	<Setting Key="Chart_Chat_Update_Chat_Room_Status_By_MatchId" SpName="Chart_Chat_Update_Chat_Room_Status_By_MatchId" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+    
     <Setting Key="Chart_Chat_Get_Ban_Words" SpName="Chart_Chat_Get_Ban_Words" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
     <Setting Key="Chart_Chat_Insert_Ban_Words" SpName="Chart_Chat_Insert_Ban_Words" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
     <Setting Key="Chart_Chat_Update_Ban_Word_Status" SpName="Chart_Chat_Update_Ban_Word_Status" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
     <Setting Key="Chart_Chat_Update_Ban_Word_Text" SpName="Chart_Chat_Update_Ban_Word_Text" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
-
-    <Setting Key="Chart_Chat_Update_Reset_Chat_Name_Status" SpName="Chart_Chat_Update_Reset_Chat_Name_Status" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
+	
+	<Setting Key="Chart_Chat_Update_Reset_Chat_Name_Status" SpName="Chart_Chat_Update_Reset_Chat_Name_Status" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
     <Setting Key="Chart_Chat_Update_Chat_Name" SpName="Chart_Chat_Update_Chat_Name" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
     <Setting Key="Chart_Chat_Update_UnMute_For_Expired_Mute" SpName="Chart_Chat_Update_UnMute_For_Expired_Mute" DbName="DBLCC.bodb_LCC.bodbChartNet" Plain="0" />
     
-
   </Function>
 </Functions>
