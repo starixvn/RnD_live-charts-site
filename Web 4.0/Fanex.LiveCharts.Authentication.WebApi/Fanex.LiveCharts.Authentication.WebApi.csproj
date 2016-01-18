@@ -140,6 +140,7 @@
     </Content>
     <Content Include="Web.sit.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Web.pro.config">
       <DependentUpon>Web.config</DependentUpon>
