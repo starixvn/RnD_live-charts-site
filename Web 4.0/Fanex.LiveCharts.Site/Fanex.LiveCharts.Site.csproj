@@ -328,6 +328,19 @@
     <Content Include="Views\Chat\KickedOut.cshtml" />
     <Content Include="Views\Charts\AnonymousPage.cshtml" />
     <Content Include="Views\Chat\ChatRoomCompleted.cshtml" />
+    <Content Include="Web.admin-pro.config">
+      <DependentUpon>Web.member-pro.config</DependentUpon>
+    </Content>
+    <Content Include="Web.admin-sit.config">
+      <DependentUpon>Web.member-pro.config</DependentUpon>
+    </Content>
+    <Content Include="Web.admin-uat.config">
+      <DependentUpon>Web.member-pro.config</DependentUpon>
+    </Content>
+    <Content Include="Web.member-pro.config" />
+    <Content Include="Web.member-sit.config">
+      <DependentUpon>Web.member-pro.config</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -564,25 +577,10 @@
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.member-sit.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
     <Content Include="Web.member-uat.config">
-      <DependentUpon>Web.config</DependentUpon>
+      <DependentUpon>Web.member-pro.config</DependentUpon>
     </Content>
-    <Content Include="Web.member-pro.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.admin-pro.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.admin-uat.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.admin-sit.config">
+    <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
