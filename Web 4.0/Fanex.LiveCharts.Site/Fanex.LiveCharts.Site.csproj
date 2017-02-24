@@ -201,8 +201,14 @@
     <Content Include="App_Data\ExcelTemplate\MonitorChatConversationExportExcel.xls" />
     <Content Include="App_Data\MEMBER-UAT\LiveChartsSpNames.xml" />
     <Content Include="App_Data\MEMBER-UAT\NAPCommonSpNames.xml" />
+    <Content Include="Areas\Admin\Content\Chat.css">
+      <DependentUpon>Chat.less</DependentUpon>
+    </Content>
     <Content Include="Areas\Admin\Content\Chat.less" />
     <None Include="Areas\Admin\Content\Fanex.Grid.Override.less" />
+    <Content Include="Areas\Admin\Content\Chat.min.css">
+      <DependentUpon>Chat.css</DependentUpon>
+    </Content>
     <Content Include="Areas\Admin\Content\ScorePrediction.less" />
     <Content Include="Areas\Admin\Content\AdminSite.less" />
     <Compile Include="Areas\UserLogin\Controllers\BaseController.cs" />
@@ -341,6 +347,10 @@
     <Content Include="Web.member-sit.config">
       <DependentUpon>Web.member-pro.config</DependentUpon>
     </Content>
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -617,9 +627,11 @@
     </Content>
     <Content Include="Web.ConnectionString.member-pro.config">
       <DependentUpon>Web.ConnectionString.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Web.ConnectionString.admin-pro.config">
       <DependentUpon>Web.ConnectionString.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Web.ConnectionString.admin-uat.config">
       <DependentUpon>Web.ConnectionString.config</DependentUpon>
@@ -746,6 +758,9 @@
     <Content Include="Scripts\Libs\Spinner\jquery.stepper.less" />
     <Content Include="Views\Charts\MainPage.cshtml" />
     <Content Include="Views\Chat\YouAreDisconnect.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
